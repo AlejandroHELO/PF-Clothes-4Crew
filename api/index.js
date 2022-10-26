@@ -7,5 +7,5 @@ const {dbConn} = require('./src/db')
 dbConn();
 
 server.listen(PORT, () => {
-    console.log('Server rised and listening at port '+PORT)
+    console.log(`Server rised and listening at port ${PORT}`)
 })
