@@ -1,6 +1,11 @@
+require('dotenv').config()
 const server = require('./src/app')
+const {PORT} = process.env
+const {dbConn} = require('./src/db')
 
 
-server.listen(3001, () => {
+dbConn();
+
+server.listen(PORT, () => {
     console.log('Server rised and listening at port 3001')
 })
