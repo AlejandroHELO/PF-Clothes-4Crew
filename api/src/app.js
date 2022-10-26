@@ -1,7 +1,10 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
+const morgan = require('morgan')
 const router = require('./routes/index')
+const cors = require('cors')
+require('./db')
 
 const server = express()
 
@@ -11,6 +14,8 @@ server.use(express.json())
 server.use(bodyParser.urlencoded({extended: true, limit: '50mb'}));
 server.use(bodyParser.json({limit: '50mb'}));
 server.use(cookieParser())
+server.unsubscribe(morgan('dev'))
+server. use(cors())
 server.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
