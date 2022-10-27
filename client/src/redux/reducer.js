@@ -1,7 +1,8 @@
 import {
     GET_PRODUCTS,
     PRODUCT_DETAIL,
-    UPDATE_PRODUCT
+    PRODUCT_UPDATE,
+    GET_CATEGORIES
 } from './types';
 
 const initialState = {
@@ -14,7 +15,7 @@ const reducer = (state = initialState, action) => {
         case GET_PRODUCTS:
             return({
                 ...state,
-                products: action.payload
+                products: [...action.payload]
             })
         case PRODUCT_DETAIL:
             return({
