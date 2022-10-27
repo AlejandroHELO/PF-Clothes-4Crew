@@ -9,7 +9,7 @@ const scoreSchema = new Schema({
         type: Number
     },
     comment: {
-        type: Text
+        type: String
     }
 },
 {
