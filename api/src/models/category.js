@@ -5,6 +5,10 @@ const categorySchema = new Schema({
     name: {
         type: String
     }
+},
+{
+    timestamp: true,
+    versionKey: false
 })
 
 const categoryModel = model("Category", categorySchema);

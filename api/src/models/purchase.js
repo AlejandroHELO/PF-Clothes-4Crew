@@ -14,6 +14,10 @@ const purchaseSchema = new Schema({
     addresId: {
         type: String
     }
+},
+{
+    timestamp: true,
+    versionKey: false
 })
 
 const purchaseModel = model("Purchase", purchaseSchema);

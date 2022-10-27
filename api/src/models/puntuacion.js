@@ -11,6 +11,10 @@ const scoreSchema = new Schema({
     comment: {
         type: Text
     }
+},
+{
+    timestamp: true,
+    versionKey: false
 })
 
 const scoreModel = model("Score", scoreSchema);
