@@ -1,4 +1,4 @@
-const categoryModel =require('../models/category.js')
+const {categoryModel} =require('../models/index')
 
 
 
