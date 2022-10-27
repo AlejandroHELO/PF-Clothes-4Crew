@@ -15,17 +15,12 @@ const userSchema = new Schema({
         type: Boolean
     },
     state: {
-        type: String
-    },
-    country: {
-        type: String
-    },
-    address : {
-        type: String
-    },
-    telephone: {
-        type: Number
+        type: Boolean
     }
+},
+{
+    timestamp: true,
+    versionKey: false
 })
 
 const userModel = model("User", userSchema);

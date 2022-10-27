@@ -23,6 +23,10 @@ const productSchema = new Schema({
     category: {
         type: Array
     }
+},
+{
+    timestamp: true,
+    versionKey: false
 })
 
 const productModel = model("Product", productSchema);

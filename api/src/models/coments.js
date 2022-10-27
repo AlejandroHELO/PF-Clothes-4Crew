@@ -8,6 +8,10 @@ const commentSchema = new Schema({
     userId: {
         type: String
     }
+},
+{
+    timestamp: true,
+    versionKey: false
 })
 
 const commentModel = model("Comment", commentSchema);
