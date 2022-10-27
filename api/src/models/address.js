@@ -16,7 +16,14 @@ const addressSchema = new Schema({
     },
     userId: {
         type: String
-    }
+    },
+    country: {
+        type: String
+    },
+},
+{
+    timestamp: true,
+    versionKey: false
 })
 
 const addressModel = model("Address", addressSchema);

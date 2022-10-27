@@ -9,6 +9,10 @@ const cartSchema = new Schema({
         type:  Array
     }
 
+},
+{
+    timestamp: true,
+    versionKey: false
 })
 
 const cartModel = model("Cart", cartSchema);
