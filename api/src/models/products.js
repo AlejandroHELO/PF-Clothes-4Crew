@@ -6,10 +6,10 @@ const productSchema = new Schema({
         type: String
     },
     description: {
-        type: Text
+        type: String
     },
     stock: {
-        type: Int32Array
+        type: Number
     },
     color: {
         type: String
