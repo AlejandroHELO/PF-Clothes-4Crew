@@ -5,9 +5,7 @@ export default function HomePage() {
     
   return (
     <div>
-
-        <h1>Hola mundo</h1>
-        HomePage
+        <h1>HomePage</h1>
         <img src={Logo} alt="Logo" />
     </div>
   )

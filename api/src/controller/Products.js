@@ -17,8 +17,8 @@ const Products = async (req, res) => {
     } else {
         res.status(400).json({ msj: 'Product not found' })
     }
+};
 
-}
 const ProductsID = async (req, res) => {
     const { id } = req.params
     const allProducts = await productModel.find({})
@@ -31,10 +31,7 @@ const ProductsID = async (req, res) => {
     } else {
         res.status(400).json({ msj: 'Product not found' })
     }
-
-
-
-}
+};
 
 const CreateProduct = async (req, res) => {
     console.log('algo')
@@ -63,8 +60,8 @@ const CreateProduct = async (req, res) => {
             console.log(err)
         }
     }
+};
 
-}
 const UpdateProduct = async (req, res) => {
     const { id } = req.params
     const { name, description, stock, color, size, category, image, active, genre, brand, price } = req.body
@@ -96,11 +93,11 @@ const UpdateProduct = async (req, res) => {
             res.status(400).json({ msj: 'the product does not exist' })
         }
     }
-}
+};
 
 module.exports = {
     Products,
     CreateProduct,
     ProductsID,
     UpdateProduct
-}
+};
