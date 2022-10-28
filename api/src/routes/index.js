@@ -3,7 +3,6 @@ const { allCategory, UpdateCategory, CreateCategory } = require('../controller/C
 const { allBrands, UpdateBrand, CreateBrand } = require('../controller/Brand.js')
 const { Products, CreateProduct, ProductsID, UpdateProduct } = require('../controller/Products.js')
 
-
 const router = Router()
 
 router.get('/products', Products)
@@ -17,5 +16,9 @@ router.get('/brand', allBrands)
 router.post('/brand', CreateBrand)
 router.put('/brand', UpdateBrand)
 
+//middleware para el Not Found
+router.use((req, res, next) => {
+    res.status(404).end()
+});
 
 module.exports = router
