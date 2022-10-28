@@ -20,11 +20,12 @@ function App() {
 
 
   return (
+
     <BrowserRouter>
       {/* <AuthProvider> */}
 
         <div className="App">
-
+          <Navbar />
           <Routes>
             <Route exact path='/' element={<HomePage/>}/>
             <Route path='/helpusimprove' element={<HelpUsImprove/>}/>
