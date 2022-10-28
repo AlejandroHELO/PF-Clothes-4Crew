@@ -2,3 +2,4 @@ export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const PRODUCT_DETAIL = 'PRODUCT_DETAIL';
 export const PRODUCT_UPDATE = 'PRODUCT_UPDATE';
 export const GET_CATEGORIES = 'GET_CATEGORIES';
+export const GET_BRANDS = 'GET_BRANDS';
