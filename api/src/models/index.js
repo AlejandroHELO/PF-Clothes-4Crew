@@ -1,5 +1,5 @@
+//constante de todos los modelos
 const models = {
-
     addressModel: require('./address.js'),
     cartModel: require('./cart.js'),
     categoryModel: require('./category.js'),
@@ -9,6 +9,7 @@ const models = {
     scoreModel: require('./puntuacion.js'),
     purchaseModel: require('./purchase.js'),
     userModel: require('./user')
-}
+};
+
 module.exports = models
 
