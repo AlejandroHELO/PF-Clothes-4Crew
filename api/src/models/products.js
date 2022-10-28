@@ -15,7 +15,7 @@ const productSchema = new Schema({
         type: String
     },
     size: {
-        type: Number
+        type: Array
     },
     category: {
         type: Array
