@@ -38,7 +38,7 @@ export function updateProduct(payload) {
 export function getCategories() {
     return async function (dispatch) {
         const allData = await axios.get('/category')
-        return dispatch({ type: GET_CATEGORIES, payload: allData.payload })
+        return dispatch({ type: GET_CATEGORIES, payload: allData.data })
     }
 }
 
@@ -52,7 +52,7 @@ export function createCategories(payload) {
 export function getBrands() {
     return async function (dispatch) {
         const allData = await axios.get('/brand')
-        return dispatch({ type: GET_BRANDS, payload: allData.payload })
+        return dispatch({ type: GET_BRANDS, payload: allData.data })
     }
 }
 

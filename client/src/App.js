@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import './App.css';
 import { getProducts } from './redux/actions';
 import React from 'react';
+import Navbar from './components/navbar/navbar';
 
 function App() {
   let dispatch = useDispatch();
@@ -11,7 +11,8 @@ function App() {
     dispatch(getProducts())
   }, [])
   return (
-    <div className="App">
+    <div>
+      <Navbar />
       <h1>Hola mundo</h1>
     </div>
   );
