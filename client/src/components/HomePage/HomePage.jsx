@@ -1,12 +1,14 @@
 import React from 'react'
-import Logo from '../../images/Clothes 4Crew Logo.JPG'
+import { Outlet } from 'react-router-dom'
+import './HomePage.module.css'
+
 
 export default function HomePage() {
     
   return (
     <div>
         <h1>HomePage</h1>
-        <img src={Logo} alt="Logo" />
+        <Outlet />
     </div>
   )
-};
+}
