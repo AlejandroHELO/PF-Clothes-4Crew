@@ -21,7 +21,6 @@ export default function AdminView() {
       <TopBar/>
       <div className={st.container}>
         <SideBar/>
-
         <Routes>
           <Route exact path='/' element={<HomeAdmin />} />
           <Route path='/helpusmail' element={<HelpUsMail />} />

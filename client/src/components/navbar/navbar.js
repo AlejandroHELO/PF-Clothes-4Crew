@@ -1,14 +1,14 @@
 import React from 'react'
-import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getCategories } from '../../redux/actions'
+import {Link} from 'react-router-dom'
 
 function Navbar() {
     const dispatch = useDispatch()
 
     const categories = useSelector(state => state.categories)
 
-    useEffect(() => {
+    React.useEffect(() => {
         dispatch(getCategories())
     }, [])
 
@@ -17,7 +17,9 @@ function Navbar() {
             <div className='flex justify-between'>
                 <div className='flex space-x-3'>
                     <div className=' h-14 w-14'>
-                        <img src='/images/logo192.png' alt='LOGO'></img>
+                    <Link to='/'>
+                        <img src='/images/clothes4crew.jpg' alt='LOGO'></img>
+                    </Link>
                     </div>
                     <div className='border-gray-300 border-2 rounded flex p-2'>
                         <input type='text' placeholder='Search anything...'></input>
@@ -39,7 +41,7 @@ function Navbar() {
             <div className='flex justify-between'>
                 {
                     categories.map(cat => {
-                        return <a href={`/category/${cat.name}`} key={cat.id} className='p-1 hover:bg-black hover:text-white hover:rounded'>{cat.name}</a>
+                        return <Link to={`/${cat.name.toLowerCase()}`} key={cat.id} className='p-1 hover:bg-black hover:text-white hover:rounded'>{cat.name}</Link>
                     })
                 }
             </div>
