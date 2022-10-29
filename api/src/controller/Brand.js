@@ -1,8 +1,6 @@
 const { brandModel } = require('../models/index')
 
 
-
-
 const allBrands = async (req, res) => {
     const brand = await brandModel.find({})
     if (brand) {
@@ -10,7 +8,8 @@ const allBrands = async (req, res) => {
     } else {
         res.status(400).json({ msj: 'something went wrong' })
     }
-}
+};
+
 const CreateBrand = async (req, res) => {
     const { name } = req.body
     if (name) {
@@ -35,7 +34,8 @@ const CreateBrand = async (req, res) => {
 
     }
 
-}
+};
+
 const UpdateBrand = async (req, res) => {
     const { name, id } = req.body
     if (!id || !name) {
@@ -55,12 +55,11 @@ const UpdateBrand = async (req, res) => {
             res.status(400).json({ msj: 'something went wrong', err: err })
         }
     }
-
-}
+};
 
 
 module.exports = {
     allBrands,
     CreateBrand,
     UpdateBrand
-}
+};
