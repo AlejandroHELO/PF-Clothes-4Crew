@@ -8,6 +8,9 @@ export default function HomePage() {
         <h1>Hola mundo</h1>
         HomePage
         <img src={Logo} alt="Logo" />
+        <h1>Hola mundo</h1>
+        HomePage
+        <img src={Logo} alt="Logo" />
     </div>
   )
 };

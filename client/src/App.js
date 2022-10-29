@@ -6,6 +6,7 @@ import HomePage from './components/HomePage/HomePage';
 import AdminView from './components/Admin/AdminView';
 // import Loading from '';
 import HelpUsImprove from './components/HelpUsToImprove/HelpUsImprove'
+import Footer from './components/Footer/Footer';
 
 function App() {
 
@@ -24,7 +25,7 @@ function App() {
             <Route path='/adminView//*' element={<AdminView/>} />
             <Route path='*' element={<Navigate to='/home'/>}/>
           </Routes>
-
+          <Footer/>
         </div>
 
       {/* </AuthProvider> */}
