@@ -8,6 +8,7 @@ import HelpUsMail from "./HelpUsMail/HelpUsMail";
 import Admins from './AdminList/AdminList';
 import UserList from "./UserList/UserList";
 import User from "./User/User";
+import NewUser from "./User/NewUser";
 
 
 export default function AdminView() {
@@ -27,6 +28,7 @@ export default function AdminView() {
           <Route path='/admins' element={<Admins />} />
           <Route path='/users' element={<UserList />} />
           <Route path='/user/:userId' element={<User />} />
+          <Route path='/newuser' element={<NewUser />} />
           <Route path='*' element={<HomeAdmin />} />
         </Routes>
           
