@@ -1,5 +1,22 @@
 .userList{
-    flex: 7;
+    flex: 8;
+}
+
+.userButtonContainer{
+    display: flex;
+    justify-content: flex-end;
+    text-decoration: none;
+}
+
+.userAddButton{
+    width: 80px;
+    border: none;
+    padding: 10px;
+    background-color: rgb(250, 115, 61);
+    border-radius: 5px;
+    cursor: pointer;
+    color:white;
+    font-size: 16px;
 }
 
 .userListUser{
@@ -20,12 +37,7 @@
     border-radius: 10px;
     padding: 5px 10px;
     margin-right: 10px;
-    background-color: #38a762;
+    background-color: rgb(247, 129, 82);
     color: white;
-    cursor: pointer;
-}
-
-.userListDelete{
-    color: rgb(177, 32, 32);
     cursor: pointer;
 }
