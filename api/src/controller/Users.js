@@ -152,10 +152,15 @@ const updateUserAdmin = async (req, res, next) => {
     }
 };
 
+const Admins = async (req, res, next) => {
+
+};
+
 module.exports = {
     allUsers,
     userProfile,
     createUser,
     updateUser,
-    updateUserAdmin
+    updateUserAdmin,
+    Admins
 }

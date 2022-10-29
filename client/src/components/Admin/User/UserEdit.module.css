@@ -3,6 +3,7 @@
     -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.8); 
     box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.8);
     margin-left: 20px;
+    margin-bottom: 20px;
 }
 
 .userUpdateTitle{
@@ -15,13 +16,14 @@
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+    margin-bottom: 20px;
     margin-left: 10px;
 }
 
 .userUpdateItem{
     display: flex;
     flex-direction: column;
-    margin-top: 5px;
+    margin-top: 12px;
 }
 
 .userUpdateItem>label{
@@ -32,7 +34,7 @@
 .userUpdateInput{
     border: none;
     width: 250px;
-    height: 17px;
+    height: 20px;
     border-bottom: 1px solid grey;
 }
 

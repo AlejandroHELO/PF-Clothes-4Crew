@@ -6,9 +6,12 @@ import {
     PRODUCT_UPDATE,
     GET_CATEGORIES,
     GET_BRANDS,
+    GET_ADMINS,
+    GET_USERS,
+    GET_PROFILE,
+    UPDATE_USER_ADM,
     GET_MESSAGES,
-    POST_MESSAGE,
-    GET_ADMINS
+    POST_MESSAGE
 } from './types';
 
 // -------- Products ----------
@@ -72,7 +75,7 @@ export function createBrands(payload) {
 
 export function getAdmins (){   // Obtener todos los Admins
     return async function(dispatch){
-        let json = await axios.get("/admins");
+        let json = await axios.get("/users/admins");
         return dispatch({
             type: GET_ADMINS,
             payload: json.data
@@ -81,19 +84,37 @@ export function getAdmins (){   // Obtener todos los Admins
 };
 
 export function getUsers (){ // Obtener todos los Users
-
+    return async function (dispatch){
+        let json = await axios.get("/users");
+        return dispatch({
+            type: GET_USERS,
+            payload: json.data
+        })
+    }
 };
 
-export function editUser (){ // Para que un User actualice su perfil
-
+export function getprofile (id){ // Visualizar perfil de un User
+    return async function (dispatch){
+        let json = await axios.get(`/users/${id}`);
+        return dispatch({
+            type: GET_PROFILE,
+            payload: json.data
+        })
+    }
 };
 
-export function getprofile (){ // Visualizar un perfil
-
+export function editUser (id, payload){ // Para que un User actualice su perfil
+    
 };
 
-export function editUserAdmin (){ // Para que un admin actualice el perfil de un User
-
+export function editUserAdmin (id, payload){ // Para que un admin actualice el perfil de un User
+    return async function (dispatch){
+        let json = await axios.put(`/users/admin/${id}`, payload);
+        return dispatch({
+            type: UPDATE_USER_ADM,
+            payload: json.data
+        })
+    }
 };
 
 

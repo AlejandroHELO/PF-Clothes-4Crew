@@ -12,36 +12,34 @@ export default function User( ) {
 
     const {userId} = useParams(); //usar el mismo nombre de variable que en la ruta principal
     const dispatch = useDispatch()
-    let patient = useSelector(state => state.patientDetail);
+    let User = useSelector(state => state.userDetail);
 
     useEffect(() =>{
         dispatch(getprofile(userId));
     }, [getprofile]);
 
     let props = {};
-
-    patient ? props = {
-        id: patient.id,
-        name: patient.name,
-        email: patient.email,
-        birthDate: patient.birthDate,
-        address: patient.address,
-        country: patient.country,
-        tel: patient.tel,
-        genre: patient.genre,
-        image: patient.image,
-        status: patient.status
+    console.log('SOY EL USER: ', User)
+    User ? props = {
+        id: User.id,
+        fullName: User.fullName,
+        email: User.email,
+        birthDate: User.birthDate,
+        genre: User.genre,
+        country: User.country,
+        address: User.address,
+        tel: User.tel,
+        image: User.image,
+        isAdmin: String(User.isAdmin),
+        active: String(User.active)
     } : console.log('Algo esta pasando')
     
 
     return (
-        <div className={st.Patient}>
+        <div className={st.User}>
 
             <div className={st.userTitleContainer}>
                 <h1 className={st.userTitle}>Edit User</h1>
-                <Link to='/adminView/newUser'>
-                    <button className={st.useadAddButton}>Create</button>
-                </Link>
             </div>
             
             <div className={st.userContainer}>
@@ -49,33 +47,33 @@ export default function User( ) {
                     <div className={st.userShowTop}>
                         <img src={props.image} alt="Profile Pict" className={st.userShowImg} />
                         <div className={st.userShowTopTitle}>
-                            <span className={st.userShowUsername}>{props.name}</span>
-                            <span className={st.userShowRole}>Patient</span>
+                            <span className={st.userShowUsername}>{props.fullName}</span>
+                            <span className={st.userShowID}>ID: {props.id}</span>
                         </div>
                     </div>
 
                     <div className={st.userShowBottom}>
                         <span className={st.userShowTitle}>Account Details</span>
-
-                        <div className={st.userShowInfo}>
-                            <PermIdentity className={st.userShowIcon}/>
-                            <span className={st.userShowInfoTitle}>ID: {props.id}</span>
-                        </div>
+                        
                         <div className={st.userShowInfo}>
                             <AlternateEmail className={st.userShowIcon}/>
                             <span className={st.userShowInfoTitle}>Email: {props.email}</span>
                         </div>
                         <div className={st.userShowInfo}>
+                            <Wc className={st.userShowIcon}/>
+                            <span className={st.userShowInfoTitle}>Genre: {props.genre}</span>
+                        </div>
+                        <div className={st.userShowInfo}>
+                            <PermIdentity className={st.userShowIcon}/>
+                            <span className={st.userShowInfoTitle}>Active: {props.active}</span>
+                        </div>
+                        <div className={st.userShowInfo}>
                             <ManageAccounts className={st.userShowIcon}/>
-                            <span className={st.userShowInfoTitle}>Status: {props.status}</span>
+                            <span className={st.userShowInfoTitle}>Admin: {props.isAdmin}</span>
                         </div>
 
                         <span className={st.userShowTitle}>Contact Details</span>
 
-                        <div className={st.userShowInfo}>
-                            <Wc className={st.userShowIcon}/>
-                            <span className={st.userShowInfoTitle}>Genre: {props.genre}</span>
-                        </div>
                         <div className={st.userShowInfo}>
                             <Public className={st.userShowIcon}/>
                             <span className={st.userShowInfoTitle}>Country: {props.country}</span>

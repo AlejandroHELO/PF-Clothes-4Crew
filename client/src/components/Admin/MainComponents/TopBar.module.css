@@ -1,12 +1,9 @@
 .topbar{
-    margin-top: 1px;
     width: 100%;
-    height: 70px;
+    height: 83px;
     position: sticky;
-    background: #D7FCF1;
-    background: -moz-linear-gradient(left, #D7FCF1 0%, #A0FCE4 50%, #7DF7FC 100%);
-    background: -webkit-linear-gradient(left, #D7FCF1 0%, #A0FCE4 50%, #7DF7FC 100%);
-    background: linear-gradient(to right, #D7FCF1 0%, #A0FCE4 50%, #7DF7FC 100%);
+    background: rgb(235,40,10);
+    background: linear-gradient(90deg, rgba(235,40,10,1) 0%, rgba(252,122,62,1) 50%, rgba(255,242,88,1) 100%);
     top: 0;
     z-index: 1000;
 }
@@ -22,7 +19,7 @@
 .logo{
     cursor: pointer;
     width: 7rem;
-    height: 4rem;
+    /* height: 4rem; */
     margin-left: 1rem;
 }
 

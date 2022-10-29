@@ -2,7 +2,7 @@ const { Router } = require('express')
 const { allCategory, UpdateCategory, CreateCategory } = require('../controller/Category.js')
 const { allBrands, UpdateBrand, CreateBrand } = require('../controller/Brand.js')
 const { Products, CreateProduct, ProductsID, UpdateProduct } = require('../controller/Products.js')
-const { allUsers, userProfile, createUser, updateUser, updateUserAdmin } = require('../controller/Users.js')
+const { allUsers, userProfile, Admins, createUser, updateUser, updateUserAdmin } = require('../controller/Users.js')
 
 const router = Router()
 
@@ -25,6 +25,7 @@ router.put('/brand', UpdateBrand)
 //---- Users routes ------
 router.get('/users', allUsers)
 router.get('/users/:id', userProfile)
+router.get('/users/admins', Admins)
 router.post('/users/register', createUser)
 router.put('/users/:id', updateUser)
 router.put('/users/admin/:id', updateUserAdmin)

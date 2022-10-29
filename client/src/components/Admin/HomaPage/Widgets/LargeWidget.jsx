@@ -10,10 +10,10 @@ export default function LargeWidget() {
     return (
 
     <div className="LgWidget">
-        <h3 className="LgWidgetTitle">Latest Subscriptions</h3>
+        <h3 className="LgWidgetTitle">Latest purchases</h3>
         <table className="LgWidgetTable">
             <tr className="LgWidgetTr">
-                <th className="LgWidgetTh">Patient</th>
+                <th className="LgWidgetTh">User</th>
                 <th className="LgWidgetTh">Date</th>
                 <th className="LgWidgetTh">Country</th>
                 <th className="LgWidgetTh">Status</th>
