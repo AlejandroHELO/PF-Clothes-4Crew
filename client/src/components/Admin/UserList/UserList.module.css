@@ -25,14 +25,19 @@
 }
 
 .userListPic{
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    object-fit:cover;
+    object-fit: cover;
     margin-right: 10px;
 }
 
 .userListEdit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 55px;
+    height: 40px;
     border: none;
     border-radius: 10px;
     padding: 5px 10px;
@@ -40,4 +45,5 @@
     background-color: rgb(247, 129, 82);
     color: white;
     cursor: pointer;
+    letter-spacing: 0.02em
 }
