@@ -38,6 +38,16 @@
     border-bottom: 1px solid grey;
 }
 
+.newUserIsAdm{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.userUpdateInputRadio{
+    margin: 5px 5px;
+}
+
 .userUpdateRight{
     display: flex;
     flex-direction: column;
@@ -69,7 +79,7 @@
     border-radius: 5px;
     padding: 10px;
     cursor: pointer;
-    background-color: teal;
+    background-color: rgb(250, 115, 61);
     color: white;
     font-weight: 600;
 }
