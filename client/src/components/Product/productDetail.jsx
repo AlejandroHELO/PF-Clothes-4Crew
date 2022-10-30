@@ -25,7 +25,7 @@ function ProductDetail() {
                     <img src={product.image} alt={product}/>
                     <h3>{product.price}</h3>
                     <h3>{product.name}</h3>
-                    <h4>{product.category.name}</h4>
+                    <h4>{product.category[0].name}</h4>
                     <h4>{product.brand.name}</h4>
                     <p>{product.description}</p>
                     <h4>Stock: {product.stock}</h4>

@@ -80,10 +80,10 @@ export default function UserEdit(props) {
                     <label>Genre</label>
                     <select name="genre" defaultValue="" className={st.userUpdateInput} onChange={(e) => handleChange(e)}>
                         <option hidden value="">Select a genre</option>
-                        <option name="male" value="male">Male</option>
-                        <option name="female" value="female">Female</option>
-                        <option name="transgender" value="transgender">Transgender</option>
-                        <option name="not defined" value="not defined">Not Defined</option>
+                        <option name="Male" value="Male">Male</option>
+                        <option name="Female" value="Female">Female</option>
+                        <option name="Transgender" value="Transgender">Transgender</option>
+                        <option name="Not defined" value="Not defined">Not Defined</option>
                     </select>
                 </div>
                 <div className={st.userUpdateItem}>
@@ -107,7 +107,7 @@ export default function UserEdit(props) {
                 <div className={st.userUpdateItem}>
                     <label>Tel</label>
                     <input 
-                    type="number"
+                    type="tel"
                     name="tel" 
                     placeholder={props.tel} 
                     className={st.userUpdateInput}
@@ -123,12 +123,13 @@ export default function UserEdit(props) {
                     onChange={(e) => handleChange(e)}/>
                 </div>
                 <div className={st.userUpdateItem}>
-                    <label>Admin</label>
-                    <select name="isAdmin" defaultValue="" className={st.userUpdateInput} onChange={(e) => handleChange(e)}>
-                        <option hidden value="">Is an admin?</option>
-                        <option name="true" value="true">True</option>
-                        <option name="false" value="false">False</option>
-                    </select>
+                    <label>Is an admin?</label>
+                    <div className={st.newUserIsAdm}>
+                        <label for="true">True</label>
+                        <input type={"radio"} name="isAdmin" id='true' value={"male"} className={st.userUpdateInputRadio} onChange={(e) => handleChange(e)} />
+                        <label for="false">False</label>
+                        <input type={"radio"} name="isAdmin" id='false' value={"false"} className={st.userUpdateInputRadio} onChange={(e) => handleChange(e)} />
+                    </div>
                 </div>
 
             </div>

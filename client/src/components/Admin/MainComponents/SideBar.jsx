@@ -73,10 +73,11 @@ export default function SideBar() {
         <div className={st.sidebarMenu}>
           <h3 className={st.sidebarTitle}>Products</h3>
           <ul className={st.sidebarList}>
-
             <li className={st.sidebarListItem}>
-              <Insights className={st.sidebarIcon}/>
-              Products
+              <Link to='/adminView/products' className={st.link}>
+                <Insights className={st.sidebarIcon}/>
+                Products
+              </Link>
             </li>
 
             <li className={st.sidebarListItem}>

@@ -9,7 +9,7 @@ const Card = (p) => {
                     (p.image.length !== 0) ? (
                         <div>
                             {
-                                <img className='w-36 hover:w-44 transition delay-75 duration-300 ease-in-out ' src={p.image[0]} alt="image" />
+                                <img className='w-36 hover:transition ease-in-out delay-750 duration-1000 hover:w-44   ' src={p.image[0]} alt="image" />
                             }
                         </div>
                     )

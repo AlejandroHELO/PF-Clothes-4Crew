@@ -13,7 +13,8 @@ import {
     GET_PROFILE,
     UPDATE_USER_ADM,
     GET_MESSAGES,
-    POST_MESSAGE
+    POST_MESSAGE,
+    ORDER_BY,
 } from './types';
 
 // -------- Products ----------
@@ -83,6 +84,11 @@ export function createBrands(payload) {
         return json;
     }
 };
+export function orderBy(order) {
+    return function (dispatch) {
+      dispatch({ type: ORDER_BY, payload: order });
+    };
+  }
 
 // ------- Users ---------
 

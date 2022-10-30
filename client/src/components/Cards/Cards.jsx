@@ -3,6 +3,7 @@ import Slider from "./Slider";
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { getCategories } from '../../redux/actions'
+import Filters from "../Filters/Filters"
 
 const Cards = () => {
     //acá en vez de traer productos traer de category
@@ -11,7 +12,7 @@ const Cards = () => {
     //agregar un campo en la base de datos para que el adminitrador elija 
     //los elementos más interesantes o de temporada
     const dispatch = useDispatch()
-    const products = useSelector((state) => state.products);
+    const products = useSelector((state) => state.productsFiltered);
     const [categories, setCategories] = useState([])
 
 
@@ -29,7 +30,8 @@ const Cards = () => {
 
     return (
         <div className='m-4'>
-            <h4 className='uppercase mx-4 px-4' >LO MEJOR DE LA TEMPORADA 2022</h4>
+            <h4 className='uppercase mx-4 px-4 italic' >LO MEJOR DE LA TEMPORADA PRIMAVERA/VERANO 2022</h4>
+            <Filters/>
             {categories.map((c) => {
                 return (
                     <div key={c}>

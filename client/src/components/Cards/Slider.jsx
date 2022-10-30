@@ -5,14 +5,14 @@ import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 const Slider = (props) => {
-    const products = useSelector((state) => state.products.filter((p) => p.featured === true)); //featured ->sólo los destacados
+    const products = useSelector((state) => state.productsFiltered.filter((p) => p.featured === true)); //featured ->sólo los destacados
     const slider = useRef()
     console.log(props.cat)
     // className=" mx-8  px-2  shadow-md h-80"
     return (
         <div>
-            <div className='flex flex-col items-center justify-center'>
-                <h4 className='uppercase mx-4 px-4' >{props.cat}</h4>
+            <div className='flex flex-col justify-center'>
+                <h5 className='uppercase ml-24 px-4' >{props.cat}</h5>
                 <div className=" mx-8 h-96 max-w-7xl">
                     {(products.length !== 0) ? (
                         <div className='flex items-center justify-center w-full h-full'>

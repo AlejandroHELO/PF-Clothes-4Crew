@@ -14,12 +14,13 @@
 }
 
 .sidebarMenu{
-    margin-bottom: 10px;
+    margin: 10px 2px;
 }
 
 .sidebarTitle{
-    font-size: 14px;
-    color: rgb(46, 46, 46);
+    font-size: 15px;
+    font-weight: 600;
+    color: rgb(54, 54, 54);
 }
 
 .sidebarList{
