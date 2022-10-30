@@ -12,15 +12,16 @@ export default function UserEdit(props) {
 
     const [input, setInput] = useState({
         id: props.id,
-        name: props.name,
+        fullName: props.fullName,
         email: props.email,
-        status: props.status,
+        birthDate: props.birthDate,
         genre: props.genre,
         country: props.country,
         address: props.address,
         tel: props.tel,
-        birthDate: props.birthDate,
         image: props.image,
+        isAdmin: props.isAdmin,
+        active: props.active
     })
 
     const handleChange = (e) => {
@@ -53,14 +54,10 @@ export default function UserEdit(props) {
                     <label>Name</label>
                     <input 
                     type="text" 
-                    name="name"
-                    placeholder={props.name} 
+                    name="fullName"
+                    placeholder={props.fullName} 
                     className={st.userUpdateInput}
                     onChange={(e) => handleChange(e)}/>
-                </div>
-                <div className={st.userUpdateItem}>
-                    <label>Role</label>
-                    <input type="text" disabled={true} placeholder='Patient' className={st.userUpdateInput}/>
                 </div>
                 <div className={st.userUpdateItem}>
                     <label>Email</label>
@@ -72,21 +69,22 @@ export default function UserEdit(props) {
                     onChange={(e) => handleChange(e)}/>
                 </div>
                 <div className={st.userUpdateItem}>
-                    <label>Status</label>
-                    <select name="status" defaultValue="" className={st.userUpdateInput} onChange={(e) => handleChange(e)}>
+                    <label>Active</label>
+                    <select name="active" defaultValue="" className={st.userUpdateInput} onChange={(e) => handleChange(e)}>
                         <option hidden value="">Select a status</option>
-                        <option name="active" value="active">Active</option>
-                        <option name="blocked" value="blocked">Blocked</option>
+                        <option name="true" value="true">Active</option>
+                        <option name="false" value="false">Disabled</option>
                     </select>
                 </div>
                 <div className={st.userUpdateItem}>
                     <label>Genre</label>
-                    <input 
-                    type="text"
-                    name="genre" 
-                    placeholder={props.genre} 
-                    className={st.userUpdateInput}
-                    onChange={(e) => handleChange(e)}/>
+                    <select name="genre" defaultValue="" className={st.userUpdateInput} onChange={(e) => handleChange(e)}>
+                        <option hidden value="">Select a genre</option>
+                        <option name="male" value="male">Male</option>
+                        <option name="female" value="female">Female</option>
+                        <option name="transgender" value="transgender">Transgender</option>
+                        <option name="not defined" value="not defined">Not Defined</option>
+                    </select>
                 </div>
                 <div className={st.userUpdateItem}>
                     <label>Country</label>
@@ -123,6 +121,14 @@ export default function UserEdit(props) {
                     // value={input.birthDate}
                     className={st.userUpdateInput}
                     onChange={(e) => handleChange(e)}/>
+                </div>
+                <div className={st.userUpdateItem}>
+                    <label>Admin</label>
+                    <select name="isAdmin" defaultValue="" className={st.userUpdateInput} onChange={(e) => handleChange(e)}>
+                        <option hidden value="">Is an admin?</option>
+                        <option name="true" value="true">True</option>
+                        <option name="false" value="false">False</option>
+                    </select>
                 </div>
 
             </div>

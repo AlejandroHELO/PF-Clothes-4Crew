@@ -22,7 +22,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 20px 0px;
+    margin: 12% 0%;
 }
 
 .SmWidgetImg{
@@ -40,6 +40,7 @@
 
 .SmWidgetUsername{
     font-weight: 600;
+    text-align: center;
 }
 
 .SmWidgetUserRole, .SmWidgetUserCountry{

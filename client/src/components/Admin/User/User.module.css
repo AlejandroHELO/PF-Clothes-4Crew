@@ -1,6 +1,6 @@
-.Patient{
+.User{
     /* display: flex; */
-    flex: 4;
+    flex: 7;
     padding: 0px 20px;
 }
 
@@ -10,7 +10,7 @@
     justify-content: space-between;
 }
 
-.useadAddButton{
+/* .useadAddButton{
     width: 80px;
     border: none;
     padding: 10px;
@@ -19,7 +19,7 @@
     cursor: pointer;
     color:white;
     font-size: 16px;
-}
+} */
 
 .userContainer{
     display: flex;
@@ -30,6 +30,7 @@
     padding: 20px;
     -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.8); 
     box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.8);
+    margin-bottom: 20px;
 }
 
 .userUpdate{
@@ -63,13 +64,13 @@
     font-weight: 700;
 }
 
-.userShowRole{
+.userShowID{
     font-size: 18px;
     font-weight: 400;
 }
 
 .userShowBottom{
-    margin-top: 20px;
+    margin-top: 40px;
 }
 
 .userShowTitle{
@@ -81,7 +82,7 @@
 .userShowInfo{
     display: flex;
     align-items: center;
-    margin: 20px 0px;
+    margin: 24px 0px;
     color: #333
 }
 
