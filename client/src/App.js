@@ -9,7 +9,7 @@ import ProductDetail from './components/Product/productDetail.jsx';
 import HomePage from './components/HomePage/HomePage';
 import Footer from './components/Footer/Footer';
 import AdminView from './components/Admin/AdminView';
-import Navbar from './components/navbar/navbar.js'
+//import Navbar from './components/navbar/navbar.js'
 // import Loading from '';
 import HelpUsImprove from './components/HelpUsToImprove/HelpUsImprove'
 
