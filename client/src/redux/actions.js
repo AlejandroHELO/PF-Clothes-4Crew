@@ -3,6 +3,7 @@ import axios from 'axios';
 import {
     GET_PRODUCTS,
     PRODUCT_DETAIL,
+    CLEAR_DETAIL,
     PRODUCT_UPDATE,
     GET_CATEGORIES,
     GET_BRANDS,
@@ -27,6 +28,10 @@ export function getProductDetail(id) {
         const productDetail = await axios.get(`/products/${id}`)
         return dispatch({ type: PRODUCT_DETAIL, payload: productDetail.data })
     }
+};
+
+export function clearDetail() {
+    return {type: CLEAR_DETAIL, payload: []}
 };
 
 export function createProduct(payload) {
