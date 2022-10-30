@@ -6,15 +6,32 @@ const userSchema = new Schema({
     },
     email: {
         type: String,
-        
     },
     password: {
+        type: String
+    },
+    birthDate: {
+        type: Date,
+    },
+    genre: {
+        type: String
+    },
+    country: {
+        type: String
+    },
+    address:{
+        type: String
+    },
+    tel: {
+        type: Number
+    },
+    image: {
         type: String
     },
     isAdmin: {
         type: Boolean
     },
-    state: {
+    active: {
         type: Boolean
     }
 },
