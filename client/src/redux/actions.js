@@ -5,6 +5,7 @@ import {
     PRODUCT_DETAIL,
     CLEAR_DETAIL,
     PRODUCT_UPDATE,
+    SEARCH,
     GET_CATEGORIES,
     GET_BRANDS,
     GET_ADMINS,
@@ -46,6 +47,13 @@ export function updateProduct(payload) {
     return async function (dispatch) {
         const update = await axios.put(`/products`, payload)
         return dispatch({ type: PRODUCT_UPDATE, payload: update.payload })
+    }
+};
+
+export function search(name) {
+    return async function (dispatch) {
+        const results = await axios.get(`/products?name=${name}`)
+        return dispatch({ type: SEARCH, payload: results.data })
     }
 };
 

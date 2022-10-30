@@ -18,7 +18,7 @@ const Cards = () => {
 
     React.useEffect(() => {
         dispatch(getCategories())
-    }, [])
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     React.useEffect(() => {
         let result = new Set(products.map((p) => p.category[0].name))

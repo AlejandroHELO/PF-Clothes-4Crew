@@ -3,6 +3,7 @@ import {
     PRODUCT_DETAIL,
     CLEAR_DETAIL,
     PRODUCT_UPDATE,
+    SEARCH,
     GET_CATEGORIES,
     GET_BRANDS,
     GET_ADMINS,
@@ -17,6 +18,7 @@ import {
 const initialState = {
     products: [],
     details: [],
+    searchResults:[],
     categories: [],
     brands: [],
     users: [],
@@ -46,6 +48,12 @@ const reducer = (state = initialState, action) => {
             return({
                 ...state,
                 details: action.payload
+            })
+        
+        case SEARCH:
+            return({
+                ...state,
+                searchResults: action.payload
             })
 
         case GET_CATEGORIES:
