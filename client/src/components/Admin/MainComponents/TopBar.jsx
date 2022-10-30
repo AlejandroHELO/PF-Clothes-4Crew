@@ -1,6 +1,6 @@
 import React from 'react'
 import st from './TopBar.module.css'
-import Logo from '../../../images/clothes4crew.jpg'
+import Logo from '../../../image/clothes4crew.jpg'
 import {Link} from 'react-router-dom'
 import {NotificationsNone, Language, Settings} from '@mui/icons-material';
 
