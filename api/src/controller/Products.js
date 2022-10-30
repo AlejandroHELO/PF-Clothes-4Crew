@@ -7,7 +7,7 @@ const Products = async (req, res) => {
     const allProducts = await productModel.find({})
     if (allProducts) {
         if (name) {
-            const result = allProducts.filter(f => f.name.includes(name))
+            const result = allProducts.filter(f => f.name.toLocaleLowerCase().includes(name))
             result ? res.status(200).json(result) :
                 res.status(400).json({ msj: 'Product not found' })
         } else {
