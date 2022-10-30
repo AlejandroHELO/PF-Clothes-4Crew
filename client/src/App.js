@@ -30,7 +30,7 @@ function App() {
         <Route path='/productDetail/:productId' element={<ProductDetail />}/>
         <Route path='/helpusimprove' element={<HelpUsImprove/>}/>
         <Route path='/adminview//*' element={<AdminView/>} />
-        <Route path='*' element={<Navigate to='/home'/>}/>
+        <Route path='*' element={<Navigate to='/'/>}/>
       </Routes>
       <Footer/>
     </div>
