@@ -36,7 +36,7 @@ export default function UserList() {
     { field: 'actions', headerName: 'Actions', width: 130, renderCell: (params) =>{
       return (
         <>
-          <Link to={'/adminView/user/'+ params.row.idUser}>
+          <Link to={'/adminView/user/'+ params.row.idUser} style={{"text-decoration": "none"}}>
             <button className={st.userListEdit}>Edit</button>
           </Link>
         </>
@@ -67,7 +67,7 @@ export default function UserList() {
     <div className={st.userList}>
 
       <div className={st.userButtonContainer}>
-        <Link to='/adminView/newUser'>
+        <Link to='/adminView/newuser'>
           <button className={st.userAddButton}>Create</button>
         </Link>
       </div>

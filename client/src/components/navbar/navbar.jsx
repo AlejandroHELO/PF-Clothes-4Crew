@@ -13,35 +13,43 @@ function Navbar() {
     }, [])
 
     return (
-        <nav className=" mx-8 h-32 px-2 bg-white shadow-md flex flex-col justify-around">
+        <nav className="w-full h-1/6 mt-2 p-2 bg-white shadow-md flex flex-col justify-around">
+            {/* Botones */}
             <div className='flex justify-between'>
+                {/* Lado izquierdo */}
                 <div className='flex space-x-3'>
-                    <div className=' h-14 w-14'>
+                    <div className='w-16 flex justify-center items-center'>
                     <Link to='/'>
                         <img src='/images/clothes4crew.jpg' alt='LOGO'></img>
                     </Link>
                     </div>
+                    {/* Searchbar */}
                     <div className='border-gray-300 border-2 rounded flex p-2'>
                         <input type='text' placeholder='Search anything...'></input>
                         <button>🔎</button>
                     </div>
                 </div>
+                {/* Lado derecho */}
                 <div className='flex space-x-3'>
+                    {/* Favoritos */}
                     <button className='rounded p-2 flex justify-center items-center'>
                         🖤
                     </button>
+                    {/* Carrito */}
                     <button className='rounded flex p-2 justify-center items-center'>
                         🛒
                     </button>
+                    {/* Login */}
                     <button className='box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black'>
                         👤 Iniciar sesión
                     </button>
                 </div>
             </div>
-            <div className='flex justify-between'>
+            {/* Categorías */}
+            <div className='flex justify-between mt-2'>
                 {
                     categories.map(cat => {
-                        return <Link to={`/${cat.name.toLowerCase()}`} key={cat.id} className='p-1 hover:bg-black hover:text-white hover:rounded'>{cat.name}</Link>
+                        return <Link to={`/${cat.name.toLowerCase()}`} key={cat._id} className='p-1 hover:bg-black hover:text-white hover:rounded'>{cat.name}</Link>
                     })
                 }
             </div>
