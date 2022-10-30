@@ -1,7 +1,7 @@
 import React from 'react';
 import Slider from "./Slider";
 import { useSelector, useDispatch } from 'react-redux';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { getCategories } from '../../redux/actions'
 
 const Cards = () => {
@@ -28,7 +28,8 @@ const Cards = () => {
 
 
     return (
-        <div className='m-2'>
+        <div className='m-4'>
+            <h4 className='uppercase mx-4 px-4' >LO MEJOR DE LA TEMPORADA 2022</h4>
             {categories.map((c) => {
                 return (
                     <div key={c}>
