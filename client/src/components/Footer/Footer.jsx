@@ -5,11 +5,12 @@ export default function Footer(){
 
     return (
         <div className="bg-black relative bottom-0 left-0 right-0 h-40 w-full " >
-           <div className="absolute bottom-0 left-20 my-14 mx-10">
-                <h1 className="text-white text-sm">
+           <div className="flex  ">
+           <div className="">
+                <h1 className="text-white text-sm ">
                     find us at:
                 </h1>
-                <h3 className="text-white text-sm font-serif">
+                <h3 className="text-white text-sm font-light underline">
                     email@email.com
                 </h3>
                 {/* <h3 className="text-white">
@@ -17,29 +18,30 @@ export default function Footer(){
                 </h3> */}
            
            </div>
-           <div className="absolute bottom-0 inset-x-0 my-14 mx-10  ">
+           <div className=" ">
+            <h1 className="text-white text-sm ">
+                holas
+            </h1>
+            <h3 className="text-white text-sm ">
+                holas
+            </h3>
+            <h3 className="text-white text-sm ">
+                holas
+            </h3></div>
+           <div className="">
             <h1 className="text-white text-sm">
                 holas
             </h1>
-            <h3 className="text-white">
+            <h3 className="text-white text-sm">
                 holas
             </h3>
-            <h3 className="text-white">
-                holas
-            </h3></div>
-           <div className="absolute bottom-0 right-0 my-14 mx-20">
-            <h1 className="text-white">
-                holas
-            </h1>
-            <h3 className="text-white">
-                holas
-            </h3>
-            <h3 className="text-white">
+            <h3 className="text-white text-sm">
                 holas
             </h3> 
             </div>
-            <div>
-                <h1 className="text-white text-sm absolute bottom-0 inset-x-0">
+            </div>
+            <div className="">
+                <h1 className="text-white text-sm  text-center">
                     Henry - Proyecto Final - Web FT29b Grupo 17
                 </h1>
             </div>
