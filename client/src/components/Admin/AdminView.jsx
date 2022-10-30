@@ -9,6 +9,9 @@ import Admins from './AdminList/AdminList';
 import UserList from "./UserList/UserList";
 import User from "./User/User";
 import NewUser from "./User/NewUser";
+import ProductList from "./ProductList/ProductList";
+import Product from "./Products/Product";
+import ProductEdit from "./Products/ProductEdit";
 
 
 export default function AdminView() {
@@ -29,6 +32,10 @@ export default function AdminView() {
           <Route path='/users' element={<UserList />} />
           <Route path='/user/:userId' element={<User />} />
           <Route path='/newuser' element={<NewUser />} />
+          <Route path='/products' element={<ProductList />} />
+          <Route path='/product/:productId' element={<Product />} />
+          <Route path='/product/edit/:productId' element={<ProductEdit />} />
+          {/* <Route path='/newproduct' element={<NewProduct />} /> */}
           <Route path='*' element={<HomeAdmin />} />
         </Routes>
           
