@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 const Slider = (props) => {
-    const products = useSelector((state) => state.products.filter((p) => p.featured === true)); //featured ->sólo los destacados
+    const products = useSelector((state) => state.productsFiltered.filter((p) => p.featured === true)); //featured ->sólo los destacados
     const slider = useRef()
     console.log(props.cat)
     // className=" mx-8  px-2  shadow-md h-80"

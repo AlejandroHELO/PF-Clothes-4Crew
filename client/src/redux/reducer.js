@@ -10,7 +10,8 @@ import {
     GET_PROFILE,
     UPDATE_USER_ADM,
     GET_MESSAGES,
-    POST_MESSAGE
+    POST_MESSAGE,
+    ORDER_BY
 } from './types';
 
 const initialState = {
@@ -22,7 +23,8 @@ const initialState = {
     userDetail: [],
     userPut: "",
     admins: [],
-    messages: []
+    messages: [],
+    productsFiltered: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -31,7 +33,8 @@ const reducer = (state = initialState, action) => {
         case GET_PRODUCTS:
             return ({
                 ...state,
-                products: [...action.payload]
+                products: [...action.payload],
+                productsFiltered: [...action.payload]
             })
 
         case PRODUCT_DETAIL:
@@ -80,6 +83,99 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 userPut: action.payload
             })
+            case ORDER_BY:
+         if (action.payload === "A-Z") {
+          return {
+            ...state,
+            productsFiltered: [...state.products].sort((prev, next) => {
+              if (prev.name > next.name) return 1;
+              if (prev.name < next.name) return -1;
+              return 0;
+            }),
+          };
+        }
+         if (action.payload === "Z-A") {
+          return {
+            ...state,
+            productsFiltered: [...state.products].sort((prev, next) => {
+              if (prev.name > next.name) return -1;
+              if (prev.name < next.name) return 1;
+              return 0;
+            }),
+          };
+        }
+        if (action.payload === "M") {
+            return {
+              ...state,
+              productsFiltered: [...state.products].filter((p) => 
+                p.genre === "Mens"
+              )
+              
+            };
+          }
+          if (action.payload === "F") {
+            return {
+              ...state,
+              productsFiltered: [...state.products].filter((p) => 
+                p.genre === "Womens"
+              )
+              
+            };
+          }
+          if (action.payload === "U") {
+            return {
+              ...state,
+              productsFiltered: [...state.products].filter((p) => 
+                p.genre === "Unisex"
+              )
+              
+            };
+          }
+          if (action.payload === "Gucci") {
+            return {
+              ...state,
+              productsFiltered: [...state.products].filter((p) => 
+                p.brand.name === "Gucci"
+              )
+              
+            };
+          }
+          if (action.payload === "Nike") {
+            return {
+              ...state,
+              productsFiltered: [...state.products].filter((p) => 
+              p.brand.name === "Nike"
+              )
+              
+            };
+          }
+          if (action.payload === "Adidas") {
+            return {
+              ...state,
+              productsFiltered: [...state.products].filter((p) => 
+              p.brand.name === "Adidas"
+              )
+              
+            };
+          }
+          if (action.payload === "Caps") {
+            return {
+              ...state,
+              productsFiltered: [...state.products].filter((p) => 
+              p.category[0].name === "Caps"
+              )
+              
+            };
+          }
+          if (action.payload === "T-shirts") {
+            return {
+              ...state,
+              productsFiltered: [...state.products].filter((p) => 
+              p.category[0].name === "T-shirts"
+              )
+              
+            };
+          }
 
         default: return state;
     }
