@@ -8,9 +8,9 @@ import ProductDetail from './components/Product/productDetail.jsx';
 import HomePage from './components/HomePage/HomePage';
 // import Footer from '';
 import AdminView from './components/Admin/AdminView';
-import Navbar from './components/navbar/navbar.js'
 // import Loading from '';
 import HelpUsImprove from './components/HelpUsToImprove/HelpUsImprove'
+import SearchResults from './components/SearchResults/SearchResults';
 
 function App() { 
   
@@ -18,7 +18,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getProducts())
-    document.body.classList.add('flex', 'justify-center')
+    document.body.classList.add('flex', 'justify-center', 'w-full', 'mb-20')
   }, [])
 
 
@@ -28,6 +28,7 @@ function App() {
       <Routes>
         <Route exact path='/' element={<HomePage/>}/>
         <Route path='/productDetail/:productId' element={<ProductDetail />}/>
+        <Route path='/searchResults/:query' element={<SearchResults />}/>
         <Route path='/helpusimprove' element={<HelpUsImprove/>}/>
         <Route path='/adminview//*' element={<AdminView/>} />
         <Route path='*' element={<Navigate to='/home'/>}/>

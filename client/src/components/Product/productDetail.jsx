@@ -20,7 +20,7 @@ function ProductDetail() {
     return( 
         <div>
             <Navbar></Navbar>
-             {product ? (
+             {product.name ? (
                 <div>
                     <img src={product.image} alt={product}/>
                     <h3>{product.price}</h3>

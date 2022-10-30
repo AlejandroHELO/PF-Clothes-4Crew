@@ -1,6 +1,6 @@
 import React from 'react'
 import st from './TopBar.module.css'
-import Logo from '../../../images/clothes4crew.jpg'
+// import Logo from '/images/clothes4crew.jpg'
 import {Link} from 'react-router-dom'
 import {NotificationsNone, Language, Settings} from '@mui/icons-material';
 
@@ -25,7 +25,7 @@ export default function TopBar(){
         <nav className={st.topbar}>
             <div className={st.topbarWrapper}>
                 <div className={st.topLeft}> 
-                    <img className={st.logo} src={Logo} alt="Logo Clothes 4Crew" />
+                    <img className={st.logo} src={'/images/clothes4crew.jpg'} alt="Logo Clothes 4Crew" />
                 </div>
                 <div className={st.topRight}>
                     <Link to='/adminView/helpusmail' style={{"text-decoration": "none", "color": "#141616"}}>
