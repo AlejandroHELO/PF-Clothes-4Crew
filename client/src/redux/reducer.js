@@ -40,7 +40,7 @@ const reducer = (state = initialState, action) => {
         case PRODUCT_DETAIL:
             return ({
                 ...state,
-                details: action.payload
+                details: {...action.payload[0]}
             })
         case CLEAR_DETAIL:
             return({

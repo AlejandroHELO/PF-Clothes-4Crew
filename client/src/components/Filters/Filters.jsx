@@ -19,7 +19,7 @@ const handleSelect = (e) => {
  
 
 
-console.log("esto es de filtros " + productos?.name)
+//console.log("esto es de filtros " + productos?.name)
 
   return (
     <div >
