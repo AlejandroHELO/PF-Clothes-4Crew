@@ -13,33 +13,42 @@ function Navbar() {
     }, [])
 
     return (
-        <nav className=" mx-8 h-32 px-2 bg-white shadow-md flex flex-col justify-around">
+        <nav className="w-full h-1/6 mt-2 p-2 bg-white shadow-md flex flex-col justify-around">
+            {/* Botones */}
             <div className='flex justify-between'>
+                {/* Lado izquierdo */}
                 <div className='flex space-x-3'>
-                    <div className=' h-14 w-14'>
-                        <img src='/images/logo192.png' alt='LOGO'></img>
+                    {/* Logo */}
+                    <div className='w-16 flex justify-center items-center'>
+                        <img src='/images/Clothes 4Crew Logo.jpg' alt='LOGO'></img>
                     </div>
+                    {/* Searchbar */}
                     <div className='border-gray-300 border-2 rounded flex p-2'>
                         <input type='text' placeholder='Search anything...'></input>
                         <button>🔎</button>
                     </div>
                 </div>
+                {/* Lado derecho */}
                 <div className='flex space-x-3'>
+                    {/* Favoritos */}
                     <button className='rounded p-2 flex justify-center items-center'>
                         🖤
                     </button>
+                    {/* Carrito */}
                     <button className='rounded flex p-2 justify-center items-center'>
                         🛒
                     </button>
+                    {/* Login */}
                     <button className='box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black'>
                         👤 Iniciar sesión
                     </button>
                 </div>
             </div>
-            <div className='flex justify-between'>
+            {/* Categorías */}
+            <div className='flex justify-between mt-2'>
                 {
                     categories.map(cat => {
-                        return <a href={`/category/${cat.name}`} key={cat.id} className='p-1 hover:bg-black hover:text-white hover:rounded'>{cat.name}</a>
+                        return <a href={`/category/${cat.name}`} key={cat._id} className='p-1 hover:bg-black hover:text-white hover:rounded'>{cat.name}</a>
                     })
                 }
             </div>

@@ -2,11 +2,12 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import './App.css';
+// import './App.css';
 import { getProducts } from './redux/actions';
 import HomePage from './components/HomePage/HomePage';
 // import Footer from '';
 import AdminView from './components/Admin/AdminView';
+import Navbar from './components/navbar/navbar.js'
 // import Loading from '';
 import HelpUsImprove from './components/HelpUsToImprove/HelpUsImprove'
 
@@ -16,6 +17,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getProducts())
+    document.body.classList.add('flex', 'justify-center')
   }, [])
 
 
