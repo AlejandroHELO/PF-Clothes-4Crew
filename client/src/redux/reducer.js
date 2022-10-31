@@ -13,7 +13,8 @@ import {
   GET_MESSAGES,
   POST_MESSAGE,
   ORDER_BY,
-  OPEN_DETAIL
+  OPEN_DETAIL,
+  FILTER
 } from './types';
 
 const initialState = {
@@ -100,6 +101,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         userPut: action.payload
       })
+
+      // case FILTER:
+      //   return ({
+
+      //   })
+
     case ORDER_BY:
       if (action.payload === "A-Z") {
         return {
