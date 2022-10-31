@@ -1,14 +1,24 @@
 import React from 'react';
 import Card from "./Card";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { clearDetail, getProductDetail, openDetail } from '../../redux/actions';
+import ProductDetail from '../Product/productDetail';
 
 const Slider = (props) => {
+    const dispatch = useDispatch();
     const products = useSelector((state) => state.productsFiltered.filter((p) => p.featured === true)); //featured ->sólo los destacados
     const slider = useRef()
     console.log(props.cat)
     // className=" mx-8  px-2  shadow-md h-80"
+
+    const handleOnClick = (id) => {
+        dispatch(getProductDetail(id))
+        dispatch(openDetail(id))
+    }
+
+
     return (
         <div>
             <div className='flex flex-col justify-center'>
@@ -23,21 +33,31 @@ const Slider = (props) => {
                                 {console.log(products)}
                                 {products.filter((p) => p.category[0].name === props.cat).map((e) => {
                                     return (
-                                        <Link className='no-underline ' to={`/productDetail/${e._id}`}>
-                                            <div key={e._id}>
-                                                <Card
-                                                    key={e._id}
-                                                    id={e._id}
-                                                    name={e.name}
-                                                    image={e.image}
-                                                    price={e.price}
-                                                    brand={e.brand.name}
-                                                />
-                                            </div>
-                                        </Link>
-
+                                        <div>
+                                            <button className='transparent' onClick={() => handleOnClick(e._id)}>
+                                                <div key={e._id}>
+                                                    <Card
+                                                        key={e._id}
+                                                        id={e._id}
+                                                        name={e.name}
+                                                        image={e.image}
+                                                        price={e.price}
+                                                        brand={e.brand.name}
+                                                    />
+                                                </div>
+                                            </button>
+                                            <ProductDetail
+                                                key={e._id}
+                                                id={e._id}
+                                                name={e.name}
+                                                image={e.image}
+                                                price={e.price}
+                                                brand={e.brand.name}
+                                                size={e.size}
+                                                description={e.description}
+                                            />
+                                        </div>
                                     )
-
                                 })}
                             </div>
                             <button className='h-10 w-10 mx-8' onClick={() => slider.current.scrollLeft += 200}>

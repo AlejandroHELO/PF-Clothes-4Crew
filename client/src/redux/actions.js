@@ -15,6 +15,7 @@ import {
     GET_MESSAGES,
     POST_MESSAGE,
     ORDER_BY,
+    OPEN_DETAIL,
     FILTER,
 } from './types';
 
@@ -29,12 +30,19 @@ export function getProducts() {
 export function getProductDetail(id) {
     return async function (dispatch) {
         const productDetail = await axios.get(`/products/${id}`)
-        return dispatch({ type: PRODUCT_DETAIL, payload: productDetail.data })
+        return dispatch({
+            type: PRODUCT_DETAIL,
+            payload: productDetail.data
+        })
     }
 };
 
+export function openDetail(id) {
+    return { type: OPEN_DETAIL, payload: id }
+};
+
 export function clearDetail() {
-    return {type: CLEAR_DETAIL, payload: []}
+    return { type: CLEAR_DETAIL, payload: [] }
 };
 
 export function createProduct(payload) {
@@ -88,9 +96,9 @@ export function createBrands(payload) {
 };
 export function orderBy(order) {
     return function (dispatch) {
-      dispatch({ type: ORDER_BY, payload: order });
+        dispatch({ type: ORDER_BY, payload: order });
     };
-  }
+}
 export function filter(order) {
     return function (dispatch) {
       dispatch({ type: FILTER, payload: order });
@@ -99,8 +107,8 @@ export function filter(order) {
 
 // ------- Users ---------
 
-export function getAdmins (){   // Obtener todos los Admins
-    return async function(dispatch){
+export function getAdmins() {   // Obtener todos los Admins
+    return async function (dispatch) {
         let json = await axios.get("/users/admins");
         return dispatch({
             type: GET_ADMINS,
@@ -109,8 +117,8 @@ export function getAdmins (){   // Obtener todos los Admins
     }
 };
 
-export function getUsers (){ // Obtener todos los Users
-    return async function (dispatch){
+export function getUsers() { // Obtener todos los Users
+    return async function (dispatch) {
         let json = await axios.get("/users");
         return dispatch({
             type: GET_USERS,
@@ -119,8 +127,8 @@ export function getUsers (){ // Obtener todos los Users
     }
 };
 
-export function getprofile (id){ // Visualizar perfil de un User
-    return async function (dispatch){
+export function getprofile(id) { // Visualizar perfil de un User
+    return async function (dispatch) {
         let json = await axios.get(`/users/${id}`);
         return dispatch({
             type: GET_PROFILE,
@@ -129,12 +137,12 @@ export function getprofile (id){ // Visualizar perfil de un User
     }
 };
 
-export function editUser (id, payload){ // Para que un User actualice su perfil
-    
+export function editUser(id, payload) { // Para que un User actualice su perfil
+
 };
 
-export function editUserAdmin (id, payload){ // Para que un admin actualice el perfil de un User
-    return async function (dispatch){
+export function editUserAdmin(id, payload) { // Para que un admin actualice el perfil de un User
+    return async function (dispatch) {
         let json = await axios.put(`/users/admin/${id}`, payload);
         return dispatch({
             type: UPDATE_USER_ADM,
@@ -146,8 +154,8 @@ export function editUserAdmin (id, payload){ // Para que un admin actualice el p
 
 // ------- Help Us Mail --------
 
-export function getMessages(){ // Obtener los mensajes de Help us to improve
-    return async function (dispatch){
+export function getMessages() { // Obtener los mensajes de Help us to improve
+    return async function (dispatch) {
         let json = await axios.get("/messages"); // http://localhost:3001/messages
         return dispatch({
             type: GET_MESSAGES,
@@ -156,9 +164,9 @@ export function getMessages(){ // Obtener los mensajes de Help us to improve
     }
 };
 
-export function createMessage(data){ //crear un mensaje en el buzón de HelpUsToImprove
+export function createMessage(data) { //crear un mensaje en el buzón de HelpUsToImprove
     // console.log('SOY LA DATA DE LA ACTION: ', data)
-    return async function (dispatch){
+    return async function (dispatch) {
         let response = await axios.post("/messages/send", data); // http://localhost:3001/messages/send
         return dispatch({
             type: POST_MESSAGE,
