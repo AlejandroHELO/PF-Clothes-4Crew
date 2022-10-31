@@ -12,3 +12,5 @@ export const UPDATE_USER_ADM = 'UPDATE_USER_ADM';
 export const GET_MESSAGES = 'GET_MESSAGES';
 export const POST_MESSAGE = 'POST_MESSAGE';
 export const ORDER_BY = "ORDER_BY"
+export const OPEN_DETAIL = "OPEN_DETAIL"
+
