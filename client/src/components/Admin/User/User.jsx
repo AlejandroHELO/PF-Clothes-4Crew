@@ -43,7 +43,7 @@ export default function User( ) {
             </div>
             
             <div className={st.userContainer}>
-                <div className={st.userShow}>
+                <div className={ st.userShow}>
                     <div className={st.userShowTop}>
                         <img src={props.image} alt="Profile Pict" className={st.userShowImg} />
                         <div className={st.userShowTopTitle}>

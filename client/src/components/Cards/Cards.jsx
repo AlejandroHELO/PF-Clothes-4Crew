@@ -3,7 +3,7 @@ import Slider from "./Slider";
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { getCategories } from '../../redux/actions'
-import Filters from "../Filters/Filters"
+// import Filters from "../Filters/Filters"
 
 const Cards = () => {
     //acá en vez de traer productos traer de category
