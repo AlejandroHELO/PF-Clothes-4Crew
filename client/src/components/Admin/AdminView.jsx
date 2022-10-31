@@ -12,6 +12,7 @@ import NewUser from "./User/NewUser";
 import ProductList from "./ProductList/ProductList";
 import Product from "./Products/Product";
 import ProductEdit from "./Products/ProductEdit";
+import NewProduct from "./Products/NewProduct";
 
 
 export default function AdminView() {
@@ -34,8 +35,7 @@ export default function AdminView() {
           <Route path='/newuser' element={<NewUser />} />
           <Route path='/products' element={<ProductList />} />
           <Route path='/product/:productId' element={<Product />} />
-          <Route path='/product/edit/:productId' element={<ProductEdit />} />
-          {/* <Route path='/newproduct' element={<NewProduct />} /> */}
+          <Route path='/newproduct' element={<NewProduct />} />
           <Route path='*' element={<HomeAdmin />} />
         </Routes>
           

@@ -5,6 +5,7 @@ import {
     PRODUCT_DETAIL,
     CLEAR_DETAIL,
     PRODUCT_UPDATE,
+    POST_PRODUCT,
     SEARCH,
     GET_CATEGORIES,
     GET_BRANDS,
@@ -12,6 +13,7 @@ import {
     GET_USERS,
     GET_PROFILE,
     UPDATE_USER_ADM,
+    POST_USER,
     GET_MESSAGES,
     POST_MESSAGE,
     ORDER_BY,
@@ -46,9 +48,14 @@ export function clearDetail() {
 };
 
 export function createProduct(payload) {
-    return async function () {
+    console.log(payload)
+    return async function (dispatch) {
         let json = await axios.post('/products', payload)
-        return json;
+        console.log(json.data)
+        return dispatch({
+            type: POST_PRODUCT,
+            payload: json.data
+        })
     }
 };
 
@@ -94,16 +101,20 @@ export function createBrands(payload) {
         return json;
     }
 };
+
+// ------- Filtros y ordenamiento ---------
+
 export function orderBy(order) {
     return function (dispatch) {
         dispatch({ type: ORDER_BY, payload: order });
     };
-}
+};
+
 export function filter(order) {
     return function (dispatch) {
       dispatch({ type: FILTER, payload: order });
     };
-  }
+};
 
 // ------- Users ---------
 
@@ -151,6 +162,15 @@ export function editUserAdmin(id, payload) { // Para que un admin actualice el p
     }
 };
 
+export function createUser(payload) {
+    return async function (dispatch) {
+        let json = await axios.post('/users/register', payload)
+        return dispatch({
+            type: POST_USER,
+            payload: json
+        })
+    }
+};
 
 // ------- Help Us Mail --------
 

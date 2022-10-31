@@ -3,6 +3,7 @@ import {
   PRODUCT_DETAIL,
   CLEAR_DETAIL,
   PRODUCT_UPDATE,
+  POST_PRODUCT,
   SEARCH,
   GET_CATEGORIES,
   GET_BRANDS,
@@ -46,6 +47,11 @@ const reducer = (state = initialState, action) => {
       return ({
         ...state,
         details: { ...action.payload[0] }
+      })
+
+    case POST_PRODUCT:
+      return ({
+        ...state
       })
 
     case OPEN_DETAIL:
