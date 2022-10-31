@@ -17,6 +17,7 @@ import {
     ORDER_BY,
     OPEN_DETAIL,
     FILTER,
+    RESET_FILTERS
 } from './types';
 
 // -------- Products ----------
@@ -62,8 +63,7 @@ export function updateProduct(payload) {
 export function search(query) {
     return async function (dispatch) {
         const results = await axios.get(`/products?name=${query}`)
-        console.log(query, results.data)
-        return dispatch({ type: SEARCH, payload: results.data })
+        return dispatch({ type: SEARCH, payload: { query: query, data: results.data } })
     }
 };
 
@@ -99,11 +99,16 @@ export function orderBy(order) {
         dispatch({ type: ORDER_BY, payload: order });
     };
 }
-export function filter(order) {
+export function filter(fil) {
     return function (dispatch) {
-      dispatch({ type: FILTER, payload: order });
+        dispatch({ type: FILTER, payload: fil });
     };
-  }
+}
+export function resetFilter(fil) {
+    return function (dispatch) {
+        dispatch({ type: RESET_FILTERS, payload: fil });
+    };
+}
 
 // ------- Users ---------
 

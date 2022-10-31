@@ -12,7 +12,6 @@ export default function SearchBar() {
     const handleSubmit = (query, e) => {
         e.preventDefault()
         if (!query) return
-        // dispatch(cleanSearch())
         navigate(`/searchResults/${query}`)
     }
 

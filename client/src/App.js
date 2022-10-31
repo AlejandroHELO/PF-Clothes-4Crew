@@ -29,7 +29,8 @@ function App() {
       <Routes>
         <Route exact path='/' element={<HomePage />} />
         {/* <Route path='/productDetail/:productId' element={<ProductDetail />} /> */}
-        <Route path='/searchResults/:query' element={<SearchResults />} />
+        <Route path='/searchResults/:query/' element={<SearchResults />} />
+        <Route path='/searchResults/:query/:order' element={<SearchResults />} />
         <Route path='/helpusimprove' element={<HelpUsImprove />} />
         <Route path='/adminview//*' element={<AdminView />} />
         <Route path='*' element={<Navigate to='/home' />} />
