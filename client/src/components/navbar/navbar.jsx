@@ -49,7 +49,7 @@ function Navbar() {
             <div className='flex justify-between mt-2'>
                 {
                     categories.map(cat => {
-                        return <Link to={`/${cat.name.toLowerCase()}`} key={cat._id} className='no-underline text-inherit p-1 hover:bg-black hover:text-white hover:rounded'>{cat.name}</Link>
+                        return <Link to={`/searchResults/${cat.name.toLowerCase()}`} key={cat._id} className='no-underline text-inherit p-1 hover:bg-black hover:text-white hover:rounded'>{cat.name}</Link>
                     })
                 }
             </div>

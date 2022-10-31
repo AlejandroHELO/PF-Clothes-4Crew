@@ -15,6 +15,7 @@ import {
     GET_MESSAGES,
     POST_MESSAGE,
     ORDER_BY,
+    FILTER,
 } from './types';
 
 // -------- Products ----------
@@ -50,9 +51,10 @@ export function updateProduct(payload) {
     }
 };
 
-export function search(name) {
+export function search(query) {
     return async function (dispatch) {
-        const results = await axios.get(`/products?name=${name}`)
+        const results = await axios.get(`/products?name=${query}`)
+        console.log(query, results.data)
         return dispatch({ type: SEARCH, payload: results.data })
     }
 };
@@ -87,6 +89,11 @@ export function createBrands(payload) {
 export function orderBy(order) {
     return function (dispatch) {
       dispatch({ type: ORDER_BY, payload: order });
+    };
+  }
+export function filter(order) {
+    return function (dispatch) {
+      dispatch({ type: FILTER, payload: order });
     };
   }
 
