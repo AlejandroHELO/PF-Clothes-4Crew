@@ -43,7 +43,7 @@ export default function TopBar(){
                     </div>
 
                     <Dropdown>
-                        <Dropdown.Toggle variant='#D7FCF1' id="dropdown-basic">
+                        <Dropdown.Toggle style={{ "display": "flex", "align-items": "center"}} variant='#D7FCF1' id="dropdown-basic">
                             <img src="https://e7.pngegg.com/pngimages/788/424/png-clipart-computer-icons-computer-servers-administrator-miscellaneous-logo.png" alt="Foto de perfil" className={st.topAvatar}/>
                         </Dropdown.Toggle>
 

@@ -65,9 +65,9 @@ export default function ProductList() {
     <div className={st.productList}>
 
       <div className={st.productButtonContainer}>
-          <Link to='/adminView/newproduct'>
-              <button className={st.productAddButton}>Create</button>
-          </Link>
+        <Link to='/adminView/newproduct'>
+            <button className={st.productAddButton}>Create</button>
+        </Link>
       </div>
 
       <DataGrid

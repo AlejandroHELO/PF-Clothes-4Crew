@@ -5,34 +5,50 @@ import Chart from '../HomaPage/Chart'
 import st from './Product.module.css'
 import {productData} from '../../../dummyData.js'
 import { getProductDetail } from '../../../redux/actions'
+import ProductEdit from './ProductEdit'
 
 export default function Product() {
 
     const {productId} = useParams(); //usar el mismo nombre de variable que en la ruta principal
     const dispatch = useDispatch()
-    let Product = useSelector(state => state.details);
+    let productInfo = useSelector(state => state.details);
 
     useEffect(() =>{
         dispatch(getProductDetail(productId));
-    }, [getProductDetail]);
+    }, []);
 
     let props = {};
 
-    console.log('SOY EL PRODUCT: ', Product)
+    console.log('SOY EL PRODUCT: ', productInfo)
 
-    Product ? Product.map( obj => {props = {
-        id: obj._id,
-        name: obj.name,
-        brand: obj.brand.name,
-        category: obj.category[0].name,
-        color: obj.color,
-        genre: obj.genre,
-        description: obj.description,
-        price: obj.price,
-        stock: obj.stock,
-        size: obj.size,
-        active: String(obj.active)
-    }}) : console.log('Algo esta pasando')
+    // Product ? Product.map( obj => {props = {
+    //     id: obj._id,
+    //     name: obj.name,
+    //     brand: obj.brand.name,
+    //     category: obj.category[0].name,
+    //     color: obj.color,
+    //     genre: obj.genre,
+    //     description: obj.description,
+    //     price: obj.price,
+    //     stock: obj.stock,
+    //     size: obj.size,
+    //     active: String(obj.active)
+    // }}) : console.log('Algo esta pasando')
+
+    productInfo.name ? props = {
+        id: productInfo._id,
+        name: productInfo.name,
+        brand: productInfo.brand.name,
+        category: productInfo.category[0]?.name,
+        color: productInfo.color,
+        genre: productInfo.genre,
+        description: productInfo.description,
+        price: productInfo.price,
+        stock: productInfo.stock,
+        // size: productInfo.size,
+        // image: productInfo.image[0],
+        active: String(productInfo.active)
+    } : console.log('Algo esta pasando')
 
     console.log('SOY LAS PROPS: ', props)
 
@@ -88,13 +104,17 @@ export default function Product() {
                         <span className={st.productInfoKey}>Active:</span>
                         <span className={st.productInfoValue}>{props.active}</span>
                     </div>
+
                     <div className={st.productInfoItem}>
-                        <Link to={'/adminview/product/edit/' + props.id}>
-                            <button className={st.productEditButton}>Edit</button>
-                        </Link>
+                        <button className={st.productEditButton}>Edit</button>
                     </div>
                 </div>
             </div>
+
+            <div className={st.productUpdateCont}>
+                <ProductEdit {...props}/>
+            </div>
+
             <div className={st.productInfoBottom}>
                 <Chart className={st.productTopChart} data={productData} dataKey='Sales' title='Sales performance' grid/>
             </div>

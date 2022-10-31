@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
+import { Navigate } from 'react-router-dom';
 import st from './NewUser.module.css';
 import { useDispatch } from 'react-redux';
 import { DriveFolderUpload } from '@mui/icons-material';
-import { createUserAdmin } from '../../../redux/actions';
+import { createUser } from '../../../redux/actions';
 
 export default function NewUser() {
     
@@ -21,6 +22,8 @@ export default function NewUser() {
         image: "",
     })
 
+    const [nav, setNav] = useState(false)
+
     const handleChange = (e) => {
         e.preventDefault();
         setInput((prev) => ({ 
@@ -29,8 +32,12 @@ export default function NewUser() {
     }))}
 
     const handleCreate = (e) => {
-
-    }
+        // if (e.target.name === 'create'){
+        //     dispatch(createUser(input))
+        //     //window.location.reload(true)
+        //     setNav(true)
+        // }
+    };
 
     return (
         <div className={st.newUser}>
@@ -102,6 +109,7 @@ export default function NewUser() {
                 <button name='create' onClick={handleCreate} className={st.createNewUser}>Create</button>
 
             </form>
+            { nav? <Navigate to={'/adminView/users'} /> : null}
         </div>
     )
-}
+};

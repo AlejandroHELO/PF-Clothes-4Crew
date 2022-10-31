@@ -36,7 +36,7 @@ const ProductsID = async (req, res) => {
 const CreateProduct = async (req, res) => {
     console.log('algo')
     const { name, description, stock, color, size, category, image, genre, brand, price } = req.body
-    if (!name || !description || !stock || !color || !size || !category || !genre || !image || !brand || !price) {
+    if (!name || !description || !stock || !color || !genre || !price) { // || !size || !image || !category || !brand
         res.status(400).json({ msj: 'All fields are required' })
     } else {
         try {
