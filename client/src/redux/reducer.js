@@ -14,7 +14,8 @@ import {
   POST_MESSAGE,
   ORDER_BY,
   OPEN_DETAIL,
-  FILTER
+  FILTER,
+  RESET_FILTERS
 } from './types';
 
 const initialState = {
@@ -22,6 +23,9 @@ const initialState = {
   details: [],
   openDetail: "",
   searchResults: [],
+  searchResultsFiltered: [],
+  currentOrder: "",
+  currentFilter: "",
   categories: [],
   brands: [],
   users: [],
@@ -61,9 +65,17 @@ const reducer = (state = initialState, action) => {
       })
 
     case SEARCH:
+      if (action.payload.query === "all") {
+        return ({
+          ...state,
+          searchResults: state.products
+        })
+      }
+      const categoriesResults = state.products.filter((product) => product.category[0].name.toLowerCase().includes(action.payload.query))
+      const brandsResults = state.products.filter((product) => product.brand.name.toLowerCase().includes(action.payload.query))
       return ({
         ...state,
-        searchResults: action.payload
+        searchResults: [...action.payload.data, ...categoriesResults, ...brandsResults]
       })
 
     case GET_CATEGORIES:
@@ -102,105 +114,63 @@ const reducer = (state = initialState, action) => {
         userPut: action.payload
       })
 
-      // case FILTER:
-      //   return ({
-
-      //   })
-
     case ORDER_BY:
-      if (action.payload === "A-Z") {
+      if (action.payload === "aZ") {
         return {
           ...state,
-          productsFiltered: [...state.products].sort((prev, next) => {
-            if (prev.name > next.name) return 1;
-            if (prev.name < next.name) return -1;
+          currentOrder: action.payload,
+          searchResults: state.searchResults.sort((prev, next) => {
+            if (prev.name.toLowerCase() > next.name.toLowerCase()) return 1;
+            if (prev.name.toLowerCase() < next.name.toLowerCase()) return -1;
             return 0;
           }),
         };
       }
-      if (action.payload === "Z-A") {
+      if (action.payload === "zA") {
         return {
           ...state,
-          productsFiltered: [...state.products].sort((prev, next) => {
-            if (prev.name > next.name) return -1;
-            if (prev.name < next.name) return 1;
+          currentOrder: action.payload,
+          searchResults: state.searchResults.sort((prev, next) => {
+            if (prev.name.toLowerCase() > next.name.toLowerCase()) return -1;
+            if (prev.name.toLowerCase() < next.name.toLowerCase()) return 1;
             return 0;
           }),
         };
       }
-      if (action.payload === "M") {
+      if (action.payload === "priceAsc") {
         return {
           ...state,
-          productsFiltered: [...state.products].filter((p) =>
-            p.genre === "Mens"
-          )
-
+          currentOrder: action.payload,
+          searchResults: state.searchResults.sort((prev, next) => {
+            return prev.price - next.price
+          }),
         };
       }
-      if (action.payload === "F") {
+      if (action.payload === "priceDesc") {
         return {
           ...state,
-          productsFiltered: [...state.products].filter((p) =>
-            p.genre === "Womens"
-          )
-
+          currentOrder: action.payload,
+          searchResults: state.searchResults.sort((prev, next) => {
+            return next.price - prev.price
+          }),
         };
       }
-      if (action.payload === "U") {
-        return {
-          ...state,
-          productsFiltered: [...state.products].filter((p) =>
-            p.genre === "Unisex"
-          )
+      return state
 
-        };
-      }
-      if (action.payload === "Gucci") {
-        return {
-          ...state,
-          productsFiltered: [...state.products].filter((p) =>
-            p.brand.name === "Gucci"
-          )
-
-        };
-      }
-      if (action.payload === "Nike") {
-        return {
-          ...state,
-          productsFiltered: [...state.products].filter((p) =>
-            p.brand.name === "Nike"
-          )
-
-        };
-      }
-      if (action.payload === "Adidas") {
-        return {
-          ...state,
-          productsFiltered: [...state.products].filter((p) =>
-            p.brand.name === "Adidas"
-          )
-
-        };
-      }
-      if (action.payload === "Caps") {
-        return {
-          ...state,
-          productsFiltered: [...state.products].filter((p) =>
-            p.category[0].name === "Caps"
-          )
-
-        };
-      }
-      if (action.payload === "T-shirts") {
-        return {
-          ...state,
-          productsFiltered: [...state.products].filter((p) =>
-            p.category[0].name === "T-shirts"
-          )
-
-        };
-      }
-
+    case FILTER:
+      const categoryFilter = state.searchResults.filter((product) => product.category[0].name === action.payload)
+      const brandFilter = state.searchResults.filter((product) => product.brand.name === action.payload)
+      const genderFilter = state.searchResults.filter((product) => product.genre === action.payload)
+      return ({
+        ...state,
+        searchResultsFiltered: [...categoryFilter, ...brandFilter, ...genderFilter]
+      })
+    case RESET_FILTERS:
+      return ({
+        ...state,
+        searchResultsFiltered: [],
+        searchResults: state.searchResults
+      })
     default: return state;
   }
 };
