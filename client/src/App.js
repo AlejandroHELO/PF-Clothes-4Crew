@@ -7,6 +7,7 @@ import { getProducts } from './redux/actions';
 import ProductDetail from './components/Product/productDetail';
 import HomePage from './components/HomePage/HomePage';
 // import Footer from '';
+import Footer from './components/Footer/Footer.jsx'
 import AdminView from './components/Admin/AdminView';
 // import Loading from '';
 import HelpUsImprove from './components/HelpUsToImprove/HelpUsImprove'
@@ -18,7 +19,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getProducts())
-    document.body.classList.add('flex', 'justify-center', 'w-full', 'mb-20')
+    //document.body.classList.add('flex', 'justify-center', 'w-full', 'mb-20')
   }, [])
 
 
@@ -33,6 +34,7 @@ function App() {
         <Route path='/adminview//*' element={<AdminView />} />
         <Route path='*' element={<Navigate to='/home' />} />
       </Routes>
+      <Footer/>
     </div>
     //</AuthProvider>
   )
