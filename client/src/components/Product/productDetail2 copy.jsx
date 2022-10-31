@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRef } from 'react'
 import { useParams } from 'react-router-dom';
 import { clearDetail, getProductDetail } from '../../redux/actions';
 import Navbar from '../navbar/navbar';
@@ -10,51 +9,28 @@ import { XMarkIcon } from '@heroicons/react/24/outline'
 import { StarIcon } from '@heroicons/react/20/solid'
 
 
-function ProductDetail(product) {
+function ProductDetail() {
     const dispatch = useDispatch();
-    // const { productId } = useParams();
-    // const product = useSelector((state) => state.details)
-    const openDetail = useSelector((state) => state.openDetail)
+    const { productId } = useParams();
+    const product = useSelector((state) => state.details)
     const [open, setOpen] = useState(false)
     // const [selectedColor, setSelectedColor] = useState(product.colors[0])
-    const [selectedSize, setSelectedSize] = useState({ size: "M", stock: true })
-    const slider = useRef()
+    const [selectedSize, setSelectedSize] = useState(1)
 
-    // React.useEffect(() => {
-    //     if (open === true) {
-    //         dispatch(getProductDetail(p.id));
-    //     }
-
-    //     return () => {
-    //         dispatch(clearDetail());
-    //     }
-    // }, [dispatch, p.id])
+    React.useEffect(() => {
+        dispatch(getProductDetail(productId));
+        // return () => {
+        //     dispatch(clearDetail());
+        // }
+    }, [dispatch, productId])
 
     React.useEffect(() => {
         product.size?.map((s) => {
             (s.stock > 1) ? s.stock = true : s.stock = false
         })
-        if (product.size.length) {
-            product.size[0].size = 'XS'
-            product.size[1].size = 'S'
-            product.size[2].size = 'M'
-            product.size[3].size = 'L'
-            product.size[4].size = 'XL'
-            product.size[5].size = 'XXL'
-            product.size[0].stock = true
-            product.size[1].stock = true
-            product.size[2].stock = true
-            product.size[3].stock = true
-            product.size[4].stock = true
-            product.size[5].stock = true
-        }
-        if (openDetail === product.id) {
-            setOpen(true)
-        }
+    }, [product])
 
-    }, [product, openDetail])
-
-    console.log('En detail product', product.size)
+    console.log('En detail product', product)
     // ----------------------------------------------------------------
     //const product = {name: 'Basic Tee 6-Pack ',
     //   price: '$192',////////////////////
@@ -88,6 +64,8 @@ function ProductDetail(product) {
 
     return (
         (product.name ?
+
+
             <Transition.Root show={open} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={setOpen}>
                     <Transition.Child
@@ -127,36 +105,17 @@ function ProductDetail(product) {
                                         <div className="grid w-full grid-cols-1 items-start gap-y-8 gap-x-6 sm:grid-cols-12 lg:gap-x-8">
                                             <div className="aspect-w-2 aspect-h-3 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5">
                                                 {/* poner carrusel con mapeo de imagenes */}
-                                                {/* <img src={product.image[0]} alt='imagen producto' className="object-scale-down object-center" /> */}
-                                                <div className='flex items-center justify-center w-full h-full'>
-                                                    <button className='h-3 w-3' onClick={() => slider.current.scrollLeft -= 200}>
-                                                        <img src='/flecha1.png' alt="flecha1" />
-                                                    </button>
-                                                    <div ref={slider} className='snap-x overflow-scroll scroll-smooth h-full flex items-center justify-start text-center'>
-
-                                                        {product.image?.map((e) => {
-                                                            return (
-                                                                <img src={e} alt='imagen producto' className="object-scale-down object-center" />
-                                                            )
-                                                        })}
-                                                    </div>
-                                                    < button className='h-3 w-3' onClick={() => slider.current.scrollLeft += 200}>
-                                                        <img src='/flecha2.png' alt="flecha2" />
-                                                    </button>
-                                                </div>
-
-
-
+                                                <img src={product.image[0]} alt='imagen producto' className="object-cover object-center" />
                                             </div>
                                             <div className="sm:col-span-8 lg:col-span-7">
                                                 <h2 className="text-2xl font-bold text-gray-900 sm:pr-12">{product.name}</h2>
-                                                <p className="text-sm text-gray-900 sm:pr-12">{product.description}</p>
+
                                                 <section aria-labelledby="information-heading" className="mt-2">
                                                     <h3 id="information-heading" className="sr-only">
                                                         Product information
                                                     </h3>
 
-                                                    <p className="text-2xl text-gray-900">U$S {product.price}</p>
+                                                    <p className="text-2xl text-gray-900">{product.price}</p>
 
                                                     {/* Reviews */}
                                                     {/* <div className="mt-6">
@@ -228,10 +187,10 @@ function ProductDetail(product) {
                                                         {/* Sizes */}
                                                         <div className="mt-10">
                                                             <div className="flex items-center justify-between">
-                                                                <h4 className="text-sm font-medium text-gray-900">Sizes</h4>
-                                                                {/* <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                                                                <h4 className="text-sm font-medium text-gray-900">Size</h4>
+                                                                <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
                                                                     Size guide
-                                                                </a> */}
+                                                                </a>
                                                             </div>
 
                                                             <RadioGroup value={selectedSize} onChange={setSelectedSize} className="mt-4">
@@ -299,7 +258,6 @@ function ProductDetail(product) {
                                                 </section>
                                             </div>
                                         </div>
-
                                     </div>
                                 </Dialog.Panel>
                             </Transition.Child>

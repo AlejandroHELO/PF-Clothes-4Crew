@@ -7,16 +7,19 @@ module.exports = {
 
   theme: {
     extend: {
-      animation:{
+      animation: {
         'fadeAnim': 'fadeKeyframe 0.5s ease-out'
       },
-      keyframes:{
-        fadeKeyframe:{
-          'from': {opacity: 0},
-          'to': {opacity: 1}
+      keyframes: {
+        fadeKeyframe: {
+          'from': { opacity: 0 },
+          'to': { opacity: 1 }
         }
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+
+  ],
 }

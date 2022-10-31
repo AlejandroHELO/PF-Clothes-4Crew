@@ -3,6 +3,7 @@ import Slider from "./Slider";
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { getCategories } from '../../redux/actions'
+import Filters from "../Filters/Filters"
 
 const Cards = () => {
     //acá en vez de traer productos traer de category
@@ -11,13 +12,13 @@ const Cards = () => {
     //agregar un campo en la base de datos para que el adminitrador elija 
     //los elementos más interesantes o de temporada
     const dispatch = useDispatch()
-    const products = useSelector((state) => state.products);
+    const products = useSelector((state) => state.productsFiltered);
     const [categories, setCategories] = useState([])
 
 
     React.useEffect(() => {
         dispatch(getCategories())
-    }, [])
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     React.useEffect(() => {
         let result = new Set(products.map((p) => p.category[0].name))

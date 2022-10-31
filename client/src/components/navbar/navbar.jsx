@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getCategories } from '../../redux/actions'
 import {Link} from 'react-router-dom'
+import SearchBar from './searchbar'
 
 function Navbar() {
     const dispatch = useDispatch()
@@ -10,7 +11,7 @@ function Navbar() {
 
     React.useEffect(() => {
         dispatch(getCategories())
-    }, [])
+    }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
         <nav className="w-full h-1/6 mt-2 p-2 bg-white shadow-md flex flex-col justify-around">
@@ -25,8 +26,7 @@ function Navbar() {
                     </div>
                     {/* Searchbar */}
                     <div className='border-gray-300 border-2 rounded flex p-2'>
-                        <input type='text' placeholder='Search anything...'></input>
-                        <button>🔎</button>
+                        <SearchBar />
                     </div>
                 </div>
                 {/* Lado derecho */}
@@ -49,7 +49,7 @@ function Navbar() {
             <div className='flex justify-between mt-2'>
                 {
                     categories.map(cat => {
-                        return <Link to={`/${cat.name.toLowerCase()}`} key={cat._id} className='p-1 hover:bg-black hover:text-white hover:rounded'>{cat.name}</Link>
+                        return <Link to={`/searchResults/${cat.name.toLowerCase()}`} key={cat._id} className='no-underline text-inherit p-1 hover:bg-black hover:text-white hover:rounded'>{cat.name}</Link>
                     })
                 }
             </div>
