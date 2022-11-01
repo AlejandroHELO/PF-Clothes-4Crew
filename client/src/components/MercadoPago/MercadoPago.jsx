@@ -5,13 +5,12 @@ import { useMercadopago } from 'react-sdk-mercadopago';
 //import { useParams } from "react-router-dom";
 const FORM_ID = 'payment-form';
 
-export default function Pago({id}) {
-
+export default function Pago(pros) {
   const [preferenceId, setPreferenceId] = useState(null);
 
   useEffect(() => {
     // luego de montarse el componente, le pedimos al backend el preferenceId
-    axios.post('/mercadopago/'+id).then((order) => {
+    axios.post('/mercadopago/'+pros.id).then((order) => {
       setPreferenceId(order.data);
     });
   }, []);
@@ -38,7 +37,7 @@ export default function Pago({id}) {
 
     return (
         <div>
-            <div class="cho-container" />
+            <div className="cho-container" />
         </div>
     )
 }

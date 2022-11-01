@@ -11,7 +11,10 @@
         "sourceType": "module"
     },
     "plugins": ["react"],
-    "rules": {},
+    "rules": {
+      "no-unused-vars": 0,
+      "react/prop-types":0
+    },
     "settings": {
         "react": {
           "createClass": "createReactClass", 
