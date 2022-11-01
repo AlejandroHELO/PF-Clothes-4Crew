@@ -1,22 +1,22 @@
-.productUpdate{
+.productUpdate {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 850px;
     padding: 20px;
-    -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.8); 
-    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.8);
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.8);
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.8);
     margin-top: 10px;
     border-radius: 20px;
 }
 
-.productUpdateTitle{
+.productUpdateTitle {
     font-size: 25px;
     font-weight: 600;
     margin-left: 10px;
 }
 
-.productUpdateForm{
+.productUpdateForm {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
@@ -24,34 +24,34 @@
     margin-left: 10px;
 }
 
-.productUpdateItem{
+.productUpdateItem {
     display: flex;
     flex-direction: column;
     margin-top: 12px;
 }
 
-.productUpdateItem>label{
+.productUpdateItem > label {
     margin-bottom: 5px;
     font-weight: 500;
 }
 
-.productUpdateInput{
+.productUpdateInput {
     border: none;
     width: 250px;
     height: 20px;
     border-bottom: 1px solid grey;
 }
 
-.productUpdateInputRadio{
+.productUpdateInputRadio {
     margin: 5px 5px;
 }
 
-.productUpdateUpload{
+.productUpdateUpload {
     display: flex;
     align-items: center;
 }
 
-.productUpdateImg{
+.productUpdateImg {
     width: 200px;
     height: 200px;
     border-radius: 20px;
@@ -64,7 +64,7 @@
     font-size: 35px !important;
 } */
 
-.productUpdateBotton{
+.productUpdateBotton {
     width: 150px;
     border: none;
     border-radius: 5px;
