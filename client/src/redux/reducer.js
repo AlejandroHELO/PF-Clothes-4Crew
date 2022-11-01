@@ -94,11 +94,13 @@ const reducer = (state = initialState, action) => {
                 ],
             }
 
+
         case GET_CATEGORIES:
             return {
                 ...state,
                 categories: action.payload,
             }
+
 
         case GET_BRANDS:
             return {

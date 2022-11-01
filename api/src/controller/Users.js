@@ -1,4 +1,5 @@
-const { userModel } = require('../models/index')
+const { userModel } = require('../models/index');
+const { CreateCart } = require('./cart');
 
 const allUsers = async (req, res, next) => {
     try {
@@ -77,20 +78,25 @@ const createUser = async (req, res, next) => {
     // res.status(400).send("Error, los tipos de datos son incorrectos")}
 
     try {
-        await userModel.create({
-            fullName,
-            email,
-            password,
-            birthDate,
-            genre,
-            country,
-            address,
-            tel,
+       const userCreate= new userModel({
+            fullName, 
+            email, 
+            password, 
+            birthDate, 
+            genre, 
+            country, 
+            address, 
+            tel, 
             image,
             isAdmin: false,
             active: true,
-        })
-        res.status(201).send('User Successfully Created')
+        });
+        const result=await userCreate.save()
+        console.log(result)
+        const cart= await CreateCart(result._id)
+        console.log('create carrito: '+ cart)
+        res.status(201).send('User Successfully Created');
+
 
         // let crearUser = await new userModel({})
         // crearUser.save().then( result => {

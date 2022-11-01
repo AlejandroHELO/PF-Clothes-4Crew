@@ -35,7 +35,7 @@ const ProductsID = async (req, res) => {
 }
 
 const CreateProduct = async (req, res) => {
-    console.log('algo')
+    let err=true
     const {
         name,
         description,
@@ -48,10 +48,40 @@ const CreateProduct = async (req, res) => {
         brand,
         price,
     } = req.body
-    if (!name || !description || !stock || !color || !genre || !price) {
+    if (!name || !description || !stock || !color || !genre || !price || !size || !image || !category || !brand) { 
+
         // || !size || !image || !category || !brand
+
         res.status(400).json({ msj: 'All fields are required' })
-    } else {
+    }
+    else if(size.length){
+        size.forEach(e => {
+            if(!e.size||e.stock){
+                err=false
+                res.status(400).json({msj:'falta agregar objeto al brand correctamente'})
+            }
+        });
+        category.forEach(e => {
+            if(!e.name){
+                err=false
+                res.status(400).json({msj:'falta agregar name en category correctamente'})
+            }
+        });
+        image.forEach(e => {
+            if(!e){
+                err=false
+                res.status(400).json({msj:'falta agregar string en image correctamente'})
+            }
+        });
+        if(!brand.name){
+            err=false
+            res.status(400).json({msj:'falta agregar objeto correctamente'})
+        
+        }
+    }
+    if(err){
+
+    
         try {
             const newProduct = new productModel({
                 name,

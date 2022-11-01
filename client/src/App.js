@@ -11,7 +11,10 @@ import Footer from './components/Footer/Footer.jsx'
 import AdminView from './components/Admin/AdminView'
 // import Loading from '';
 import HelpUsImprove from './components/HelpUsToImprove/HelpUsImprove'
+
 import SearchResults from './components/SearchResults/SearchResults'
+import Pago from './components/MercadoPago/MercadoPago'
+
 
 function App() {
     const dispatch = useDispatch()
@@ -39,10 +42,12 @@ function App() {
                 <Route path="/adminview//*" element={<AdminView />} />
                 <Route path="*" element={<Navigate to="/home" />} />
             </Routes>
+            {/* <Pago id={'63615409b573f3a4a80dfc1f'}/> */}
             <Footer />
         </div>
         //</AuthProvider>
     )
 }
+
 
 export default App

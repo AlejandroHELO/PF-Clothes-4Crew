@@ -1,4 +1,5 @@
 {
+
     "name": "clothes-4crew",
     "version": "0.1.0",
     "private": true,
@@ -30,6 +31,8 @@
         "react-scripts": "^5.0.1",
         "recharts": "^2.1.14",
         "redux": "^4.2.0",
+        "react-sdk-mercadopago": "^1.1.1",
+        "mercadopago": "^1.5.14",
         "redux-devtools-extension": "^2.13.9",
         "redux-thunk": "^2.4.1",
         "redux-toolkit": "^1.1.2",
