@@ -77,8 +77,8 @@ const reducer = (state = initialState, action) => {
           searchResults: state.products
         })
       }
-      const categoriesResults = state.products.filter((product) => product.category[0].name.toLowerCase().includes(action.payload.query))
-      const brandsResults = state.products.filter((product) => product.brand.name.toLowerCase().includes(action.payload.query))
+      const categoriesResults = state.products.filter((product) => product?.category[0]?.name?.toLowerCase()?.includes(action.payload.query))
+      const brandsResults = state.products.filter((product) => product?.brand?.name?.toLowerCase()?.includes(action.payload.query))
       return ({
         ...state,
         searchResults: [...action.payload.data, ...categoriesResults, ...brandsResults]

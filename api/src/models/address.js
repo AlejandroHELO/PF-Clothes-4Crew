@@ -11,6 +11,10 @@ const addressSchema = new Schema({
     houseNumber: {
         type: Number
     },
+    cp:{
+        type: Number
+    }
+    ,
     city: {
         type: String
     },

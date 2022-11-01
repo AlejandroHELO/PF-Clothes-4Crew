@@ -12,6 +12,7 @@ import AdminView from './components/Admin/AdminView';
 // import Loading from '';
 import HelpUsImprove from './components/HelpUsToImprove/HelpUsImprove'
 import SearchResults from './components/SearchResults/SearchResults';
+//import MercadoPago from './components/MercadoPago/MercadoPago';
 
 function App() {
 
@@ -33,8 +34,9 @@ function App() {
         <Route path='/searchResults/:query/:order' element={<SearchResults />} />
         <Route path='/helpusimprove' element={<HelpUsImprove />} />
         <Route path='/adminview//*' element={<AdminView />} />
-        <Route path='*' element={<Navigate to='/home' />} />
+        <Route path='*' element={<Navigate to='/' />} />
       </Routes>
+      {/* <MercadoPago id={'63615409b573f3a4a80dfc1f'}/> */}
       <Footer/>
     </div>
     //</AuthProvider>
