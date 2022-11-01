@@ -1,4 +1,4 @@
-.product{
+.product {
     flex: 6.5;
     padding: 10px 20px;
 }
@@ -9,72 +9,73 @@
     justify-content: space-between;
 } */
 
-.productTitle{
+.productTitle {
     text-align: center;
     font-weight: 600;
     font-size: 40px;
 }
 
-.productInfo{
+.productInfo {
     margin: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.productInfoTop, .productInfoBottom {
+.productInfoTop,
+.productInfoBottom {
     flex: 1;
 }
 
-.productInfoTop{
+.productInfoTop {
     width: 850px;
     padding: 20px;
     margin: 10px 20px;
     border-radius: 20px;
-    -webkit-box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.8); 
-    box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.8);
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.8);
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.8);
 }
 
-.productInfoHeader{
+.productInfoHeader {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.productName{
+.productName {
     font-size: 30px;
     font-weight: 600;
     margin-bottom: 20px;
 }
 
-.productImage{
+.productImage {
     width: 300px;
     height: 300px;
     border-radius: 10%;
     object-fit: cover;
 }
 
-.productInfoDetails{
+.productInfoDetails {
     margin-top: 20px;
 }
 
-.productInfoItem{
+.productInfoItem {
     margin: 10px;
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-
 }
 
-.productInfoKey, .productInfoValue{
+.productInfoKey,
+.productInfoValue {
     margin-right: 10px;
     font-size: 20px;
     font-weight: 400;
 }
 
-.productEditButton{
+.productEditButton {
     cursor: pointer;
 }
 
@@ -82,8 +83,8 @@
     background-color:blueviolet ;
 } */
 
-.productInfoBottom{
-    width: 900px ;
+.productInfoBottom {
+    width: 900px;
     margin: 0px 10px;
     padding: 40px 20px;
     border-radius: 10px;

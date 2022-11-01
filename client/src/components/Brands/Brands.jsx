@@ -5,7 +5,7 @@ import BrandCard from './BrandCard'
 
 export default function Brands() {
     const dispatch = useDispatch()
-    const brands = useSelector(state => state.brands)
+    const brands = useSelector((state) => state.brands)
 
     useEffect(() => {
         dispatch(getBrands())
@@ -13,14 +13,17 @@ export default function Brands() {
     }, [])
 
     return (
-        <div className='py-8 grid grid-cols-5 justify-items-center items-center'>
-            {
-                brands.map((brand) => {
-                    return <div key={brand._id} className="m-8 h-full flex p-2 justify-center items-center">
+        <div className="py-8 grid grid-cols-5 justify-items-center items-center">
+            {brands.map((brand) => {
+                return (
+                    <div
+                        key={brand._id}
+                        className="m-8 h-full flex p-2 justify-center items-center"
+                    >
                         <BrandCard name={brand.name} />
                     </div>
-                })
-            }
+                )
+            })}
         </div>
     )
 }
