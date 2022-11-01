@@ -28,11 +28,7 @@ router.put('/brand', UpdateBrand)
 
 //--------  Cart-----------
 router.post('/cartupdate/:id',UpdateCart)
-router.get('/emeil/:emeil/:name',(req,res)=>{
-    const {emeil,name}=req.params
-    const result=EmeilerConfig(emeil,name)
-    res.status(200).send(result)
-})
+
 //---- Users routes ------
 router.get('/users', allUsers)
 router.get('/users/:id', userProfile)
