@@ -1,30 +1,30 @@
-.userList {
+.userList{
     flex: 8;
 }
 
-.userButtonContainer {
+.userButtonContainer{
     display: flex;
     justify-content: flex-end;
     text-decoration: none;
 }
 
-.userAddButton {
+.userAddButton{
     width: 80px;
     border: none;
     padding: 10px;
     background-color: rgb(250, 115, 61);
     border-radius: 5px;
     cursor: pointer;
-    color: white;
+    color:white;
     font-size: 16px;
 }
 
-.userListUser {
+.userListUser{
     display: flex;
     align-items: center;
 }
 
-.userListPic {
+.userListPic{
     width: 32px;
     height: 32px;
     border-radius: 50%;
@@ -32,7 +32,7 @@
     margin-right: 10px;
 }
 
-.userListEdit {
+.userListEdit{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,5 +45,5 @@
     background-color: rgb(247, 129, 82);
     color: white;
     cursor: pointer;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.02em
 }

@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 
 import {
     GET_PRODUCTS,
@@ -19,9 +19,8 @@ import {
     ORDER_BY,
     OPEN_DETAIL,
     FILTER,
-    RESET_FILTERS,
-    LOGIN
-} from './types'
+    RESET_FILTERS
+} from './types';
 
 // -------- Products ----------
 export function getProducts() {
@@ -29,25 +28,25 @@ export function getProducts() {
         const allData = await axios.get('/products')
         return dispatch({ type: GET_PRODUCTS, payload: allData.data })
     }
-}
+};
 
 export function getProductDetail(id) {
     return async function (dispatch) {
         const productDetail = await axios.get(`/products/${id}`)
         return dispatch({
             type: PRODUCT_DETAIL,
-            payload: productDetail.data,
+            payload: productDetail.data
         })
     }
-}
+};
 
 export function openDetail(id) {
     return { type: OPEN_DETAIL, payload: id }
-}
+};
 
 export function clearDetail() {
     return { type: CLEAR_DETAIL, payload: [] }
-}
+};
 
 export function createProduct(payload) {
     console.log(payload)
@@ -56,174 +55,147 @@ export function createProduct(payload) {
         console.log(json.data)
         return dispatch({
             type: POST_PRODUCT,
-            payload: json.data,
+            payload: json.data
         })
     }
-}
+};
 
 export function updateProduct(payload) {
     return async function (dispatch) {
         const update = await axios.put(`/products`, payload)
         return dispatch({ type: PRODUCT_UPDATE, payload: update.payload })
     }
-}
+};
 
 export function search(query) {
     return async function (dispatch) {
         const results = await axios.get(`/products?name=${query}`)
-        return dispatch({
-            type: SEARCH,
-            payload: { query: query, data: results.data },
-        })
+        return dispatch({ type: SEARCH, payload: { query: query, data: results.data } })
     }
-}
+};
 
 export function getCategories() {
     return async function (dispatch) {
         const allData = await axios.get('/category')
         return dispatch({ type: GET_CATEGORIES, payload: allData.data })
     }
-}
+};
 
 export function createCategories(payload) {
     return async function () {
         let json = await axios.post('/category', payload)
-        return json
+        return json;
     }
-}
+};
 
 export function getBrands() {
     return async function (dispatch) {
         const allData = await axios.get('/brand')
         return dispatch({ type: GET_BRANDS, payload: allData.data })
     }
-}
+};
 
 export function createBrands(payload) {
     return async function () {
         let json = await axios.post('/brand', payload)
-        return json
+        return json;
     }
-}
+};
 
 // ------- Filtros y ordenamiento ---------
 
 export function orderBy(order) {
     return function (dispatch) {
-        dispatch({ type: ORDER_BY, payload: order })
-    }
-}
+        dispatch({ type: ORDER_BY, payload: order });
+    };
+};
 
 export function filter(fil) {
     return function (dispatch) {
-        dispatch({ type: FILTER, payload: fil })
-    }
+        dispatch({ type: FILTER, payload: fil });
+    };
 }
 export function resetFilter(fil) {
     return function (dispatch) {
-        dispatch({ type: RESET_FILTERS, payload: fil })
-    }
-}
+        dispatch({ type: RESET_FILTERS, payload: fil });
+    };
+};
 
 // ------- Users ---------
 
-export function getAdmins() {
-    // Obtener todos los Admins
+export function getAdmins() {   // Obtener todos los Admins
     return async function (dispatch) {
-        let json = await axios.get('/users/admins')
+        let json = await axios.get("/users/admins");
         return dispatch({
             type: GET_ADMINS,
-            payload: json.data,
+            payload: json.data
         })
     }
-}
+};
 
-export function getUsers() {
-    // Obtener todos los Users
+export function getUsers() { // Obtener todos los Users
     return async function (dispatch) {
-        let json = await axios.get('/users')
+        let json = await axios.get("/users");
         return dispatch({
             type: GET_USERS,
-            payload: json.data,
+            payload: json.data
         })
     }
-}
+};
 
-export function getprofile(id) {
-    // Visualizar perfil de un User
+export function getprofile(id) { // Visualizar perfil de un User
     return async function (dispatch) {
-        let json = await axios.get(`/users/${id}`)
+        let json = await axios.get(`/users/${id}`);
         return dispatch({
             type: GET_PROFILE,
-            payload: json.data,
+            payload: json.data
         })
     }
-}
+};
 
-export function LogInAction({email, password}) {
-    // try {
-    //     let user = await axios.post('/*TODO*/', {
-    //         email,
-    //         password
-    //     })
-    //     if(!user.data || user.data.length === 0 ) {
-    //         throw new Error('Usuario no encontrado')
-    //     } else {
-    //         return user.data
-    //     }
-    // } catch (error) {
-    //     throw new Error(error.message)
-    // }
-    console.log(`el email es ${email}, y la password es${password}`)
-    return ('success')
-}
+export function editUser(id, payload) { // Para que un User actualice su perfil
 
-export function editUser(id, payload) {
-    // Para que un User actualice su perfil
-}
+};
 
-export function editUserAdmin(id, payload) {
-    // Para que un admin actualice el perfil de un User
+export function editUserAdmin(id, payload) { // Para que un admin actualice el perfil de un User
     return async function (dispatch) {
-        let json = await axios.put(`/users/admin/${id}`, payload)
+        let json = await axios.put(`/users/admin/${id}`, payload);
         return dispatch({
             type: UPDATE_USER_ADM,
-            payload: json.data,
+            payload: json.data
         })
     }
-}
+};
 
 export function createUser(payload) {
     return async function (dispatch) {
         let json = await axios.post('/users/register', payload)
         return dispatch({
             type: POST_USER,
-            payload: json,
+            payload: json
         })
     }
-}
+};
 
 // ------- Help Us Mail --------
 
-export function getMessages() {
-    // Obtener los mensajes de Help us to improve
+export function getMessages() { // Obtener los mensajes de Help us to improve
     return async function (dispatch) {
-        let json = await axios.get('/messages') // http://localhost:3001/messages
+        let json = await axios.get("/messages"); // http://localhost:3001/messages
         return dispatch({
             type: GET_MESSAGES,
-            payload: json.data,
+            payload: json.data
         })
     }
-}
+};
 
-export function createMessage(data) {
-    //crear un mensaje en el buzón de HelpUsToImprove
+export function createMessage(data) { //crear un mensaje en el buzón de HelpUsToImprove
     // console.log('SOY LA DATA DE LA ACTION: ', data)
     return async function (dispatch) {
-        let response = await axios.post('/messages/send', data) // http://localhost:3001/messages/send
+        let response = await axios.post("/messages/send", data); // http://localhost:3001/messages/send
         return dispatch({
             type: POST_MESSAGE,
-            payload: response,
+            payload: response
         })
     }
-}
+};

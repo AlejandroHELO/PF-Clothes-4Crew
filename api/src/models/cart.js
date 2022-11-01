@@ -1,20 +1,20 @@
-const { Schema, model } = require('mongoose')
+const {Schema, model} = require('mongoose')
 
-const cartSchema = new Schema(
-    {
-        userId: {
-            type: String,
-        },
-        products: {
-            type: Array,
-        },
+
+const cartSchema = new Schema({
+    userId: {
+        type: String
     },
-    {
-        timestamp: true,
-        versionKey: false,
+    products: {
+        type:  Array
     }
-)
 
-const cartModel = model('Cart', cartSchema)
+},
+{
+    timestamp: true,
+    versionKey: false
+})
+
+const cartModel = model("Cart", cartSchema);
 
 module.exports = cartModel
