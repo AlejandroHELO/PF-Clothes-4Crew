@@ -1,25 +1,26 @@
-const {Schema, model} = require('mongoose')
+const { Schema, model } = require('mongoose')
 
-
-const purchaseSchema = new Schema({
-    paymentId: {
-        type: String
+const purchaseSchema = new Schema(
+    {
+        paymentId: {
+            type: String,
+        },
+        userId: {
+            type: String,
+        },
+        products: {
+            type: Array,
+        },
+        addresId: {
+            type: String,
+        },
     },
-    userId: {
-        type: String
-    },
-    products: {
-        type: Array
-    },
-    addresId: {
-        type: String
+    {
+        timestamp: true,
+        versionKey: false,
     }
-},
-{
-    timestamp: true,
-    versionKey: false
-})
+)
 
-const purchaseModel = model("Purchase", purchaseSchema);
+const purchaseModel = model('Purchase', purchaseSchema)
 
 module.exports = purchaseModel

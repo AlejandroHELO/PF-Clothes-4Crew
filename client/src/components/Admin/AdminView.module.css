@@ -1,8 +1,8 @@
-body{
+body {
     display: block !important;
 }
 
-.container{
+.container {
     display: flex;
     margin-top: 1.5em;
 }

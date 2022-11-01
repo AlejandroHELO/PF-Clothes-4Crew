@@ -1,11 +1,36 @@
 const { Router } = require('express')
-const { allCategory, UpdateCategory, CreateCategory } = require('../controller/Category.js')
-const { allBrands, UpdateBrand, CreateBrand } = require('../controller/Brand.js')
-const { Products, CreateProduct, ProductsID, UpdateProduct } = require('../controller/Products.js')
-const { allUsers, userProfile, Admins, createUser, updateUser, updateUserAdmin } = require('../controller/Users.js')
-const { MercadoPago } = require('../controller/MercadoPago.js')
-const { UpdateCart } = require('../controller/cart.js')
-const { EmeilerConfig } = require('../controller/Emailer.js')
+const { 
+    MercadoPago 
+} = require('../controller/MercadoPago.js')
+const {
+     UpdateCart 
+    } = require('../controller/cart.js')
+
+
+const {
+    allCategory,
+    UpdateCategory,
+    CreateCategory,
+} = require('../controller/Category.js')
+const {
+    allBrands,
+    UpdateBrand,
+    CreateBrand,
+} = require('../controller/Brand.js')
+const {
+    Products,
+    CreateProduct,
+    ProductsID,
+    UpdateProduct,
+} = require('../controller/Products.js')
+const {
+    allUsers,
+    userProfile,
+    Admins,
+    createUser,
+    updateUser,
+    updateUserAdmin,
+} = require('../controller/Users.js')
 
 const router = Router()
 
@@ -40,6 +65,6 @@ router.put('/users/admin/:id', updateUserAdmin)
 //middleware para el Not Found
 router.use((req, res, next) => {
     res.status(404).end()
-});
+})
 
 module.exports = router
