@@ -1,4 +1,8 @@
-.container{
+body {
+    display: block !important;
+}
+
+.container {
     display: flex;
     margin-top: 1.5em;
 }

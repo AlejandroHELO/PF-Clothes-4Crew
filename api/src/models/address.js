@@ -1,5 +1,4 @@
-const {Schema, model} = require('mongoose')
-
+const { Schema, model } = require('mongoose')
 
 const addressSchema = new Schema({
     street: {
@@ -11,6 +10,10 @@ const addressSchema = new Schema({
     houseNumber: {
         type: Number
     },
+    cp:{
+        type: Number
+    }
+    ,
     city: {
         type: String
     },
@@ -26,6 +29,7 @@ const addressSchema = new Schema({
     versionKey: false
 })
 
-const addressModel = model("Address", addressSchema);
+const addressModel = model('Address', addressSchema)
+
 
 module.exports = addressModel

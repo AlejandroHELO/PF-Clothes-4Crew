@@ -9,13 +9,12 @@ import Filters from './Filters'
 import ProductDetail from '../Product/productDetail'
 
 export default function SearchResults() {
-
     const { query, order } = useParams()
     const dispatch = useDispatch()
     // const products = useSelector(state => state.products)
-    let results = useSelector(state => state.searchResults)
-    const resultsFilted = useSelector(state => state.searchResultsFiltered)
-    const currentOrder = useSelector(state => state.currentOrder)
+    let results = useSelector((state) => state.searchResults)
+    const resultsFilted = useSelector((state) => state.searchResultsFiltered)
+    const currentOrder = useSelector((state) => state.currentOrder)
     // const products = useSelector(state => state.products)
     // const categories = useSelector(state => state.categories)
     // const brands = useSelector(state => state.brands)
@@ -50,7 +49,10 @@ export default function SearchResults() {
         return resArray.map((res) => {
             return (
                 <>
-                    <button className='transparent' onClick={(e) => handleOnClick(res._id, e)}>
+                    <button
+                        className="transparent"
+                        onClick={(e) => handleOnClick(res._id, e)}
+                    >
                         <Card
                             id={res._id}
                             name={res.name}
@@ -76,13 +78,14 @@ export default function SearchResults() {
     return (
         <div>
             <Navbar />
-            <div className='py-4 flex justify-between m-8'>
+            <div className="py-4 flex justify-between m-8">
                 <Filters results={results} query={query} />
-                <div className='grid grid-cols-5'>
-                    {
-                        resultsFilted.length < 1 ?
-                            <>{renderRes(results)}</> : <>{renderRes(resultsFilted)}</>
-                    }
+                <div className="grid grid-cols-5">
+                    {resultsFilted.length < 1 ? (
+                        <>{renderRes(results)}</>
+                    ) : (
+                        <>{renderRes(resultsFilted)}</>
+                    )}
                 </div>
             </div>
         </div>

@@ -1,0 +1,58 @@
+.newUser {
+    flex: 6;
+}
+
+.newUserTitle {
+    text-align: center;
+    font-weight: 600;
+    font-size: 40px;
+}
+
+.newUserForm {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    margin-left: 50px;
+}
+
+.newUserItem {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 20px;
+}
+
+.newUserItem > label {
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(54, 54, 54);
+}
+
+.newUserItem > input,
+.newUserItem > select {
+    height: 40px;
+    padding: 2px 10px;
+    border: 1px solid rgb(54, 54, 54);
+    border-radius: 10px;
+}
+
+.newUserIsAdm {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 18px;
+}
+
+.createNewUser {
+    margin-top: 20px;
+    width: 80px;
+    height: 60px;
+    border: none;
+    padding: 5px 10px;
+    background-color: rgb(250, 115, 61);
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    font-size: 18px;
+}
