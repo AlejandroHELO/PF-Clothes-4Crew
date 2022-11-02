@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { orderBy, search, getProductDetail, openDetail } from '../../redux/actions'
+import { orderBy, search, getProductDetail, getopenDetail } from '../../redux/actions'
 import { Link, useParams } from 'react-router-dom'
 import Card from '../Cards/Card'
 import Navbar from '../navbar/navbar'
@@ -33,7 +33,7 @@ export default function SearchResults() {
     const handleOnClick = (id, e) => {
         e.preventDefault()
         dispatch(getProductDetail(id))
-        dispatch(openDetail(id))
+        dispatch(getopenDetail(id))
     }
 
     useEffect(() => {

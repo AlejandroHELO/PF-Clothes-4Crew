@@ -3,7 +3,7 @@ import Card from "./Card";
 import { useDispatch, useSelector } from 'react-redux';
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { clearDetail, getProductDetail, openDetail } from '../../redux/actions';
+import { clearDetail, getProductDetail, getopenDetail } from '../../redux/actions';
 import ProductDetail from '../Product/productDetail';
 
 const Slider = (props) => {
@@ -13,9 +13,9 @@ const Slider = (props) => {
     console.log(props.cat)
     // className=" mx-8  px-2  shadow-md h-80"
 
-    const handleOnClick = (id) => {
+    const handleOnClickDetail = (id) => {
         dispatch(getProductDetail(id))
-        dispatch(openDetail(id))
+        dispatch(getopenDetail(id))
     }
 
 
@@ -34,7 +34,7 @@ const Slider = (props) => {
                                 {products.filter((p) => p.category[0].name === props.cat).map((e) => {
                                     return (
                                         <div>
-                                            <button className='transparent' onClick={() => handleOnClick(e._id)}>
+                                            <button key={e._id} className='transparent' onClick={() => handleOnClickDetail(e._id)}>
                                                 <div key={e._id}>
                                                     <Card
                                                         key={e._id}
@@ -47,7 +47,7 @@ const Slider = (props) => {
                                                 </div>
                                             </button>
                                             <ProductDetail
-                                                key={e._id}
+                                                key={e._id & e._id}
                                                 id={e._id}
                                                 name={e.name}
                                                 image={e.image}
