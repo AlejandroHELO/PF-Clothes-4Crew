@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRef } from 'react'
-import { useParams } from 'react-router-dom'
-import { clearDetail, getProductDetail } from '../../redux/actions'
-import Navbar from '../navbar/navbar'
+import { useParams } from 'react-router-dom';
+import { clearDetail, getProductDetail, getopenDetail } from '../../redux/actions';
+import Navbar from '../navbar/navbar';
 import { Fragment, useState } from 'react'
 import { Dialog, RadioGroup, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
@@ -52,6 +52,13 @@ function ProductDetail(product) {
         }
     }, [product, openDetail])
 
+    const handleOnClickClose = (e) => {
+        e.preventDefault()
+        setOpen(false)
+        dispatch(getopenDetail(''))
+    }
+
+
     console.log('En detail product', product.size)
     // ----------------------------------------------------------------
     //const product = {name: 'Basic Tee 6-Pack ',
@@ -84,7 +91,7 @@ function ProductDetail(product) {
 
     return product.name ? (
         <Transition.Root show={open} as={Fragment}>
-            <Dialog as="div" className="relative z-10" onClose={setOpen}>
+            <Dialog as="div" className="relative z-10" onClose={handleOnClickClose}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -113,7 +120,7 @@ function ProductDetail(product) {
                                     <button
                                         type="button"
                                         className="absolute top-4 right-4 text-gray-400 hover:text-gray-500 sm:top-8 sm:right-6 md:top-6 md:right-6 lg:top-8 lg:right-8"
-                                        onClick={() => setOpen(false)}
+                                        onClick={(e) => handleOnClickClose(e)}
                                     >
                                         <span className="sr-only">Close</span>
                                         <XMarkIcon
@@ -287,7 +294,7 @@ function ProductDetail(product) {
                                                                     (s) => (
                                                                         <RadioGroup.Option
                                                                             key={
-                                                                                s.size
+                                                                                s.size & product.id
                                                                             }
                                                                             value={
                                                                                 s
