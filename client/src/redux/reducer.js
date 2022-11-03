@@ -36,6 +36,7 @@ const initialState = {
     admins: [],
     messages: [],
     productsFiltered: [],
+    userLogged: {}
 }
 
 const reducer = (state = initialState, action) => {
