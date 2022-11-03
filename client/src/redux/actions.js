@@ -41,7 +41,7 @@ export function getProductDetail(id) {
     }
 }
 
-export function openDetail(id) {
+export function getopenDetail(id) {
     return { type: OPEN_DETAIL, payload: id }
 }
 
