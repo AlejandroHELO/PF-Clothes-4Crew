@@ -29,6 +29,12 @@ const userSchema = new Schema(
         image: {
             type: String,
         },
+        identificationtype:{
+            type: Number
+        },
+        identificationnumber:{
+            type: Number
+        },
         isAdmin: {
             type: Boolean,
         },

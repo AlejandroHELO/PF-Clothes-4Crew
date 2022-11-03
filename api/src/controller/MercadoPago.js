@@ -7,7 +7,7 @@ mercadopago.configure({
     access_token: process.env.ACCESS_TOKEN
 })
 const MercadoPago=async (req,res)=>{
-        const {id} =req.params
+        const {id,addressId} =req.query
         
         let user= await userModel.find({})
         user= user.filter(f=>f._id===id)
@@ -26,7 +26,8 @@ const MercadoPago=async (req,res)=>{
                         "unit_price": cart.price
                     }
                 })
-                const address = addressModel.findOne({userId:id})
+                const addres = addressModel.find({})
+                const address = addres.filter(f=>f._id===addressId)
                 if(address){
                     const body = {
                         "items":cart,
@@ -35,12 +36,12 @@ const MercadoPago=async (req,res)=>{
                             "surname": user.fullName,
                             "email": user.email,
                             "phone": {
-                                "area_code": "11",
+                                "area_code": address.codeNumber,
                                 "number":address.phoneNumber
                             },
                             "identification": {
-                                "type": "DNI",
-                                "number": "12345678"
+                                "type": user.identificationtype,
+                                "number": user.identificationnumber
                             },
                             "address": {
                                 "street_name": address.street,
