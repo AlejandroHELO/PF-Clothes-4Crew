@@ -2,7 +2,20 @@
 
 const { cartModel,userModel } = require("../models")
 
-
+const getcart= async(req,res)=>{
+    const{userId}=req.query;
+    const cart= await cartModel.find({})
+    if(userId){
+        const result=cart.filter(f=>f.userId===userId)
+        if(result){
+            res.status(200).json(result)
+        }else{
+            res.status(404).json({msj:'purchase no font'})
+        }
+    }else{
+        res.status(200).json(cart)
+    }
+}
 const CreateCart= async (id)=>{
     const cartif= await cartModel.findOne({userId:id})
     if(!cartif){
@@ -35,5 +48,6 @@ const UpdateCart= async(req,res)=>{
 }
 module.exports={
     CreateCart,
-    UpdateCart
+    UpdateCart,
+    getcart
 }

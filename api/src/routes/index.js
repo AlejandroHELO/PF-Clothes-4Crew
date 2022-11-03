@@ -3,7 +3,7 @@ const {
     MercadoPago 
 } = require('../controller/MercadoPago.js')
 const {
-     UpdateCart 
+     UpdateCart, getcart 
     } = require('../controller/cart.js')
 
 
@@ -31,6 +31,8 @@ const {
     updateUser,
     updateUserAdmin,
 } = require('../controller/Users.js')
+const { getPurchase, CreatePurchase } = require('../controller/Purchase.js')
+const { getAddress, CreateAddress, updateAddress } = require('../controller/Address.js')
 
 const router = Router()
 
@@ -39,7 +41,16 @@ router.get('/products', Products)
 router.get('/products/:id', ProductsID)
 router.post('/products', CreateProduct)
 router.put('/products/:id', UpdateProduct)
-router.post('/mercadopago/:id',MercadoPago)
+router.post('/mercadopago',MercadoPago)
+
+//---- Purchase routes ------
+router.get('/purchase',getPurchase)
+router.post('/purchase',CreatePurchase)
+
+//----- Address router ------
+router.get('/address',getAddress)
+router.post('/address',CreateAddress)
+router.put('/address',updateAddress)
 
 //---- Categories routes ------
 router.get('/category', allCategory)
@@ -52,6 +63,7 @@ router.post('/brand', CreateBrand)
 router.put('/brand', UpdateBrand)
 
 //--------  Cart-----------
+router.get('/cart',getcart)
 router.post('/cartupdate/:id',UpdateCart)
 
 //---- Users routes ------
