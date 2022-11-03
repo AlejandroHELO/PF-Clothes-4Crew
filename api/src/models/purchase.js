@@ -14,6 +14,9 @@ const purchaseSchema = new Schema(
         addresId: {
             type: String,
         },
+        time:{
+            type:Date
+        }
     },
     {
         timestamp: true,
