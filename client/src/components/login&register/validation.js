@@ -7,10 +7,10 @@ export function validate(input) {
     } 
     
     if(!input.password) {
-      errors.password = 'Escribe tu contraseña'}
-    // } else if((!/(?=.[a-z])(?=.[A-Z])(?=.[0-9])(?=.[!@#$%^&*])(?=.{8,})/.test(input.password))) {
-    //   errors.password ='La contraseña es invalida'
-    // } 
+      errors.password = 'Escribe tu contraseña'
+    } else if((!/(?=.[a-z])(?=.[A-Z])(?=.[0-9])(?=.[!@#$%^&*])(?=.{8,})/.test(input.password))) {
+      errors.password ='La contraseña es invalida'
+    } 
     
     return errors
   }

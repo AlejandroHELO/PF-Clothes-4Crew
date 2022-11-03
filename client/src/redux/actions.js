@@ -22,7 +22,7 @@ import {
     RESET_FILTERS,
     LOGIN
 } from './types'
-import { logInWithEmailandPassword, logOut, CreateuserwithEandP } from '../firebase/auth'
+
 // -------- Products ----------
 export function getProducts() {
     return async function (dispatch) {
@@ -160,47 +160,24 @@ export function getprofile(id) {
     }
 }
 
-export function LogInAction(data) {
-   return (dispatch) => {
-    try {
-        let userCredental = logInWithEmailandPassword(data)
-        return dispatch({
-            type: LOGIN,
-            payload: userCredental
-        })
-    } catch (error) {
-        throw new Error(error)
-    }
-   }
-}
-export function logOutAction() {
-    return async(dispatch) => {
-        try {
-            await logOut()
-            return dispatch({
-                type: LOGIN,
-                payload: {}
-            })
-        } catch (error) {
-            throw new Error(error.code)
-        }
-    } 
+export function LogInAction({email, password}) {
+    // try {
+    //     let user = await axios.post('/*TODO*/', {
+    //         email,
+    //         password
+    //     })
+    //     if(!user.data || user.data.length === 0 ) {
+    //         throw new Error('Usuario no encontrado')
+    //     } else {
+    //         return user.data
+    //     }
+    // } catch (error) {
+    //     throw new Error(error.message)
+    // }
+    console.log(`el email es ${email}, y la password es${password}`)
+    return ('success')
 }
 
-export function SignUpwithPasswwordAndEmail(data) {
-    return async(dispatch) =>{
-        try {
-            let  newUser = await CreateuserwithEandP(data)
-            dispatch({
-                type: LOGIN,
-                payload: newUser
-            })
-            
-        } catch (error) {
-         throw new Error(error)   
-        }
-    }
-}
 export function editUser(id, payload) {
     // Para que un User actualice su perfil
 }
