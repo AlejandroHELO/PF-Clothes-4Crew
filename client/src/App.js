@@ -1,35 +1,56 @@
-import React from 'react'
-import { useEffect } from 'react'
+import React,{ createContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 // import './App.css';
 import { getProducts } from './redux/actions'
-import ProductDetail from './components/Product/productDetail'
 import HomePage from './components/HomePage/HomePage'
 // import Footer from '';
 import Footer from './components/Footer/Footer.jsx'
 import AdminView from './components/Admin/AdminView'
 // import Loading from '';
 import HelpUsImprove from './components/HelpUsToImprove/HelpUsImprove'
-
 import SearchResults from './components/SearchResults/SearchResults'
 import Pago from './components/MercadoPago/MercadoPago'
+import Register from './components/login&register/register'
+import {auth} from './firebase/auth'
+import {onAuthStateChanged} from 'firebase/auth'
+import { LogInAction, logOutAction } from './redux/actions'
 
+
+export const userContext = createContext({
+    user: {}
+})
 
 function App() {
     const dispatch = useDispatch()
+    const userLogged = useSelector(state => state.userLogged)
+
+    
+    function authChanged(user) {
+        return onAuthStateChanged(auth, () => {
+            if(user.uid) {
+                dispatch(LogInAction(user))
+            }
+            else dispatch(logOutAction())
+        })
+    }
 
     useEffect(() => {
         dispatch(getProducts())
-        //document.body.classList.add('flex', 'justify-center', 'w-full', 'mb-20')
-    }, [])
+        console.log(userLogged)
+        return (
+            authChanged(userLogged)
+        )
+        
+    }, [userLogged])
 
     return (
-        //<AuthProvider>
+      
         <div className="App">
-            <Routes>
+           <userContext.Provider value={userLogged}> 
+           <Routes>
                 <Route exact path="/" element={<HomePage />} />
-                {/* <Route path='/productDetail/:productId' element={<ProductDetail />} /> */}
+               <Route path='/register' element={<Register />} />
                 <Route
                     path="/searchResults/:query/"
                     element={<SearchResults />}
@@ -44,8 +65,9 @@ function App() {
             </Routes>
             {/* <Pago id={'63615409b573f3a4a80dfc1f'}/> */}
             <Footer />
+           </userContext.Provider>
         </div>
-        //</AuthProvider>
+       
     )
 }
 
