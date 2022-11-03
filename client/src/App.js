@@ -1,13 +1,11 @@
 import React from 'react'
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { Routes, Route, Navigate } from 'react-router-dom'
 // import './App.css';
 import { getProducts } from './redux/actions'
-import ProductDetail from './components/Product/productDetail'
+// import ProductDetail from './components/Product/productDetail'
 import HomePage from './components/HomePage/HomePage'
-// import Footer from '';
-import Footer from './components/Footer/Footer.jsx'
 import AdminView from './components/Admin/AdminView'
 // import Loading from '';
 import HelpUsImprove from './components/HelpUsToImprove/HelpUsImprove'
@@ -36,10 +34,9 @@ function App() {
                     element={<SearchResults />}
                 />
                 <Route path="/helpusimprove" element={<HelpUsImprove />} />
-                <Route path="/adminview//*" element={<AdminView />} />
                 <Route path="*" element={<Navigate to="/home" />} />
+                <Route path="/adminview//*" element={<AdminView />} />
             </Routes>
-            <Footer />
         </div>
         //</AuthProvider>
     )
