@@ -1,69 +1,68 @@
 import React, { useState, useEffect} from 'react'
 import { Navigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-// import Clou from "../../ImageCloudinary/ImageCloudinary";
-import { DriveFolderUpload } from '@mui/icons-material'
+import Clou from '../../ImageCloudinary/ImageCloudinary'
 import st from './ProductEdit.module.css'
 import { updateProduct, getCategories, getBrands } from '../../../redux/actions'
 
-export default function ProductEdit(productInfo) {
-    console.log('HOLA SOY LAS PROPS: ', productInfo)
+export default function ProductEdit() {
+    // console.log('HOLA SOY LAS PROPS: ', productInfo)
     const dispatch = useDispatch() 
 
+    const productInfo = useSelector((state) => state.details);
     const categories = useSelector((state) => state.categories);
     const brands = useSelector((state) => state.brands);
 
     useEffect(() => {
-        if (!categories.length || !brands.length) {
-            dispatch(getCategories())
-            dispatch(getBrands())
-        }
-    },[categories, brands]);
+        dispatch(getCategories())
+        dispatch(getBrands())
+    },[]);
 
     let info = {}
 
-    productInfo.image?
+    if(productInfo.brand && productInfo.category && productInfo.size){
         info = {
         id: productInfo._id,
         name: productInfo.name,
-        brand: productInfo.brand,
-        category: productInfo.category,
+        brand: productInfo.brand.name,
+        category: productInfo.category[0].name,
         color: productInfo.color,
         genre: productInfo.genre,
         description: productInfo.description,
         price: productInfo.price,
         stock: productInfo.stock,
         size: productInfo.size,
+        sizeXS: productInfo.size[0].stock,
+        sizeS: productInfo.size[1].stock,
+        sizeM: productInfo.size[2].stock,
+        sizeL: productInfo.size[3].stock,
+        sizeXL: productInfo.size[4].stock,
         image: productInfo.image,
         active: productInfo.active,
         featured: productInfo.featured,
         }
-    : console.log('Algo esta pasando')
-    console.log('SOY LA INFOOO: ', info)
 
-    const [input, setInput] = useState({
-        name: info.name,
-        brand: info.brand,
-        category: info.category,
-        color: info.color,
-        genre: info.genre,
-        description: info.description,
-        price: info.price,
-        sizeXS: {size: "XS", stock: info.size[0].stock},
-        sizeS: {size: "S", stock: info.size[1].stock},
-        sizeM: {size: "M", stock: info.size[2].stock},
-        sizeL: {size: "L", stock: info.size[3].stock},
-        sizeXL: {size: "XL", stock: info.size[4].stock},
-        size: info.size,
-        stock: info.stock,
-        image: info.image,
-        active: info.active,
-        featured: info.featured,
-    })
+    } else console.log('Algo esta pasando')
+    // console.log('SOY LA INFOOO: ', info)
 
-    // console.log('SOY EL INPUT: ', input)
+    const [input, setInput] = useState({})
 
     const [nav, setNav] = useState(false)
+
+    useEffect(()=>{
+        productInfo.size?
+        setInput({    
+            ...productInfo,
+            sizeXS: {size: "XS", stock: productInfo.size[0].stock},
+            sizeS: {size: "S", stock: productInfo.size[1].stock},
+            sizeM: {size: "M", stock: productInfo.size[2].stock},
+            sizeL: {size: "L", stock: productInfo.size[3].stock},
+            sizeXL: {size: "XL", stock: productInfo.size[4].stock}
+        })
+        : console.log('Algo esta pasando en el useEffect')
+    }, [productInfo])
+
+    // console.log('SOY EL INPUT: ', input)
 
     const handleChange = (e) => {
         setInput({
@@ -139,6 +138,10 @@ export default function ProductEdit(productInfo) {
         //window.location.reload(true)
     }
 
+    const changePage = () => {
+        // setActualPage("details")
+    }
+
 
     return (
         <div className={st.productUpdate}>
@@ -163,7 +166,7 @@ export default function ProductEdit(productInfo) {
                         className={st.productUpdateInput}
                         onChange={(e) => handleChangeCategoryAndBrand(e)}
                         >
-                        <option hidden value=""> {info.brand.name} </option> 
+                        <option hidden value=""> {info.brand} </option> 
                         {brands && brands.map(brand => (
                             <option name={brand.name} value={brand.name} key={brand.name}>{brand.name}</option>  
                             )) 
@@ -178,7 +181,7 @@ export default function ProductEdit(productInfo) {
                         className={st.productUpdateInput}
                         onChange={(e) => handleChangeCategoryAndBrand(e)}
                         >
-                        <option hidden value=""> {info.category[0].name} </option>
+                        <option hidden value=""> {info.category} </option>
                         {categories && categories.map(cat => (
                             <option name={cat.name} value={cat.name} key={cat.name}>{cat.name}</option> 
                             )) 
@@ -242,7 +245,7 @@ export default function ProductEdit(productInfo) {
                         <input
                             type="number"
                             name="sizeXS"
-                            placeholder={info.size[0].stock}
+                            placeholder={info.sizeXS}
                             onChange={(e) => handleChangeSize(e)}
                             className={st.productUpdateInput}
                         />
@@ -250,7 +253,7 @@ export default function ProductEdit(productInfo) {
                         <input
                             type="number"
                             name="sizeS"
-                            placeholder={info.size[1].stock}
+                            placeholder={info.sizeS}
                             onChange={(e) => handleChangeSize(e)}
                             className={st.productUpdateInput}
                         />
@@ -258,7 +261,7 @@ export default function ProductEdit(productInfo) {
                         <input
                             type="number"
                             name="sizeM"
-                            placeholder={info.size[2].stock}
+                            placeholder={info.sizeM}
                             onChange={(e) => handleChangeSize(e)}
                             className={st.productUpdateInput}
                         />
@@ -266,7 +269,7 @@ export default function ProductEdit(productInfo) {
                         <input
                             type="number"
                             name="sizeL"
-                            placeholder={info.size[3].stock}
+                            placeholder={info.sizeL}
                             onChange={(e) => handleChangeSize(e)}
                             className={st.productUpdateInput}
                         />
@@ -274,7 +277,7 @@ export default function ProductEdit(productInfo) {
                         <input
                             type="number"
                             name="sizeXL"
-                            placeholder={info.size[4].stock}
+                            placeholder={info.sizeXL}
                             onChange={(e) => handleChangeSize(e)}
                             className={st.productUpdateInput}
                         />
@@ -325,13 +328,10 @@ export default function ProductEdit(productInfo) {
                                 alt="Product Img"
                             />
                             <label htmlFor="file">
-                                <DriveFolderUpload
-                                    className={st.productUpdateIcon}
-                                />
-                                {/* <Clou
-                                    seteditinput={setInput}
-                                    editinput={input}
-                                />  */}
+                                <Clou
+                                    setEditInput={setInput}
+                                    editInput={input}
+                                /> 
                             </label>
                             <input
                                 name="image"
@@ -350,9 +350,16 @@ export default function ProductEdit(productInfo) {
                     >
                         Update
                     </button>
+
+                    <button
+                        onClick={changePage}
+                        // className={st.productUpdateBotton}
+                    >
+                        Back
+                    </button>
                 </div>
             </form>
-            {nav ? <Navigate to={'/adminView/products'} /> : null}
+            {nav ? <Navigate to={'/adminView/product/'+ productInfo._id} /> : null}
         </div>
     )
 }

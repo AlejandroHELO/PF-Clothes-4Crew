@@ -92,7 +92,7 @@ const UpdateProduct = async (req, res) => {
         active,
         featured
     } = req.body
-    if ( !name || !description || !stock || !color || !size || !category || !image || !genre || !brand ||!price || !active || !featured) {
+    if ( !name || !description || !stock || !color || !size || !category || !image || !genre || !brand ||!price) {
         res.status(400).json({ msj: 'All fields are required' })
     } else {
         try {

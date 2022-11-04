@@ -62,7 +62,7 @@ export function createProduct(payload) {
 }
 
 export function updateProduct(id, payload) {
-    console.log('SOY EL ID: ', id, 'SOY EL PAYLOAD: ', payload)
+    // console.log('SOY EL ID: ', id, 'SOY EL PAYLOAD: ', payload)
     return async function (dispatch) {
         const json = await axios.put(`/products/${id}`, payload)
         return dispatch({ type: PRODUCT_UPDATE, payload: json.payload })

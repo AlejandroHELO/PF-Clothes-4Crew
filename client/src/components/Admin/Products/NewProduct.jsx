@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import st from './NewProduct.module.css'
-import { BrandingWatermarkRounded, DriveFolderUpload } from '@mui/icons-material'
 import { createProduct, getCategories, getBrands } from '../../../redux/actions'
+import Clou from '../../ImageCloudinary/ImageCloudinary'
 
 export default function NewProduct() {
     const dispatch = useDispatch()
@@ -36,7 +36,7 @@ export default function NewProduct() {
         sizeXL: {size: "XL", stock: 0},
         size: [],
         stock: 0,
-        image: '',
+        image: [],
         featured: false,
     })
 
@@ -123,9 +123,9 @@ export default function NewProduct() {
 
             dispatch(createProduct(input))
             console.log('SOY EL INPUT FINAL: ', input)
-            setNav(true)
+            // window.location.reload(true)
         }
-        // window.location.reload(true)
+        setNav(true)
     }
 
 
@@ -302,17 +302,16 @@ export default function NewProduct() {
                 <div className={st.newUserItem}>
                     <label>Image</label>
                     <div className={st.userUpdateUpload}>
-                        <img
-                            className={st.userUpdateImg}
+                        {/* <img
+                            className={st.productUpdateImg}
                             src={input.image}
-                            alt="Profile Pic"
-                        />
+                            alt="Product Img"
+                        /> */}
                         <label htmlFor="file">
-                            <DriveFolderUpload className={st.userUpdateIcon} />
-                            {/* <Clou
-                            seteditinput={setInput}
-                            editinput={input}
-                        />  */}
+                            <Clou
+                                setEditInput={setInput}
+                                editInput={input}
+                            /> 
                         </label>
                         <input
                             name="image"

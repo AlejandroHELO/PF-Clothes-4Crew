@@ -13,7 +13,7 @@ export default function ProductList() {
     }, [dispatch, getProducts])
 
     const allItems = useSelector((state) => state.products)
-    console.log('SOY TODOS LOS PRODUCTOS: ', allItems)
+    // console.log('SOY TODOS LOS PRODUCTOS: ', allItems)
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 92 },
@@ -40,7 +40,7 @@ export default function ProductList() {
                     <>
                         <Link
                             to={'/adminView/product/' + params.row.idProd}
-                            style={{ 'text-decoration': 'none' }}
+                            style={{ 'textDecoration': 'none' }}
                         >
                             <button className={st.productListEdit}>
                                 Detail
