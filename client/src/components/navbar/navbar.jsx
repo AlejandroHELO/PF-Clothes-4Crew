@@ -16,7 +16,7 @@ function Navbar() {
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
-        <nav className="w-full h-1/6 mt-2 p-2 bg-white shadow-md flex flex-col justify-around">
+        <nav className="w-full h-1/6 mt-2  bg-white shadow-md flex flex-col justify-around">
             {/* Botones */}
             <div className="flex justify-between">
                 {/* Lado izquierdo */}
