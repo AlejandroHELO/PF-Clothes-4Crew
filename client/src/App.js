@@ -15,6 +15,8 @@ import Register from './components/login&register/register'
 import {auth} from './firebase/auth'
 import {onAuthStateChanged} from 'firebase/auth'
 import { LogInAction, logOutAction } from './redux/actions'
+import Navbar from './components/navbar/navbar'
+
 
 
 export const userContext = createContext({
@@ -24,6 +26,7 @@ export const userContext = createContext({
 function App() {
     const dispatch = useDispatch()
     const userLogged = useSelector(state => state.userLogged)
+    const [open, setOpen] = React.useState(false)
 
     
     function authChanged(user) {
@@ -47,19 +50,20 @@ function App() {
 
     return (
       
-        <div className="App w-full">
+        
            <userContext.Provider value={userLogged}> 
+           {
+            userLogged.isAdmin? (
+                null
+            ): (
+                <Navbar />
+            )
+           }
            <Routes>
-                <Route exact path="/" element={<HomePage />} />
+                <Route path='/' element={<HomePage />} />
+                <Route path='/searchResults/:query' element={<SearchResults open={open} setOpen={setOpen}/>} />
+                <Route path="/searchResults/:query/:order" element={<SearchResults open={open} setOpen={setOpen} />} />
                <Route path='/register' element={<Register />} />
-                <Route
-                    path="/searchResults/:query/"
-                    element={<SearchResults />}
-                />
-                <Route
-                    path="/searchResults/:query/:order"
-                    element={<SearchResults />}
-                />
                 <Route path="/helpusimprove" element={<HelpUsImprove />} />
                 <Route path="/adminview//*" element={<AdminView />} />
                 <Route path="*" element={<Navigate to="/home" />} />
@@ -67,7 +71,7 @@ function App() {
             {/* <Pago id={'63615409b573f3a4a80dfc1f'}/> */}
             <Footer />
            </userContext.Provider>
-        </div>
+        
        
     )
 }

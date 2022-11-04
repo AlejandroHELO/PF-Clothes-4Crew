@@ -25,7 +25,7 @@ const Slider = (props) => {
     return (
         <div className='w-full justify-content-center'>
             <div className="flex flex-col justify-center w-full">
-                <h5 className="uppercase ml-24 px-4 justify-center">{props.cat}</h5>
+                <h5 className="uppercase ml-24 justify-center">{props.cat}</h5>
                 <div className=" mx-8 h-96 w-full">
                     {products.length !== 0 ? (
                         <div className="flex items-center justify-center w-full h-full">
@@ -39,7 +39,7 @@ const Slider = (props) => {
                             </button>
                             <div
                                 ref={slider}
-                                className="snap-x overflow-hidden scroll-smooth h-full flex items-center justify-start text-center"
+                                className="overflow-hidden scroll-smooth h-full flex items-center justify-start text-center"
                             >
                                 
                                 {products.filter((p) => p.category[0].name === props.cat).map((e, i) => {

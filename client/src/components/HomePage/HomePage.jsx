@@ -9,7 +9,6 @@ import Brands from '../Brands/Brands.jsx'
 export default function HomePage() {
     return (
         <div className=" w-full">
-            <Navbar />
             <HeroSlider />
             {/* <Outlet /> */}
             <Cards />
