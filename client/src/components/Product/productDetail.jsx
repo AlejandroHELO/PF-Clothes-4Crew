@@ -39,7 +39,7 @@ function ProductDetail(product) {
             product.size[2].size = 'M'
             product.size[3].size = 'L'
             product.size[4].size = 'XL'
-            product.size[5].size = 'XXL'
+           // product.size[5].size = 'XXL'
             product.size[0].stock = true
             product.size[1].stock = true
             product.size[2].stock = true

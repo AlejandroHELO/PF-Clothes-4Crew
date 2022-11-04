@@ -2,7 +2,7 @@ import { app } from "../config";
 import * as authFirebase from 'firebase/auth'
 
 export const auth = authFirebase.getAuth(app)
-authFirebase.connectAuthEmulator(auth, 'http://localhost/', 9099)
+authFirebase.connectAuthEmulator(auth, 'http://127.0.0.1:9099')
 
 export function logInWithEmailandPassword(data) {
     console.log(data)
@@ -40,6 +40,7 @@ export function anonimusUser() {
 export function CreateuserwithEandP(data) {
     authFirebase.createUserWithEmailAndPassword(auth, data.email, data.password)
     .then((result) => {
+        console.log(result.user)
         return result.user
     })
     .catch((error) => {
