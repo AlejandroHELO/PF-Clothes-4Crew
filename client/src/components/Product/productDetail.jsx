@@ -24,20 +24,7 @@ function ProductDetail(product) {
         product.size?.map((s) => {
             s.stock > 0 ? (s.stock = true) : (s.stock = false)
         })
-        if (product.size.length) {
-            product.size[0].size = 'XS'
-            product.size[1].size = 'S'
-            product.size[2].size = 'M'
-            product.size[3].size = 'L'
-            product.size[4].size = 'XL'
-            product.size[5].size = 'XXL'
-            product.size[0].stock = true
-            product.size[1].stock = true
-            product.size[2].stock = true
-            product.size[3].stock = true
-            product.size[4].stock = true
-            product.size[5].stock = true
-        }
+
         if (openDetail === product.id) {
             setOpen(true)
         }
