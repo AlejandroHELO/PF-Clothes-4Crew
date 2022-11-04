@@ -26,7 +26,7 @@ const Cards = () => {
     }, [products])
 
     return (
-        <div className="m-4">
+        <div className="m-4 w-full" style={{textAlign: 'center'}}>
             <h4 className="uppercase mx-4 px-4 italic">
                 LO MEJOR DE LA TEMPORADA PRIMAVERA/VERANO 2022
             </h4>

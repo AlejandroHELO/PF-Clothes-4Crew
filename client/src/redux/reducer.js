@@ -36,9 +36,11 @@ const initialState = {
     admins: [],
     messages: [],
     productsFiltered: [],
+    userLogged: {}
 }
 
 const reducer = (state = initialState, action) => {
+    console.log(state)
     switch (action.type) {
         case GET_PRODUCTS:
             return {
@@ -94,11 +96,13 @@ const reducer = (state = initialState, action) => {
                 ],
             }
 
+
         case GET_CATEGORIES:
             return {
                 ...state,
                 categories: action.payload,
             }
+
 
         case GET_BRANDS:
             return {
