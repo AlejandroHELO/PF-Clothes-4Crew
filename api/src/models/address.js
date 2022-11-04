@@ -4,6 +4,9 @@ const addressSchema = new Schema({
     street: {
         type: String
     },
+    codeNumber: {
+        type: Number
+    },
     phoneNumber: {
         type: Number
     },
