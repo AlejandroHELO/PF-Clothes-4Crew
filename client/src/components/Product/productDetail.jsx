@@ -24,6 +24,7 @@ function ProductDetail(product) {
         product.size?.map((s) => {
             s.stock > 0 ? (s.stock = true) : (s.stock = false)
         })
+
         if (openDetail === product.id) {
             setOpen(true)
         }
