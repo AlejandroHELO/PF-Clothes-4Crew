@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRef } from 'react'
 import { useParams } from 'react-router-dom';
-import { clearDetail, getProductDetail, getopenDetail } from '../../redux/actions';
+import { getProductDetail, getopenDetail } from '../../redux/actions';
 import Navbar from '../navbar/navbar';
 import { Fragment, useState } from 'react'
 import { Dialog, RadioGroup, Transition } from '@headlessui/react'
@@ -19,34 +19,12 @@ function ProductDetail(product) {
     const [selectedSize, setSelectedSize] = useState({ size: 'M', stock: true })
     const slider = useRef()
 
-    // React.useEffect(() => {
-    //     if (open === true) {
-    //         dispatch(getProductDetail(p.id));
-    //     }
-
-    //     return () => {
-    //         dispatch(clearDetail());
-    //     }
-    // }, [dispatch, p.id])
 
     React.useEffect(() => {
         product.size?.map((s) => {
-            s.stock > 1 ? (s.stock = true) : (s.stock = false)
+            s.stock > 0 ? (s.stock = true) : (s.stock = false)
         })
-        if (product.size.length) {
-            product.size[0].size = 'XS'
-            product.size[1].size = 'S'
-            product.size[2].size = 'M'
-            product.size[3].size = 'L'
-            product.size[4].size = 'XL'
-            product.size[5].size = 'XXL'
-            product.size[0].stock = true
-            product.size[1].stock = true
-            product.size[2].stock = true
-            product.size[3].stock = true
-            product.size[4].stock = true
-            product.size[5].stock = true
-        }
+
         if (openDetail === product.id) {
             setOpen(true)
         }
@@ -59,7 +37,7 @@ function ProductDetail(product) {
     }
 
 
-    console.log('En detail product', product.size)
+    // console.log('En detail product', product.size)
     // ----------------------------------------------------------------
     //const product = {name: 'Basic Tee 6-Pack ',
     //   price: '$192',////////////////////
