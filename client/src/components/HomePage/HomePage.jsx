@@ -8,7 +8,7 @@ import Brands from '../Brands/Brands.jsx'
 
 export default function HomePage() {
     return (
-        <div className=" max-w-screen-xl mb-20">
+        <div className=" w-full">
             <Navbar />
             <HeroSlider />
             {/* <Outlet /> */}
