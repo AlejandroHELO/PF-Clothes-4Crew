@@ -38,7 +38,7 @@ function Register() {
         e.preventDefault()
         try {
           dispatch(SignUpwithPasswwordAndEmail(input))
-          //navigate('/', ({force: true}))
+          navigate('/', ({force: true}))
         } catch (error) {
           console.log(error)
         }
