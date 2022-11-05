@@ -23,7 +23,7 @@ import {
     LOGIN
 } from './types'
 
-import { logInWithEmailandPassword, logOut, CreateuserwithEandP } from '../firebase/auth'
+
 // -------- Products ----------
 export function getProducts() {
     return async function (dispatch) {
@@ -164,10 +164,10 @@ export function getprofile(id) {
 export function LogInAction(data) {
     return (dispatch) => {
      try {
-         let userCredental = logInWithEmailandPassword(data)
+   
          return dispatch({
              type: LOGIN,
-             payload: userCredental
+             payload: "userCredental"
          })
      } catch (error) {
          throw new Error(error)
@@ -177,7 +177,7 @@ export function LogInAction(data) {
  export function logOutAction() {
      return async(dispatch) => {
          try {
-             await logOut()
+            
              return dispatch({
                  type: LOGIN,
                  payload: {}
@@ -191,11 +191,11 @@ export function LogInAction(data) {
  export function SignUpwithPasswwordAndEmail(data) {
      return async(dispatch) =>{
          try {
-             let  newUser = await CreateuserwithEandP(data)
-             console.log(newUser)
+          
+             
              dispatch({
                  type: LOGIN,
-                 payload: newUser
+                 payload: "newUser"
              })
  
          } catch (error) {

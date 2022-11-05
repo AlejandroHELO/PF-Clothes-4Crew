@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../navbar/navbar";
 import {useDispatch, useSelector} from 'react-redux'
-import { SignUpwithPasswwordAndEmail } from "../../redux/actions"
+
 import {useNavigate} from 'react-router-dom'
 
 
@@ -20,7 +20,7 @@ function Register() {
         zipCode:''
 
     })
-    const loggedUser = useSelector(state => state.loggedUser)
+    // const loggedUser = useSelector(state => state.loggedUser)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -31,18 +31,16 @@ function Register() {
             [e.target.name]: e.target.value
         })
     }
-    React.useEffect(() => {
-    
-    },[loggedUser])
+   
 
     function handleSubmit(e) {
         e.preventDefault()
-        try {
-          dispatch(SignUpwithPasswwordAndEmail(input))
-          navigate('/', ({force: true}))
-        } catch (error) {
-          console.log(error)
-        }
+        // try {
+        //   dispatch(SignUpwithPasswwordAndEmail(input))
+        //   navigate('/', ({force: true}))
+        // } catch (error) {
+        //   console.log(error)
+        // }
 
     }
     return(
