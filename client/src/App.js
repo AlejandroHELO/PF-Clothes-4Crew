@@ -41,7 +41,7 @@ function App() {
 
     return (
         <>
-
+            <Navbar/>
            <Routes>
                 <Route path='/' element={<HomePage />} />
                 <Route path='/searchResults/:query' element={<SearchResults open={open} setOpen={setOpen}/>} />
@@ -52,6 +52,7 @@ function App() {
                 <Route path="*" element={<Navigate to="/home" />} />
             </Routes>
             {/* <Pago id={'63615409b573f3a4a80dfc1f'}/> */} 
+            <Footer/>
         </>
        
     )
