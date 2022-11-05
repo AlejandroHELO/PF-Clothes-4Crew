@@ -29,14 +29,14 @@ export default function SideBar() {
                                 Home
                             </Link>
                         </li>
-                        <li className={st.sidebarListItem}>
+                        {/* <li className={st.sidebarListItem}>
                             <Timeline className={st.sidebarIcon} />
                             Analytics
                         </li>
                         <li className={st.sidebarListItem}>
                             <TrendingUp className={st.sidebarIcon} />
                             Sales
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
 
@@ -58,10 +58,10 @@ export default function SideBar() {
                                 Help us to improve
                             </Link>
                         </li>
-                        <li className={st.sidebarListItem}>
+                        {/* <li className={st.sidebarListItem}>
                             <MarkChatUnread className={st.sidebarIcon} />
                             Messages
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
 
@@ -96,7 +96,7 @@ export default function SideBar() {
                             </Link>
                         </li>
 
-                        <li className={st.sidebarListItem}>
+                        {/* <li className={st.sidebarListItem}>
                             <Link to="/adminView/sales" className={st.link}>
                                 <Storage className={st.sidebarIcon} />
                                 Sales history
@@ -111,7 +111,7 @@ export default function SideBar() {
                                 <EventAvailable className={st.sidebarIcon} />
                                 Categories
                             </Link>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
             </div>
