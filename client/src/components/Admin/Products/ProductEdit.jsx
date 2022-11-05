@@ -1,51 +1,143 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect} from 'react'
 import { Navigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-// import Clou from "../../ImageCloudinary/ImageCloudinary";
-import { DriveFolderUpload } from '@mui/icons-material'
+import { useDispatch, useSelector } from 'react-redux'
+import Clou from '../../ImageCloudinary/ImageCloudinary'
 import st from './ProductEdit.module.css'
-import { updateProduct } from '../../../redux/actions'
+import { updateProduct, getCategories, getBrands } from '../../../redux/actions'
 
-export default function ProductEdit(props) {
-    // console.log('HOLA SOY PROPS', props)
-    const dispatch = useDispatch()
+export default function ProductEdit({changePage,editMode}) {
+    // console.log('HOLA SOY LAS PROPS: ', props)
+    const dispatch = useDispatch() 
 
-    const [input, setInput] = useState({
-        id: props._id,
-        name: props.name,
-        brand: props.brand,
-        category: props.category,
-        color: props.color,
-        genre: props.genre,
-        description: props.description,
-        price: props.price,
-        stock: props.stock,
-        size: props.size,
-        image: props.image,
-        active: String(props.active),
-    })
+    const productInfo = useSelector((state) => state.details);
+    const categories = useSelector((state) => state.categories);
+    const brands = useSelector((state) => state.brands);
 
-    console.log('SOY EL INPUT: ', input)
+    useEffect(() => {
+        dispatch(getCategories())
+        dispatch(getBrands())
+    },[]);
+
+    let info = {}
+
+    if(productInfo.brand && productInfo.category && productInfo.size){
+        info = {
+        id: productInfo._id,
+        name: productInfo.name,
+        brand: productInfo.brand.name,
+        category: productInfo.category[0].name,
+        color: productInfo.color,
+        genre: productInfo.genre,
+        description: productInfo.description,
+        price: productInfo.price,
+        stock: productInfo.stock,
+        size: productInfo.size,
+        sizeXS: productInfo.size[0].stock,
+        sizeS: productInfo.size[1].stock,
+        sizeM: productInfo.size[2].stock,
+        sizeL: productInfo.size[3].stock,
+        sizeXL: productInfo.size[4].stock,
+        image: productInfo.image,
+        active: productInfo.active,
+        featured: productInfo.featured,
+        }
+
+    } else console.log('Algo esta pasando')
+    // console.log('SOY LA INFOOO: ', info)
+
+    const [input, setInput] = useState({})
+
+    const [nav, setNav] = useState(false)
+
+    useEffect(()=>{
+        productInfo.size?
+        setInput({    
+            ...productInfo,
+            sizeXS: {size: "XS", stock: productInfo.size[0].stock},
+            sizeS: {size: "S", stock: productInfo.size[1].stock},
+            sizeM: {size: "M", stock: productInfo.size[2].stock},
+            sizeL: {size: "L", stock: productInfo.size[3].stock},
+            sizeXL: {size: "XL", stock: productInfo.size[4].stock}
+        })
+        : console.log('Algo esta pasando en el useEffect')
+    }, [productInfo])
+
+    // console.log('SOY EL INPUT: ', input)
 
     const handleChange = (e) => {
-        e.preventDefault()
-        setInput((prev) => ({
-            ...prev,
+        setInput({
+            ...input,
             [e.target.name]: e.target.value,
-        }))
+        })
+    }
+
+    const handleChangeCategoryAndBrand = (e) => {
+        if (e.target.name === "brand"){
+            const objBrand = brands.filter((br) => br.name === e.target.value)
+            setInput({
+                ...input,
+                [e.target.name]: objBrand[0]
+            })
+        } else if (e.target.name === "category"){
+            const objCateg = categories.filter((cat) => cat.name === e.target.value)
+            setInput({
+                ...input,
+                [e.target.name]: objCateg
+            })
+        }
+    }
+
+    const handleChangeSize = (e) =>{
+
+        if (e.target.name === "sizeXS"){
+            setInput({
+                ...input,
+                sizeXS: {size: "XS", stock: Number(e.target.value)},
+                size: [{size: "XS", stock: Number(e.target.value)}, input.sizeS, input.sizeM, input.sizeL, input.sizeXL],
+                stock: Number(e.target.value) + input.sizeS.stock + input.sizeM.stock + input.sizeL.stock + input.sizeXL.stock
+            })
+        } else if (e.target.name === "sizeS") {
+            setInput({
+                ...input,
+                sizeS: {size: "S", stock: Number(e.target.value)},
+                size: [input.sizeXS, {size: "S", stock: Number(e.target.value)}, input.sizeM, input.sizeL, input.sizeXL],
+                stock: input.sizeXS.stock + Number(e.target.value) + input.sizeM.stock + input.sizeL.stock + input.sizeXL.stock
+            })
+        } else if (e.target.name === "sizeM") {
+            setInput({
+                ...input,
+                sizeM: {size: "M", stock: Number(e.target.value)},
+                size: [input.sizeXS, input.sizeS, {size: "M", stock: Number(e.target.value)}, input.sizeL, input.sizeXL],
+                stock: input.sizeXS.stock + input.sizeS.stock + Number(e.target.value) + input.sizeL.stock + input.sizeXL.stock
+            })
+        } else if (e.target.name === "sizeL") {
+            setInput({
+                ...input,
+                sizeL: {size: "L", stock: Number(e.target.value)},
+                size: [input.sizeXS, input.sizeS, input.sizeM, {size: "L", stock: Number(e.target.value)}, input.sizeXL],
+                stock: input.sizeXS.stock + input.sizeS.stock + input.sizeM.stock + Number(e.target.value) + input.sizeXL.stock
+            })
+        } else if (e.target.name === "sizeXL") {
+            setInput({
+                ...input,
+                sizeXL: {size: "XL", stock: Number(e.target.value)},
+                size: [input.sizeXS, input.sizeS, input.sizeM, input.sizeL, {size: "XL", stock: Number(e.target.value)}],
+                stock: input.sizeXS.stock + input.sizeS.stock + input.sizeM.stock + input.sizeL.stock + Number(e.target.value)
+            })
+        }
     }
 
     const handleUpdate = (e) => {
         e.preventDefault()
-        // console.log(e.target.name)
+
         if (e.target.name === 'update') {
-            dispatch(updateProduct(props.id, input))
-            //window.location.reload(true)
+            dispatch(updateProduct(info.id, input))
+            console.log('SOY EL INPUT FINAL: ', input)
             setNav(true)
         }
+        //window.location.reload(true)
     }
 
-    const [nav, setNav] = useState(false)
 
     return (
         <div className={st.productUpdate}>
@@ -57,37 +149,47 @@ export default function ProductEdit(props) {
                         <input
                             type="text"
                             name="name"
-                            placeholder={props.name}
+                            placeholder={info.name}
                             className={st.productUpdateInput}
                             onChange={(e) => handleChange(e)}
                         />
                     </div>
                     <div className={st.productUpdateItem}>
                         <label>Brand</label>
-                        <input
-                            type="email"
-                            name="brand"
-                            placeholder={props.brand}
-                            className={st.productUpdateInput}
-                            onChange={(e) => handleChange(e)}
-                        />
+                        <select
+                        name="brand"
+                        defaultValue=""
+                        className={st.productUpdateInput}
+                        onChange={(e) => handleChangeCategoryAndBrand(e)}
+                        >
+                        <option hidden value=""> {info.brand} </option> 
+                        {brands && brands.map(brand => (
+                            <option name={brand.name} value={brand.name} key={brand.name}>{brand.name}</option>  
+                            )) 
+                        }
+                        </select>
                     </div>
                     <div className={st.productUpdateItem}>
                         <label>Category</label>
-                        <input
-                            type="text"
-                            name="category"
-                            placeholder={props.category}
-                            className={st.productUpdateInput}
-                            onChange={(e) => handleChange(e)}
-                        />
+                        <select
+                        name="category"
+                        defaultValue=""
+                        className={st.productUpdateInput}
+                        onChange={(e) => handleChangeCategoryAndBrand(e)}
+                        >
+                        <option hidden value=""> {info.category} </option>
+                        {categories && categories.map(cat => (
+                            <option name={cat.name} value={cat.name} key={cat.name}>{cat.name}</option> 
+                            )) 
+                        }
+                        </select>
                     </div>
                     <div className={st.productUpdateItem}>
                         <label>Color</label>
                         <input
                             type="text"
                             name="color"
-                            placeholder={props.color}
+                            placeholder={info.color}
                             className={st.productUpdateInput}
                             onChange={(e) => handleChange(e)}
                         />
@@ -101,15 +203,15 @@ export default function ProductEdit(props) {
                             onChange={(e) => handleChange(e)}
                         >
                             <option hidden value="">
-                                Select a gender
+                                {info.genre}
                             </option>
-                            <option name="men" value="men">
-                                Male
+                            <option name="Mens" value="Mens">
+                                Mens
                             </option>
-                            <option name="women" value="women">
-                                Women
+                            <option name="Womens" value="Womens">
+                                Womens
                             </option>
-                            <option name="unisex" value="unisex">
+                            <option name="Unisex" value="Unisex">
                                 Unisex
                             </option>
                         </select>
@@ -119,7 +221,7 @@ export default function ProductEdit(props) {
                         <input
                             type="text"
                             name="description"
-                            placeholder="Insert a description"
+                            placeholder={info.description}
                             className={st.productUpdateInput}
                             onChange={(e) => handleChange(e)}
                         />
@@ -129,29 +231,51 @@ export default function ProductEdit(props) {
                         <input
                             type="number"
                             name="price"
-                            placeholder={props.price}
+                            placeholder={info.price}
                             className={st.productUpdateInput}
                             onChange={(e) => handleChange(e)}
                         />
                     </div>
                     <div className={st.productUpdateItem}>
-                        <label>Stock</label>
+                        <label>Stock Sizes XS</label>
                         <input
                             type="number"
-                            name="stock"
-                            placeholder={props.stock}
+                            name="sizeXS"
+                            placeholder={info.sizeXS}
+                            onChange={(e) => handleChangeSize(e)}
                             className={st.productUpdateInput}
-                            onChange={(e) => handleChange(e)}
                         />
-                    </div>
-                    <div className={st.productUpdateItem}>
-                        <label>Sizes</label>
+                        <label>Stock Sizes S</label>
                         <input
-                            type="text"
-                            name="size"
-                            placeholder="Sizes available"
+                            type="number"
+                            name="sizeS"
+                            placeholder={info.sizeS}
+                            onChange={(e) => handleChangeSize(e)}
                             className={st.productUpdateInput}
-                            onChange={(e) => handleChange(e)}
+                        />
+                        <label>Stock Sizes M</label>
+                        <input
+                            type="number"
+                            name="sizeM"
+                            placeholder={info.sizeM}
+                            onChange={(e) => handleChangeSize(e)}
+                            className={st.productUpdateInput}
+                        />
+                        <label>Stock Sizes L</label>
+                        <input
+                            type="number"
+                            name="sizeL"
+                            placeholder={info.sizeL}
+                            onChange={(e) => handleChangeSize(e)}
+                            className={st.productUpdateInput}
+                        />
+                        <label>Stock Sizes XL</label>
+                        <input
+                            type="number"
+                            name="sizeXL"
+                            placeholder={info.sizeXL}
+                            onChange={(e) => handleChangeSize(e)}
+                            className={st.productUpdateInput}
                         />
                     </div>
                     <div className={st.productUpdateItem}>
@@ -163,7 +287,7 @@ export default function ProductEdit(props) {
                             onChange={(e) => handleChange(e)}
                         >
                             <option hidden value="">
-                                Select a status
+                            {String(info.active)}
                             </option>
                             <option name="true" value="true">
                                 Active
@@ -174,20 +298,36 @@ export default function ProductEdit(props) {
                         </select>
                     </div>
                     <div className={st.productUpdateItem}>
+                        <label>Featured</label>
+                        <select
+                            name="featured"
+                            defaultValue=""
+                            className={st.productUpdateInput}
+                            onChange={(e) => handleChange(e)}
+                        >
+                            <option hidden value="">
+                                {String(info.featured)}
+                            </option>
+                            <option name="true" value="true">
+                                True
+                            </option>
+                            <option name="false" value="false">
+                                False
+                            </option>
+                        </select>
+                    </div>
+                    <div className={st.productUpdateItem}>
                         <div className={st.productUpdateUpload}>
                             <img
                                 className={st.productUpdateImg}
-                                src={props.image}
+                                src={info.image}
                                 alt="Product Img"
                             />
-                            <label for="file">
-                                <DriveFolderUpload
-                                    className={st.productUpdateIcon}
-                                />
-                                {/* <Clou
-                    seteditinput={setInput}
-                    editinput={input}
-                />  */}
+                            <label htmlFor="file">
+                                <Clou
+                                    setEditInput={setInput}
+                                    editInput={input}
+                                /> 
                             </label>
                             <input
                                 name="image"
@@ -206,9 +346,16 @@ export default function ProductEdit(props) {
                     >
                         Update
                     </button>
+
+                    <button
+                        onClick={changePage}
+                        // className={st.productUpdateBotton}
+                    >
+                        Back
+                    </button>
                 </div>
             </form>
-            {nav ? <Navigate to={'/adminView/products'} /> : null}
+            {nav ? <Navigate to={'/adminView/products/'} /> : null}
         </div>
     )
 }

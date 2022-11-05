@@ -35,6 +35,9 @@ const productSchema = new Schema(
         active: {
             type: Boolean,
         },
+        featured: {
+            type: Boolean
+        }
     },
     {
         timestamp: true,

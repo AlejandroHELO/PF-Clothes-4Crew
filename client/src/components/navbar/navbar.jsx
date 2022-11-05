@@ -1,13 +1,17 @@
+/*eslint-disable */
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getCategories } from '../../redux/actions'
 import { Link } from 'react-router-dom'
 import SearchBar from './searchbar'
 import { useAuth0 } from "@auth0/auth0-react";
+import Cart from "../Cart/Cart";
 
 function Navbar() {
     const dispatch = useDispatch()
+    const cart = useSelector(state => state.cart);
     const {loginWithPopup} = useAuth0()
+    const [openCart, setOpenCart] = React.useState(false)
 
     const categories = useSelector((state) => state.categories)
 
@@ -41,7 +45,7 @@ function Navbar() {
                         🖤
                     </button>
                     {/* Carrito */}
-                    <button className="rounded flex p-2 justify-center items-center">
+                    <button onClick={() => setOpenCart(true)} className="rounded flex p-2 justify-center items-center">
                         🛒
                     </button>
                     {/* Login */}
@@ -72,8 +76,16 @@ function Navbar() {
                     )
                 })}
             </div>
+
+            <Cart
+                open={openCart}
+                setOpen={setOpenCart}
+                products={cart}
+            />
+
         </nav>
     )
 }
 
 export default Navbar
+/*eslint-enable */
