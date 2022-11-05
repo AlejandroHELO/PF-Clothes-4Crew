@@ -6,6 +6,7 @@ import { LogInAction } from '../../redux/actions'
 import { useDispatch } from 'react-redux'
 import {Link} from 'react-router-dom'
 
+
 export default function LogIn({ open, setOpen }) {
     const cancelButtonRef = useRef(null)
     let dispatch = useDispatch()
@@ -62,6 +63,8 @@ export default function LogIn({ open, setOpen }) {
             }, 5000)
         }
     } 
+
+ 
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -214,8 +217,9 @@ export default function LogIn({ open, setOpen }) {
                 /> */}
                                                                         {/* <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
                   Remember me
-                </label> */}
-                                                                    </div>
+                </label> */}                
+                                                             
+                                                                </div>
 
                                                                     <div className="text-sm">
                                                                         <a

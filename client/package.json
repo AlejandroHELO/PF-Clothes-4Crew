@@ -3,6 +3,9 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+
+        "@auth0/auth0-react": "^1.12.0",
+
         "@emotion/react": "^11.10.4",
         "@emotion/styled": "^11.10.4",
         "@headlessui/react": "^1.7.3",
@@ -19,7 +22,7 @@
         "cloudinary-core": "^2.13.0",
         "cloudinary-react": "^1.8.1",
         "dotenv": "^16.0.2",
-        "firebase": "^9.10.0",
+
         "gapi-script": "^1.2.0",
         "mercadopago": "^1.5.14",
         "react": "^17.0.0",
@@ -62,15 +65,25 @@
             "last 1 safari version"
         ]
     },
+
     "react-dotenv": {
+
         "whitelist": [
+
             "FIREBASE_APIKEY",
+
             "AUTH_DOMAIN",
+
             "PROJECT_ID",
+
             "APP_ID",
+
             "MESSENGING_SEND"
+
         ]
+
     },
+
     "devDependencies": {
         "autoprefixer": "^10.4.13",
         "postcss": "^8.4.18",

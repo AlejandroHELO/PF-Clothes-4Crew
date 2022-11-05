@@ -43,11 +43,11 @@ const initialState = {
 }
 
 
-if (JSON.parse(localStorage.getItem('cart')).length !== 0) {
-    initialState.cart = JSON.parse(localStorage.getItem('cart'));
-} else {
-    initialState.cart = [{ key: 1, id: 1, name: "Don't products", image: 'https://img.freepik.com/vector-gratis/ups-error-404-ilustracion-concepto-robot-roto_114360-5529.jpg?w=2000', price: 0, brand: '' }];
-}
+// if (JSON.parse(localStorage.getItem('cart')).length !== 0) {
+//     initialState.cart = JSON.parse(localStorage.getItem('cart'));
+// } else {
+//     initialState.cart = [{ key: 1, id: 1, name: "Don't products", image: 'https://img.freepik.com/vector-gratis/ups-error-404-ilustracion-concepto-robot-roto_114360-5529.jpg?w=2000', price: 0, brand: '' }];
+// }
 
 const reducer = (state = initialState, action) => {
     console.log(state)
