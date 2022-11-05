@@ -88,7 +88,7 @@ export default function Cart({ open, setOpen, products }) {
                                 leaveFrom="translate-x-0"
                                 leaveTo="translate-x-full"
                             >
-                                <Dialog.Panel className="pointer-events-auto w-screen max-w-md">
+                                <Dialog.Panel className="pointer-events-auto w-screen max-w-2xl">
                                     <div className="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
                                         <div className="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
                                             <div className="flex items-start justify-between">
@@ -127,12 +127,18 @@ export default function Cart({ open, setOpen, products }) {
                                                                             </h3>
                                                                             <p className="ml-4">U$S&nbsp;{product.price}</p>
                                                                         </div>
-                                                                        {/* <p className="mt-1 text-sm text-gray-500">{product.color}</p> */}
+                                                                        <div className="flex flex-row justify-center text-base font-medium">
+                                                                            <p className="mt-1 text-sm text-gray-500">Color:&nbsp;{product.color}&nbsp;&nbsp;&nbsp;</p>
+                                                                            <p className="mt-1 text-sm text-gray-500">Size:&nbsp;{product.size.size}</p>
+                                                                        </div>
+
                                                                     </div>
+
                                                                     <div className="flex flex-1 items-end justify-between text-sm">
-                                                                        <p className="text-gray-500">Qty</p>
-                                                                        {/* ------------------------------- */}
+
+                                                                        {/* -------------PARA ELEGIR LA CANTIDAD de la talla elegida------------------ */}
                                                                         <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
+
                                                                             <div className="flex flex-1 justify-between sm:hidden">
                                                                                 <botton
 
@@ -187,8 +193,11 @@ export default function Cart({ open, setOpen, products }) {
                                                                                             <ChevronRightIcon className="h-5 w-5" aria-hidden="true" name="Mas" />
                                                                                         </botton>
                                                                                     </nav>
+                                                                                    <p className="mt-1 text-sm text-gray-500">disponibles&nbsp;{product.size.stock}</p>
                                                                                 </div>
+
                                                                             </div>
+
                                                                         </div>
 
                                                                         {/* ------------------------------------- */}
