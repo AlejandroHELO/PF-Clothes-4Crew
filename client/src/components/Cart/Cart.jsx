@@ -21,10 +21,14 @@ export default function Cart({ open, setOpen, products }) {
 
     React.useEffect(() => {
         console.log('products en cart', products)
+
+        // Cálculo del total
         products.map((p) => {
             tot = p.price + tot
         })
         setTotal(tot)
+        //comparo las cantidades guardadas en LocalStorage y las guardadas en la base de datos
+
     }, [products])
 
     const handleQtyClick = (e, product) => {
