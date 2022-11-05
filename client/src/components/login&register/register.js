@@ -5,6 +5,7 @@ import { SignUpwithPasswwordAndEmail } from "../../redux/actions"
 import {useNavigate} from 'react-router-dom'
 
 
+
 function Register() {
     const [input, setInput] = React.useState({
         displayName: '',
@@ -45,8 +46,8 @@ function Register() {
 
     }
     return(
-        <div className="w-full h-screen justify-content-center">
-            <Navbar />
+      <div className="w-full h-screen justify-content-center">
+     
         <div className="w-2/6 h-full flex float-left">
           <img src='/images/img/register.jpeg' alt='' className="h-full object-scale" />
         </div>

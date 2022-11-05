@@ -3,11 +3,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getCategories } from '../../redux/actions'
 import { Link } from 'react-router-dom'
 import SearchBar from './searchbar'
-import LogIn from '../login&register/login'
+import { useAuth0 } from "@auth0/auth0-react";
 
 function Navbar() {
     const dispatch = useDispatch()
-    const [open, setOpen] = React.useState(false)
+    const {loginWithPopup} = useAuth0()
 
     const categories = useSelector((state) => state.categories)
 
@@ -45,10 +45,10 @@ function Navbar() {
                         🛒
                     </button>
                     {/* Login */}
-                    <button onClick={() => setOpen(true) } className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                    <button onClick={loginWithPopup } className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
                         👤 Iniciar sesión
                     </button>
-                    <LogIn open={open} setOpen={setOpen} />
+                    
                 </div>
             </div>
             {/* Categorías */}

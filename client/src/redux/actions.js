@@ -192,6 +192,7 @@ export function LogInAction(data) {
      return async(dispatch) =>{
          try {
              let  newUser = await CreateuserwithEandP(data)
+             console.log(newUser)
              dispatch({
                  type: LOGIN,
                  payload: newUser
