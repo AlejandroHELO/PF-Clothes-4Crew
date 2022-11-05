@@ -20,7 +20,10 @@ import {
     OPEN_DETAIL,
     FILTER,
     RESET_FILTERS,
-    LOGIN
+    LOGIN,
+    VIEW_CART,
+    ADD_TO_CART,
+    DELETE_FROM_CART
 } from './types'
 
 import { logInWithEmailandPassword, logOut, CreateuserwithEandP } from '../firebase/auth'
@@ -161,45 +164,45 @@ export function getprofile(id) { // Visualizar perfil de un User
 
 export function LogInAction(data) {
     return (dispatch) => {
-     try {
-         let userCredental = logInWithEmailandPassword(data)
-         return dispatch({
-             type: LOGIN,
-             payload: userCredental
-         })
-     } catch (error) {
-         throw new Error(error)
-     }
+        try {
+            let userCredental = logInWithEmailandPassword(data)
+            return dispatch({
+                type: LOGIN,
+                payload: userCredental
+            })
+        } catch (error) {
+            throw new Error(error)
+        }
     }
- }
- export function logOutAction() {
-     return async(dispatch) => {
-         try {
-             await logOut()
-             return dispatch({
-                 type: LOGIN,
-                 payload: {}
-             })
-         } catch (error) {
-             throw new Error(error.code)
-         }
-     } 
- }
- 
- export function SignUpwithPasswwordAndEmail(data) {
-     return async(dispatch) =>{
-         try {
-             let  newUser = await CreateuserwithEandP(data)
-             dispatch({
-                 type: LOGIN,
-                 payload: newUser
-             })
- 
-         } catch (error) {
-          throw new Error(error)   
-         }
-     }
- }
+}
+export function logOutAction() {
+    return async (dispatch) => {
+        try {
+            await logOut()
+            return dispatch({
+                type: LOGIN,
+                payload: {}
+            })
+        } catch (error) {
+            throw new Error(error.code)
+        }
+    }
+}
+
+export function SignUpwithPasswwordAndEmail(data) {
+    return async (dispatch) => {
+        try {
+            let newUser = await CreateuserwithEandP(data)
+            dispatch({
+                type: LOGIN,
+                payload: newUser
+            })
+
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
+}
 
 export function editUser(id, payload) { // Para que un User actualice su perfil
 
@@ -249,3 +252,54 @@ export function createMessage(data) {
         })
     }
 }
+// ------- Cart --------
+
+export function getViewCart(viewCart) {
+    return {
+        type: VIEW_CART,
+        payload: viewCart,
+    }
+}
+
+export const addToCart = product => async dispatch => {
+    //si el carrito ya existe en el almacenamiento local, utilícelo; de lo contrario, configúrelo en una matriz vacía
+    const cart = localStorage.getItem('cart')
+        ? JSON.parse(localStorage.getItem('cart'))
+        : [];
+    console.log('product//////////////en actions addToCart///', product)
+    // comprobar si se duplica
+    const duplicates = cart.filter(cartItem => cartItem.id === product.id);
+    // si no hay duplicados, proceda
+    if (duplicates.length === 0) {
+        // preparar los datos del producto
+        const productToAdd = {
+            ...product,
+            count: 1,
+        };
+        // agregar datos del producto al carrito
+        cart.push(productToAdd);
+        // agregar carro al local storage
+        localStorage.setItem('cart', JSON.stringify(cart));
+        // agregar carro a redux
+        dispatch({
+            type: ADD_TO_CART,
+            payload: cart,
+        });
+    }
+};
+
+export const deleteFromCart = product => async dispatch => {
+    const cart = localStorage.getItem('cart')
+        ? JSON.parse(localStorage.getItem('cart'))
+        : [];
+
+
+    const updatedCart = cart.filter(cartItem => cartItem.id !== product.id);
+
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+
+    dispatch({
+        type: DELETE_FROM_CART,
+        payload: updatedCart,
+    });
+};

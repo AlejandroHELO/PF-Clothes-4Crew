@@ -17,7 +17,10 @@ import {
     OPEN_DETAIL,
     FILTER,
     RESET_FILTERS,
-    LOGIN
+    LOGIN,
+    VIEW_CART,
+    ADD_TO_CART,
+    DELETE_FROM_CART
 } from './types'
 
 const initialState = {
@@ -37,6 +40,13 @@ const initialState = {
     messages: [],
     productsFiltered: [],
     userLogged: {}
+}
+
+
+if (JSON.parse(localStorage.getItem('cart')).length !== 0) {
+    initialState.cart = JSON.parse(localStorage.getItem('cart'));
+} else {
+    initialState.cart = [{ key: 1, id: 1, name: "Don't products", image: 'https://img.freepik.com/vector-gratis/ups-error-404-ilustracion-concepto-robot-roto_114360-5529.jpg?w=2000', price: 0, brand: '' }];
 }
 
 const reducer = (state = initialState, action) => {
@@ -205,9 +215,31 @@ const reducer = (state = initialState, action) => {
                 searchResultsFiltered: [],
                 searchResults: state.searchResults,
             }
+
+        // ------- Cart --------
+
+        case VIEW_CART:
+            return ({
+                ...state,
+                viewCart: action.payload
+            })
+
+        case ADD_TO_CART:
+            return {
+                cart: [...action.payload],
+            };
+
+        case DELETE_FROM_CART:
+            return {
+                cart: [...action.payload],
+            };
+
+
         default:
             return state
     }
 }
+
+
 
 export default reducer
