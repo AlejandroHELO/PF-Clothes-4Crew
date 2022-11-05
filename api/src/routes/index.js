@@ -22,6 +22,9 @@ const {
     CreateProduct,
     ProductsID,
     UpdateProduct,
+    Reviews,
+    CreateReview,
+    UpdateReview,
 } = require('../controller/Products.js')
 const {
     allUsers,
@@ -38,10 +41,13 @@ const router = Router()
 
 //---- Products routes ------
 router.get('/products', Products)
+router.get('/products/reviews', Reviews)
 router.get('/products/:id', ProductsID)
 router.post('/products', CreateProduct)
 router.put('/products/:id', UpdateProduct)
 router.post('/mercadopago',MercadoPago)
+router.post('/products/reviews', CreateReview)
+router.put('/products/reviews', UpdateReview)
 
 //---- Purchase routes ------
 router.get('/purchase',getPurchase)

@@ -16,6 +16,7 @@ import {auth} from './firebase/auth'
 import {onAuthStateChanged} from 'firebase/auth'
 import { LogInAction, logOutAction } from './redux/actions'
 import Navbar from './components/navbar/navbar'
+import ProductReviews from './components/Product/ProductReviews'
 
 
 
@@ -67,6 +68,7 @@ function App() {
                 <Route path="/helpusimprove" element={<HelpUsImprove />} />
                 <Route path="/adminview//*" element={<AdminView />} />
                 <Route path="*" element={<Navigate to="/home" />} />
+                <Route path="/products/reviews" element={<ProductReviews/>}/>
             </Routes>
             {/* <Pago id={'63615409b573f3a4a80dfc1f'}/> */}
             <Footer />

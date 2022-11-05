@@ -1,0 +1,93 @@
+.Container {
+    /* color: black; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 3% auto;
+    justify-content: center;
+    background-color:salmon;
+    border-radius: 2rem;
+    width: 60%;
+    /* object-fit: cover; */
+}
+
+.title {
+    color: black;
+    margin: auto;
+    text-align: center;
+    /* display: flex;
+    justify-content: center; */
+    padding: 5% 10%;
+    font-size: 30px;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+.topInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.productInfo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.productInfo>h3{
+    margin-bottom: 5%;    
+}
+
+.productImg{
+    width: 220px;
+    border-radius: 50%;
+}
+
+.productDescription{
+    margin: 3% 10%;
+}
+
+.bottomInfo{
+    background-color:darkgoldenrod;
+    width: 100%;
+}
+
+.labels {
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    justify-content: center;
+    border-radius: 2rem;
+    width: 30%;
+}
+
+.propertiesBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.propertiesBox>p{
+    font-weight: 700;
+    margin-top: 10%;
+}
+
+.textarea {
+    padding: 5%;
+    border-radius: 1rem;
+    width: 400%;
+}
+
+.send {
+    display: flex;
+    align-items: center;
+    justify-content: column;
+    font-size: larger;
+    height: 100%;
+    cursor: pointer;
+}
+
+

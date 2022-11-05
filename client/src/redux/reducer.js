@@ -24,6 +24,7 @@ const initialState = {
     products: [],
     details: [],
     openDetail: '',
+    openReview: '',
     searchResults: [],
     searchResultsFiltered: [],
     currentOrder: '',

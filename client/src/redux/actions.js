@@ -18,6 +18,7 @@ import {
     POST_MESSAGE,
     ORDER_BY,
     OPEN_DETAIL,
+    CREATE_P_REVIEW,
     FILTER,
     RESET_FILTERS,
     LOGIN
@@ -66,6 +67,16 @@ export function updateProduct(payload) {
     return async function (dispatch) {
         const update = await axios.put(`/products`, payload)
         return dispatch({ type: PRODUCT_UPDATE, payload: update.payload })
+    }
+}
+
+export function createProductReview(payload){
+    return async function(dispatch){
+        let json = await axios.post('/products/reviews', payload)
+        return dispatch({
+            type: CREATE_P_REVIEW,
+            payload: json.data
+        })
     }
 }
 
