@@ -8,6 +8,7 @@ import Navbar from '../navbar/navbar'
 import Filters from './Filters'
 import ProductDetail from '../Product/productDetail'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
+import Footer from '../Footer/Footer'
 
 export default function SearchResults({ open, setOpen }) {
     const { query, order } = useParams()
@@ -91,7 +92,7 @@ export default function SearchResults({ open, setOpen }) {
             {/* ----------------------------- */}
 
 
-
+            {/* 
             <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
                 <div className="flex flex-1 justify-between sm:hidden">
                     <a
@@ -122,9 +123,10 @@ export default function SearchResults({ open, setOpen }) {
                             >
                                 <span className="sr-only">Previous</span>
                                 <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
-                            </a>
-                            {/* Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" */}
-                            <a
+                            </a> */}
+            {/* OJO ESTA LÍNEA ESTABA COMENTADA ANTES NO DESCOMENTAR */}
+            {/* Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" */}
+            {/* <a
                                 href="#"
                                 aria-current="page"
                                 className="relative z-10 inline-flex items-center border border-indigo-500 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 focus:z-20"
@@ -174,10 +176,11 @@ export default function SearchResults({ open, setOpen }) {
                         </nav>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
 
             {/* ------------------------------------ */}
+            <Footer />
         </div>
     )
 }
