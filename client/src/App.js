@@ -2,7 +2,7 @@ import React, { createContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 // import './App.css';
-import { getProducts } from './redux/actions'
+import { getProducts, getCart } from './redux/actions'
 import HomePage from './components/HomePage/HomePage'
 import AdminView from './components/Admin/AdminView'
 // import Loading from '';
@@ -33,6 +33,8 @@ function App() {
     // }, [user, dispatch]);
 
     useEffect(() => {
+
+        dispatch(getCart())
         dispatch(getProducts())
     }, [])
 
