@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { getprofile } from '../../../redux/actions'
 import st from './User.module.css'
 import UserEdit from './UserEdit.jsx'
@@ -19,34 +19,37 @@ import {
 export default function User() {
     const { userId } = useParams() //usar el mismo nombre de variable que en la ruta principal
     const dispatch = useDispatch()
-    let User = useSelector((state) => state.userDetail)
+    let userInfo = useSelector((state) => state.userDetail)
+    console.log('SOY EL USER: ', userInfo)
 
     useEffect(() => {
         dispatch(getprofile(userId))
-    }, [getprofile])
+    }, [])
 
     let props = {}
-    console.log('SOY EL USER: ', User)
-    User
-        ? (props = {
-              id: User.id,
-              fullName: User.fullName,
-              email: User.email,
-              birthDate: User.birthDate,
-              genre: User.genre,
-              country: User.country,
-              address: User.address,
-              tel: User.tel,
-              image: User.image,
-              isAdmin: String(User.isAdmin),
-              active: String(User.active),
-          })
-        : console.log('Algo esta pasando')
+
+    userInfo.id ? 
+        props = {
+            id: userInfo.id,
+            fullName: userInfo.fullName,
+            email: userInfo.email,
+            birthDate: userInfo.birthDate.slice(0, 10),
+            genre: userInfo.genre,
+            country: userInfo.country,
+            address: userInfo.address,
+            tel: userInfo.tel,
+            image: userInfo.image,
+            isAdmin: String(userInfo.isAdmin),
+            active: String(userInfo.active),
+        }
+    : console.log('Algo esta pasando')
+
+    console.log('SOY LAS PROPS: ', props)
 
     return (
         <div className={st.User}>
             <div className={st.userTitleContainer}>
-                <h1 className={st.userTitle}>Edit User</h1>
+                <h1 className={st.userTitle}>User Account</h1>
             </div>
 
             <div className={st.userContainer}>
@@ -129,7 +132,7 @@ export default function User() {
                 </div>
 
                 <div className={st.userUpdate}>
-                    <UserEdit {...props} />
+                    <UserEdit {...userInfo} />
                 </div>
             </div>
         </div>

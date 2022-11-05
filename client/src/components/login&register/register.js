@@ -3,6 +3,7 @@ import Navbar from "../navbar/navbar";
 import {useDispatch, useSelector} from 'react-redux'
 import { SignUpwithPasswwordAndEmail } from "../../redux/actions"
 import {useNavigate} from 'react-router-dom'
+import Footer from "../Footer/Footer";
 
 
 function Register() {
@@ -53,7 +54,7 @@ function Register() {
         <div className="flex justify-self-end w-4/6 h-screen content-center">
           <div className="mt-5 md:col-span-2 md:mt-0 w-full h-full ">
            <div className='w-full h-fit text-center'>
-           <h1>¡Bienvenido!</h1>
+           <h1>¡Welcome!</h1>
            </div>
             <form action="#" method="POST" onSubmit={(e) => handleSubmit(e)}>
               <div className="overflow-hidden shadow sm:rounded-md h-full">
@@ -209,6 +210,7 @@ function Register() {
             </form>
           </div>
         </div>
+        <Footer/>
       </div>
     )
 }

@@ -47,6 +47,8 @@ const CreateProduct = async (req, res) => {
         genre,
         brand,
         price,
+        featured,
+        active
     } = req.body
     if (!name || !description || !stock || !color || !genre || !price || !size || !image || !category || !brand) { 
 
@@ -90,11 +92,12 @@ const CreateProduct = async (req, res) => {
                 color,
                 size,
                 category,
-                active: true,
-                image,
+                image: image || "https://www.pngall.com/wp-content/uploads/2016/03/Clothes-Transparent.png",
                 genre,
                 brand,
                 price,
+                active: active || true,
+                featured: featured || false
             })
             const product = await newProduct.save()
             console.log(product)
@@ -115,51 +118,39 @@ const UpdateProduct = async (req, res) => {
         size,
         category,
         image,
-        active,
         genre,
         brand,
         price,
+        active,
+        featured
     } = req.body
-    if (
-        !name ||
-        !description ||
-        !stock ||
-        !color ||
-        !size ||
-        !category ||
-        !active ||
-        !genre ||
-        !image ||
-        !brand ||
-        !price
-    ) {
+    if ( !name || !description || !stock || !color || !size || !category || !image || !genre || !brand ||!price) {
         res.status(400).json({ msj: 'All fields are required' })
     } else {
         try {
-            await productModel
-                .findByIdAndUpdate(
-                    id,
-                    {
-                        name: name,
-                        description: description,
-                        stock: stock,
-                        color: color,
-                        size: size,
-                        category: category,
-                        image: image,
-                        genre: genre,
-                        brand: brand,
-                        price: price,
-                        active: active,
-                    },
-                    { new: true }
-                ) // este ultimo parámetro hace que nos devuelva el doc actualizado
-
-                .then(() => {
-                    res.status(200).json({
-                        msj: 'Product Successfully Updated',
-                    })
+            await productModel.findByIdAndUpdate( 
+                id,
+                {
+                    name: name,
+                    description: description,
+                    stock: stock,
+                    color: color,
+                    size: size,
+                    category: category,
+                    image: image,
+                    genre: genre,
+                    brand: brand,
+                    price: price,
+                    active: active,
+                    featured: featured
+                },
+                { new: true } // este ultimo parámetro hace que nos devuelva el doc actualizado
+            ) 
+            .then(() => {
+                res.status(200).json({
+                    msj: 'Product Successfully Updated',
                 })
+            })
         } catch (err) {
             console.log(err)
             res.status(400).json({ msj: 'the product does not exist' })
