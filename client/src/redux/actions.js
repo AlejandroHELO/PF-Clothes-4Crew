@@ -62,10 +62,11 @@ export function createProduct(payload) {
     }
 }
 
-export function updateProduct(payload) {
+export function updateProduct(id, payload) {
+    // console.log('SOY EL ID: ', id, 'SOY EL PAYLOAD: ', payload)
     return async function (dispatch) {
-        const update = await axios.put(`/products`, payload)
-        return dispatch({ type: PRODUCT_UPDATE, payload: update.payload })
+        const json = await axios.put(`/products/${id}`, payload)
+        return dispatch({ type: PRODUCT_UPDATE, payload: json.payload })
     }
 }
 
@@ -128,8 +129,7 @@ export function resetFilter(fil) {
 
 // ------- Users ---------
 
-export function getAdmins() {
-    // Obtener todos los Admins
+export function getAdmins() { // Obtener todos los Admins
     return async function (dispatch) {
         let json = await axios.get('/users/admins')
         return dispatch({
@@ -139,8 +139,7 @@ export function getAdmins() {
     }
 }
 
-export function getUsers() {
-    // Obtener todos los Users
+export function getUsers() { // Obtener todos los Users
     return async function (dispatch) {
         let json = await axios.get('/users')
         return dispatch({
@@ -150,8 +149,7 @@ export function getUsers() {
     }
 }
 
-export function getprofile(id) {
-    // Visualizar perfil de un User
+export function getprofile(id) { // Visualizar perfil de un User
     return async function (dispatch) {
         let json = await axios.get(`/users/${id}`)
         return dispatch({
@@ -203,12 +201,11 @@ export function LogInAction(data) {
      }
  }
 
-export function editUser(id, payload) {
-    // Para que un User actualice su perfil
+export function editUser(id, payload) { // Para que un User actualice su perfil
+
 }
 
-export function editUserAdmin(id, payload) {
-    // Para que un admin actualice el perfil de un User
+export function editUserAdmin(id, payload) { // Para que un admin actualice el perfil de un User
     return async function (dispatch) {
         let json = await axios.put(`/users/admin/${id}`, payload)
         return dispatch({
@@ -218,7 +215,7 @@ export function editUserAdmin(id, payload) {
     }
 }
 
-export function createUser(payload) {
+export function createUser(payload) { // Crear Usuario
     return async function (dispatch) {
         let json = await axios.post('/users/register', payload)
         return dispatch({

@@ -7,6 +7,7 @@ import Card from '../Cards/Card'
 import Navbar from '../navbar/navbar'
 import Filters from './Filters'
 import ProductDetail from '../Product/productDetail'
+import Footer from '../Footer/Footer'
 
 export default function SearchResults({open, setOpen}) {
     const { query, order } = useParams()
@@ -87,6 +88,7 @@ export default function SearchResults({open, setOpen}) {
                     )}
                 </div>
             </div>
+            <Footer />
         </div>
     )
 }
