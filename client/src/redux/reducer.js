@@ -20,7 +20,9 @@ import {
     LOGIN,
     VIEW_CART,
     ADD_TO_CART,
-    DELETE_FROM_CART
+    DELETE_FROM_CART,
+    CART_EMPTY,
+    GET_CART
 } from './types'
 
 const initialState = {
@@ -43,11 +45,6 @@ const initialState = {
 }
 
 
-if (JSON.parse(localStorage.getItem('cart')).length !== 0) {
-    initialState.cart = JSON.parse(localStorage.getItem('cart'));
-} else {
-    initialState.cart = [{ key: 1, id: 1, name: "Don't products", image: 'https://img.freepik.com/vector-gratis/ups-error-404-ilustracion-concepto-robot-roto_114360-5529.jpg?w=2000', price: 0, brand: '' }];
-}
 
 const reducer = (state = initialState, action) => {
     console.log(state)
@@ -226,14 +223,27 @@ const reducer = (state = initialState, action) => {
 
         case ADD_TO_CART:
             return {
+                ...state,
                 cart: [...action.payload],
             };
 
         case DELETE_FROM_CART:
             return {
+                ...state,
                 cart: [...action.payload],
             };
+        case CART_EMPTY:
+            return {
+                ...state,
+                cart: action.payload
 
+            }
+
+        case GET_CART:
+            return {
+                ...state,
+                cart: action.payload
+            }
 
         default:
             return state

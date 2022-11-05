@@ -20,7 +20,7 @@ const Cards = () => {
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     React.useEffect(() => {
-        let result = new Set(products.map((p) => p.category[0].name))
+        let result = new Set(products?.map((p) => p.category[0].name))
         let categ = [...result]
         setCategories(categ)
     }, [products])
@@ -30,10 +30,13 @@ const Cards = () => {
             <h4 className="uppercase mx-4 px-4 italic">
                 LO MEJOR DE LA TEMPORADA PRIMAVERA/VERANO 2022
             </h4>
-            {categories.map((c) => {
+            {categories?.map((c) => {
                 return (
                     <div key={c}>
-                        <Slider cat={c} />
+                        <Slider
+                            cat={c}
+                            products={products}
+                        />
                     </div>
                 )
             })}

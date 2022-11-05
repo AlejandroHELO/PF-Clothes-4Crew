@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRef } from 'react'
 import { useParams } from 'react-router-dom';
-import { getProductDetail, getopenDetail, addToCart } from '../../redux/actions';
+import { getProductDetail, getopenDetail, addToCart, getProducts } from '../../redux/actions';
 import Navbar from '../navbar/navbar';
 import { Fragment, useState } from 'react'
 import { Dialog, RadioGroup, Transition } from '@headlessui/react'
@@ -56,6 +56,7 @@ function ProductDetail(product) {
         setOpen(false)
         dispatch(getopenDetail(''))
         dispatch(addToCart(productAddCart));
+        dispatch(getProducts())
     }
 
     // console.log('En detail product', product.size)

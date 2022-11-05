@@ -1,8 +1,8 @@
-import React,{ createContext, useEffect } from 'react'
+import React, { createContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 // import './App.css';
-import { getProducts } from './redux/actions'
+import { getProducts, getCart } from './redux/actions'
 import HomePage from './components/HomePage/HomePage'
 import AdminView from './components/Admin/AdminView'
 // import Loading from '';
@@ -33,26 +33,28 @@ function App() {
     // }, [user, dispatch]);
 
     useEffect(() => {
-        dispatch(getProducts()) 
+
+        dispatch(getCart())
+        dispatch(getProducts())
     }, [])
 
 
     return (
         <>
-            <Navbar/>
-           <Routes>
+            <Navbar />
+            <Routes>
                 <Route path='/' element={<HomePage />} />
-                <Route path='/searchResults/:query' element={<SearchResults open={open} setOpen={setOpen}/>} />
+                <Route path='/searchResults/:query' element={<SearchResults open={open} setOpen={setOpen} />} />
                 <Route path="/searchResults/:query/:order" element={<SearchResults open={open} setOpen={setOpen} />} />
                 <Route path='/register' element={<Register />} />
                 <Route path="/helpusimprove" element={<HelpUsImprove />} />
                 <Route path="/adminview//*" element={<AdminView />} />
                 <Route path="*" element={<Navigate to="/home" />} />
             </Routes>
-            {/* <Pago id={'63615409b573f3a4a80dfc1f'}/> */} 
-            <Footer/>
+            {/* <Pago id={'63615409b573f3a4a80dfc1f'}/> */}
+            {/* <Footer/> */}
         </>
-       
+
     )
 }
 

@@ -23,7 +23,9 @@ import {
     LOGIN,
     VIEW_CART,
     ADD_TO_CART,
-    DELETE_FROM_CART
+    DELETE_FROM_CART,
+    CART_EMPTY,
+    GET_CART
 } from './types'
 
 
@@ -164,46 +166,46 @@ export function getprofile(id) { // Visualizar perfil de un User
 
 export function LogInAction(data) {
     return (dispatch) => {
-     try {
-   
-         return dispatch({
-             type: LOGIN,
-             payload: "userCredental"
-         })
-     } catch (error) {
-         throw new Error(error)
-     }
+        try {
+
+            return dispatch({
+                type: LOGIN,
+                payload: "userCredental"
+            })
+        } catch (error) {
+            throw new Error(error)
+        }
     }
- }
- export function logOutAction() {
-     return async(dispatch) => {
-         try {
-            
-             return dispatch({
-                 type: LOGIN,
-                 payload: {}
-             })
-         } catch (error) {
-             throw new Error(error.code)
-         }
-     } 
- }
- 
- export function SignUpwithPasswwordAndEmail(data) {
-     return async(dispatch) =>{
-         try {
-          
-             
-             dispatch({
-                 type: LOGIN,
-                 payload: "newUser"
-             })
- 
-         } catch (error) {
-          throw new Error(error)   
-         }
-     }
- }
+}
+export function logOutAction() {
+    return async (dispatch) => {
+        try {
+
+            return dispatch({
+                type: LOGIN,
+                payload: {}
+            })
+        } catch (error) {
+            throw new Error(error.code)
+        }
+    }
+}
+
+export function SignUpwithPasswwordAndEmail(data) {
+    return async (dispatch) => {
+        try {
+
+
+            dispatch({
+                type: LOGIN,
+                payload: "newUser"
+            })
+
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
+}
 
 export function editUser(id, payload) { // Para que un User actualice su perfil
 
@@ -304,3 +306,24 @@ export const deleteFromCart = product => async dispatch => {
         payload: updatedCart,
     });
 };
+
+export const cartEmpty = () => {
+    return {
+        type: CART_EMPTY,
+        payload: [{ key: 1, id: 1, name: "Don't products", image: 'https://img.freepik.com/vector-gratis/ups-error-404-ilustracion-concepto-robot-roto_114360-5529.jpg?w=2000', price: 0, brand: '' }]
+    }
+}
+
+export const getCart = () => {
+    let cart
+    if (JSON.parse(localStorage.getItem('cart')).length !== 0) {
+        cart = JSON.parse(localStorage.getItem('cart'));
+    } else {
+        cart = [{ key: 1, id: 1, name: "Don't products", image: 'https://img.freepik.com/vector-gratis/ups-error-404-ilustracion-concepto-robot-roto_114360-5529.jpg?w=2000', price: 0, brand: '' }];
+    }
+    return {
+        type: GET_CART,
+        payload: cart
+    }
+}
+
