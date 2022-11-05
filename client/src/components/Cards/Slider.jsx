@@ -8,23 +8,25 @@ import ProductDetail from '../Product/productDetail';
 
 const Slider = (props) => {
     const dispatch = useDispatch()
+    const [open, setOpen] =React.useState(false)
     const products = useSelector((state) =>
         state.productsFiltered.filter((p) => p.featured === true)
     ) //featured ->sólo los destacados
     const slider = useRef()
-    console.log(props.cat)
+   
     // className=" mx-8  px-2  shadow-md h-80"
 
-    const handleOnClickDetail = (id) => {
-        dispatch(getProductDetail(id))
-        dispatch(getopenDetail(id))
+    const handleOnClickDetail = async(id) => {
+        await dispatch(getProductDetail(id))
+        await dispatch(getopenDetail(id))
+        setOpen(true)
     }
 
     return (
-        <div>
-            <div className="flex flex-col justify-center">
-                <h5 className="uppercase ml-24 px-4">{props.cat}</h5>
-                <div className=" mx-8 h-96 max-w-7xl">
+        <div className='w-full justify-content-center'>
+            <div className="flex flex-col justify-center w-full">
+                <h5 className="uppercase ml-24 justify-center">{props.cat}</h5>
+                <div className=" mx-8 h-96 w-full">
                     {products.length !== 0 ? (
                         <div className="flex items-center justify-center w-full h-full">
                             <button
@@ -37,16 +39,16 @@ const Slider = (props) => {
                             </button>
                             <div
                                 ref={slider}
-                                className="snap-x overflow-scroll scroll-smooth h-full flex items-center justify-start text-center"
+                                className="overflow-hidden scroll-smooth h-full flex items-center justify-start text-center"
                             >
-                                {console.log(products)}
-                                {products.filter((p) => p.category[0].name === props.cat).map((e) => {
+                                
+                                {products.filter((p) => p.category[0].name === props.cat).map((e, i) => {
                                     return (
-                                        <div>
-                                            <button key={e._id} className='transparent' onClick={() => handleOnClickDetail(e._id)}>
-                                                <div key={e._id}>
+                                        <div key={i}>
+                                            <button  className='transparent' onClick={() => handleOnClickDetail(e._id)}>
+                                                <div >
                                                     <Card
-                                                        key={e._id}
+                                                       
                                                         id={e._id}
                                                         name={e.name}
                                                         image={e.image}
@@ -55,16 +57,14 @@ const Slider = (props) => {
                                                     />
                                                 </div>
                                             </button>
-                                            <ProductDetail
-                                                key={e._id & e._id}
-                                                id={e._id}
-                                                name={e.name}
-                                                image={e.image}
-                                                price={e.price}
-                                                brand={e.brand.name}
-                                                size={e.size}
-                                                description={e.description}
+                                            {
+                                                open && 
+                                                <ProductDetail
+                                                key={i}
+                                                open={open}
+                                                setOpen={setOpen}
                                             />
+                                            }
                                         </div>
 
                                     )

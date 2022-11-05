@@ -4,6 +4,7 @@ import { LockClosedIcon } from '@heroicons/react/20/solid'
 import { validate } from './validation'
 import { LogInAction } from '../../redux/actions'
 import { useDispatch } from 'react-redux'
+import {Link} from 'react-router-dom'
 
 export default function LogIn({ open, setOpen }) {
     const cancelButtonRef = useRef(null)
@@ -93,7 +94,7 @@ export default function LogIn({ open, setOpen }) {
                             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
-                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                            <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all m:my-8 m:w-fit m:max-w-lg m:h-fit">
                                 <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                                     <div className="sm:flex sm:items-start">
                                         <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
@@ -121,7 +122,7 @@ export default function LogIn({ open, setOpen }) {
                                                                 src="/images/clothes4crew.jpg"
                                                                 alt="Your Company"
                                                                 style={{
-                                                                    width: '400px',
+                                                                    width: '600px',
                                                                     height: '400px',
                                                                     objectFit:
                                                                         'cover',
@@ -139,7 +140,9 @@ export default function LogIn({ open, setOpen }) {
                                                                 Bienvenido de
                                                                 nuevo
                                                             </h2>
-
+                                                          <div className='flex justify-content-end w-full'>
+                                                          <Link to='/register'><p>Aún no tengo cuenta</p></Link>
+                                                          </div>
                                                             <form
                                                                 className="mt-8 space-y-6"
                                                                 action="#"

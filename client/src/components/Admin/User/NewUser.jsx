@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import st from './NewUser.module.css'
 import { useDispatch } from 'react-redux'
+import Clou from "../../ImageCloudinary/ImageCloudinary";
 import { DriveFolderUpload } from '@mui/icons-material'
 import { createUser } from '../../../redux/actions'
 
@@ -17,7 +18,7 @@ export default function NewUser() {
         country: '',
         address: '',
         tel: '',
-        isAdmin: '',
+        isAdmin: false,
         image: '',
     })
 
@@ -32,11 +33,11 @@ export default function NewUser() {
     }
 
     const handleCreate = (e) => {
-        // if (e.target.name === 'create'){
-        //     dispatch(createUser(input))
-        //     //window.location.reload(true)
-        //     setNav(true)
-        // }
+        if (e.target.name === 'create'){
+            dispatch(createUser(input))
+            //window.location.reload(true)
+            setNav(true)
+        }
     }
 
     return (
@@ -47,6 +48,7 @@ export default function NewUser() {
                     <label>Full Name</label>
                     <input
                         type="text"
+                        name="fullName"
                         placeholder="Name here"
                         onChange={(e) => handleChange(e)}
                     />
@@ -55,6 +57,7 @@ export default function NewUser() {
                     <label>Email</label>
                     <input
                         type={'email'}
+                        name="email"
                         placeholder="Email here"
                         onChange={(e) => handleChange(e)}
                     />
@@ -63,6 +66,7 @@ export default function NewUser() {
                     <label>Password</label>
                     <input
                         type={'password'}
+                        name="password"
                         placeholder="XXXXXXXXX"
                         onChange={(e) => handleChange(e)}
                     />
@@ -95,6 +99,7 @@ export default function NewUser() {
                     <label>Birthdate</label>
                     <input
                         type={'date'}
+                        name="birthDate"
                         placeholder="Name here"
                         onChange={(e) => handleChange(e)}
                     />
@@ -103,6 +108,7 @@ export default function NewUser() {
                     <label>Country</label>
                     <input
                         type="text"
+                        name="country"
                         placeholder="Ex: Canadá"
                         onChange={(e) => handleChange(e)}
                     />
@@ -111,6 +117,7 @@ export default function NewUser() {
                     <label>Address</label>
                     <input
                         type="text"
+                        name="address"
                         placeholder="Ex: St 55 #10-90"
                         onChange={(e) => handleChange(e)}
                     />
@@ -119,6 +126,7 @@ export default function NewUser() {
                     <label>Phone</label>
                     <input
                         type={'tel'}
+                        name="tel"
                         placeholder="Ex: 8887788"
                         onChange={(e) => handleChange(e)}
                     />
@@ -126,21 +134,21 @@ export default function NewUser() {
                 <div className={st.newUserItem}>
                     <label>Is an admin?</label>
                     <div className={st.newUserIsAdm}>
-                        <label for="true">True</label>
+                        <label>True</label>
                         <input
                             type={'radio'}
                             name="isAdmin"
                             id="true"
-                            value={'male'}
+                            value={true}
                             className={st.newUserRadius}
                             onChange={(e) => handleChange(e)}
                         />
-                        <label for="false">False</label>
+                        <label>False</label>
                         <input
                             type={'radio'}
                             name="isAdmin"
                             id="false"
-                            value={'false'}
+                            value={false}
                             className={st.newUserRadius}
                             onChange={(e) => handleChange(e)}
                         />
@@ -149,17 +157,17 @@ export default function NewUser() {
                 <div className={st.newUserItem}>
                     <label>Image</label>
                     <div className={st.userUpdateUpload}>
-                        <img
+                        {/* <img
                             className={st.userUpdateImg}
                             src=""
                             alt="Profile Pic"
-                        />
+                        /> */}
                         <label htmlFor="file">
-                            <DriveFolderUpload className={st.userUpdateIcon} />
-                            {/* <Clou
-                            seteditinput={setInput}
-                            editinput={input}
-                        />  */}
+                            {/* <DriveFolderUpload className={st.userUpdateIcon} /> */}
+                            <Clou
+                            setEditInput={setInput}
+                            editInput={input}
+                            /> 
                         </label>
                         <input
                             name="image"

@@ -25,7 +25,7 @@ export default function UserList() {
                 return (
                     <div className={st.userListUser}>
                         <img
-                            classname={st.userListPic}
+                            className={st.userListPic}
                             src={params.row.pic}
                             alt=""
                         />
@@ -50,9 +50,9 @@ export default function UserList() {
                     <>
                         <Link
                             to={'/adminView/user/' + params.row.idUser}
-                            style={{ 'text-decoration': 'none' }}
+                            style={{ 'textDecoration': 'none' }}
                         >
-                            <button className={st.userListEdit}>Edit</button>
+                            <button className={st.userListEdit}>Detail</button>
                         </Link>
                     </>
                 )

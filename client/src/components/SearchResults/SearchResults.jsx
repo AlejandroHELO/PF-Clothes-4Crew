@@ -7,8 +7,9 @@ import Card from '../Cards/Card'
 import Navbar from '../navbar/navbar'
 import Filters from './Filters'
 import ProductDetail from '../Product/productDetail'
+import Footer from '../Footer/Footer'
 
-export default function SearchResults() {
+export default function SearchResults({open, setOpen}) {
     const { query, order } = useParams()
     const dispatch = useDispatch()
     // const products = useSelector(state => state.products)
@@ -36,16 +37,21 @@ export default function SearchResults() {
     }
 
     useEffect(() => {
+        
         dispatch(search(query))
-    }, [query])
-    useEffect(() => {
-        dispatch(orderBy(order))
-    }, [currentOrder])
+        if(order) {
+            dispatch(orderBy(order))
+            console.log(order)
+        }
+        
+        console.log(query)
+    }, [query, order, resultsFilted])
+    
 
-    console.log({ results })
+    
 
     const renderRes = (resArray) => {
-        console.log(resArray)
+        
         return resArray.map((res) => {
             return (
                 <>
@@ -61,23 +67,17 @@ export default function SearchResults() {
                             brand={res.brand.name}
                         />
                     </button>
-                    <ProductDetail
-                        key={res._id}
-                        id={res._id}
-                        name={res.name}
-                        image={res.image}
-                        price={res.price}
-                        brand={res.brand.name}
-                        size={res.size}
-                        description={res.description}
-                    />
+                    {
+                        open && 
+                        <ProductDetail open={open} setOpen={setOpen} />
+                    }
                 </>
             )
         })
     }
     return (
         <div>
-            <Navbar />
+        
             <div className="py-4 flex justify-between m-8">
                 <Filters results={results} query={query} />
                 <div className="grid grid-cols-5">
@@ -88,6 +88,7 @@ export default function SearchResults() {
                     )}
                 </div>
             </div>
+            <Footer />
         </div>
     )
 }
