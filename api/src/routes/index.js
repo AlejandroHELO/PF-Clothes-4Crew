@@ -1,12 +1,9 @@
 const { Router } = require('express')
-const { 
-    MercadoPago 
-} = require('../controller/MercadoPago.js')
+
+const { MercadoPago} = require('../controller/MercadoPago.js')
 const {
-     UpdateCart, getcart 
-    } = require('../controller/cart.js')
-
-
+    UpdateCart, getcart 
+} = require('../controller/cart.js')
 const {
     allCategory,
     UpdateCategory,
@@ -31,7 +28,9 @@ const {
     updateUser,
     updateUserAdmin,
 } = require('../controller/Users.js')
+
 const { getPurchase, CreatePurchase } = require('../controller/Purchase.js')
+
 const { getAddress, CreateAddress, updateAddress } = require('../controller/Address.js')
 
 const router = Router()
