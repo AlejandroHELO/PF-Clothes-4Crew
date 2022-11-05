@@ -11,6 +11,9 @@ const scoreSchema = new Schema(
         comment: {
             type: String,
         },
+        productId: {
+            type: String
+        }
     },
     {
         timestamp: true,
