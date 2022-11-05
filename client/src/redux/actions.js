@@ -316,8 +316,11 @@ export const cartEmpty = () => {
 
 export const getCart = () => {
     let cart
-    if (JSON.parse(localStorage.getItem('cart')).length !== 0) {
-        cart = JSON.parse(localStorage.getItem('cart'));
+    if (JSON.parse(localStorage.getItem('cart'))) {
+        if (JSON.parse(localStorage.getItem('cart')).length !== 0) {
+            cart = JSON.parse(localStorage.getItem('cart'));
+        }
+
     } else {
         cart = [{ key: 1, id: 1, name: "Don't products", image: 'https://img.freepik.com/vector-gratis/ups-error-404-ilustracion-concepto-robot-roto_114360-5529.jpg?w=2000', price: 0, brand: '' }];
     }
