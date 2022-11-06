@@ -8,28 +8,6 @@ import ProductDetail from '../Product/productDetail';
 
 const Slider = ({ cat, products }) => {
     const dispatch = useDispatch()
-// <<<<<<< HEAD
-//     const [open, setOpen] =React.useState(false)
-//     const products = useSelector((state) =>
-//         state.productsFiltered.filter((p) => p.featured === true)
-//     ) //featured ->sólo los destacados
-//     const slider = useRef()
-   
-//     // className=" mx-8  px-2  shadow-md h-80"
-
-//     const handleOnClickDetail = async(id) => {
-//         await dispatch(getProductDetail(id))
-//         await dispatch(getopenDetail(id))
-//         setOpen(true)
-//     }
-
-//     return (
-//         <div className='w-full justify-content-center'>
-//             <div className="flex flex-col justify-center w-full">
-//                 <h5 className="uppercase ml-24 justify-center">{props.cat}</h5>
-//                 <div className=" mx-8 h-96 w-full">
-//                     {products.length !== 0 ? (
-// =======
     // const products = useSelector((state) => state.products.filter((p) => p.featured === true)) //featured ->sólo los destacados
     const slider = useRef()
     console.log(cat)
@@ -43,7 +21,6 @@ const Slider = ({ cat, products }) => {
                 <h5 className="uppercase ml-24 px-4">{cat}</h5>
                 <div className=" mx-8 h-96 max-w-7xl">
                     {products?.length !== 0 ? (
-
                         <div className="flex items-center justify-center w-full h-full">
                             <button
                                 className="h-10 w-10 mx-8"
@@ -53,7 +30,7 @@ const Slider = ({ cat, products }) => {
                             </button>
                             <div
                                 ref={slider}
-                                className="overflow-hidden scroll-smooth h-full flex items-center justify-start text-center"
+                                className="snap-x overflow-scroll scroll-smooth h-full flex items-center justify-start text-center"
                             >
 
                                 {products?.filter((p) => p.category[0].name === cat).map((e) => {
@@ -84,12 +61,11 @@ const Slider = ({ cat, products }) => {
                                                 color={e.color}
                                                 size={e.size}
                                                 description={e.description}
-
                                             />
                                         </div>
-                                         )
-                                        }           
-                                        )}
+
+                                    )
+                                })}
                             </div>
                             <button
                                 className="h-10 w-10 mx-8"

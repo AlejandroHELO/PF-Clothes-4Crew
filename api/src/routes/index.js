@@ -32,7 +32,7 @@ const router = Router()
 //---- Products routes ------
 router.use('/products', productsRouter)
 
-router.post('/mercadopago',MercadoPago)
+router.post('/mercadopago/:id/:addressId',MercadoPago)
 
 //---- Purchase routes ------
 router.use('/purchase', purchaseRouter)

@@ -13,6 +13,8 @@ const userRouter = Router()
 userRouter.route('/')
 .get(allUsers)
 
+userRouter.route('/:id')
+.get(userProfile)
 userRouter.route('/register')
 .post(createUser)
 

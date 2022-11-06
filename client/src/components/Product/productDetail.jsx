@@ -10,42 +10,9 @@ import { Dialog, RadioGroup, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { StarIcon } from '@heroicons/react/20/solid'
 
-// <<<<<<< HEAD
-// function ProductDetail({open, setOpen}) {
-//     const dispatch = useDispatch()
-//     // const { productId } = useParams();
-//     const openDetail = useSelector((state) => state.details)
-   
-   
-//     // const [selectedColor, setSelectedColor] = useState(openDetail.colors[0])
-//     const [selectedSize, setSelectedSize] = useState({ size: 'M', stock: true })
-//     const slider = useRef()
-
-
-//     React.useEffect(() => {
-       
-//         openDetail.size?.map((s) => {
-//             s.stock > 0 ? (s.stock = true) : (s.stock = false)
-//         })
-//         if (openDetail.size.length) {
-//             openDetail.size[0].size = 'XS'
-//             openDetail.size[1].size = 'S'
-//             openDetail.size[2].size = 'M'
-//             openDetail.size[3].size = 'L'
-//             openDetail.size[4].size = 'XL'
-//             // openDetail.size[5].size = 'XXL'
-//             openDetail.size[0].stock = true
-//             openDetail.size[1].stock = true
-//             openDetail.size[2].stock = true
-//             openDetail.size[3].stock = true
-//             openDetail.size[4].stock = true
-//             // openDetail.size[5].stock = true
-//         }
-//         console.log(openDetail)
-//     }, [openDetail])
-// =======
 
 function ProductDetail(product) {
+    console.log(product)
     const dispatch = useDispatch()
     // const { productId } = useParams();
     // const product = useSelector((state) => state.details)
@@ -64,6 +31,7 @@ function ProductDetail(product) {
 
         if (openDetail === product.id) {
             setOpen(true)
+            console.log(open)
         }
     }, [product, openDetail])
 
@@ -73,6 +41,8 @@ function ProductDetail(product) {
 
     const handleOnClickClose = (e) => {
         e.preventDefault()
+        product.setOpen?
+        product.setOpen(false):
         setOpen(false)
         dispatch(getopenDetail(''))
     }
@@ -93,16 +63,14 @@ function ProductDetail(product) {
         dispatch(getProducts())
     }
 
-
-    // console.log('En detail openDetail', openDetail.size)
     // console.log('En detail product', product.size)
     // ----------------------------------------------------------------
-    //const openDetail = {name: 'Basic Tee 6-Pack ',
+    //const product = {name: 'Basic Tee 6-Pack ',
     //   price: '$192',////////////////////
     //   rating: 3.9,/////////////////
     //   reviewCount: 117,//////////////////////
     //   href: '#',  NO ESTÁ???????----------------------
-    //   imageSrc: 'https://tailwindui.com/img/ecommerce-images/openDetail-quick-preview-02-detail.jpg',///////
+    //   imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-quick-preview-02-detail.jpg',///////
     //   imageAlt: 'Two each of gray, white, and black shirts arranged on table.',///////
     //   colors: [    ARREGLAR QUE SE VEA UNO SOLO--------------------------------
     //     { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
@@ -125,9 +93,9 @@ function ProductDetail(product) {
         return classes.filter(Boolean).join(' ')
     }
 
-    return (
-        <Transition.Root show={open} as={Fragment}>
-            <Dialog as="div" className="relative z-10" onClose={() => setOpen(false)}>
+    return product.name ? (
+        <Transition.Root show={product.opne?product.opne:open} as={Fragment}>
+            <Dialog as="div" className="relative z-10" onClose={handleOnClickClose}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -137,7 +105,7 @@ function ProductDetail(product) {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="fixed inset-0 hidden bg-gray-500 bg-opacity-25 transition-opacity md:block" />
+                    <div className="fixed inset-0 hidden bg-gray-500 bg-opacity-75 transition-opacity md:block" />
                 </Transition.Child>
 
                 <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -168,7 +136,7 @@ function ProductDetail(product) {
                                     <div className="grid w-full grid-cols-1 items-start gap-y-8 gap-x-6 sm:grid-cols-12 lg:gap-x-8">
                                         <div className="aspect-w-2 aspect-h-3 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5">
                                             {/* poner carrusel con mapeo de imagenes */}
-                                            {/* <img src={openDetail.image[0]} alt='imagen producto' className="object-scale-down object-center" /> */}
+                                            {/* <img src={product.image[0]} alt='imagen producto' className="object-scale-down object-center" /> */}
                                             <div className="flex items-center justify-center w-full h-full">
                                                 <button
                                                     className="h-3 w-3"
@@ -185,10 +153,9 @@ function ProductDetail(product) {
                                                     ref={slider}
                                                     className="snap-x overflow-scroll scroll-smooth h-full flex items-center justify-start text-center"
                                                 >
-                                                    {openDetail.image?.map((e, i) => {
+                                                    {product.image?.map((e) => {
                                                         return (
                                                             <img
-                                                                key={i}
                                                                 src={e}
                                                                 alt="imagen producto"
                                                                 className="object-scale-down object-center"
@@ -211,10 +178,10 @@ function ProductDetail(product) {
                                         </div>
                                         <div className="sm:col-span-8 lg:col-span-7">
                                             <h2 className="text-2xl font-bold text-gray-900 sm:pr-12">
-                                                {openDetail.name}
+                                                {product.name}
                                             </h2>
                                             <p className="text-sm text-gray-900 sm:pr-12">
-                                                {openDetail.description}
+                                                {product.description}
                                             </p>
                                             <section
                                                 aria-labelledby="information-heading"
@@ -224,11 +191,11 @@ function ProductDetail(product) {
                                                     id="information-heading"
                                                     className="sr-only"
                                                 >
-                                                    openDetail information
+                                                    Product information
                                                 </h3>
 
                                                 <p className="text-2xl text-gray-900">
-                                                    U$S {openDetail.price}
+                                                    U$S {product.price}
                                                 </p>
 
                                                 {/* Reviews */}
@@ -240,16 +207,16 @@ function ProductDetail(product) {
                                                                             <StarIcon
                                                                                 key={rating}
                                                                                 className={classNames(
-                                                                                    openDetail.rating > rating ? 'text-gray-900' : 'text-gray-200',
+                                                                                    product.rating > rating ? 'text-gray-900' : 'text-gray-200',
                                                                                     'h-5 w-5 flex-shrink-0'
                                                                                 )}
                                                                                 aria-hidden="true"
                                                                             />
                                                                         ))}
                                                                     </div>
-                                                                    <p className="sr-only">{openDetail.rating} out of 5 stars</p>
+                                                                    <p className="sr-only">{product.rating} out of 5 stars</p>
                                                                     <a href="#" className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                                                                        {openDetail.reviewCount} reviews
+                                                                        {product.reviewCount} reviews
                                                                     </a>
                                                                 </div>
                                                             </div> */}
@@ -263,18 +230,17 @@ function ProductDetail(product) {
                                                     id="options-heading"
                                                     className="sr-only"
                                                 >
-                                                    openDetail options
+                                                    Product options
                                                 </h3>
 
                                                 <form>
                                                     {/* Colors */}
                                                     {/* <div>
                                                                     <h4 className="text-sm font-medium text-gray-900">Color</h4>
-
                                                                     <RadioGroup value={selectedColor} onChange={setSelectedColor} className="mt-4">
                                                                         <RadioGroup.Label className="sr-only"> Choose a color </RadioGroup.Label>
                                                                         <span className="flex items-center space-x-3">
-                                                                            {openDetail.colors.map((color) => (
+                                                                            {product.colors.map((color) => (
                                                                                 <RadioGroup.Option
                                                                                     key={color.name}
                                                                                     value={color}
@@ -325,15 +291,13 @@ function ProductDetail(product) {
                                                                 Choose a size{' '}
                                                             </RadioGroup.Label>
                                                             <div className="grid grid-cols-4 gap-4">
-                                                                {openDetail.size?.map(
-                                                                    (s, i) => (
+                                                                {product.size?.map(
+                                                                    (s) => (
                                                                         <RadioGroup.Option
-
                                                                             key={s.size}
                                                                             value={s}
                                                                             disabled={!s.stock}
                                                                             className={({ active, }) =>
-
                                                                                 classNames(
                                                                                     s.stock
                                                                                         ? 'bg-white shadow-sm text-gray-900 cursor-pointer'
@@ -408,7 +372,9 @@ function ProductDetail(product) {
                 </div>
             </Dialog>
         </Transition.Root>
-    ) 
+    ) : (
+        console.log('no hay nada')
+    )
 }
 
 export default ProductDetail

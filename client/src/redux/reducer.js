@@ -22,7 +22,10 @@ import {
     ADD_TO_CART,
     DELETE_FROM_CART,
     CART_EMPTY,
-    GET_CART
+    GET_CART,
+    GET_USERSADDRESS,
+    POST_ADDRESS,
+    GET_CARTDB
 } from './types'
 
 const initialState = {
@@ -41,7 +44,9 @@ const initialState = {
     admins: [],
     messages: [],
     productsFiltered: [],
-    userLogged: {}
+    userLogged: {},
+    address:'',
+    cartDb:''
 }
 
 
@@ -244,7 +249,21 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 cart: action.payload
             }
-
+        case GET_USERSADDRESS:
+            return{
+                ...state,
+                address:action.payload
+            }
+        case POST_ADDRESS:
+            console.log(action.payload)
+                return{
+                    ...state,
+                }        
+        case GET_CARTDB:
+                return{
+                    ...state,
+                    cartDb:action.payload
+                }
         default:
             return state
     }

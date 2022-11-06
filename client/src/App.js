@@ -1,61 +1,63 @@
-import React, { createContext } from 'react'
-import { useEffect } from 'react'
+import React, { createContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 // import './App.css';
-import { getProducts,getCart } from './redux/actions'
-import ProductDetail from './components/Product/productDetail'
+import { getProducts, getCart } from './redux/actions'
 import HomePage from './components/HomePage/HomePage'
-// import Footer from '';
-import Footer from './components/Footer/Footer.jsx'
 import AdminView from './components/Admin/AdminView'
 // import Loading from '';
 import HelpUsImprove from './components/HelpUsToImprove/HelpUsImprove'
-
 import SearchResults from './components/SearchResults/SearchResults'
 import Pago from './components/MercadoPago/MercadoPago'
+import Register from './components/login&register/register'
 import Navbar from './components/navbar/navbar'
+import { useAuth0 } from "@auth0/auth0-react";
+import Checkout from './components/Checkout/Checkout'
 
 
-export const userContext = createContext({
-    user: {}
-})
 
 function App() {
     const dispatch = useDispatch()
+    const [open, setOpen] = React.useState(false)
+    const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
+
+    // useEffect(() => {
+    //     if (isAuthenticated) {
+    //     dispatch(setUserInfo(getAccessTokenSilently, user.email));
+    //     }
+    // }, [dispatch, isAuthenticated, getAccessTokenSilently, user]);
+
+    // useEffect(() => {
+    // if (isAuthenticated) {
+    //     dispatch(saveUser(user.email, user.picture));
+    // }
+    // }, [user, dispatch]);
 
     useEffect(() => {
 
         dispatch(getCart())
         dispatch(getProducts())
-        //document.body.classList.add('flex', 'justify-center', 'w-full', 'mb-20')
     }, [])
 
+
     return (
-        //<AuthProvider>
-        <div className="App">
-            <Navbar/>
+        <>
+            <Navbar />
             <Routes>
-                <Route exact path="/" element={<HomePage />} />
-                {/* <Route path='/productDetail/:productId' element={<ProductDetail />} /> */}
-                <Route
-                    path="/searchResults/:query/"
-                    element={<SearchResults />}
-                />
-                <Route
-                    path="/searchResults/:query/:order"
-                    element={<SearchResults />}
-                />
+                <Route path='/' element={<HomePage />} />
+                <Route path='/searchResults/:query' element={<SearchResults open={open} setOpen={setOpen} />} />
+                <Route path="/searchResults/:query/:order" element={<SearchResults open={open} setOpen={setOpen} />} />
+                <Route path='/register' element={<Register />} />
                 <Route path="/helpusimprove" element={<HelpUsImprove />} />
                 <Route path="/adminview//*" element={<AdminView />} />
-                <Route path="*" element={<Navigate to="/" />} />
+                <Route path="/checkout" element={<Checkout id={'63615409b573f3a4a80dfc1f'} />} />
+                <Route path="*" element={<Navigate to="/home" />} />
             </Routes>
             {/* <Pago id={'63615409b573f3a4a80dfc1f'}/> */}
-            <Footer />
-        </div>
-        //</AuthProvider>
+            {/* <Footer/> */}
+        </>
+
     )
 }
-
 
 export default App

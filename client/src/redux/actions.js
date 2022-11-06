@@ -1,6 +1,8 @@
 import axios from 'axios'
 
 import {
+    GET_USERSADDRESS,
+    POST_ADDRESS,
     GET_PRODUCTS,
     PRODUCT_DETAIL,
     CLEAR_DETAIL,
@@ -25,6 +27,7 @@ import {
     ADD_TO_CART,
     DELETE_FROM_CART,
     CART_EMPTY,
+    GET_CARTDB,
     GET_CART
 } from './types'
 
@@ -119,9 +122,8 @@ export function createBrands(payload) {
 // ------- Filtros y ordenamiento ---------
 
 export function orderBy(order) {
-    return function (dispatch) {
-        dispatch({ type: ORDER_BY, payload: order })
-    }
+    return({ type: ORDER_BY, payload: order })
+    
 }
 
 export function filter(fil) {
@@ -152,6 +154,16 @@ export function getUsers() { // Obtener todos los Users
         let json = await axios.get('/users')
         return dispatch({
             type: GET_USERS,
+            payload: json.data,
+        })
+    }
+}
+
+export function getUsersAddress(id) { // Obtener todos los Users
+    return async function (dispatch) {
+        let json = await axios.get('/address?id='+id)
+        return dispatch({
+            type: GET_USERSADDRESS,
             payload: json.data,
         })
     }
@@ -380,3 +392,21 @@ export const getCart = () => {
     }
 }
 
+export function CreateAddress(data) {
+    return async function (dispatch) {
+        let response = await axios.post('/address', data) // http://localhost:3001/messages/send
+        return dispatch({
+            type: POST_ADDRESS,
+            payload: response.data,
+        })
+    }
+}
+export function GetCart(id) {
+    return async function (dispatch) {
+        let response = await axios.get('/cart?userId='+id) // http://localhost:3001/messages/send
+        return dispatch({
+            type: GET_CARTDB,
+            payload: response.data,
+        })
+    }
+}
