@@ -109,11 +109,7 @@
         ]
 
     },
-    "react-dotenv" : {
-        "whitelist": ["FIREBASE_APIKEY", "AUTH_DOMAIN", "PROJECT_ID", "APP_ID", "MESSENGING_SEND"]
-    },
-
-    "react-dotenv": {
+      "react-dotenv": {
 
         "whitelist": [
 
