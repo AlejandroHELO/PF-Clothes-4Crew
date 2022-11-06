@@ -168,7 +168,7 @@ export function getprofile(id) { // Visualizar perfil de un User
 }
 
 export function LogInAction(data) {
-//     return (dispatch) => {
+
 // <<<<<<< HEAD
 //      try {
 //          let userCredental = logInWithEmailandPassword(data)
@@ -215,6 +215,7 @@ export function LogInAction(data) {
 // }
 
 // =======
+return (dispatch) => {
         try {
 
             return dispatch({
@@ -225,7 +226,7 @@ export function LogInAction(data) {
             throw new Error(error)
         }
     }
-
+}
 export function logOutAction() {
     return async (dispatch) => {
         try {
