@@ -17,7 +17,12 @@ import {
     OPEN_DETAIL,
     FILTER,
     RESET_FILTERS,
-    LOGIN
+    LOGIN,
+    VIEW_CART,
+    ADD_TO_CART,
+    DELETE_FROM_CART,
+    CART_EMPTY,
+    GET_CART
 } from './types'
 
 const initialState = {
@@ -38,6 +43,8 @@ const initialState = {
     productsFiltered: [],
     userLogged: {}
 }
+
+
 
 const reducer = (state = initialState, action) => {
     console.log(state)
@@ -205,9 +212,44 @@ const reducer = (state = initialState, action) => {
                 searchResultsFiltered: [],
                 searchResults: state.searchResults,
             }
+
+        // ------- Cart --------
+
+        case VIEW_CART:
+            return ({
+                ...state,
+                viewCart: action.payload
+            })
+
+        case ADD_TO_CART:
+            return {
+                ...state,
+                cart: [...action.payload],
+            };
+
+        case DELETE_FROM_CART:
+            return {
+                ...state,
+                cart: [...action.payload],
+            };
+        case CART_EMPTY:
+            return {
+                ...state,
+                cart: action.payload
+
+            }
+
+        case GET_CART:
+            return {
+                ...state,
+                cart: action.payload
+            }
+
         default:
             return state
     }
 }
+
+
 
 export default reducer

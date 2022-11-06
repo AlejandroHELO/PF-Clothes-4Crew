@@ -1,46 +1,75 @@
+/*eslint-disable */
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRef } from 'react'
 import { useParams } from 'react-router-dom';
-import { getProductDetail, getopenDetail } from '../../redux/actions';
+import { getProductDetail, getopenDetail, addToCart, getProducts } from '../../redux/actions';
 import Navbar from '../navbar/navbar';
 import { Fragment, useState } from 'react'
 import { Dialog, RadioGroup, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { StarIcon } from '@heroicons/react/20/solid'
 
-function ProductDetail({open, setOpen}) {
+// <<<<<<< HEAD
+// function ProductDetail({open, setOpen}) {
+//     const dispatch = useDispatch()
+//     // const { productId } = useParams();
+//     const openDetail = useSelector((state) => state.details)
+   
+   
+//     // const [selectedColor, setSelectedColor] = useState(openDetail.colors[0])
+//     const [selectedSize, setSelectedSize] = useState({ size: 'M', stock: true })
+//     const slider = useRef()
+
+
+//     React.useEffect(() => {
+       
+//         openDetail.size?.map((s) => {
+//             s.stock > 0 ? (s.stock = true) : (s.stock = false)
+//         })
+//         if (openDetail.size.length) {
+//             openDetail.size[0].size = 'XS'
+//             openDetail.size[1].size = 'S'
+//             openDetail.size[2].size = 'M'
+//             openDetail.size[3].size = 'L'
+//             openDetail.size[4].size = 'XL'
+//             // openDetail.size[5].size = 'XXL'
+//             openDetail.size[0].stock = true
+//             openDetail.size[1].stock = true
+//             openDetail.size[2].stock = true
+//             openDetail.size[3].stock = true
+//             openDetail.size[4].stock = true
+//             // openDetail.size[5].stock = true
+//         }
+//         console.log(openDetail)
+//     }, [openDetail])
+// =======
+
+function ProductDetail(product) {
     const dispatch = useDispatch()
     // const { productId } = useParams();
-    const openDetail = useSelector((state) => state.details)
-   
-   
-    // const [selectedColor, setSelectedColor] = useState(openDetail.colors[0])
-    const [selectedSize, setSelectedSize] = useState({ size: 'M', stock: true })
+    // const product = useSelector((state) => state.details)
+    const openDetail = useSelector((state) => state.openDetail)
+    const [open, setOpen] = useState(false)
+    // const [selectedColor, setSelectedColor] = useState(product.colors[0])
+    const [selectedSize, setSelectedSize] = useState(product.size[2])
     const slider = useRef()
 
+    let productAddCart = {};
 
     React.useEffect(() => {
-       
-        openDetail.size?.map((s) => {
-            s.stock > 0 ? (s.stock = true) : (s.stock = false)
+        product.size?.map((s) => {
+            s.stock > 0 ? (s.inStock = true) : (s.inStock = false)
         })
-        if (openDetail.size.length) {
-            openDetail.size[0].size = 'XS'
-            openDetail.size[1].size = 'S'
-            openDetail.size[2].size = 'M'
-            openDetail.size[3].size = 'L'
-            openDetail.size[4].size = 'XL'
-            // openDetail.size[5].size = 'XXL'
-            openDetail.size[0].stock = true
-            openDetail.size[1].stock = true
-            openDetail.size[2].stock = true
-            openDetail.size[3].stock = true
-            openDetail.size[4].stock = true
-            // openDetail.size[5].stock = true
+
+        if (openDetail === product.id) {
+            setOpen(true)
         }
-        console.log(openDetail)
-    }, [openDetail])
+    }, [product, openDetail])
+
+    React.useEffect(() => {
+        console.log(selectedSize)
+    }, [selectedSize])
 
     const handleOnClickClose = (e) => {
         e.preventDefault()
@@ -48,8 +77,25 @@ function ProductDetail({open, setOpen}) {
         dispatch(getopenDetail(''))
     }
 
+    const handleChangeSize = (e) => {
+        console.log('select size en detail', e)
+        setSelectedSize(e)
+    }
+    const handleAddToCart = (e) => {
+        e.preventDefault()
+        console.log('add to cart')
+        productAddCart = { ...product }
+        productAddCart.size = selectedSize
+        console.log('e en add to cart--------------------------', e.target.value, product.size, selectedSize, productAddCart);
+        setOpen(false)
+        dispatch(getopenDetail(''))
+        dispatch(addToCart(productAddCart));
+        dispatch(getProducts())
+    }
+
 
     // console.log('En detail openDetail', openDetail.size)
+    // console.log('En detail product', product.size)
     // ----------------------------------------------------------------
     //const openDetail = {name: 'Basic Tee 6-Pack ',
     //   price: '$192',////////////////////
@@ -271,9 +317,7 @@ function ProductDetail({open, setOpen}) {
 
                                                         <RadioGroup
                                                             value={selectedSize}
-                                                            onChange={
-                                                                setSelectedSize
-                                                            }
+                                                            onChange={(e) => { handleChangeSize(e) }}
                                                             className="mt-4"
                                                         >
                                                             <RadioGroup.Label className="sr-only">
@@ -284,82 +328,60 @@ function ProductDetail({open, setOpen}) {
                                                                 {openDetail.size?.map(
                                                                     (s, i) => (
                                                                         <RadioGroup.Option
-                                                                            key={
-                                                                             i   
-                                                                            }
-                                                                            value={
-                                                                                s
-                                                                            }
-                                                                            disabled={
-                                                                                !s.stock
-                                                                            }
-                                                                            className={({
-                                                                                active,
-                                                                            }) =>
+
+                                                                            key={s.size}
+                                                                            value={s}
+                                                                            disabled={!s.stock}
+                                                                            className={({ active, }) =>
+
                                                                                 classNames(
                                                                                     s.stock
                                                                                         ? 'bg-white shadow-sm text-gray-900 cursor-pointer'
                                                                                         : 'bg-gray-50 text-gray-200 cursor-not-allowed',
                                                                                     active
-                                                                                        ? 'ring-2 ring-indigo-500'
+                                                                                        ? 'ring-2 ring-gray-900'
                                                                                         : '',
                                                                                     'group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1'
-                                                                                )
-                                                                            }
-                                                                        >
-                                                                            {({
-                                                                                active,
-                                                                                checked,
-                                                                            }) => (
-                                                                                <>
-                                                                                    <RadioGroup.Label as="span">
-                                                                                        {
-                                                                                            s.size
-                                                                                        }
-                                                                                    </RadioGroup.Label>
-                                                                                    {s.stock ? (
-                                                                                        <span
-                                                                                            className={classNames(
-                                                                                                active
-                                                                                                    ? 'border'
-                                                                                                    : 'border-2',
-                                                                                                checked
-                                                                                                    ? 'border-indigo-500'
-                                                                                                    : 'border-transparent',
-                                                                                                'pointer-events-none absolute -inset-px rounded-md'
-                                                                                            )}
-                                                                                            aria-hidden="true"
-                                                                                        />
-                                                                                    ) : (
-                                                                                        <span
-                                                                                            aria-hidden="true"
-                                                                                            className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
+                                                                                )}>
+                                                                            {({ active, checked, }) => (<>
+                                                                                <RadioGroup.Label as="span">
+                                                                                    {s.size}
+                                                                                </RadioGroup.Label>
+                                                                                {s.stock ? (
+                                                                                    <span
+                                                                                        className={classNames(
+                                                                                            active
+                                                                                                ? 'border'
+                                                                                                : 'border-2',
+                                                                                            checked
+                                                                                                ? 'border-gray-900'
+                                                                                                : 'border-transparent',
+                                                                                            'pointer-events-none absolute -inset-px rounded-md'
+                                                                                        )}
+                                                                                        aria-hidden="true"
+                                                                                    />
+                                                                                ) : (
+                                                                                    <span
+                                                                                        aria-hidden="true"
+                                                                                        className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
+                                                                                    >
+                                                                                        <svg
+                                                                                            className="absolute inset-0 h-full w-full stroke-2 text-gray-200"
+                                                                                            viewBox="0 0 100 100"
+                                                                                            preserveAspectRatio="none"
+                                                                                            stroke="currentColor"
                                                                                         >
-                                                                                            <svg
-                                                                                                className="absolute inset-0 h-full w-full stroke-2 text-gray-200"
-                                                                                                viewBox="0 0 100 100"
-                                                                                                preserveAspectRatio="none"
-                                                                                                stroke="currentColor"
-                                                                                            >
-                                                                                                <line
-                                                                                                    x1={
-                                                                                                        0
-                                                                                                    }
-                                                                                                    y1={
-                                                                                                        100
-                                                                                                    }
-                                                                                                    x2={
-                                                                                                        100
-                                                                                                    }
-                                                                                                    y2={
-                                                                                                        0
-                                                                                                    }
-                                                                                                    vectorEffect="non-scaling-stroke"
-                                                                                                />
-                                                                                            </svg>
-                                                                                        </span>
-                                                                                    )}
-                                                                                </>
+                                                                                            <line
+                                                                                                x1={0}
+                                                                                                y1={100}
+                                                                                                x2={100}
+                                                                                                y2={0}
+                                                                                                vectorEffect="non-scaling-stroke"
+                                                                                            />
+                                                                                        </svg>
+                                                                                    </span>
+                                                                                )}
+                                                                            </>
                                                                             )}
                                                                         </RadioGroup.Option>
                                                                     )
@@ -369,8 +391,9 @@ function ProductDetail({open, setOpen}) {
                                                     </div>
 
                                                     <button
-                                                        type="submit"
-                                                        className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                                                        onClick={e => handleAddToCart(e, product)}
+                                                        type="button"
+                                                        className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-900 py-3 px-8 text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
                                                     >
                                                         Add to bag
                                                     </button>
@@ -389,3 +412,4 @@ function ProductDetail({open, setOpen}) {
 }
 
 export default ProductDetail
+/*eslint-enable */

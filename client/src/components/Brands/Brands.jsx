@@ -14,7 +14,7 @@ export default function Brands() {
 
     return (
         <div className="py-8 grid grid-cols-5 justify-items-center items-center">
-            {brands.map((brand) => {
+            {brands?.map((brand) => {
                 return (
                     <div
                         key={brand._id}

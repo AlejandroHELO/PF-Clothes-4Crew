@@ -43,6 +43,7 @@ export default function Product() {
     // console.log('SOY LAS PROPS: ', props)
 
     const changePage = () => {
+        console.log('SOY EL EDIT MODE', editMode)
         editMode ?
         setEditMode(false) : setEditMode(true)
     }
@@ -163,7 +164,10 @@ export default function Product() {
                 </div>
                 :
                 <div className={st.productUpdateCont}>
-                    <ProductEdit changePage={changePage} {...productInfo} />
+
+
+                    <ProductEdit changePage={changePage} editMode={editMode}/>
+
                 </div>
             }
         </div>

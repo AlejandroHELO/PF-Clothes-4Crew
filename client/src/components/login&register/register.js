@@ -1,9 +1,10 @@
 import React from "react";
 import Navbar from "../navbar/navbar";
 import {useDispatch, useSelector} from 'react-redux'
-import { SignUpwithPasswwordAndEmail } from "../../redux/actions"
+//import { SignUpwithPasswwordAndEmail } from "../../redux/actions"
 import {useNavigate} from 'react-router-dom'
 import Footer from "../Footer/Footer";
+
 
 
 function Register() {
@@ -20,7 +21,10 @@ function Register() {
         zipCode:''
 
     })
-    const loggedUser = useSelector(state => state.loggedUser)
+// <<<<<<< HEAD
+//     const loggedUser = useSelector(state => state.loggedUser)
+// =======
+    // const loggedUser = useSelector(state => state.loggedUser)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -31,23 +35,41 @@ function Register() {
             [e.target.name]: e.target.value
         })
     }
-    React.useEffect(() => {
+// <<<<<<< HEAD
+//     React.useEffect(() => {
     
-    },[loggedUser])
+//     },[loggedUser])
+
+//     function handleSubmit(e) {
+//         e.preventDefault()
+//         try {
+//           dispatch(SignUpwithPasswwordAndEmail(input))
+//           navigate('/', ({force: true}))
+//         } catch (error) {
+//           console.log(error)
+//         }
+
+//     }
+//     return(
+//         <div className="w-full h-screen justify-content-center">
+//             <Navbar />
+// =======
+   
 
     function handleSubmit(e) {
         e.preventDefault()
-        try {
-          dispatch(SignUpwithPasswwordAndEmail(input))
-          navigate('/', ({force: true}))
-        } catch (error) {
-          console.log(error)
-        }
+        // try {
+        //   dispatch(SignUpwithPasswwordAndEmail(input))
+        //   navigate('/', ({force: true}))
+        // } catch (error) {
+        //   console.log(error)
+        // }
 
     }
     return(
-        <div className="w-full h-screen justify-content-center">
-            <Navbar />
+      <div className="w-full h-screen justify-content-center">
+     
+
         <div className="w-2/6 h-full flex float-left">
           <img src='/images/img/register.jpeg' alt='' className="h-full object-scale" />
         </div>

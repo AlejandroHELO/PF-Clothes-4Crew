@@ -5,6 +5,7 @@ const morgan = require('morgan')
 const router = require('./routes/index')
 const cors = require('cors')
 
+
 const server = express()
 
 server.name = 'Pf server'
@@ -14,6 +15,7 @@ server.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }))
 server.use(bodyParser.json({ limit: '50mb' }))
 server.use(cookieParser())
 server.use(morgan('dev'))
+
 server.use(cors())
 server.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'http://localhost:3000')

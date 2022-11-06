@@ -63,6 +63,8 @@ export default function LogIn({ open, setOpen }) {
         }
     } 
 
+ 
+
     return (
         <Transition.Root show={open} as={Fragment}>
             <Dialog
@@ -214,8 +216,9 @@ export default function LogIn({ open, setOpen }) {
                 /> */}
                                                                         {/* <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
                   Remember me
-                </label> */}
-                                                                    </div>
+                </label> */}                
+                                                             
+                                                                </div>
 
                                                                     <div className="text-sm">
                                                                         <a

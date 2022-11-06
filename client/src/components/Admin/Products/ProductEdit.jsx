@@ -5,8 +5,10 @@ import Clou from '../../ImageCloudinary/ImageCloudinary'
 import st from './ProductEdit.module.css'
 import { updateProduct, getCategories, getBrands } from '../../../redux/actions'
 
-export default function ProductEdit() {
-    // console.log('HOLA SOY LAS PROPS: ', productInfo)
+
+export default function ProductEdit({changePage,editMode}) {
+    // console.log('HOLA SOY LAS PROPS: ', props)
+
     const dispatch = useDispatch() 
 
     const productInfo = useSelector((state) => state.details);
@@ -136,10 +138,7 @@ export default function ProductEdit() {
             setNav(true)
         }
         //window.location.reload(true)
-    }
-
-    const changePage = () => {
-        // setActualPage("details")
+ 
     }
 
 
@@ -359,7 +358,8 @@ export default function ProductEdit() {
                     </button>
                 </div>
             </form>
-            {nav ? <Navigate to={'/adminView/product/'+ productInfo._id} /> : null}
+
+            {nav ? <Navigate to={'/adminView/products/'} /> : null}
         </div>
     )
 }
