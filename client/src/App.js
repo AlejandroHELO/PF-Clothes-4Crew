@@ -62,6 +62,7 @@ function App() {
             <Route path="/helpusimprove" element={<HelpUsImprove />} />
             <Route path="*" element={<Navigate to="/home" />} />
             <Route path="/adminview//*" element={<AdminView />} />
+            <Route path="/products/reviews" element={<ProductReviews/>} />
         </Routes>
         {/* <Pago id={'63615409b573f3a4a80dfc1f'}/> */}
         {/* <Footer /> */}
