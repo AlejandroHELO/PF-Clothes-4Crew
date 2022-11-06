@@ -15,24 +15,24 @@ const {
      UpdateCart, getcart 
     } = require('../controller/cart.js')
     
-var jwtCheck = jwt({
-        secret: jwks.expressJwtSecret({
-            cache: true,
-            rateLimit: true,
-            jwksRequestsPerMinute: 5,
-            jwksUri: JWKS_URI
-    }),
-    audience: AUDIENCE,
-    issuer: ISSUER,
-    algorithms: ['RS256']
-});
+// var jwtCheck = jwt({
+//         secret: jwks.expressJwtSecret({
+//             cache: true,
+//             rateLimit: true,
+//             jwksRequestsPerMinute: 5,
+//             jwksUri: JWKS_URI
+//     }),
+//     audience: AUDIENCE,
+//     issuer: ISSUER,
+//     algorithms: ['RS256']
+// });
 
 const router = Router()
 
 //---- Products routes ------
 router.use('/products', productsRouter)
 
-router.post('/mercadopago',MercadoPago)
+router.post('/mercadopago/:id/:addressId',MercadoPago)
 
 //---- Purchase routes ------
 router.use('/purchase', purchaseRouter)

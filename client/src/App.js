@@ -12,6 +12,7 @@ import Pago from './components/MercadoPago/MercadoPago'
 import Register from './components/login&register/register'
 import Navbar from './components/navbar/navbar'
 import { useAuth0 } from "@auth0/auth0-react";
+import Checkout from './components/Checkout/Checkout'
 
 
 
@@ -49,6 +50,7 @@ function App() {
                 <Route path='/register' element={<Register />} />
                 <Route path="/helpusimprove" element={<HelpUsImprove />} />
                 <Route path="/adminview//*" element={<AdminView />} />
+                <Route path="/checkout" element={<Checkout id={'63615409b573f3a4a80dfc1f'} />} />
                 <Route path="*" element={<Navigate to="/home" />} />
             </Routes>
             {/* <Pago id={'63615409b573f3a4a80dfc1f'}/> */}

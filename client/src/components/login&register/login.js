@@ -6,7 +6,6 @@ import { LogInAction } from '../../redux/actions'
 import { useDispatch } from 'react-redux'
 import {Link} from 'react-router-dom'
 
-
 export default function LogIn({ open, setOpen }) {
     const cancelButtonRef = useRef(null)
     let dispatch = useDispatch()
