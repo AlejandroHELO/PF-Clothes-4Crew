@@ -3,12 +3,12 @@
 
     "version": "0.1.0",
 
-    "private": true,
 
     "dependencies": {
-        
-        "@auth0/auth0-react": "^1.12.0",
 
+
+
+        "@auth0/auth0-react": "^1.12.0",
         "@emotion/react": "^11.10.4",
 
         "@emotion/styled": "^11.10.4",
@@ -27,6 +27,8 @@
 
         "@tailwindcss/aspect-ratio": "^0.4.2",
 
+        "@tailwindcss/forms": "^0.5.3",
+
         "@testing-library/jest-dom": "^5.16.5",
 
         "@testing-library/user-event": "^13.5.0",
@@ -39,8 +41,10 @@
 
         "cloudinary-react": "^1.8.1",
 
+
         "dotenv": "^16.0.2",
         "firebase": "^9.10.0",
+
         "gapi-script": "^1.2.0",
         "react": "^17.0.0",
 
@@ -113,25 +117,18 @@
 
         ]
 
+
     },
       "react-dotenv": {
 
         "whitelist": [
-
             "FIREBASE_APIKEY",
-
             "AUTH_DOMAIN",
-
             "PROJECT_ID",
-
             "APP_ID",
-
             "MESSENGING_SEND"
-
         ]
-
     },
-
     "devDependencies": {
 
         "autoprefixer": "^10.4.13",
