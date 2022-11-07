@@ -39,25 +39,24 @@ const userProfile = async (req, res, next) => {
         const { email } = req.params
         const Us = await userModel.find({email:email})
         
-
-
-
+        if(!Us){
         const User = {
-            id: Us._id,
-            fullName: Us.fullName,
-            email: Us.email,
-            birthDate: Us.birthDate,
-            genre: Us.genre,
-            country: Us.country,
-            address: Us.address,
-            tel: Us.tel,
-            image: Us.image,
-            isAdmin: Us.isAdmin,
-            active: Us.active,
+            fullName: user.name,
+            email: email,
+            image: user.picture,
+            isAdmin: true,
         }
-        User
-            ? res.status(200).send(User)
-            : { msg: "There's no user with that email" }
+        const response = await userModel.create(User)
+        res.status(200).send({
+            msg:"User created succesfully",
+            data:User,
+            db_response: response        
+        })
+
+        }
+        
+        else{res.status(200).send(Us)}
+           
     } catch (error) {
         console.error("Error occurred. User couldn't be shown.")
         next(error)

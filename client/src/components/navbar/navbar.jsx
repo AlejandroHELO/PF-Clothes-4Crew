@@ -2,7 +2,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getCategories, getProducts, getBrands } from '../../redux/actions'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, Outlet } from 'react-router-dom'
 import SearchBar from './searchbar'
 import { useAuth0 } from "@auth0/auth0-react";
 import Cart from "../Cart/Cart";
@@ -41,94 +41,100 @@ function Navbar() {
 
 
     return (
-        <nav className="w-full h-1/6 mt-2  bg-white shadow-md flex flex-col justify-around ">
-            {/* Botones */}
-            <div className="flex justify-between items-center">
-                {/* Lado izquierdo */}
-                <div className="flex space-x-3">
-                    <div className=" w-32 flex justify-center items-center">
-                        <Link to="/">
-                            <img
-                                src="/images/clothes4crew.jpg"
-                                alt="LOGO"
-                            ></img>
-                        </Link>
-                    </div>
-                    <div className=" flex justify-center items-center">
-                        <Sort />
-                    </div>
-                    <div className=" w-32 flex justify-center items-center">
-                        <button
-                            type='button'
-                            onClick={(e) => handleAllProducts(e)}
-                            key="all"
-                            className=" h-10 no-underline box-border bg-slate-900 text-slate-50 rounded flex p-2 justify-center items-center transition hover:bg-slate-50 hover:text-slate-900 hover:border-2 hover:border-slate-900"
-                        >
-                            All products
+        <>
+            <nav className="w-full h-1/6 mt-2  bg-white shadow-md flex flex-col justify-around ">
+                {/* Botones */}
+                <div className="flex justify-between items-center">
+                    {/* Lado izquierdo */}
+                    <div className="flex space-x-3">
+                        <div className=" w-32 flex justify-center items-center">
+                            <Link to="/">
+                                <img
+                                    src="/images/clothes4crew.jpg"
+                                    alt="LOGO"
+                                ></img>
+                            </Link>
+                        </div>
+                        <div className=" flex justify-center items-center">
+                            <Sort />
+                        </div>
+                        <div className=" w-32 flex justify-center items-center">
+                            <button
+                                type='button'
+                                onClick={(e) => handleAllProducts(e)}
+                                key="all"
+                                className=" h-10 no-underline box-border bg-slate-900 text-slate-50 rounded flex p-2 justify-center items-center transition hover:bg-slate-50 hover:text-slate-900 hover:border-2 hover:border-slate-900"
+                            >
+                                All products
+                            </button>
+                        </div>
+                        {/* h-16 border-gray-300 border-2 rounded  flex justify-center items-center p-2 */}
+                        {/* Searchbar */}
+                        <button className=" h-11 my-4 border-gray-300 border-2 rounded flex p-2 justify-center items-center ">
+                            <SearchBar />
                         </button>
+
+
+
+
+
                     </div>
-                    {/* h-16 border-gray-300 border-2 rounded  flex justify-center items-center p-2 */}
-                    {/* Searchbar */}
-                    <button className=" h-11 my-4 border-gray-300 border-2 rounded flex p-2 justify-center items-center ">
-                        <SearchBar />
-                    </button>
+                    {/* Lado derecho */}
+                    <div className="flex space-x-3">
+                        {/* Favoritos */}
+                        <button className="rounded p-2 flex justify-center items-center">
+                            🖤
+                        </button>
+                        {/* Carrito */}
+                        <button onClick={() => setOpenCart(true)} className="rounded flex p-2 justify-center items-center">
+                            🛒
+                        </button>
+                        {/* Login */}
+                        {!isAuthenticated? <button onClick={loginWithPopup} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                            👤 Iniciar sesión
+                        </button>: 
+                        <div >
+                            <img src={user?.picture} alt="User picture" />
+                            <button onClick={logout} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                                Logout
+                            </button>
+                        </div>
+                        }
 
-
-
-
-
-                </div>
-                {/* Lado derecho */}
-                <div className="flex space-x-3">
-                    {/* Favoritos */}
-                    <button className="rounded p-2 flex justify-center items-center">
-                        🖤
-                    </button>
-                    {/* Carrito */}
-                    <button onClick={() => setOpenCart(true)} className="rounded flex p-2 justify-center items-center">
-                        🛒
-                    </button>
-                    {/* Login */}
-                    {!isAuthenticated? <button onClick={loginWithPopup} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
-                        👤 Iniciar sesión
-                    </button>: 
-                    <div >
-                        <img src={user?.picture} alt="User picture" onClick={logout} />
                     </div>
-                    }
-
                 </div>
-            </div>
-            {/* Categorías */}
-            <div className="flex justify-between mt-2">
-                {/* <Link
-                    to={`/searchResults/all`}
-                    key="all"
-                    className="no-underline text-inherit p-1 hover:bg-black hover:text-white hover:rounded"
-                >
-                    All products
-                </Link> */}
+                {/* Categorías */}
+                <div className="flex justify-between mt-2">
+                    {/* <Link
+                        to={`/searchResults/all`}
+                        key="all"
+                        className="no-underline text-inherit p-1 hover:bg-black hover:text-white hover:rounded"
+                    >
+                        All products
+                    </Link> */}
 
-                {/* {categories?.map((cat) => {
-                    return (
-                        <Link
-                            to={`/searchResults/${cat.name.toLowerCase()}`}
-                            key={cat._id}
-                            className="no-underline text-inherit p-1 hover:bg-black hover:text-white hover:rounded"
-                        >
-                            {cat.name}
-                        </Link>
-                    )
-                })} */}
-            </div>
+                    {/* {categories?.map((cat) => {
+                        return (
+                            <Link
+                                to={`/searchResults/${cat.name.toLowerCase()}`}
+                                key={cat._id}
+                                className="no-underline text-inherit p-1 hover:bg-black hover:text-white hover:rounded"
+                            >
+                                {cat.name}
+                            </Link>
+                        )
+                    })} */}
+                </div>
 
-            <Cart
-                open={openCart}
-                setOpen={setOpenCart}
-                products={cart}
-            />
+                <Cart
+                    open={openCart}
+                    setOpen={setOpenCart}
+                    products={cart}
+                />
 
-        </nav>
+            </nav>
+            <Outlet/>
+        </>
     )
 }
 

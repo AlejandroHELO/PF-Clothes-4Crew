@@ -30,11 +30,12 @@ userRouter.route('/')
 
 userRouter.route('/:id')
 .get(userProfile)
+
 userRouter.route('/register')
 .post(createUser)
 
 userRouter.route( '/:email')
-.get(userProfile,jwtCheck)
+.get(jwtCheck, userProfile)
 .put(updateUser)
 
 userRouter.route('/admin/:id')

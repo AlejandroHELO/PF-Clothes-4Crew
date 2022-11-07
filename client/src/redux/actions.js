@@ -27,12 +27,9 @@ import {
     ADD_TO_CART,
     DELETE_FROM_CART,
     CART_EMPTY,
-
     GET_CART,
-    BRAND_ELECT
-
+    BRAND_ELECT,
     GET_CARTDB,
-
     CREATE_P_REVIEW
 
 } from './types'
@@ -194,16 +191,16 @@ export function getUsersAddress(id) { // Obtener todos los Users
     }
 }
 
-export function getprofile(id) { // Visualizar perfil de un User
+export function getProfile(token, user) { // Visualizar perfil de un User
     return async function (dispatch) {
 
         const config={
-            body:{
-                user
+            headers:{
+                "Authorization": "Bearer "+ await token()
             }}
             
 
-        let json = await axios.get(`/users/${user.email}`)
+        let json = await axios.get(`/users/${user.email}`, user, config)
         return dispatch({
             type: GET_PROFILE,
             payload: json.data,
