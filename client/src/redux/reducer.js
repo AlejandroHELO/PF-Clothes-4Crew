@@ -24,7 +24,7 @@ import {
     CART_EMPTY,
     GET_CART,
 
-    BRAND_ELECT
+    BRAND_ELECT,    
 
     GET_USERSADDRESS,
     POST_ADDRESS,
