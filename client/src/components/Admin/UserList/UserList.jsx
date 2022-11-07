@@ -50,7 +50,7 @@ export default function UserList() {
                     <>
                         <Link
                             to={'/adminView/user/' + params.row.idUser}
-                            style={{ 'textDecoration': 'none' }}
+                            style={{ textDecoration: 'none' }}
                         >
                             <button className={st.userListEdit}>Detail</button>
                         </Link>

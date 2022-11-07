@@ -1,5 +1,6 @@
 import React from 'react'
 import './LgWidget.css'
+import PropTypes from 'prop-types'
 
 export default function LargeWidget() {
     const Button = ({ type }) => {
@@ -115,4 +116,9 @@ export default function LargeWidget() {
             </table>
         </div>
     )
+}
+
+
+LargeWidget.propTypes = {
+    type: PropTypes.string
 }

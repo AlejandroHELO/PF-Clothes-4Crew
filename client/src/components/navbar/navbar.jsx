@@ -1,24 +1,23 @@
-/*eslint-disable */
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getCategories } from '../../redux/actions'
 import { Link } from 'react-router-dom'
 import SearchBar from './searchbar'
-import { useAuth0 } from "@auth0/auth0-react";
-import Cart from "../Cart/Cart";
+import Cart from '../Cart/Cart'
+import LogIn from '../login&register/login'
+import { useAuth0 } from '@auth0/auth0-react'
 
-function Navbar() {
+function Navbar({ auth, getToken }) {
     const dispatch = useDispatch()
-    const cart = useSelector(state => state.cart);
-    const { loginWithPopup } = useAuth0()
+    const cart = useSelector((state) => state.cart)
     const [openCart, setOpenCart] = React.useState(false)
-
+    const [open, setOpen] = React.useState(false)
+    const { loginWithPopup, logout } = useAuth0()
     const categories = useSelector((state) => state.categories)
 
     React.useEffect(() => {
         dispatch(getCategories())
-    }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
+    }, [])
     return (
         <nav className="w-full h-1/6 mt-2  bg-white shadow-md flex flex-col justify-around">
             {/* Botones */}
@@ -45,14 +44,24 @@ function Navbar() {
                         🖤
                     </button>
                     {/* Carrito */}
-                    <button onClick={() => setOpenCart(true)} className="rounded flex p-2 justify-center items-center">
+                    <button
+                        onClick={() => setOpenCart(true)}
+                        className="rounded flex p-2 justify-center items-center"
+                    >
                         🛒
                     </button>
                     {/* Login */}
-                    <button onClick={loginWithPopup} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
-                        👤 Iniciar sesión
-                    </button>
 
+                    {auth === false ? (
+                        <button
+                            onClick={() => loginWithPopup()}
+                            className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black"
+                        >
+                            👤 Iniciar sesión
+                        </button>
+                    ) : (
+                        <button onClick={() => logout()}>Log Out</button>
+                    )}
                 </div>
             </div>
             {/* Categorías */}
@@ -77,15 +86,9 @@ function Navbar() {
                 })}
             </div>
 
-            <Cart
-                open={openCart}
-                setOpen={setOpenCart}
-                products={cart}
-            />
-
+            <Cart open={openCart} setOpen={setOpenCart} products={cart} />
         </nav>
     )
 }
 
 export default Navbar
-/*eslint-enable */

@@ -1,5 +1,5 @@
 const { Router } = require('express')
-var jwt = require('express-jwt');
+var {expressjwt: jwt} = require('express-jwt');
 var jwks = require('jwks-rsa');
 const productsRouter = require("./products")
 const categoryRouter = require("./category")

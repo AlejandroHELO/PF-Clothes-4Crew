@@ -32,7 +32,7 @@ export default function TopBar() {
                 <div className={st.topRight}>
                     <Link
                         to="/adminView/helpusmail"
-                        style={{ 'textDecoration': 'none', color: '#141616' }}
+                        style={{ textDecoration: 'none', color: '#141616' }}
                     >
                         <div className={st.topbarIconsContainer}>
                             <NotificationsNone />
@@ -49,7 +49,7 @@ export default function TopBar() {
 
                     <Dropdown>
                         <Dropdown.Toggle
-                            style={{ display: 'flex', 'alignItems': 'center' }}
+                            style={{ display: 'flex', alignItems: 'center' }}
                             variant="#D7FCF1"
                             id="dropdown-basic"
                         >

@@ -10,6 +10,7 @@ import {
     Legend,
     ResponsiveContainer,
 } from 'recharts'
+import PropTypes from 'prop-types'
 
 export default function Chart({ title, data, dataKey, grid }) {
     return (
@@ -28,4 +29,11 @@ export default function Chart({ title, data, dataKey, grid }) {
             </ResponsiveContainer>
         </div>
     )
+}
+
+Chart.propTypes = {
+    title: PropTypes.string,
+    data: PropTypes.string,
+    dataKey: PropTypes.string,
+    grid:PropTypes.string
 }

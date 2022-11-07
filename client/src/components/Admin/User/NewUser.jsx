@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import st from './NewUser.module.css'
 import { useDispatch } from 'react-redux'
-import Clou from "../../ImageCloudinary/ImageCloudinary";
+import Clou from '../../ImageCloudinary/ImageCloudinary'
 import { DriveFolderUpload } from '@mui/icons-material'
 import { createUser } from '../../../redux/actions'
 
@@ -33,7 +33,7 @@ export default function NewUser() {
     }
 
     const handleCreate = (e) => {
-        if (e.target.name === 'create'){
+        if (e.target.name === 'create') {
             dispatch(createUser(input))
             //window.location.reload(true)
             setNav(true)
@@ -164,10 +164,7 @@ export default function NewUser() {
                         /> */}
                         <label htmlFor="file">
                             {/* <DriveFolderUpload className={st.userUpdateIcon} /> */}
-                            <Clou
-                            setEditInput={setInput}
-                            editInput={input}
-                            /> 
+                            <Clou setEditInput={setInput} editInput={input} />
                         </label>
                         <input
                             name="image"

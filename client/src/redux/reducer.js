@@ -25,7 +25,7 @@ import {
     GET_CART,
     GET_USERSADDRESS,
     POST_ADDRESS,
-    GET_CARTDB
+    GET_CARTDB,
 } from './types'
 
 const initialState = {
@@ -45,11 +45,9 @@ const initialState = {
     messages: [],
     productsFiltered: [],
     userLogged: {},
-    address:'',
-    cartDb:''
+    address: '',
+    cartDb: '',
 }
-
-
 
 const reducer = (state = initialState, action) => {
     console.log(state)
@@ -108,13 +106,11 @@ const reducer = (state = initialState, action) => {
                 ],
             }
 
-
         case GET_CATEGORIES:
             return {
                 ...state,
                 categories: action.payload,
             }
-
 
         case GET_BRANDS:
             return {
@@ -221,54 +217,51 @@ const reducer = (state = initialState, action) => {
         // ------- Cart --------
 
         case VIEW_CART:
-            return ({
+            return {
                 ...state,
-                viewCart: action.payload
-            })
+                viewCart: action.payload,
+            }
 
         case ADD_TO_CART:
             return {
                 ...state,
                 cart: [...action.payload],
-            };
+            }
 
         case DELETE_FROM_CART:
             return {
                 ...state,
                 cart: [...action.payload],
-            };
+            }
         case CART_EMPTY:
             return {
                 ...state,
-                cart: action.payload
-
+                cart: action.payload,
             }
 
         case GET_CART:
             return {
                 ...state,
-                cart: action.payload
+                cart: action.payload,
             }
         case GET_USERSADDRESS:
-            return{
+            return {
                 ...state,
-                address:action.payload
+                address: action.payload,
             }
         case POST_ADDRESS:
             console.log(action.payload)
-                return{
-                    ...state,
-                }        
+            return {
+                ...state,
+            }
         case GET_CARTDB:
-                return{
-                    ...state,
-                    cartDb:action.payload
-                }
+            return {
+                ...state,
+                cartDb: action.payload,
+            }
         default:
             return state
     }
 }
-
-
 
 export default reducer
