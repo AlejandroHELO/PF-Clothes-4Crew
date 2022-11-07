@@ -10,7 +10,7 @@ export default function Pago(pros) {
 
   useEffect(() => {
     // luego de montarse el componente, le pedimos al backend el preferenceId
-    axios.post('/mercadopago/'+pros.id).then((order) => {
+    axios.post('/mercadopago/'+pros.id+'/'+pros.address).then((order) => {
       setPreferenceId(order.data);
     });
   }, []);
@@ -36,8 +36,8 @@ export default function Pago(pros) {
     }, [mercadopago,preferenceId])
 
     return (
-        <div>
-            <div className="cho-container" />
+        <div class='w-24 my-10 mx-10 '>
+            <div className="cho-container"   />
         </div>
     )
 }

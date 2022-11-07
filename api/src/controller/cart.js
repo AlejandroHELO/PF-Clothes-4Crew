@@ -31,11 +31,12 @@ const CreateCart= async (id)=>{
 
 const UpdateCart= async(req,res)=>{
     const { id } = req.params
+    console.log(req.body)
    try {
     const user= await userModel.findOne({_id:id})
+    console.log(user)
     if(user){
-        await cartModel.updateOne({userId:id},{
-            
+        await cartModel.findOneAndUpdate({userId:id},{
             products:req.body
         },{ new: true })
         .then(()=>{

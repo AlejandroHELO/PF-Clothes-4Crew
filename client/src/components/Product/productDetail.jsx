@@ -12,6 +12,7 @@ import { StarIcon } from '@heroicons/react/20/solid'
 
 
 function ProductDetail(product) {
+    console.log(product)
     const dispatch = useDispatch()
     // const { productId } = useParams();
     // const product = useSelector((state) => state.details)
@@ -30,6 +31,7 @@ function ProductDetail(product) {
 
         if (openDetail === product.id) {
             setOpen(true)
+            console.log(open)
         }
     }, [product, openDetail])
 
@@ -39,6 +41,8 @@ function ProductDetail(product) {
 
     const handleOnClickClose = (e) => {
         e.preventDefault()
+        product.setOpen?
+        product.setOpen(false):
         setOpen(false)
         dispatch(getopenDetail(''))
     }
@@ -90,7 +94,7 @@ function ProductDetail(product) {
     }
 
     return product.name ? (
-        <Transition.Root show={open} as={Fragment}>
+        <Transition.Root show={product.opne?product.opne:open} as={Fragment}>
             <Dialog as="div" className="relative z-10" onClose={handleOnClickClose}>
                 <Transition.Child
                     as={Fragment}
@@ -233,7 +237,6 @@ function ProductDetail(product) {
                                                     {/* Colors */}
                                                     {/* <div>
                                                                     <h4 className="text-sm font-medium text-gray-900">Color</h4>
-
                                                                     <RadioGroup value={selectedColor} onChange={setSelectedColor} className="mt-4">
                                                                         <RadioGroup.Label className="sr-only"> Choose a color </RadioGroup.Label>
                                                                         <span className="flex items-center space-x-3">

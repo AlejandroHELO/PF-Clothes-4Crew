@@ -28,7 +28,9 @@ algorithms: ['RS256']
 userRouter.route('/')
 .get(allUsers)
 
-userRouter.route( '/register')
+userRouter.route('/:id')
+.get(userProfile)
+userRouter.route('/register')
 .post(createUser)
 
 userRouter.route( '/:email')

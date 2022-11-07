@@ -15,6 +15,17 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Footer from './components/Footer/Footer'
 import { ConstructionOutlined } from '@mui/icons-material'
 
+import Filters from './components/SearchResults/Filters'
+
+import Checkout from './components/Checkout/Checkout'
+import ProductReviews from './components/Product/ProductReviews'
+
+import Filters from './components/SearchResults/Filters'
+
+
+import Checkout from './components/Checkout/Checkout'
+import ProductReviews from './components/Product/ProductReviews'
+
 
 
 export default function App() {
@@ -53,11 +64,14 @@ export default function App() {
             <Navbar/>
             <Routes>
                 <Route path='/' element={<HomePage />} />
-                <Route path='/searchResults/:query' element={<SearchResults open={open} setOpen={setOpen} />} />
-                <Route path="/searchResults/:query/:order" element={<SearchResults open={open} setOpen={setOpen} />} />
+                <Route path='/searchResults/' element={<Filters />} />
+                {/* <Route path='/searchResults/:query' element={<SearchResults open={open} setOpen={setOpen} />} />
+                <Route path="/searchResults/:query/:order" element={<SearchResults open={open} setOpen={setOpen} />} /> */}
                 <Route path='/register' element={<Register />} />
                 <Route path="/helpusimprove" element={<HelpUsImprove />} />
                 <Route path="/adminview//*" element={<AdminView />} />
+                <Route path="/products/reviews" element={<ProductReviews id='635ae766f530d18d68f103cb' userId='63615409b573f3a4a80dfc1f' />} />
+                <Route path="/checkout" element={<Checkout id={'63615409b573f3a4a80dfc1f'} />} />
                 <Route path="*" element={<Navigate to="/home" />} />
             </Routes>
             {/* <Pago id={'63615409b573f3a4a80dfc1f'}/> */}

@@ -17,19 +17,20 @@ const getAddress= async(req,res)=>{
 }
 
 const CreateAddress= async(req,res)=>{
+    console.log(req.body)
     const {street,
         codeNumber,
-        phoneNumbe,
+        phoneNumber,
         houseNumber,
         cp,
         city,
         userId,
         country
     }=req.body
-    if(!codeNumber||
-        !phoneNumbe||
-        !houseNumber||
-        !cp||
+    if(codeNumber<1||
+        phoneNumber<1||
+        houseNumber<1||
+        cp<1||
         !city||
         !userId||
         !country){
@@ -38,7 +39,7 @@ const CreateAddress= async(req,res)=>{
             const create= new addressModel({
                 street:street,
                 codeNumber:codeNumber,
-                phoneNumbe:phoneNumbe,
+                phoneNumber:phoneNumber,
                 houseNumber:houseNumber,
                 cp:cp,
                 city:city,

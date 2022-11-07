@@ -164,7 +164,10 @@ export default function Product() {
                 </div>
                 :
                 <div className={st.productUpdateCont}>
+
+
                     <ProductEdit changePage={changePage} editMode={editMode}/>
+
                 </div>
             }
         </div>
