@@ -21,7 +21,9 @@ export default function HomePage() {
             <Cards />
             <Brands />
             <img src={'/images/Clothes 4Crew Logo.JPG'} alt="Logo" />
+
             <Footer />
+
         </div>
     )
 }

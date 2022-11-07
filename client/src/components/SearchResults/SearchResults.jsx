@@ -5,7 +5,11 @@ import { orderBy, search, getProductDetail, getopenDetail } from '../../redux/ac
 import { Link, useParams } from 'react-router-dom'
 import Card from '../Cards/Card'
 import Navbar from '../navbar/navbar'
+
 // import Filters from './Filters'
+
+import Filters from './Filters1'
+
 import ProductDetail from '../Product/productDetail'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
 import Footer from '../Footer/Footer'
@@ -13,6 +17,7 @@ import Footer from '../Footer/Footer'
 export default function SearchResults({ open, setOpen }) {
     const { query, order } = useParams()
     const dispatch = useDispatch()
+    const openDetail = useSelector((state) => state.openDetail)
     // const products = useSelector(state => state.products)
     let results = useSelector((state) => state.searchResults)
     const resultsFilted = useSelector((state) => state.searchResultsFiltered)
@@ -35,8 +40,8 @@ export default function SearchResults({ open, setOpen }) {
         e.preventDefault()
         dispatch(getProductDetail(id))
         dispatch(getopenDetail(id))
+        setOpen(true)
     }
-
     useEffect(() => {
 
         dispatch(search(query))
@@ -44,9 +49,9 @@ export default function SearchResults({ open, setOpen }) {
             dispatch(orderBy(order))
             console.log(order)
         }
-
+        
         console.log(query)
-    }, [query, order, resultsFilted])
+    }, [query, order, resultsFilted,openDetail])
 
 
 
@@ -70,7 +75,19 @@ export default function SearchResults({ open, setOpen }) {
                     </button>
                     {
                         open &&
-                        <ProductDetail open={open} setOpen={setOpen} />
+                        <ProductDetail 
+                         key={res._id & res._id}
+                         id={res._id}
+                         name={res.name}
+                         image={res.image}
+                         price={res.price}
+                         brand={res.brand.name}
+                         color={res.color}
+                         size={res.size}
+                         description={res.description}
+                         open={open}
+                         setOpen={setOpen}
+                        />
                     }
                 </>
             )

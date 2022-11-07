@@ -13,26 +13,29 @@ const {
 } = require('../controller/MercadoPago.js')
 const {
      UpdateCart, getcart 
-    } = require('../controller/cart.js')
+    } = require('../controller/cart.js');
+const { CreateReview, UpdateReview } = require('../controller/Reviews');
     
-var jwtCheck = jwt({
-        secret: jwks.expressJwtSecret({
-            cache: true,
-            rateLimit: true,
-            jwksRequestsPerMinute: 5,
-            jwksUri: JWKS_URI
-    }),
-    audience: AUDIENCE,
-    issuer: ISSUER,
-    algorithms: ['RS256']
-});
+// var jwtCheck = jwt({
+//         secret: jwks.expressJwtSecret({
+//             cache: true,
+//             rateLimit: true,
+//             jwksRequestsPerMinute: 5,
+//             jwksUri: JWKS_URI
+//     }),
+//     audience: AUDIENCE,
+//     issuer: ISSUER,
+//     algorithms: ['RS256']
+// });
 
 const router = Router()
 
 //---- Products routes ------
 router.use('/products', productsRouter)
+router.post('/products/reviews', CreateReview)
+router.put('/products/reviews', UpdateReview)
 
-router.post('/mercadopago',MercadoPago)
+router.post('/mercadopago/:id/:addressId',MercadoPago)
 
 //---- Purchase routes ------
 router.use('/purchase', purchaseRouter)

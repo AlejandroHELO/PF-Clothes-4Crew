@@ -1,6 +1,8 @@
 import axios from 'axios'
 
 import {
+    GET_USERSADDRESS,
+    POST_ADDRESS,
     GET_PRODUCTS,
     PRODUCT_DETAIL,
     CLEAR_DETAIL,
@@ -25,10 +27,19 @@ import {
     ADD_TO_CART,
     DELETE_FROM_CART,
     CART_EMPTY,
+
     GET_CART,
     BRAND_ELECT
+
+    GET_CARTDB,
+
+    CREATE_P_REVIEW
+
 } from './types'
 
+// <<<<<<< HEAD
+// import { logInWithEmailandPassword, logOut, CreateuserwithEandP } from '../firebase/auth'
+// =======
 
 // -------- Products ----------
 export function getProducts() {
@@ -64,6 +75,16 @@ export function createProduct(payload) {
         return dispatch({
             type: POST_PRODUCT,
             payload: json.data,
+        })
+    }
+}
+
+export function createProductReview(payload){
+    return async function(dispatch){
+        let json = await axios.post('/products/reviews', payload)
+        return dispatch({
+            type: CREATE_P_REVIEW,
+            payload: json.data
         })
     }
 }
@@ -118,9 +139,8 @@ export function createBrands(payload) {
 // ------- Filtros y ordenamiento ---------
 
 export function orderBy(order) {
-    return function (dispatch) {
-        dispatch({ type: ORDER_BY, payload: order })
-    }
+    return({ type: ORDER_BY, payload: order })
+    
 }
 
 export function filter(fil) {
@@ -164,6 +184,16 @@ export function getUsers() { // Obtener todos los Users
     }
 }
 
+export function getUsersAddress(id) { // Obtener todos los Users
+    return async function (dispatch) {
+        let json = await axios.get('/address?id='+id)
+        return dispatch({
+            type: GET_USERSADDRESS,
+            payload: json.data,
+        })
+    }
+}
+
 export function getprofile(id) { // Visualizar perfil de un User
     return async function (dispatch) {
         let json = await axios.get(`/users/${id}`)
@@ -175,7 +205,54 @@ export function getprofile(id) { // Visualizar perfil de un User
 }
 
 export function LogInAction(data) {
-    return (dispatch) => {
+
+// <<<<<<< HEAD
+//      try {
+//          let userCredental = logInWithEmailandPassword(data)
+//          return dispatch({
+//              type: LOGIN,
+//              payload: userCredental
+//          })
+//      } catch (error) {
+//          throw new Error(error)
+//      }
+//     }
+//  }
+//  export function logOutAction() {
+//      return async(dispatch) => {
+//          try {
+//              await logOut()
+//              return dispatch({
+//                  type: LOGIN,
+//                  payload: {}
+//              })
+//          } catch (error) {
+//              throw new Error(error.code)
+//          }
+//      } 
+//  }
+ 
+//  export function SignUpwithPasswwordAndEmail(data) {
+//      return async(dispatch) =>{
+//          try {
+//              let  newUser = await CreateuserwithEandP(data)
+//              dispatch({
+//                  type: LOGIN,
+//                  payload: newUser
+//              })
+ 
+//          } catch (error) {
+//           throw new Error(error)   
+//          }
+//      }
+//  }
+
+// export function editUser(id, payload) { // Para que un User actualice su perfil
+
+// }
+
+// =======
+return (dispatch) => {
         try {
 
             return dispatch({
@@ -340,3 +417,21 @@ export const getCart = () => {
     }
 }
 
+export function CreateAddress(data) {
+    return async function (dispatch) {
+        let response = await axios.post('/address', data) // http://localhost:3001/messages/send
+        return dispatch({
+            type: POST_ADDRESS,
+            payload: response.data,
+        })
+    }
+}
+export function GetCart(id) {
+    return async function (dispatch) {
+        let response = await axios.get('/cart?userId='+id) // http://localhost:3001/messages/send
+        return dispatch({
+            type: GET_CARTDB,
+            payload: response.data,
+        })
+    }
+}
