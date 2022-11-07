@@ -171,9 +171,15 @@ export function getAdmins() { // Obtener todos los Admins
     }
 }
 
-export function getUsers() { // Obtener todos los Users
+export function getUsers(token, id) { // Obtener todos los Users
     return async function (dispatch) {
-        let json = await axios.get('/users')
+
+        const config={
+            headers:{
+                "Authorization": "Bearer "+ await token()
+            }}
+
+        let json = await axios.get(`/users?id=${id}`, config)
         return dispatch({
             type: GET_USERS,
             payload: json.data,

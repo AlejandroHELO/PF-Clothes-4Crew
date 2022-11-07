@@ -5,16 +5,18 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import styles from "./LoginPopup.module.css";
 
-function LoginPopup({ children }) {
+function LoginPopup() {
   const { loginWithPopup, isAuthenticated, user } = useAuth0();
   const navigate = useNavigate();
+
+
 
   const login = (e) => {
     e.preventDefault();
     if (!isAuthenticated) loginWithPopup();
   };
-
-  if (isAuthenticated) return null;
+  
+  if (isAuthenticated ) navigate("/");
   return ReactDOM.createPortal(
     <>
       <div className={styles.overlay} />

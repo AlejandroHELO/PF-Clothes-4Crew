@@ -3,10 +3,19 @@ const { CreateCart } = require('./cart');
 const { EmeilerConfig } = require('./Emailer');
 
 const allUsers = async (req, res, next) => {
-    const {email}= req.params
+    const {id}= req.query
     try {
+        if(!id){
+            res.status(400).send({msg:"No ID passed. Cannot access data"})
+        }
+        
+        const user = await userModel.findById(id)
+
+        if(!user.isAdmin){
+            res.status(400).send({msg:"Access denied. User is not admin"})
+        }
         const response = await userModel.find({})
-        console.log(await response)
+        
 
         const users = response?.map((us) => {
             const User = {
@@ -45,7 +54,7 @@ const userProfile = async (req, res, next) => {
             fullName: name,
             email: email,
             image: picture,
-            isAdmin: true,
+            isAdmin: false,
         }
         const response = await userModel.create(User)
         res.status(200).send({
