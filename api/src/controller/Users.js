@@ -34,17 +34,17 @@ const allUsers = async (req, res, next) => {
 }
 
 const userProfile = async (req, res, next) => {
-    const {user}=req.body
-    console.log(user)
+    const {name, picture}=req.body
+    console.log(req.body)
     try {
         const { email } = req.params
-        const Us = await userModel.find({email:email})
+        const Us = await userModel.findOne({email:email})
         
         if(!Us){
         const User = {
-            fullName: user.name,
+            fullName: name,
             email: email,
-            image: user.picture,
+            image: picture,
             isAdmin: true,
         }
         const response = await userModel.create(User)
@@ -115,6 +115,24 @@ const createUser = async (req, res, next) => {
         // .catch(err => next(err))
     } catch (error) {
         console.log('Error creating the user')
+        next(error)
+    }
+}
+
+const deleteUser = async (req, res, next) => {
+    try {
+        const { id } = req.params
+
+
+        let response = await userModel.deleteOne({
+                id:id}
+            ) // este ultimo parámetro hace que nos devuelva el user actualizado
+                // console.log(updatedPatient)
+        res.status(200).send({msg:'User Successfully Deleted', db_response: await response})
+        
+    } catch (error) {
+        console.log(error)
+        console.error('Failed to delete the user')
         next(error)
     }
 }
@@ -216,4 +234,5 @@ module.exports = {
     updateUser,
     updateUserAdmin,
     Admins,
+    deleteUser
 }

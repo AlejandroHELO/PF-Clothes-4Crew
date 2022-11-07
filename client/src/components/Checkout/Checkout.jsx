@@ -1,7 +1,7 @@
 import React from "react";
 import st from '../Admin/User/User.module.css'
 import { useDispatch, useSelector } from "react-redux";
-import { CreateAddress, GetCart, getprofile, getUsersAddress } from "../../redux/actions";
+import { CreateAddress, GetCart, getProfile, getUsersAddress } from "../../redux/actions";
 import {
     PermIdentity,
     AlternateEmail,
@@ -18,10 +18,12 @@ import { MenuItem } from "@mui/material";
 import Pago from "../MercadoPago/MercadoPago";
 import Footer from "../Footer/Footer";
 import Navbar from "../navbar/navbar";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Checkout({id}){
     
     const dispatch= useDispatch()
+    const {user,isAuthenticated, getAccessTokenSilently}= useAuth0()
     let props = useSelector((state) => state.userDetail)
     let address = useSelector((state) => state.address)
     let cart= useSelector((state)=>state.cartDb)
@@ -35,7 +37,8 @@ export default function Checkout({id}){
     }
     console.log(addAddress)
     React.useEffect(() => {
-        dispatch(getprofile(id))
+        if(isAuthenticated){
+        dispatch(getProfile(getAccessTokenSilently,user))}
     }, [dispatch])
     const onSelect=(e)=>{
         if(e.target.value!=='select')

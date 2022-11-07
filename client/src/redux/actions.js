@@ -200,7 +200,7 @@ export function getProfile(token, user) { // Visualizar perfil de un User
             }}
             
 
-        let json = await axios.get(`/users/${user.email}`, user, config)
+        let json = await axios.post(`/users/${user.email}`, user, config)
         return dispatch({
             type: GET_PROFILE,
             payload: json.data,

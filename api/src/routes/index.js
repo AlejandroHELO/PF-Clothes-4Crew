@@ -1,7 +1,4 @@
 const { Router } = require('express')
-const { expressjwt: jwt } = require('express-jwt');
-var jwks = require('jwks-rsa');
-const {JWKS_URI, AUDIENCE, ISSUER} = process.env
 const productsRouter = require("./products")
 const categoryRouter = require("./category")
 const brandsRouter = require("./brands")
@@ -12,9 +9,12 @@ const {
     MercadoPago 
 } = require('../controller/MercadoPago.js')
 const {
-     UpdateCart, getcart 
-    } = require('../controller/cart.js');
+    UpdateCart, getcart 
+} = require('../controller/cart.js');
 const { CreateReview, UpdateReview } = require('../controller/Reviews');
+const { expressjwt: jwt } = require('express-jwt');
+var jwks = require('jwks-rsa');
+const {JWKS_URI, AUDIENCE, ISSUER} = process.env
     
 var jwtCheck = jwt({
         secret: jwks.expressJwtSecret({

@@ -20,7 +20,7 @@ function LoginPopup({ children }) {
       <div className={styles.overlay} />
       <div className={styles.popup}>
         <div className={styles.i}>
-          <i className="fa-solid fa-circle-exclamation"></i>
+          <img src="/images/Clothes 4Crew Logo.JPG" alt="Company Logo" />
         </div>
         <div className={styles.title}>
           To acces this page you need to sign in

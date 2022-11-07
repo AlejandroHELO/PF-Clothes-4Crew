@@ -9,6 +9,7 @@ const {
     createUser,
     updateUser,
     updateUserAdmin,
+    deleteUser
 } = require('../controller/Users.js')
 
 const userRouter = Router()
@@ -26,19 +27,16 @@ algorithms: ['RS256']
 });
 
 userRouter.route('/')
-.get(allUsers)
+.get(jwtCheck, allUsers)
 
 userRouter.route('/:id')
-.get(userProfile)
-
-userRouter.route('/register')
-.post(createUser)
+.delete(jwtCheck, deleteUser)
+.put(jwtCheck, updateUser)
 
 userRouter.route( '/:email')
-.get(jwtCheck, userProfile)
-.put(updateUser)
+.post(jwtCheck, userProfile)
 
 userRouter.route('/admin/:id')
-.put(updateUserAdmin)
+.put(jwtCheck, updateUserAdmin)
 
 module.exports = userRouter

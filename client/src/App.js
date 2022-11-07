@@ -55,9 +55,9 @@ export default function App() {
                     <Route path="*" element={<Navigate to="/home" />} />
                     <Route path='/' element={<Footer/> } /> 
                 </Route>
-                {/* <Route element={<AdminRoutes/>}> */}
+                <Route element={<AdminRoutes/>}>
                     <Route path="/adminview//*" element={<AdminView />} />
-                {/* </Route> */}
+                </Route>
             </Routes>
             {/* <Pago id={'63615409b573f3a4a80dfc1f'}/> */}
         </>

@@ -5,10 +5,8 @@
     transform: translate(-50%, -50%);
     padding: 3rem 5rem;
     z-index: 1000;
-    background-color: var(--color1);
+    background-color: white;
     border-radius: 0.5rem;
-    color: var(--color3);
-    font-family: var(--font2);
     height: auto;
   }
   
@@ -18,7 +16,6 @@
     align-items: center;
     font-size: 3rem;
     margin: 1rem;
-    color: var(--color4);
   }
   
   .title {
@@ -42,14 +39,14 @@
   }
   
   .butt {
-    border: outset 1px var(--color4);
-    background-color: var(--color6);
-    border-radius: 0px;
-    font-family: var(--font2);
+    border: outset 1px white;
+    background-color: black;
+    border-radius: 8px;
+ 
     font-weight: 400;
     font-size: 1em;
-    color: var(--color4);
-    box-shadow: 0px 0px 3px 0px var(--color4Tr);
+    color: white;
+   
     transition: 0.1s;
     padding: 10px;
     margin-top: 2rem;
