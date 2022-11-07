@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import st from './ProductList.module.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProducts } from '../../../redux/actions'
+import { getProductsAdmin } from '../../../redux/actions'
 import { DataGrid } from '@material-ui/data-grid'
 import { Link } from 'react-router-dom'
 
@@ -9,8 +9,8 @@ export default function ProductList() {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getProducts())
-    }, [dispatch, getProducts])
+        dispatch(getProductsAdmin())
+    }, [dispatch, getProductsAdmin])
 
     const allItems = useSelector((state) => state.products)
     // console.log('SOY TODOS LOS PRODUCTOS: ', allItems)
