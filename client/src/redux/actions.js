@@ -25,7 +25,8 @@ import {
     ADD_TO_CART,
     DELETE_FROM_CART,
     CART_EMPTY,
-    GET_CART
+    GET_CART,
+    BRAND_ELECT
 } from './types'
 
 
@@ -75,15 +76,16 @@ export function updateProduct(id, payload) {
     }
 }
 
+
+//si hago el filtro en el front 
 export function search(query) {
-    return async function (dispatch) {
-        const results = await axios.get(`/products?name=${query}`)
-        return dispatch({
-            type: SEARCH,
-            payload: { query: query, data: results.data },
-        })
+    return {
+        type: SEARCH,
+        payload: query,
     }
 }
+
+
 
 export function getCategories() {
     return async function (dispatch) {
@@ -122,6 +124,7 @@ export function orderBy(order) {
 }
 
 export function filter(fil) {
+
     return function (dispatch) {
         dispatch({ type: FILTER, payload: fil })
     }
@@ -131,6 +134,13 @@ export function resetFilter(fil) {
         dispatch({ type: RESET_FILTERS, payload: fil })
     }
 }
+
+export function brandElect(brand) {
+    return function (dispatch) {
+        dispatch({ type: BRAND_ELECT, payload: brand })
+    }
+}
+
 
 // ------- Users ---------
 

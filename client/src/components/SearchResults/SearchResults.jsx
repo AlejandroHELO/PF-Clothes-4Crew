@@ -5,7 +5,7 @@ import { orderBy, search, getProductDetail, getopenDetail } from '../../redux/ac
 import { Link, useParams } from 'react-router-dom'
 import Card from '../Cards/Card'
 import Navbar from '../navbar/navbar'
-import Filters from './Filters'
+// import Filters from './Filters'
 import ProductDetail from '../Product/productDetail'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
 import Footer from '../Footer/Footer'
