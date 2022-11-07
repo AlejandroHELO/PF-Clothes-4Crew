@@ -13,7 +13,8 @@ const {
 } = require('../controller/MercadoPago.js')
 const {
      UpdateCart, getcart 
-    } = require('../controller/cart.js')
+    } = require('../controller/cart.js');
+const { CreateReview, UpdateReview } = require('../controller/Reviews');
     
 // var jwtCheck = jwt({
 //         secret: jwks.expressJwtSecret({
@@ -31,6 +32,8 @@ const router = Router()
 
 //---- Products routes ------
 router.use('/products', productsRouter)
+router.post('/products/reviews', CreateReview)
+router.put('/products/reviews', UpdateReview)
 
 router.post('/mercadopago/:id/:addressId',MercadoPago)
 
