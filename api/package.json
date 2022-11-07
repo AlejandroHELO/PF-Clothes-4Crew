@@ -4,7 +4,7 @@
     "description": "project clothes 4crew",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon -L",
+        "start": "node src/index.js",
         "dev": "nodemon src/index.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
