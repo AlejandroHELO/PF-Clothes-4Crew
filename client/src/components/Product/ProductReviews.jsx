@@ -7,6 +7,7 @@ import { StarIcon } from '@heroicons/react/20/solid';
 import { FaStar } from "react-icons/fa";
 import { Container, Radio, Rating } from "./ProductReviewsStyles";
 import Footer from '../Footer/Footer';
+import Navbar from '../navbar/navbar';
 
 
 function ProductReviews({id,userId})  {
@@ -65,6 +66,8 @@ function ProductReviews({id,userId})  {
     console.log(input)
 
     return(
+        <>
+        <Navbar/>
         <div>
             <div className={st.Container}>
                 {/* <h1 className={st.title}>Score our product and comment your experience</h1> */}
@@ -125,6 +128,8 @@ function ProductReviews({id,userId})  {
             </div>
             <Footer></Footer>  
         </div>
+        <Footer/>
+        </>
     )
 }
 export default ProductReviews;

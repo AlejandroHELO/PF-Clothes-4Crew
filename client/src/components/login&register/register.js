@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../navbar/navbar";
 import {useDispatch, useSelector} from 'react-redux'
-//import { SignUpwithPasswwordAndEmail } from "../../redux/actions"
+import { SignUpwithPasswwordAndEmail } from "../../redux/actions"
 import {useNavigate} from 'react-router-dom'
 import Footer from "../Footer/Footer";
 
@@ -58,15 +58,18 @@ function Register() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        // try {
-        //   dispatch(SignUpwithPasswwordAndEmail(input))
-        //   navigate('/', ({force: true}))
-        // } catch (error) {
-        //   console.log(error)
-        // }
+        setInput({...input,fullName:input.firstName+' '+input.lastName})
+        try {
+          dispatch(SignUpwithPasswwordAndEmail(input))
+          navigate('/', ({force: true}))
+        } catch (error) {
+          console.log(error)
+        }
 
     }
     return(
+      <>
+      <Navbar/>
       <div className="w-full h-screen justify-content-center">
      
 
@@ -234,6 +237,8 @@ function Register() {
         </div>
         <Footer/>
       </div>
+      <Footer/>
+      </>
     )
 }
 

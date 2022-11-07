@@ -16,6 +16,8 @@ import {
 import { Select } from "@material-ui/core";
 import { MenuItem } from "@mui/material";
 import Pago from "../MercadoPago/MercadoPago";
+import Footer from "../Footer/Footer";
+import Navbar from "../navbar/navbar";
 
 export default function Checkout({id}){
     
@@ -34,7 +36,7 @@ export default function Checkout({id}){
     console.log(addAddress)
     React.useEffect(() => {
         dispatch(getprofile(id))
-    }, [])
+    }, [dispatch])
     const onSelect=(e)=>{
         if(e.target.value!=='select')
         setaddAddress(e.target.value)
@@ -76,6 +78,8 @@ export default function Checkout({id}){
         setpasos(pasos-1)
     }
     return(
+        <>
+        <Navbar/>
         <div class="grid h-screen place-items-center my-10 mx-10">
         {pasos===0?<div class="content-center">
         <div className={st.userTitleContainer}>
@@ -353,5 +357,7 @@ export default function Checkout({id}){
         
        
         </div>
+        <Footer/>
+        </>
     )
 }
