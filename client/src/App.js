@@ -56,8 +56,8 @@ function App() {
                 <Route path='/register' element={<Register />} />
                 <Route path="/helpusimprove" element={<HelpUsImprove />} />
                 <Route path="/adminview//*" element={<AdminView />} />
-                <Route path="/products/reviews" element={<ProductReviews id='635ae766f530d18d68f103cb' userId='63615409b573f3a4a80dfc1f' />} />
-                <Route path="/checkout" element={<Checkout id={'63690b85bff6b52fa2aa628c'} />} />
+                <Route path="/products/reviews" element={<ProductReviews id='635ae766f530d18d68f103cb' userId='636942f1c82d83dba9468415' />} />
+                <Route path="/checkout" element={<Checkout id={'636942f1c82d83dba9468415'} />} />
                 <Route path="*" element={<Navigate to="/home" />} />
             </Routes>
             {/* <Pago id={'63615409b573f3a4a80dfc1f'}/> */}
