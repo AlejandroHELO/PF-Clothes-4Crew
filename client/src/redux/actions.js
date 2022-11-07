@@ -29,7 +29,8 @@ import {
     CART_EMPTY,
 
     GET_CART,
-    BRAND_ELECT
+
+    BRAND_ELECT,
 
     GET_CARTDB,
 
@@ -281,11 +282,10 @@ export function logOutAction() {
 export function SignUpwithPasswwordAndEmail(data) {
     return async (dispatch) => {
         try {
-
-
+            const result= await axios.post('/users/register',data)
             dispatch({
                 type: LOGIN,
-                payload: "newUser"
+                payload: result.data
             })
 
         } catch (error) {
