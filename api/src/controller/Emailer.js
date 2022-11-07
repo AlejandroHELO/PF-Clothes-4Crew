@@ -89,7 +89,7 @@ async function EmeilerConfig  ( email, name) {
                       <p style="margin-bottom: 50px;"><i>Sincerely:</i><br>Team of Clothes 4Crew</p>
       
                       <!-- Botón -->
-                      <a class="claseBoton" href="http://localhost:3000/">Clothes 4Crew</a>
+                      <a class="claseBoton" href="https://clothes-4-crew.vercel.app/">Clothes 4Crew</a>
                   </div>
                   <!-- Contenido principal -->
       
