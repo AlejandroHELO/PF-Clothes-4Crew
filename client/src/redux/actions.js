@@ -28,7 +28,8 @@ import {
     DELETE_FROM_CART,
     CART_EMPTY,
     GET_CARTDB,
-    GET_CART
+    GET_CART,
+    CREATE_P_REVIEW
 } from './types'
 
 // <<<<<<< HEAD
@@ -69,6 +70,16 @@ export function createProduct(payload) {
         return dispatch({
             type: POST_PRODUCT,
             payload: json.data,
+        })
+    }
+}
+
+export function createProductReview(payload){
+    return async function(dispatch){
+        let json = await axios.post('/products/reviews', payload)
+        return dispatch({
+            type: CREATE_P_REVIEW,
+            payload: json.data
         })
     }
 }
