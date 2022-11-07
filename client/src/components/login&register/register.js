@@ -68,6 +68,8 @@ function Register() {
 
     }
     return(
+      <>
+      <Navbar/>
       <div className="w-full h-screen justify-content-center">
      
 
@@ -235,6 +237,8 @@ function Register() {
         </div>
         <Footer/>
       </div>
+      <Footer/>
+      </>
     )
 }
 
