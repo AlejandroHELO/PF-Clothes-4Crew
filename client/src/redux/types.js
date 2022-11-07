@@ -24,6 +24,9 @@ export const ADD_TO_CART = 'ADD_TO_CART'
 export const DELETE_FROM_CART = 'DELETE_FROM_CART'
 export const CART_EMPTY = 'CART_EMPTY'
 export const GET_CART = 'GET_CART'
+
+export const BRAND_ELECT = 'BRAND_ELECT'
+
 export const GET_USERSADDRESS='GET_USERSADDRESS'
 export const GET_CARTDB='GET_CARTDB'
 export const CREATE_P_REVIEW='CREATE_P_REVIEW'

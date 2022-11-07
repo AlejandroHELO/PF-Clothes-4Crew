@@ -12,8 +12,13 @@ import Pago from './components/MercadoPago/MercadoPago'
 import Register from './components/login&register/register'
 import Navbar from './components/navbar/navbar'
 import { useAuth0 } from "@auth0/auth0-react";
+
+import Filters from './components/SearchResults/Filters'
+
+
 import Checkout from './components/Checkout/Checkout'
 import ProductReviews from './components/Product/ProductReviews'
+
 
 
 function App() {
@@ -42,11 +47,12 @@ function App() {
 
     return (
         <>
-            <Navbar />
+
             <Routes>
                 <Route path='/' element={<HomePage />} />
-                <Route path='/searchResults/:query' element={<SearchResults open={open} setOpen={setOpen} />} />
-                <Route path="/searchResults/:query/:order" element={<SearchResults open={open} setOpen={setOpen} />} />
+                <Route path='/searchResults/' element={<Filters />} />
+                {/* <Route path='/searchResults/:query' element={<SearchResults open={open} setOpen={setOpen} />} />
+                <Route path="/searchResults/:query/:order" element={<SearchResults open={open} setOpen={setOpen} />} /> */}
                 <Route path='/register' element={<Register />} />
                 <Route path="/helpusimprove" element={<HelpUsImprove />} />
                 <Route path="/adminview//*" element={<AdminView />} />
