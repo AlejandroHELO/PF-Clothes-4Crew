@@ -1,0 +1,8 @@
+.HomeAdmin {
+    flex: 6;
+}
+
+.homeWidgets {
+    display: flex;
+    margin: 20px;
+}
