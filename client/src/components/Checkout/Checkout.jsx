@@ -81,8 +81,6 @@ export default function Checkout({id}){
         setpasos(pasos-1)
     }
     return(
-        <>
-        <Navbar/>
         <div class="grid h-screen place-items-center my-10 mx-10">
         {pasos===0?<div class="content-center">
         <div className={st.userTitleContainer}>
@@ -360,7 +358,7 @@ export default function Checkout({id}){
         
        
         </div>
-        <Footer/>
-        </>
+       
+   
     )
 }

@@ -18,6 +18,7 @@ import Filters from './components/SearchResults/Filters'
 import Checkout from './components/Checkout/Checkout'
 import ProductReviews from './components/Product/ProductReviews'
 import AdminRoutes from "./AdminRoutes"
+import ProtectedRoutes from './ProtectedRoutes'
 
 
 
@@ -51,14 +52,16 @@ export default function App() {
                     <Route path='/register' element={<Register />} />
                     <Route path="/helpusimprove" element={<HelpUsImprove />} />
                     <Route path="/products/reviews" element={<ProductReviews id='635ae766f530d18d68f103cb' userId='63615409b573f3a4a80dfc1f' />} />
-                    <Route path="/checkout" element={<Checkout id={'63615409b573f3a4a80dfc1f'} />} />
-                    <Route path="*" element={<Navigate to="/home" />} />
-                    <Route path='/' element={<Footer/> } /> 
+                    <Route element={<ProtectedRoutes/>}>
+                        <Route path="/checkout" element={<Checkout id={'63615409b573f3a4a80dfc1f'} />} />
+                    </Route>
                 </Route>
                 <Route element={<AdminRoutes/>}>
                     <Route path="/adminview//*" element={<AdminView />} />
                 </Route>
+                <Route path="*" element={<Navigate to="/" />} />
             </Routes>
+            <Footer/>
             {/* <Pago id={'63615409b573f3a4a80dfc1f'}/> */}
         </>
 
