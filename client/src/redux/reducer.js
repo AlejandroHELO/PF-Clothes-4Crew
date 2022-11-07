@@ -26,7 +26,8 @@ import {
     BRAND_ELECT,    
     GET_USERSADDRESS,
     POST_ADDRESS,
-    GET_CARTDB
+    GET_CARTDB,
+    GET_PRODUCTSADMIN
 
 } from './types'
 
@@ -65,6 +66,16 @@ const reducer = (state = initialState, action) => {
     console.log(state)
     switch (action.type) {
         case GET_PRODUCTS:
+            const result=action.payload.filter(f=>f.active===true)
+            return {
+                ...state,
+                products: [...result],
+                productsFiltered: [...result],
+                brandFilteredMemory: [...result],
+                brandElect: "",
+                filtersElect: [],
+            }
+        case GET_PRODUCTSADMIN:
             return {
                 ...state,
                 products: [...action.payload],
@@ -73,7 +84,6 @@ const reducer = (state = initialState, action) => {
                 brandElect: "",
                 filtersElect: [],
             }
-
         case PRODUCT_DETAIL:
             return {
                 ...state,

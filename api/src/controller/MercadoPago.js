@@ -51,9 +51,9 @@ const MercadoPago=async (req,res)=>{
                             }
                         },
                         "back_urls": {
-                            "success": "https://www.success.com",
-                            "failure": "http://www.failure.com",
-                            "pending": "http://www.pending.com"
+                            "success": "https://clothes-4-crew.vercel.app/",
+                            "failure": "https://clothes-4-crew.vercel.app/",
+                            "pending": "https://clothes-4-crew.vercel.app/"
                         },
                         "auto_return": "approved",
                         "payment_methods": {

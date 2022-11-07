@@ -27,7 +27,7 @@ import {
     ADD_TO_CART,
     DELETE_FROM_CART,
     CART_EMPTY,
-
+    GET_PRODUCTSADMIN,
     GET_CART,
 
     BRAND_ELECT,
@@ -47,6 +47,12 @@ export function getProducts() {
     return async function (dispatch) {
         const allData = await axios.get('/products')
         return dispatch({ type: GET_PRODUCTS, payload: allData.data })
+    }
+}
+export function getProductsAdmin() {
+    return async function (dispatch) {
+        const allData = await axios.get('/products')
+        return dispatch({ type: GET_PRODUCTSADMIN, payload: allData.data })
     }
 }
 
