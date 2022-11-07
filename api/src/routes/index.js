@@ -1,13 +1,13 @@
 const { Router } = require('express')
-var jwt = require('express-jwt');
+const { expressjwt: jwt } = require('express-jwt');
 var jwks = require('jwks-rsa');
+const {JWKS_URI, AUDIENCE, ISSUER} = process.env
 const productsRouter = require("./products")
 const categoryRouter = require("./category")
 const brandsRouter = require("./brands")
 const addressRouter = require("./address")
 const userRouter = require('./user')
 const purchaseRouter = require('./purchase')
-const {JWKS_URI, AUDIENCE, ISSUER} = process.env
 const { 
     MercadoPago 
 } = require('../controller/MercadoPago.js')

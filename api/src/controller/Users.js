@@ -2,8 +2,10 @@ const { userModel } = require('../models/index');
 const { CreateCart } = require('./cart');
 
 const allUsers = async (req, res, next) => {
+    const {email}= req.params
     try {
         const response = await userModel.find({})
+        console.log(await response)
 
         const users = response?.map((us) => {
             const User = {
@@ -31,10 +33,14 @@ const allUsers = async (req, res, next) => {
 }
 
 const userProfile = async (req, res, next) => {
+    const {user}=req.body
+    console.log(user)
     try {
-        const { id } = req.params
+        const { email } = req.params
+        const Us = await userModel.find({email:email})
+        
 
-        const Us = await userModel.findById(id)
+
 
         const User = {
             id: Us._id,
@@ -51,7 +57,7 @@ const userProfile = async (req, res, next) => {
         }
         User
             ? res.status(200).send(User)
-            : { msg: "There's no user with that id" }
+            : { msg: "There's no user with that email" }
     } catch (error) {
         console.error("Error occurred. User couldn't be shown.")
         next(error)

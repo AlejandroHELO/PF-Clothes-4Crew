@@ -1,8 +1,8 @@
-import React, { createContext, useEffect } from 'react'
+import React,{ useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 // import './App.css';
-import { getProducts, getCart } from './redux/actions'
+import { getProducts, getCart, getProfile } from './redux/actions'
 import HomePage from './components/HomePage/HomePage'
 import AdminView from './components/Admin/AdminView'
 // import Loading from '';
@@ -12,10 +12,12 @@ import Pago from './components/MercadoPago/MercadoPago'
 import Register from './components/login&register/register'
 import Navbar from './components/navbar/navbar'
 import { useAuth0 } from "@auth0/auth0-react";
+import Footer from './components/Footer/Footer'
+import { ConstructionOutlined } from '@mui/icons-material'
 
 
 
-function App() {
+export default function App() {
     const dispatch = useDispatch()
     const [open, setOpen] = React.useState(false)
     const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
@@ -33,6 +35,13 @@ function App() {
     // }, [user, dispatch]);
 
     useEffect(() => {
+        if (isAuthenticated) {
+            console.log(user)
+          dispatch(getProfile(getAccessTokenSilently, user));
+        }
+      }, [dispatch, isAuthenticated, getAccessTokenSilently, user]);
+
+    useEffect(() => {
 
         dispatch(getCart())
         dispatch(getProducts())
@@ -41,7 +50,7 @@ function App() {
 
     return (
         <>
-            <Navbar />
+            <Navbar/>
             <Routes>
                 <Route path='/' element={<HomePage />} />
                 <Route path='/searchResults/:query' element={<SearchResults open={open} setOpen={setOpen} />} />
@@ -55,7 +64,8 @@ function App() {
             {/* <Footer/> */}
         </>
 
-    )
+    ) 
+       
+
 }
 
-export default App

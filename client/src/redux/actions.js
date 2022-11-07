@@ -154,9 +154,16 @@ export function getUsers() { // Obtener todos los Users
     }
 }
 
-export function getprofile(id) { // Visualizar perfil de un User
+export function getProfile(token, user) { // Visualizar perfil de un User
     return async function (dispatch) {
-        let json = await axios.get(`/users/${id}`)
+
+        const config={
+            body:{
+                user
+            }}
+            
+
+        let json = await axios.get(`/users/${user.email}`)
         return dispatch({
             type: GET_PROFILE,
             payload: json.data,
@@ -322,7 +329,7 @@ export const getCart = () => {
         }
 
     } else {
-        cart = [{ key: 1, id: 1, name: "Don't products", image: 'https://img.freepik.com/vector-gratis/ups-error-404-ilustracion-concepto-robot-roto_114360-5529.jpg?w=2000', price: 0, brand: '' }];
+        cart = [{ key: 1, id: 1, name: "No products", image: 'https://img.freepik.com/vector-gratis/ups-error-404-ilustracion-concepto-robot-roto_114360-5529.jpg?w=2000', price: 0, brand: '' }];
     }
     return {
         type: GET_CART,

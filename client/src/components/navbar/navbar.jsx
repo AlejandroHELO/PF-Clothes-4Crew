@@ -10,7 +10,7 @@ import Cart from "../Cart/Cart";
 function Navbar() {
     const dispatch = useDispatch()
     const cart = useSelector(state => state.cart);
-    const { loginWithPopup } = useAuth0()
+    const { loginWithPopup, isAuthenticated, user, logout } = useAuth0()
     const [openCart, setOpenCart] = React.useState(false)
 
     const categories = useSelector((state) => state.categories)
@@ -49,9 +49,13 @@ function Navbar() {
                         🛒
                     </button>
                     {/* Login */}
-                    <button onClick={loginWithPopup} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                    {!isAuthenticated? <button onClick={loginWithPopup} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
                         👤 Iniciar sesión
-                    </button>
+                    </button>: 
+                    <div >
+                        <img src={user?.picture} alt="User picture" onClick={logout} />
+                    </div>
+                    }
 
                 </div>
             </div>
