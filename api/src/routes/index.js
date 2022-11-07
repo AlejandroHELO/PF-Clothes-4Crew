@@ -29,7 +29,10 @@ const { CreateReview, UpdateReview } = require('../controller/Reviews');
 // });
 
 const router = Router()
-
+//----- routes inicial------
+router.get('/',(req,res)=>{
+    res.status(200).send('Server On')
+})
 //---- Products routes ------
 router.use('/products', productsRouter)
 router.post('/products/reviews', CreateReview)
