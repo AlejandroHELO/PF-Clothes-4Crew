@@ -1,5 +1,5 @@
 const nodemailer = require("nodemailer")
-function EmeilerConfig( email, name) {
+async function EmeilerConfig  ( email, name) {
 
   try {
     //const {msj}=req.query
@@ -8,8 +8,8 @@ function EmeilerConfig( email, name) {
       port: 465,
       secure: true, // true for 465, false for other ports
       auth: {
-        user: 'clothes4crew@gmail.com', // generated ethereal user
-        pass: 'qlgtralrdtwikxwd', // generated ethereal password
+        user: 'clouthes4crew@gmail.com', // generated ethereal user
+        pass: 'ipoyzqrtrgjkjyfq', // generated ethereal password
       },
     });
 
@@ -89,7 +89,7 @@ function EmeilerConfig( email, name) {
                       <p style="margin-bottom: 50px;"><i>Sincerely:</i><br>Team of Clothes 4Crew</p>
       
                       <!-- Botón -->
-                      <a class="claseBoton" href="https://localhost:3000">Clothes 4Crew</a>
+                      <a class="claseBoton" href="http://localhost:3000/">Clothes 4Crew</a>
                   </div>
                   <!-- Contenido principal -->
       

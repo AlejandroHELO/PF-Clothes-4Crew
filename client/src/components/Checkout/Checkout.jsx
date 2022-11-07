@@ -34,7 +34,7 @@ export default function Checkout({id}){
     console.log(addAddress)
     React.useEffect(() => {
         dispatch(getprofile(id))
-    }, [])
+    }, [dispatch])
     const onSelect=(e)=>{
         if(e.target.value!=='select')
         setaddAddress(e.target.value)

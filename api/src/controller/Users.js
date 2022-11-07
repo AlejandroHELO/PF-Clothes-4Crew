@@ -1,5 +1,6 @@
 const { userModel } = require('../models/index');
 const { CreateCart } = require('./cart');
+const { EmeilerConfig } = require('./Emailer');
 
 const allUsers = async (req, res, next) => {
     try {
@@ -59,6 +60,7 @@ const userProfile = async (req, res, next) => {
 }
 
 const createUser = async (req, res, next) => {
+    console.log(req.body)
     let {
         fullName,
         email,
@@ -82,7 +84,7 @@ const createUser = async (req, res, next) => {
             fullName, 
             email, 
             password, 
-            birthDate, 
+           birthDate, 
             genre, 
             country, 
             address, 
@@ -95,8 +97,10 @@ const createUser = async (req, res, next) => {
         console.log(result)
         const cart= await CreateCart(result._id)
         console.log('create carrito: '+ cart)
-        res.status(201).send('User Successfully Created');
-
+        await EmeilerConfig(req.body.email,req.body.firstName)
+           
+        //res.status(201).json({msj:'User Successfully Created'});
+        console.log('User Successfully Created')
 
         // let crearUser = await new userModel({})
         // crearUser.save().then( result => {
