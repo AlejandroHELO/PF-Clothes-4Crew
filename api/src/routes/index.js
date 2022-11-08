@@ -1,32 +1,32 @@
 const { Router } = require('express')
-var jwt = require('express-jwt');
-var jwks = require('jwks-rsa');
 const productsRouter = require("./products")
 const categoryRouter = require("./category")
 const brandsRouter = require("./brands")
 const addressRouter = require("./address")
 const userRouter = require('./user')
 const purchaseRouter = require('./purchase')
-const {JWKS_URI, AUDIENCE, ISSUER} = process.env
 const { 
     MercadoPago 
 } = require('../controller/MercadoPago.js')
 const {
-     UpdateCart, getcart 
-    } = require('../controller/cart.js');
+    UpdateCart, getcart 
+} = require('../controller/cart.js');
 const { CreateReview, UpdateReview } = require('../controller/Reviews');
+const { expressjwt: jwt } = require('express-jwt');
+var jwks = require('jwks-rsa');
+const {JWKS_URI, AUDIENCE, ISSUER} = process.env
     
-// var jwtCheck = jwt({
-//         secret: jwks.expressJwtSecret({
-//             cache: true,
-//             rateLimit: true,
-//             jwksRequestsPerMinute: 5,
-//             jwksUri: JWKS_URI
-//     }),
-//     audience: AUDIENCE,
-//     issuer: ISSUER,
-//     algorithms: ['RS256']
-// });
+var jwtCheck = jwt({
+        secret: jwks.expressJwtSecret({
+            cache: true,
+            rateLimit: true,
+            jwksRequestsPerMinute: 5,
+            jwksUri: JWKS_URI
+    }),
+    audience: AUDIENCE,
+    issuer: ISSUER,
+    algorithms: ['RS256']
+});
 
 const router = Router()
 //----- routes inicial------

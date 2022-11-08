@@ -3,8 +3,19 @@ const { CreateCart } = require('./cart');
 const { EmeilerConfig } = require('./Emailer');
 
 const allUsers = async (req, res, next) => {
+    const {id}= req.query
     try {
+        if(!id){
+            res.status(400).send({msg:"No ID passed. Cannot access data"})
+        }
+        
+        const user = await userModel.findById(id)
+
+        if(!user.isAdmin){
+            res.status(400).send({msg:"Access denied. User is not admin"})
+        }
         const response = await userModel.find({})
+        
 
         const users = response?.map((us) => {
             const User = {
@@ -32,27 +43,30 @@ const allUsers = async (req, res, next) => {
 }
 
 const userProfile = async (req, res, next) => {
+    const {name, picture}=req.body
+    console.log(req.body)
     try {
-        const { id } = req.params
-
-        const Us = await userModel.findById(id)
-
+        const { email } = req.params
+        const Us = await userModel.findOne({email:email})
+        
+        if(!Us){
         const User = {
-            id: Us._id,
-            fullName: Us.fullName,
-            email: Us.email,
-            birthDate: Us.birthDate,
-            genre: Us.genre,
-            country: Us.country,
-            address: Us.address,
-            tel: Us.tel,
-            image: Us.image,
-            isAdmin: Us.isAdmin,
-            active: Us.active,
+            fullName: name,
+            email: email,
+            image: picture,
+            isAdmin: false,
         }
-        User
-            ? res.status(200).send(User)
-            : { msg: "There's no user with that id" }
+        const response = await userModel.create(User)
+        res.status(200).send({
+            msg:"User created succesfully",
+            data:User,
+            db_response: response        
+        })
+
+        }
+        
+        else{res.status(200).send(Us)}
+           
     } catch (error) {
         console.error("Error occurred. User couldn't be shown.")
         next(error)
@@ -110,6 +124,24 @@ const createUser = async (req, res, next) => {
         // .catch(err => next(err))
     } catch (error) {
         console.log('Error creating the user')
+        next(error)
+    }
+}
+
+const deleteUser = async (req, res, next) => {
+    try {
+        const { id } = req.params
+
+
+        let response = await userModel.deleteOne({
+                id:id}
+            ) // este ultimo parámetro hace que nos devuelva el user actualizado
+                // console.log(updatedPatient)
+        res.status(200).send({msg:'User Successfully Deleted', db_response: await response})
+        
+    } catch (error) {
+        console.log(error)
+        console.error('Failed to delete the user')
         next(error)
     }
 }
@@ -211,4 +243,5 @@ module.exports = {
     updateUser,
     updateUserAdmin,
     Admins,
+    deleteUser
 }
