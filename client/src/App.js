@@ -44,6 +44,7 @@ export default function App() {
         <>
             
             <Routes>
+
                 <Route path='/' element={<Navbar/>} >
                     <Route path='/' element={<HomePage />} />
                     <Route path='/searchResults/' element={<Filters />} />
@@ -61,12 +62,10 @@ export default function App() {
                 </Route>
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
-            <Footer/>
+     //       <Footer/>
             {/* <Pago id={'63615409b573f3a4a80dfc1f'}/> */}
         </>
 
     ) 
-       
-
 }
 
