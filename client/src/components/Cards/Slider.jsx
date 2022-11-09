@@ -11,7 +11,7 @@ import {
 import ProductDetail from '../Product/productDetail'
 import PropTypes from 'prop-types'
 
-const Slider = ({ cat, products }) => {
+const Slider = ({ cat, products, user }) => {
     const dispatch = useDispatch()
     // const products = useSelector((state) => state.products.filter((p) => p.featured === true)) //featured ->sólo los destacados
     const slider = useRef()
@@ -54,6 +54,7 @@ const Slider = ({ cat, products }) => {
                                                             e.description
                                                         }
                                                         size={e.size}
+                                                        user={user}
                                                     />
                                                 </div>
 

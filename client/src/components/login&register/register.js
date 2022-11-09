@@ -437,8 +437,7 @@ function Register() {
             <Footer />
         </div>
         <Footer/>
-      </div>
-      <Footer/>
+      
       </>
     )
 }

@@ -27,7 +27,8 @@ import {
     GET_USERSADDRESS,
     POST_ADDRESS,
     GET_CARTDB,
-    GET_PRODUCTSADMIN
+    GET_PRODUCTSADMIN,
+    GET_FAVORITES
 
 } from './types'
 
@@ -47,7 +48,7 @@ const initialState = {
     admins: [],
     messages: [],
     productsFiltered: [],
-
+    favorites: [],
     brandFilteredMemory: [],
     resultFilterCombinado1: [],
     filtersElect: [],
@@ -105,7 +106,16 @@ const reducer = (state = initialState, action) => {
                 details: action.payload,
             }
 
-
+        case GET_FAVORITES: {
+            // const favoritesProducts = []
+            // action.payload?.map(p => {
+            //     return favoritesProducts.push(p.id)
+            // })
+            return {
+                ...state,
+                favorites: state.favorites.concat(action.payload)
+            }
+        }    
 
         //filtro que funciona en el front sin hacer el pedido al back
         case SEARCH:

@@ -27,7 +27,7 @@ import {
     ADD_TO_CART,
     DELETE_FROM_CART,
     CART_EMPTY,
-
+    GET_FAVORITES,
     GET_PRODUCTSADMIN,
 
     GET_CART,
@@ -407,5 +407,39 @@ export function GetCart(id) {
             type: GET_CARTDB,
             payload: response.data,
         })
+    }
+}
+
+
+export function favoriteProduct(productId) {
+    // return async function() {
+    //     try {
+    //         await axios.post('/favorites', {
+    //             productId: productId,
+    //             userId: userId
+    //         })
+    //     } catch (error) {
+    //         throw new Error(error)
+    //     }
+    // }
+    return async function(dispatch) {
+        dispatch({
+            type: GET_FAVORITES,
+            payload: productId
+        })
+    }
+}
+
+export function getUserFavorites(userId) {
+    return async function(dispatch) {
+        try {
+            let favorites = await axios.get(`/favorites/${userId}`)
+            return dispatch({
+                type: GET_FAVORITES,
+                payload: favorites.data
+            })
+        } catch (error) {
+            
+        }
     }
 }

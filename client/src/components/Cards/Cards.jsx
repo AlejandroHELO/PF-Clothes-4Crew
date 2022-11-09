@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { getCategories } from '../../redux/actions'
 // import Filters from "../Filters/Filters"
 
-const Cards = () => {
+const Cards = ({user}) => {
     //acá en vez de traer productos traer de category
     //entonces llenar la base de datos con lo necesario
     //hacer collection nueva donde el administrador pueda personalizar el home
@@ -33,7 +33,7 @@ const Cards = () => {
             {categories?.map((c) => {
                 return (
                     <div key={c}>
-                        <Slider cat={c} products={products} />
+                        <Slider cat={c} products={products} user={user} />
                     </div>
                 )
             })}
