@@ -19,6 +19,7 @@ import Checkout from './components/Checkout/Checkout'
 import ProductReviews from './components/Product/ProductReviews'
 import AdminRoutes from "./AdminRoutes"
 import ProtectedRoutes from './ProtectedRoutes'
+import CCheckout from './components/CCheckout/CCheckout'
 
 
 
@@ -52,9 +53,10 @@ export default function App() {
                     <Route path="/searchResults/:query/:order" element={<SearchResults open={open} setOpen={setOpen} />} /> */}
                     <Route path='/register' element={<Register />} />
                     <Route path="/helpusimprove" element={<HelpUsImprove />} />
-                    <Route path="/products/reviews" element={<ProductReviews id='635ae766f530d18d68f103cb' userId='63615409b573f3a4a80dfc1f' />} />
                     <Route element={<ProtectedRoutes/>}>
-                        <Route path="/checkout" element={<Checkout id={'63615409b573f3a4a80dfc1f'} />} />
+                        <Route path="/products/reviews" element={<ProductReviews id='635ae766f530d18d68f103cb' userId='63615409b573f3a4a80dfc1f' />} />
+                        <Route path="/checkout" element={<Checkout  />} />
+                        <Route path="/checkout/confirm" element={<CCheckout/>} />
                     </Route>
                 </Route>
                 <Route element={<AdminRoutes/>}>

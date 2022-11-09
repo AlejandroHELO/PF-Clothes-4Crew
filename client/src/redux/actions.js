@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 import {
+    POST_DBCART,
     GET_USERSADDRESS,
     POST_ADDRESS,
     GET_PRODUCTS,
@@ -396,7 +397,7 @@ export const addToCart = product => async dispatch => {
     }
 };
 
-export const deleteFromCart = product => async dispatch => {
+export const deleteFromCart = (product,props='') => async dispatch => {
     const cart = localStorage.getItem('cart')
         ? JSON.parse(localStorage.getItem('cart'))
         : [];
@@ -410,6 +411,9 @@ export const deleteFromCart = product => async dispatch => {
         type: DELETE_FROM_CART,
         payload: updatedCart,
     });
+    if(props){
+        dispatch(updatedCartDB(cart,props._id))
+    }
 };
 
 export const cartEmpty = () => {
@@ -432,6 +436,15 @@ export const getCart = () => {
     return {
         type: GET_CART,
         payload: cart
+    }
+}
+export function updatedCartDB(data,userid) {
+    return async function (dispatch) {
+        let response = await axios.post('/cartupdate/'+userid, data) 
+        return dispatch({
+            type: POST_DBCART,
+            payload: response.data,
+        })
     }
 }
 

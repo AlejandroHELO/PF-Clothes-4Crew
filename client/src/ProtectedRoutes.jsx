@@ -13,7 +13,9 @@ function ProtectedRoutes() {
 
   useEffect(() => {
     if (isAuthenticated) {
+      if(!userDetail){
         dispatch(getProfile(getAccessTokenSilently, user));
+      }
     }
 }, [dispatch, user, userDetail]);
 

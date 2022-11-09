@@ -3,7 +3,7 @@ import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { useSelector, useDispatch } from 'react-redux'
-import { getViewCart, deleteFromCart, cartEmpty } from '../../redux/actions'
+import { getViewCart, deleteFromCart, cartEmpty, updatedCartDB } from '../../redux/actions'
 import { Link, NavLink } from 'react-router-dom'
 import { ChevronLeftIcon, ChevronRightIcon, TrashIcon } from '@heroicons/react/20/solid'
 import { ADD_TO_CART } from '../../redux/types'
@@ -18,6 +18,7 @@ export default function Cart({ open, setOpen, products }) {
     // const products = useSelector((state) => state.cart);
     const dispatch = useDispatch();
     const [total, setTotal] = useState(0);
+    const userDetail = useSelector(state => state.userDetail)
 
     React.useEffect(() => {
         // console.log('products en cart', products)
@@ -28,9 +29,12 @@ export default function Cart({ open, setOpen, products }) {
         })
         setTotal(tot)
         //comparo las cantidades guardadas en LocalStorage y las guardadas en la base de datos
+        if(userDetail._id){
+            //console.log(products)
+            dispatch(updatedCartDB(products,userDetail._id))
+        }
 
-
-    }, [products])
+    }, [products,userDetail])
 
 
     const handleQtyClick = (e, product) => {

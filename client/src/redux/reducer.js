@@ -1,4 +1,5 @@
 import {
+    POST_DBCART,
     GET_PRODUCTS,
     PRODUCT_DETAIL,
     CLEAR_DETAIL,
@@ -27,7 +28,8 @@ import {
     GET_USERSADDRESS,
     POST_ADDRESS,
     GET_CARTDB,
-    GET_PRODUCTSADMIN
+    GET_PRODUCTSADMIN,
+    POST_DBCARTD
 
 } from './types'
 
@@ -56,7 +58,8 @@ const initialState = {
 
     userLogged: {},
     address:'',
-    cartDb:''
+    cartDb:'',
+    updatecartdb:''
 
 }
 
@@ -65,6 +68,16 @@ const initialState = {
 const reducer = (state = initialState, action) => {
     console.log(state)
     switch (action.type) {
+        case POST_DBCART:
+            return{
+                ...state,
+                updatecartdb:action.payload
+            }
+        case POST_DBCARTD:
+            return{
+                ...state,
+                updatecartdb:''
+            }
         case GET_PRODUCTS:
             const result=action.payload.filter(f=>f.active===true)
             return {
