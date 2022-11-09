@@ -2,22 +2,25 @@ import React from 'react'
 import st from './TopBar.module.css'
 // import Logo from '/images/clothes4crew.jpg'
 import { Link } from 'react-router-dom'
-import { NotificationsNone, Language, Settings } from '@mui/icons-material'
+import { NotificationsNone, Language, Settings, Logout } from '@mui/icons-material'
 
 import Dropdown from 'react-bootstrap/Dropdown'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { useAuth0 } from '@auth0/auth0-react'
 
 export default function TopBar() {
-    const handleLogOut = async (e) => {
-        e.preventDefault()
-        try {
-            localStorage.removeItem('id')
-            localStorage.removeItem('token')
-            window.location.reload(true)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+
+    const {logout} = useAuth0()
+    // const handleLogOut = async (e) => {
+    //     e.preventDefault()
+    //     try {
+    //         localStorage.removeItem('id')
+    //         localStorage.removeItem('token')
+    //         window.location.reload(true)
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
 
     return (
         <nav className={st.topbar}>
@@ -61,7 +64,7 @@ export default function TopBar() {
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                            <Dropdown.Item onClick={handleLogOut}>
+                            <Dropdown.Item onClick={logout}>
                                 Sign Out
                             </Dropdown.Item>
                             <Dropdown.Item href="http://www.gmail.com">

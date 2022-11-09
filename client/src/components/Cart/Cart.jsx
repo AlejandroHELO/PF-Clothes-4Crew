@@ -33,7 +33,7 @@ export default function Cart({ open, setOpen, products }) {
         // console.log('products en cart', products)
         // Cálculo del total
         products?.map((p) => {
-            tot = p.price * p.count + tot
+            tot = (p.price*p.count) + tot
         })
         setTotal(tot)
         //comparo las cantidades guardadas en LocalStorage y las guardadas en la base de datos

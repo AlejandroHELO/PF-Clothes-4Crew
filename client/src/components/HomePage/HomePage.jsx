@@ -11,10 +11,13 @@ import { useSelector } from 'react-redux'
 export default function HomePage() {
     return (
         <div className=" w-full">
+      
             <HeroSlider />
             {/* <Outlet /> */}
             <Cards />
             <Brands />
+            <img src={'/images/Clothes 4Crew Logo.JPG'} alt="Logo" />
+          
         </div>
     )
 }

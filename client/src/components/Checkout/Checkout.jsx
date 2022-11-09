@@ -1,12 +1,7 @@
 import React from 'react'
 import st from '../Admin/User/User.module.css'
-import { useDispatch, useSelector } from 'react-redux'
-import {
-    CreateAddress,
-    GetCart,
-    getprofile,
-    getUsersAddress,
-} from '../../redux/actions'
+import { useDispatch, useSelector } from "react-redux";
+import { CreateAddress, GetCart, getProfile, getUsersAddress } from "../../redux/actions";
 import {
     PermIdentity,
     AlternateEmail,
@@ -18,13 +13,17 @@ import {
     ManageAccounts,
     DriveFolderUpload,
 } from '@mui/icons-material'
-import { Select } from '@material-ui/core'
-import { MenuItem } from '@mui/material'
-import Pago from '../MercadoPago/MercadoPago'
-import  PropTypes  from 'prop-types'
+import { Select } from "@material-ui/core";
+import { MenuItem } from "@mui/material";
+import Pago from "../MercadoPago/MercadoPago";
+import Footer from "../Footer/Footer";
+import Navbar from "../navbar/navbar";
+import { useAuth0 } from "@auth0/auth0-react";
 
-export default function Checkout({ id }) {
-    const dispatch = useDispatch()
+export default function Checkout({id}){
+    
+    const dispatch= useDispatch()
+    const {user,isAuthenticated, getAccessTokenSilently}= useAuth0()
     let props = useSelector((state) => state.userDetail)
     let address = useSelector((state) => state.address)
     let cart = useSelector((state) => state.cartDb)
@@ -38,10 +37,12 @@ export default function Checkout({ id }) {
     }
     console.log(addAddress)
     React.useEffect(() => {
-        dispatch(getprofile(id))
-    }, [])
-    const onSelect = (e) => {
-        if (e.target.value !== 'select') setaddAddress(e.target.value)
+        if(isAuthenticated){
+        dispatch(getProfile(getAccessTokenSilently,user))}
+    }, [dispatch])
+    const onSelect=(e)=>{
+        if(e.target.value!=='select')
+        setaddAddress(e.target.value)
     }
     const onCreateInput = (e) => {
         setinput({ ...input, [e.target.name]: e.target.value })
@@ -404,12 +405,31 @@ export default function Checkout({ id }) {
                                 ) : null}
                             </div>
                         </div>
-                    </div>
-                </div>
-            ) : (
-                <></>
-            )}
+                    )
+                        
+                    
+                }):null}
+                <span class='my-10'
+                >Total: {total}</span>
+                <br/>
+                <div class='flex'>
+
+                <button 
+            class=" w-24 my-10 mx-10 inline-flex justify-center rounded-md border border-solid bg-white-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-#9a9696 focus:outline-none focus:ring-2 focus:ring-#9a9696  focus:ring-offset-2"
+            onClick={onBack}>back</button>
+            {props&&addAddress?<Pago  
+            id={props.id}
+            address={addAddress}
+            />:null}
+            </div>
+            </div>
+            </div>
+        </div>:<></>}
+        
+       
         </div>
+       
+   
     )
 }
 

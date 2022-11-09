@@ -1,11 +1,9 @@
-import React from 'react'
-import Navbar from '../navbar/navbar'
-import { useDispatch, useSelector } from 'react-redux'
-import { validate } from './validation'
-import { SignUpwithPasswwordAndEmail } from '../../redux/actions'
-
-import { useNavigate } from 'react-router-dom'
-import Footer from '../Footer/Footer'
+import React from "react";
+import Navbar from "../navbar/navbar";
+import {useDispatch, useSelector} from 'react-redux'
+import { SignUpwithPasswwordAndEmail } from "../../redux/actions"
+import {useNavigate} from 'react-router-dom'
+import Footer from "../Footer/Footer";
 
 const styled = {
     backgroundColor: 'rgb(225, 0, 0)',
@@ -90,75 +88,47 @@ function Register() {
 
     function handleSubmit(e) {
         e.preventDefault()
-        setErrors(() => validate(input))
+        setInput({...input,fullName:input.firstName+' '+input.lastName})
         try {
-            dispatch(SignUpwithPasswwordAndEmail(input))
+          dispatch(SignUpwithPasswwordAndEmail(input))
+          navigate('/', ({force: true}))
         } catch (error) {
-            throw new Error(error)
+          console.log(error)
         }
+
     }
-    return (
-        <div
-            className="w-full h-screen justify-content-center"
-            style={{ width: '100%' }}
-        >
-            <div className="w-2/6 h-full flex float-left">
-                <img
-                    src="/images/img/register.jpeg"
-                    alt=""
-                    className="h-full object-cover"
-                />
-            </div>
-            <div
-                className="w-4/6 h-screen"
-                style={{
-                    display: 'flex',
-                    alignContent: 'center',
-                    margin: 'auto',
-                }}
-            >
-                <div style={{ width: '100%', height: '100%' }}>
-                    <div
-                        style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignContent: 'center',
-                            width: '100%',
-                        }}
-                    >
-                        <h1 style={{ color: 'rgba(225, 0, 0, .6)' }}>
-                            ¡Welcome!
-                        </h1>
+    return(
+      <>
+      <Navbar/>
+      <div className="w-full h-screen justify-content-center">
+     
+
+        <div className="w-2/6 h-full flex float-left">
+          <img src='/images/img/register.jpeg' alt='' className="h-full object-scale" />
+        </div>
+        <div className="flex justify-self-end w-4/6 h-screen content-center">
+          <div className="mt-5 md:col-span-2 md:mt-0 w-full h-full ">
+           <div className='w-full h-fit text-center'>
+           <h1>¡Welcome!</h1>
+           </div>
+            <form action="#" method="POST" onSubmit={(e) => handleSubmit(e)}>
+              <div className="overflow-hidden shadow sm:rounded-md h-full">
+                <div className="bg-white px-4 py-5 sm:p-6 h-full">
+                  <div className="grid grid-cols-6 gap-6">
+                    <div className="col-span-6 sm:col-span-3">
+                      <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
+                        First name
+                      </label>
+                      <input
+                        type="text"
+                        name="firstName"
+                        id="first-name"
+                        autoComplete="given-name"
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        onChange={(e) => handleChange(e)}
+                        value={input.firstName}
+                      />
                     </div>
-                    <form
-                        action="#"
-                        method="POST"
-                        onSubmit={(e) => handleSubmit(e)}
-                        style={{ backgroundColor: 'rgba(194, 194, 204, 0.5)' }}
-                    >
-                        <div className="overflow-hidden shadow sm:rounded-md h-full">
-                            <div className="bg-white px-4 py-5 sm:p-6 h-full">
-                                <div className="grid grid-cols-6 gap-6">
-                                    <div className="col-span-6 sm:col-span-3">
-                                        <label
-                                            htmlFor="first-name"
-                                            className="block text-sm font-medium text-gray-700"
-                                        >
-                                            First name
-                                        </label>
-                                        <input
-                                            type="text"
-                                            name="firstName"
-                                            id="first-name"
-                                            autoComplete="given-name"
-                                            className={`mt-1 block w-full rounded-md border-gray-700 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${errors.firstName}`}
-                                            onChange={(e) => handleChange(e)}
-                                            value={input.firstName}
-                                            style={{
-                                                border: '1px solid rgba(0, 0, 0, .2)',
-                                            }}
-                                        />
-                                    </div>
 
                                     <div className="col-span-6 sm:col-span-3">
                                         <label
@@ -466,6 +436,10 @@ function Register() {
             </div>
             <Footer />
         </div>
+        <Footer/>
+      </div>
+      <Footer/>
+      </>
     )
 }
 

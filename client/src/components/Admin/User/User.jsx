@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { getprofile } from '../../../redux/actions'
+import { getProfile } from '../../../redux/actions'
 import st from './User.module.css'
 import UserEdit from './UserEdit.jsx'
 import {
@@ -23,7 +23,7 @@ export default function User() {
     console.log('SOY EL USER: ', userInfo)
 
     useEffect(() => {
-        dispatch(getprofile(userId))
+        dispatch(getProfile(userId))
     }, [])
 
     let props = {}

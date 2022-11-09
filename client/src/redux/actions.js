@@ -27,9 +27,14 @@ import {
     ADD_TO_CART,
     DELETE_FROM_CART,
     CART_EMPTY,
-    GET_CARTDB,
+
+    GET_PRODUCTSADMIN,
+
     GET_CART,
-    CREATE_P_REVIEW,
+    BRAND_ELECT,
+    GET_CARTDB,
+    CREATE_P_REVIEW
+
 } from './types'
 
 // -------- Products ----------
@@ -37,6 +42,12 @@ export function getProducts() {
     return async function (dispatch) {
         const allData = await axios.get('/products')
         return dispatch({ type: GET_PRODUCTS, payload: allData.data })
+    }
+}
+export function getProductsAdmin() {
+    return async function (dispatch) {
+        const allData = await axios.get('/products')
+        return dispatch({ type: GET_PRODUCTSADMIN, payload: allData.data })
     }
 }
 
@@ -88,15 +99,16 @@ export function updateProduct(id, payload) {
     }
 }
 
+
+//si hago el filtro en el front 
 export function search(query) {
-    return async function (dispatch) {
-        const results = await axios.get(`/products?name=${query}`)
-        return dispatch({
-            type: SEARCH,
-            payload: { query: query, data: results.data },
-        })
+    return {
+        type: SEARCH,
+        payload: query,
     }
 }
+
+
 
 export function getCategories() {
     return async function (dispatch) {
@@ -133,6 +145,7 @@ export function orderBy(order) {
 }
 
 export function filter(fil) {
+
     return function (dispatch) {
         dispatch({ type: FILTER, payload: fil })
     }
@@ -142,6 +155,13 @@ export function resetFilter(fil) {
         dispatch({ type: RESET_FILTERS, payload: fil })
     }
 }
+
+export function brandElect(brand) {
+    return function (dispatch) {
+        dispatch({ type: BRAND_ELECT, payload: brand })
+    }
+}
+
 
 // ------- Users ---------
 
@@ -156,10 +176,15 @@ export function getAdmins() {
     }
 }
 
-export function getUsers() {
-    // Obtener todos los Users
+export function getUsers(token, id) { // Obtener todos los Users
     return async function (dispatch) {
-        let json = await axios.get('/users')
+
+        const config={
+            headers:{
+                "Authorization": "Bearer "+ await token()
+            }}
+
+        let json = await axios.get(`/users?id=${id}`, config)
         return dispatch({
             type: GET_USERS,
             payload: json.data,
@@ -178,10 +203,16 @@ export function getUsersAddress(id) {
     }
 }
 
-export function getprofile(id) {
-    // Visualizar perfil de un User
+export function getProfile(token, user) { // Visualizar perfil de un User
     return async function (dispatch) {
-        let json = await axios.get(`/users/${id}`)
+
+        const config={
+            headers:{
+                "Authorization": "Bearer "+ await token()
+            }}
+            
+
+        let json = await axios.post(`/users/${user.email}`, user, config)
         return dispatch({
             type: GET_PROFILE,
             payload: json.data,
@@ -217,9 +248,10 @@ export function logOutAction() {
 export function SignUpwithPasswwordAndEmail(data) {
     return async (dispatch) => {
         try {
+            const result= await axios.post('/users/register',data)
             dispatch({
                 type: LOGIN,
-                payload: data,
+                payload: result.data
             })
         } catch (error) {
             throw new Error(error)
@@ -351,16 +383,7 @@ export const getCart = () => {
             cart = JSON.parse(localStorage.getItem('cart'))
         }
     } else {
-        cart = [
-            {
-                key: 1,
-                id: 1,
-                name: "Don't products",
-                image: 'https://img.freepik.com/vector-gratis/ups-error-404-ilustracion-concepto-robot-roto_114360-5529.jpg?w=2000',
-                price: 0,
-                brand: '',
-            },
-        ]
+        cart = [{ key: 1, id: 1, name: "No products", image: 'https://img.freepik.com/vector-gratis/ups-error-404-ilustracion-concepto-robot-roto_114360-5529.jpg?w=2000', price: 0, brand: '' }];
     }
     return {
         type: GET_CART,

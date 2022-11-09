@@ -1,35 +1,39 @@
 const { Router } = require('express')
-var {expressjwt: jwt} = require('express-jwt');
-var jwks = require('jwks-rsa');
 const productsRouter = require("./products")
 const categoryRouter = require("./category")
 const brandsRouter = require("./brands")
 const addressRouter = require("./address")
 const userRouter = require('./user')
 const purchaseRouter = require('./purchase')
-const {JWKS_URI, AUDIENCE, ISSUER} = process.env
+const favoriteRouter = require('./favorite')
 const { 
     MercadoPago 
 } = require('../controller/MercadoPago.js')
 const {
-     UpdateCart, getcart 
-    } = require('../controller/cart.js');
+    UpdateCart, getcart 
+} = require('../controller/cart.js');
 const { CreateReview, UpdateReview } = require('../controller/Reviews');
+const { expressjwt: jwt } = require('express-jwt');
+var jwks = require('jwks-rsa');
+const {JWKS_URI, AUDIENCE, ISSUER} = process.env
     
-// var jwtCheck = jwt({
-//         secret: jwks.expressJwtSecret({
-//             cache: true,
-//             rateLimit: true,
-//             jwksRequestsPerMinute: 5,
-//             jwksUri: JWKS_URI
-//     }),
-//     audience: AUDIENCE,
-//     issuer: ISSUER,
-//     algorithms: ['RS256']
-// });
+var jwtCheck = jwt({
+        secret: jwks.expressJwtSecret({
+            cache: true,
+            rateLimit: true,
+            jwksRequestsPerMinute: 5,
+            jwksUri: JWKS_URI
+    }),
+    audience: AUDIENCE,
+    issuer: ISSUER,
+    algorithms: ['RS256']
+});
 
 const router = Router()
-
+//----- routes inicial------
+router.get('/',(req,res)=>{
+    res.status(200).send('Server On')
+})
 //---- Products routes ------
 router.use('/products', productsRouter)
 router.post('/products/reviews', CreateReview)
@@ -59,6 +63,9 @@ router.post('/cartupdate/:id',UpdateCart)
 
 //---- Users routes ------
 router.use('/users', userRouter)
+
+//--------favoritos-------
+router.use('/favorites', favoriteRouter)
 
 //middleware para el Not Found
 router.use((req, res, next) => {
