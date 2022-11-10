@@ -22,23 +22,23 @@ export default function HelpUsMail() {
                     {comments && comments.map(
                         (msg, index) => {
                             return (
-                                <div className={st.divItem}>
-                                    <div className={st.listHead}>
-                                        <li className={st.listItem}>
-                                            ID: {index + 1}
-                                        </li>
-                                        <li className={st.listItem}>
-                                            Name: {msg.name}
-                                        </li>
-                                        <li className={st.listItem}>
-                                            Email: {msg.email}
-                                        </li>
-                                    </div>
-                                    <div className={st.itemMsg}>
-                                        <li className={st.listItem}>
-                                            Comment: {msg.message}
-                                        </li>
-                                    </div>
+                                <div key={index} className={st.divItem}>
+                                  <div className={st.listHead}>
+                                      <li className={st.listItem}>
+                                          ID: {index + 1}
+                                      </li>
+                                      <li className={st.listItem}>
+                                          Name: {msg.name}
+                                      </li>
+                                      <li className={st.listItem}>
+                                          Email: {msg.email}
+                                      </li>
+                                   </div>
+                                   <div className={st.itemMsg}>
+                                      <li className={st.listItem}>
+                                          Message: {msg.message}
+                                      </li>
+                                   </div>
                                 </div>
                             )
                         })

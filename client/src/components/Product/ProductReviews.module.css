@@ -8,7 +8,7 @@
     justify-content: center;
     background-color: whitesmoke;
     border: 10rem;
-    border-width:2px;
+    border-width: 2px;
     border-style: hidden;
     box-shadow: -11px 11px 1px rgba(0, 0, 0, 0.3);
     border-radius: 2rem;
@@ -27,37 +27,37 @@
     margin-bottom: 0;
 }
 
-.topInfo{
+.topInfo {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.productInfo{
+.productInfo {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.productInfo>h3{
+.productInfo > h3 {
     margin-top: 10%;
-    margin-bottom: 10%;    
+    margin-bottom: 10%;
 }
 
-.productImg{
+.productImg {
     width: 220px;
     border-radius: 50%;
 }
 
-.productDescription{
-    color:rgba(0,0,0,.55);
+.productDescription {
+    color: rgba(0, 0, 0, 0.55);
     margin: 3% 10%;
 }
 
-.bottomInfo{
+.bottomInfo {
     background-color: whitesmoke;
     width: 100%;
-    border-radius: 2rem ;
+    border-radius: 2rem;
 }
 
 .labels {
@@ -73,7 +73,7 @@
 .op {
     font-size: small;
     padding-bottom: 10px 100px;
-    color: rgba(0,0,0,.55);
+    color: rgba(0, 0, 0, 0.55);
 }
 
 .propertiesBox {
@@ -83,7 +83,7 @@
     width: 80%;
 }
 
-.propertiesBox>p{
+.propertiesBox > p {
     font-weight: 700;
     margin-top: 10%;
 }
@@ -113,9 +113,9 @@
     font-size: 21px;
     padding: 10px 20px 10px 20px;
     text-decoration: none;
-    }
-    
-    .send:hover {
+}
+
+.send:hover {
     background: #8dc4e6;
     background-image: -webkit-linear-gradient(top, #8dc4e6, #628bb5);
     background-image: -moz-linear-gradient(top, #8dc4e6, #628bb5);
@@ -124,7 +124,7 @@
     background-image: linear-gradient(to bottom, #8dc4e6, #628bb5);
     text-decoration: none;
 }
-.stars{
+.stars {
     transition: all 0.5s;
 }
 .stars:hover {

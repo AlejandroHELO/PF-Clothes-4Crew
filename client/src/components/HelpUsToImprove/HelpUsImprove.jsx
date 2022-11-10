@@ -5,7 +5,6 @@ import { postComment } from '../../redux/actions.js'
 import Footer from '../Footer/Footer.jsx';
 import Overlay from 'react-bootstrap/Overlay';
 import Tooltip from 'react-bootstrap/Tooltip';
-
 export default function HelpUsImprove() {
     const [show, setShow] = useState(false);
     const target = useRef(null);
@@ -58,7 +57,6 @@ export default function HelpUsImprove() {
                         placeholder="Enter your name"
                         className={st.inputField} />
                     </div>
-
                     <div className={st.InputForm}>
                         <label className=' font-bold whitespace-pre-wrap'>Email</label>
                         <input 
@@ -68,7 +66,6 @@ export default function HelpUsImprove() {
                         placeholder="Enter your email"
                         className={st.inputField} />
                     </div>
-
                     <div className={st.InputForm}>
                         <label className=' font-bold whitespace-pre-wrap'>Message</label>
                         <textarea 
