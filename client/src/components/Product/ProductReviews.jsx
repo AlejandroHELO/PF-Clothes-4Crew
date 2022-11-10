@@ -8,9 +8,11 @@ import { FaStar } from "react-icons/fa";
 import { Container, Radio, Rating } from "./ProductReviewsStyles";
 import Footer from '../Footer/Footer';
 import Navbar from '../navbar/navbar';
+import { useParams } from 'react-router-dom';
 
 
-function ProductReviews({id,userId})  {
+function ProductReviews(){
+    const {id,userId}=useParams()
     const dispatch = useDispatch();
     let productDetail= useSelector((state)=>state.details)
     React.useEffect(()=>{

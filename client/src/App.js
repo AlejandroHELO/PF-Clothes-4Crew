@@ -55,7 +55,7 @@ export default function App() {
                     <Route path='/register' element={<Register />} />
                     <Route path="/helpusimprove" element={<HelpUsImprove />} />
                     <Route element={<ProtectedRoutes/>}>
-                        <Route path="/products/reviews" element={<ProductReviews id='635ae766f530d18d68f103cb' userId='63615409b573f3a4a80dfc1f' />} />
+                        <Route path="/products/reviews/:id/:userId" element={<ProductReviews  />} />
                         <Route path="/checkout" element={<Checkout  />} />
                         <Route path="/mycheckout" element={<MyCheckout/>} />
                         <Route path="/checkout/confirm/:id" element={<CCheckout/>} />

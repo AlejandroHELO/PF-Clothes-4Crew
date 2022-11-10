@@ -59,12 +59,11 @@ const CreatePurchase=async (req,res)=>{
 }
 async function actualizarStock(product){
     let produc= await productModel.findById({_id:product.id})
-    console.log('soy el producto: ',produc)
+    
     if(produc){
          const size=produc.size.map(p=>{
             if(p.size===product.size.size){
                 const stock=p.stock-product.count
-                console.log('soy el stock ',stock)
                 return{
                     size:p.size,
                     stock:p.stock-product.count
@@ -73,8 +72,7 @@ async function actualizarStock(product){
                 return p
             }
         })
-        console.log('soy se size modificado: ',size)
-       
+           
 
         await productModel.findByIdAndUpdate(product.id,{
             size:size

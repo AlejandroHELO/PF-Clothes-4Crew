@@ -68,8 +68,6 @@ export default function CCheckout(){
         }
     },[search,resultado,userDetail,cart,createP])
     
-    console.log(vali)
-  console.log(obj)
     return(
         (
             <div
