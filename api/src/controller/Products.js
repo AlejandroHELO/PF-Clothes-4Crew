@@ -35,7 +35,7 @@ const ProductsID = async (req, res) => {
 }
 
 const CreateProduct = async (req, res) => {
-    let err=true
+    // let err=true
     const {
         name,
         description,
@@ -47,64 +47,60 @@ const CreateProduct = async (req, res) => {
         genre,
         brand,
         price,
+        active,
         featured,
-        active
     } = req.body
-    if (!name || !description || !stock || !color || !genre || !price || !size || !image || !category || !brand) { 
-
+    if (!name || !description || !stock || !color || !genre || !price || !size || !category || !brand) { 
         // || !size || !image || !category || !brand
-
         res.status(400).json({ msj: 'All fields are required' })
     }
-    else if(size.length){
-        size.forEach(e => {
-            if(!e.size||e.stock){
-                err=false
-                res.status(400).json({msj:'falta agregar objeto al brand correctamente'})
-            }
-        });
-        category.forEach(e => {
-            if(!e.name){
-                err=false
-                res.status(400).json({msj:'falta agregar name en category correctamente'})
-            }
-        });
-        image.forEach(e => {
-            if(!e){
-                err=false
-                res.status(400).json({msj:'falta agregar string en image correctamente'})
-            }
-        });
-        if(!brand.name){
-            err=false
-            res.status(400).json({msj:'falta agregar objeto correctamente'})
+    // else if(size.length){
+    //     size.forEach(e => {
+    //         if(!e.size||e.stock){
+    //             err=false
+    //             res.status(400).json({msj:'falta agregar objeto al brand correctamente'})
+    //         }
+    //     });
+    //     category.forEach(e => {
+    //         if(!e.name){
+    //             err=false
+    //             res.status(400).json({msj:'falta agregar name en category correctamente'})
+    //         }
+    //     });
+    //     image.forEach(e => {
+    //         if(!e){
+    //             err=false
+    //             res.status(400).json({msj:'falta agregar string en image correctamente'})
+    //         }
+    //     });
+    //     if(!brand.name){
+    //         err=false
+    //         res.status(400).json({msj:'falta agregar objeto correctamente'})
         
-        }
-    }
-    if(err){
+    //     }
+    // }
+    // if(err){
 
-    
-        try {
-            const newProduct = new productModel({
-                name,
-                description,
-                stock,
-                color,
-                size,
-                category,
-                image: image || "https://www.pngall.com/wp-content/uploads/2016/03/Clothes-Transparent.png",
-                genre,
-                brand,
-                price,
-                active: active || true,
-                featured: featured || false
-            })
-            const product = await newProduct.save()
-            console.log(product)
-            res.status(200).json({ msj: 'product created successfully' })
-        } catch (err) {
-            console.log(err)
-        }
+    try {
+        const newProduct = new productModel({
+            name,
+            description,
+            stock,
+            color,
+            size,
+            category,
+            image: image || "https://www.pngall.com/wp-content/uploads/2016/03/Clothes-Transparent.png",
+            genre,
+            brand,
+            price,
+            active: active || true,
+            featured: featured || false
+        })
+        const product = await newProduct.save()
+        console.log(product)
+        res.status(200).json({ msj: 'product created successfully' })
+    } catch (err) {
+        console.log(err)
     }
 }
 
@@ -124,7 +120,7 @@ const UpdateProduct = async (req, res) => {
         active,
         featured
     } = req.body
-    if ( !name || !description || !stock || !color || !size || !category || !image || !genre || !brand ||!price) {
+    if ( !name || !description || !stock || !color || !size || !category || !genre || !brand ||!price) {
         res.status(400).json({ msj: 'All fields are required' })
     } else {
         try {

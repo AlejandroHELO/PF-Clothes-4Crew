@@ -1,4 +1,3 @@
-
 import React from 'react'
 import Navbar from '../navbar/navbar.jsx'
 import Cards from '../Cards/Cards'
@@ -10,7 +9,6 @@ import { useSelector } from 'react-redux'
 // import { Outlet } from 'react-router-dom'
 
 export default function HomePage() {
-
    
     return (
         <div className=" w-full">
@@ -20,7 +18,7 @@ export default function HomePage() {
             <Cards />
             <Brands />
             <img src={'/images/Clothes 4Crew Logo.JPG'} alt="Logo" />
-          
+            <Footer/>
         </div>
     )
 }

@@ -3,10 +3,10 @@ import { Navigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Clou from '../../ImageCloudinary/ImageCloudinary'
 import st from './ProductEdit.module.css'
-import { updateProduct, getCategories, getBrands } from '../../../redux/actions'
+import { updateProduct, getCategories, getBrands, getColors } from '../../../redux/actions'
 
 
-export default function ProductEdit({changePage,editMode}) {
+export default function ProductEdit({changePage, editMode}) {
     // console.log('HOLA SOY LAS PROPS: ', props)
 
     const dispatch = useDispatch() 
@@ -14,10 +14,13 @@ export default function ProductEdit({changePage,editMode}) {
     const productInfo = useSelector((state) => state.details);
     const categories = useSelector((state) => state.categories);
     const brands = useSelector((state) => state.brands);
+    const colors = useSelector((state) => state.colors);
+    // console.log('HOLA SOY EL PRODUCTO: ', productInfo)
 
     useEffect(() => {
         dispatch(getCategories())
         dispatch(getBrands())
+        dispatch(getColors())
     },[]);
 
     let info = {}
@@ -189,13 +192,18 @@ export default function ProductEdit({changePage,editMode}) {
                     </div>
                     <div className={st.productUpdateItem}>
                         <label>Color</label>
-                        <input
-                            type="text"
-                            name="color"
-                            placeholder={info.color}
-                            className={st.productUpdateInput}
-                            onChange={(e) => handleChange(e)}
-                        />
+                        <select
+                        name="color"
+                        defaultValue=""
+                        className={st.productUpdateInput}
+                        onChange={(e) => handleChange(e)}
+                        >
+                        <option hidden value=""> {info.color} </option>
+                        {colors && colors.map(col => (
+                            <option name={col.name} value={col.name} key={col.name}>{col.name}</option> 
+                            )) 
+                        }
+                        </select>
                     </div>
                     <div className={st.productUpdateItem}>
                         <label>Gender</label>
@@ -290,7 +298,7 @@ export default function ProductEdit({changePage,editMode}) {
                             onChange={(e) => handleChange(e)}
                         >
                             <option hidden value="">
-                            {String(info.active)}
+                                {String(info.active)}
                             </option>
                             <option name="true" value="true">
                                 Active
@@ -305,8 +313,8 @@ export default function ProductEdit({changePage,editMode}) {
                         <select
                             name="featured"
                             defaultValue=""
-                            className={st.productUpdateInput}
                             onChange={(e) => handleChange(e)}
+                            className={st.productUpdateInput}
                         >
                             <option hidden value="">
                                 {String(info.featured)}

@@ -1,0 +1,22 @@
+.titlePage{
+    display: flex; 
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.formCont{
+    display: flex;
+    justify-content: center;
+    background-color: aqua;
+    margin-top: 4rem;
+}
+
+.form{
+    width: 300px;
+    flex-direction: column;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 10px;
+    -webkit-box-shadow: 8px 8px 0px 0px #000000; 
+    box-shadow: 8px 8px 0px 0px #000000;
+}
