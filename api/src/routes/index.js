@@ -6,7 +6,7 @@ const addressRouter = require("./address")
 const userRouter = require('./user')
 const purchaseRouter = require('./purchase')
 const { 
-    MercadoPago 
+    MercadoPago, GetMP 
 } = require('../controller/MercadoPago.js')
 const {
     UpdateCart, getcart 
@@ -39,6 +39,7 @@ router.post('/products/reviews', CreateReview)
 router.put('/products/reviews', UpdateReview)
 
 router.post('/mercadopago/:id/:addressId',MercadoPago)
+router.get('/mercadopago/:id',GetMP)
 
 //---- Purchase routes ------
 router.use('/purchase', purchaseRouter)

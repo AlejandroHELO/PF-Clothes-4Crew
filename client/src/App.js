@@ -20,6 +20,7 @@ import ProductReviews from './components/Product/ProductReviews'
 import AdminRoutes from "./AdminRoutes"
 import ProtectedRoutes from './ProtectedRoutes'
 import CCheckout from './components/CCheckout/CCheckout'
+import MyCheckout from './components/MyCheckout/MyCheckout'
 
 
 
@@ -56,7 +57,8 @@ export default function App() {
                     <Route element={<ProtectedRoutes/>}>
                         <Route path="/products/reviews" element={<ProductReviews id='635ae766f530d18d68f103cb' userId='63615409b573f3a4a80dfc1f' />} />
                         <Route path="/checkout" element={<Checkout  />} />
-                        <Route path="/checkout/confirm" element={<CCheckout/>} />
+                        <Route path="/mycheckout" element={<MyCheckout/>} />
+                        <Route path="/checkout/confirm/:id" element={<CCheckout/>} />
                     </Route>
                 </Route>
                 <Route element={<AdminRoutes/>}>

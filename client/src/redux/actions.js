@@ -34,7 +34,9 @@ import {
     GET_CART,
     BRAND_ELECT,
     GET_CARTDB,
-    CREATE_P_REVIEW
+    CREATE_P_REVIEW,
+    POST_CREATE_PORCHASE,
+    GET_CREATE_PORCHASE
 
 } from './types'
 
@@ -462,6 +464,26 @@ export function GetCart(id) {
         let response = await axios.get('/cart?userId='+id) // http://localhost:3001/messages/send
         return dispatch({
             type: GET_CARTDB,
+            payload: response.data,
+        })
+    }
+}
+export function CreatePurchase(data) {
+    return async function (dispatch) {
+        let response = await axios.post('/purchase',data) // http://localhost:3001/messages/send
+        console.log(response.data)
+        return dispatch({
+            type:POST_CREATE_PORCHASE,
+            payload: response.data,
+        })
+    }
+}
+export function GetPurchase(data) {
+    return async function (dispatch) {
+        let response = await axios.get('/purchase?userId=',data) // http://localhost:3001/messages/send
+        console.log(response.data)
+        return dispatch({
+            type:GET_CREATE_PORCHASE,
             payload: response.data,
         })
     }

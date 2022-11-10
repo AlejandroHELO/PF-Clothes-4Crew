@@ -20,7 +20,7 @@ import Pago from "../MercadoPago/MercadoPago";
 import Footer from "../Footer/Footer";
 import Navbar from "../navbar/navbar";
 import { useAuth0 } from "@auth0/auth0-react";
-import { ADD_TO_CART, POST_DBCARTD } from "../../redux/types";
+import { ADD_TO_CART, POST_DBCARTD,POST_ADDRESS_ID } from "../../redux/types";
 
 
 export default function Checkout({id}){
@@ -112,6 +112,7 @@ export default function Checkout({id}){
     const onSelect=(e)=>{
         if(e.target.value!=='select')
         setaddAddress(e.target.value)
+       console.log(e.target.value)
     }
     const onCreateInput=(e)=>{
         setinput({...input,[e.target.name]:e.target.value})

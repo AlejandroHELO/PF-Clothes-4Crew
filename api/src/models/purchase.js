@@ -16,6 +16,9 @@ const purchaseSchema = new Schema(
         },
         time:{
             type:Date
+        },
+        state:{
+            type:String
         }
     },
     {
