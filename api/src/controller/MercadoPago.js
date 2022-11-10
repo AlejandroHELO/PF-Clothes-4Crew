@@ -7,7 +7,7 @@ mercadopago.configure({
     access_token: process.env.ACCESS_TOKEN
 })
 const MercadoPago=async (req,res)=>{
-        const {id,addressId} =req.query
+        const {id,addressId} =req.params
         
         let user= await userModel.find({})
         user= user.filter(f=>f._id===id)
@@ -16,18 +16,19 @@ const MercadoPago=async (req,res)=>{
             if(car){
                 const cart=car.products.map(cart=>{
                     return {
-                        "id": cart.name,
+                        "id": cart.id,
                         "title": cart.name,
                         "currency_id": "ARS",
                         "picture_url": cart.image[0],
                         "description": cart.description,
                         "category_id": "art",
-                        "quantity": 1,
+                        "quantity": cart.count,
                         "unit_price": cart.price
                     }
                 })
-                const addres = addressModel.find({})
-                const address = addres.filter(f=>f._id===addressId)
+                const address = addressModel.findOne({_id:addressId})
+                console.log(address)
+                //const address = addres.filter(f=>f._id===addressId)
                 if(address){
                     const body = {
                         "items":cart,
@@ -50,9 +51,9 @@ const MercadoPago=async (req,res)=>{
                             }
                         },
                         "back_urls": {
-                            "success": "https://www.success.com",
-                            "failure": "http://www.failure.com",
-                            "pending": "http://www.pending.com"
+                            "success": "https://clothes-4-crew.vercel.app/",
+                            "failure": "https://clothes-4-crew.vercel.app/",
+                            "pending": "https://clothes-4-crew.vercel.app/"
                         },
                         "auto_return": "approved",
                         "payment_methods": {

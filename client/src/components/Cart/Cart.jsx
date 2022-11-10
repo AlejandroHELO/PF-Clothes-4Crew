@@ -4,7 +4,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { useSelector, useDispatch } from 'react-redux'
 import { getViewCart, deleteFromCart, cartEmpty } from '../../redux/actions'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { ChevronLeftIcon, ChevronRightIcon, TrashIcon } from '@heroicons/react/20/solid'
 import { ADD_TO_CART } from '../../redux/types'
 
@@ -24,7 +24,7 @@ export default function Cart({ open, setOpen, products }) {
 
         // Cálculo del total
         products?.map((p) => {
-            tot = p.price + tot
+            tot = (p.price*p.count) + tot
         })
         setTotal(tot)
         //comparo las cantidades guardadas en LocalStorage y las guardadas en la base de datos
@@ -251,12 +251,15 @@ export default function Cart({ open, setOpen, products }) {
                                                 </div>
                                                 <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                                                 <div className="mt-6">
-                                                    <div
+                                                    <NavLink to='/checkout' class='no-underline'>
+                                                    <div class='no-underline'
                                                         type="button"
                                                         className="flex items-center justify-center rounded-md border border-transparent bg-black px-6 py-3 text-base font-medium text-white shadow-sm  hover:bg-zinc-700"
-                                                    >
+                                                        onClick={() => setOpen(false)}
+                                                       >
                                                         Checkout
                                                     </div>
+                                                   </NavLink>
                                                 </div>
                                                 <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                                                     <p>

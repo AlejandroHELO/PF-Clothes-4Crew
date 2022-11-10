@@ -2,16 +2,20 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import st from './ProductReviews.module.css';
-import { createProductReview } from '../../redux/actions';
+import { createProductReview, getProductDetail } from '../../redux/actions';
 import { StarIcon } from '@heroicons/react/20/solid';
 import { FaStar } from "react-icons/fa";
 import { Container, Radio, Rating } from "./ProductReviewsStyles";
 import Footer from '../Footer/Footer';
+import Navbar from '../navbar/navbar';
 
 
-function ProductReviews()  {
+function ProductReviews({id,userId})  {
     const dispatch = useDispatch();
-
+    let productDetail= useSelector((state)=>state.details)
+    React.useEffect(()=>{
+        dispatch(getProductDetail(id))
+    },[])
 
     const [input, setInput] = useState({
         score: 5,
@@ -34,7 +38,10 @@ function ProductReviews()  {
     function handleChange(e){
         setInput({
             ...input,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
+            userId:userId,
+            productId:id
+
         })
         setErrors(validate({
             ...input,
@@ -59,17 +66,21 @@ function ProductReviews()  {
     console.log(input)
 
     return(
+        <>
+        <Navbar/>
         <div>
             <div className={st.Container}>
                 {/* <h1 className={st.title}>Score our product and comment your experience</h1> */}
 
                 <div className={st.topInfo}>
 
+                        {productDetail.name?
                     <div className={st.productInfo}>
-                        <h3>Fila Logo Baseball Cap</h3>
-                        <img className={st.productImg} src="https://cdn.shopify.com/s/files/1/0603/3031/1875/products/main-square_0b3ffaad-ad39-4392-a2e9-1feb3793be27_540x.jpg?v=1657245083"/>
-                        <span className={st.productDescription}>Lorem ipsum dolor sit amet consectetur adipisicing elit.</span> 
-                    </div>
+                        <h3>{productDetail.name}</h3>
+                        <img className={st.productImg} src={productDetail?.image[0]}/>
+                        <span className={st.productDescription}>{productDetail.description}</span> 
+                        </div>
+                        :null}
                     <Container>
                         {[...Array(5)].map((item, index) => {
                             const givenRating = index + 1;
@@ -117,6 +128,8 @@ function ProductReviews()  {
             </div>
             <Footer></Footer>  
         </div>
+        <Footer/>
+        </>
     )
 }
 export default ProductReviews;

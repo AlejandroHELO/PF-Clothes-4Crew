@@ -1,84 +1,67 @@
 const { Router } = require('express')
+const productsRouter = require("./products")
+const categoryRouter = require("./category")
+const brandsRouter = require("./brands")
+const addressRouter = require("./address")
+const userRouter = require('./user')
+const purchaseRouter = require('./purchase')
 const { 
     MercadoPago 
 } = require('../controller/MercadoPago.js')
 const {
-     UpdateCart, getcart 
-    } = require('../controller/cart.js')
-
-
-const {
-    allCategory,
-    UpdateCategory,
-    CreateCategory,
-} = require('../controller/Category.js')
-const {
-    allBrands,
-    UpdateBrand,
-    CreateBrand,
-} = require('../controller/Brand.js')
-const {
-    Products,
-    CreateProduct,
-    ProductsID,
-    UpdateProduct,
-    Reviews,
-    CreateReview,
-    UpdateReview,
-} = require('../controller/Products.js')
-const {
-    allUsers,
-    userProfile,
-    Admins,
-    createUser,
-    updateUser,
-    updateUserAdmin,
-} = require('../controller/Users.js')
-const { getPurchase, CreatePurchase } = require('../controller/Purchase.js')
-const { getAddress, CreateAddress, updateAddress } = require('../controller/Address.js')
+    UpdateCart, getcart 
+} = require('../controller/cart.js');
+const { CreateReview, UpdateReview } = require('../controller/Reviews');
+const { expressjwt: jwt } = require('express-jwt');
+var jwks = require('jwks-rsa');
+const {JWKS_URI, AUDIENCE, ISSUER} = process.env
+    
+var jwtCheck = jwt({
+        secret: jwks.expressJwtSecret({
+            cache: true,
+            rateLimit: true,
+            jwksRequestsPerMinute: 5,
+            jwksUri: JWKS_URI
+    }),
+    audience: AUDIENCE,
+    issuer: ISSUER,
+    algorithms: ['RS256']
+});
 
 const router = Router()
-
+//----- routes inicial------
+router.get('/',(req,res)=>{
+    res.status(200).send('Server On')
+})
 //---- Products routes ------
-router.get('/products', Products)
-router.get('/products/reviews', Reviews)
-router.get('/products/:id', ProductsID)
-router.post('/products', CreateProduct)
-router.put('/products/:id', UpdateProduct)
-router.post('/mercadopago',MercadoPago)
+router.use('/products', productsRouter)
 router.post('/products/reviews', CreateReview)
 router.put('/products/reviews', UpdateReview)
 
+router.post('/mercadopago/:id/:addressId',MercadoPago)
+
 //---- Purchase routes ------
-router.get('/purchase',getPurchase)
-router.post('/purchase',CreatePurchase)
+router.use('/purchase', purchaseRouter)
+
 
 //----- Address router ------
-router.get('/address',getAddress)
-router.post('/address',CreateAddress)
-router.put('/address',updateAddress)
+router.use('/address',addressRouter)
+
 
 //---- Categories routes ------
-router.get('/category', allCategory)
-router.post('/category', CreateCategory)
-router.put('/category', UpdateCategory)
+router.use('/category', categoryRouter)
+
 
 //---- Brands routes ------
-router.get('/brand', allBrands)
-router.post('/brand', CreateBrand)
-router.put('/brand', UpdateBrand)
+router.use('/brand',brandsRouter)
+
 
 //--------  Cart-----------
 router.get('/cart',getcart)
 router.post('/cartupdate/:id',UpdateCart)
 
 //---- Users routes ------
-router.get('/users', allUsers)
-router.get('/users/:id', userProfile)
-router.get('/users/admins', Admins)
-router.post('/users/register', createUser)
-router.put('/users/:id', updateUser)
-router.put('/users/admin/:id', updateUserAdmin)
+router.use('/users', userRouter)
 
 //middleware para el Not Found
 router.use((req, res, next) => {

@@ -1,4 +1,7 @@
 const { Router } = require('express')
+const { expressjwt: jwt } = require('express-jwt');
+var jwks = require('jwks-rsa');
+const {JWKS_URI, AUDIENCE, ISSUER} = process.env
 const {
     allUsers,
     userProfile,
@@ -6,20 +9,34 @@ const {
     createUser,
     updateUser,
     updateUserAdmin,
+    deleteUser
 } = require('../controller/Users.js')
 
 const userRouter = Router()
 
-userRouter.route('/')
-.get(allUsers)
+var jwtCheck = jwt({
+    secret: jwks.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        jwksUri: JWKS_URI
+}),
+audience: AUDIENCE,
+issuer: ISSUER,
+algorithms: ['RS256']
+});
 
-userRouter.route('/register')
-.post(createUser)
+userRouter.route('/')
+.get(jwtCheck, allUsers)
 
 userRouter.route('/:id')
-.put(updateUser)
+.delete(jwtCheck, deleteUser)
+.put(jwtCheck, updateUser)
+
+userRouter.route( '/:email')
+.post(jwtCheck, userProfile)
 
 userRouter.route('/admin/:id')
-.put(updateUserAdmin)
+.put(jwtCheck, updateUserAdmin)
 
 module.exports = userRouter
