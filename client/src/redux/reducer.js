@@ -27,7 +27,8 @@ import {
     GET_USERSADDRESS,
     POST_ADDRESS,
     GET_CARTDB,
-    GET_PRODUCTSADMIN
+    GET_PRODUCTSADMIN,
+    GET_FAVORITES
 
 } from './types'
 
@@ -47,7 +48,7 @@ const initialState = {
     admins: [],
     messages: [],
     productsFiltered: [],
-
+    favorites: [],
     brandFilteredMemory: [],
     resultFilterCombinado1: [],
     filtersElect: [],
@@ -59,8 +60,6 @@ const initialState = {
     cartDb:''
 
 }
-
-
 
 const reducer = (state = initialState, action) => {
     console.log(state)
@@ -107,7 +106,16 @@ const reducer = (state = initialState, action) => {
                 details: action.payload,
             }
 
-
+        case GET_FAVORITES: {
+            // const favoritesProducts = []
+            // action.payload?.map(p => {
+            //     return favoritesProducts.push(p.id)
+            // })
+            return {
+                ...state,
+                favorites: state.favorites.concat(action.payload)
+            }
+        }    
 
         //filtro que funciona en el front sin hacer el pedido al back
         case SEARCH:
@@ -127,7 +135,6 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 categories: action.payload,
             }
-
 
         case GET_BRANDS:
             return {
@@ -304,54 +311,51 @@ const reducer = (state = initialState, action) => {
         // ------- Cart --------
 
         case VIEW_CART:
-            return ({
+            return {
                 ...state,
-                viewCart: action.payload
-            })
+                viewCart: action.payload,
+            }
 
         case ADD_TO_CART:
             return {
                 ...state,
                 cart: [...action.payload],
-            };
+            }
 
         case DELETE_FROM_CART:
             return {
                 ...state,
                 cart: [...action.payload],
-            };
+            }
         case CART_EMPTY:
             return {
                 ...state,
-                cart: action.payload
-
+                cart: action.payload,
             }
 
         case GET_CART:
             return {
                 ...state,
-                cart: action.payload
+                cart: action.payload,
             }
         case GET_USERSADDRESS:
-            return{
+            return {
                 ...state,
-                address:action.payload
+                address: action.payload,
             }
         case POST_ADDRESS:
             console.log(action.payload)
-                return{
-                    ...state,
-                }        
+            return {
+                ...state,
+            }
         case GET_CARTDB:
-                return{
-                    ...state,
-                    cartDb:action.payload
-                }
+            return {
+                ...state,
+                cartDb: action.payload,
+            }
         default:
             return state
     }
 }
-
-
 
 export default reducer

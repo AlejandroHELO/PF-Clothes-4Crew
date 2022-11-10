@@ -1,4 +1,3 @@
-
 import React from 'react'
 import Navbar from '../navbar/navbar.jsx'
 import Cards from '../Cards/Cards'
@@ -9,15 +8,13 @@ import { useSelector } from 'react-redux'
 // import './HomePage.module.css'
 // import { Outlet } from 'react-router-dom'
 
-export default function HomePage() {
-
-   
+export default function HomePage({user}) {
     return (
         <div className=" w-full">
       
             <HeroSlider />
             {/* <Outlet /> */}
-            <Cards />
+            <Cards user={user}/>
             <Brands />
             <img src={'/images/Clothes 4Crew Logo.JPG'} alt="Logo" />
           
