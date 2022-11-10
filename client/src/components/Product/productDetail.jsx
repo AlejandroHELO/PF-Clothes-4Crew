@@ -2,13 +2,14 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRef } from 'react'
-import { useParams } from 'react-router-dom';
-import { getProductDetail, getopenDetail, addToCart, getProducts } from '../../redux/actions';
+import { useParams, useNavigate } from 'react-router-dom';
+import { getProductDetail, getopenDetail, addToCart, getProducts, filter, getPReviews } from '../../redux/actions';
 import Navbar from '../navbar/navbar';
 import { Fragment, useState } from 'react'
 import { Dialog, RadioGroup, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { StarIcon } from '@heroicons/react/20/solid'
+
 
 
 function ProductDetail(product) {
@@ -17,12 +18,27 @@ function ProductDetail(product) {
     // const { productId } = useParams();
     // const product = useSelector((state) => state.details)
     const openDetail = useSelector((state) => state.openDetail)
+    const reviews = useSelector((state) => state.reviews)
     const [open, setOpen] = useState(false)
     // const [selectedColor, setSelectedColor] = useState(product.colors[0])
     const [selectedSize, setSelectedSize] = useState(product.size[2])
     const slider = useRef()
+    console.log(openDetail)
 
+    let navigate = useNavigate()
+    const routeChange = () => {
+        let path = "/cardReviews";
+        navigate(path)
+    }
+    
     let productAddCart = {};
+
+    React.useEffect(() => {
+        dispatch(getPReviews())
+    }, [dispatch])
+
+    const reviewsFilter = reviews.filter(r => r.productId === product.id)
+    console.log(filter)
 
     React.useEffect(() => {
         product.size?.map((s) => {
@@ -198,28 +214,28 @@ function ProductDetail(product) {
                                                     U$S {product.price}
                                                 </p>
 
-                                                {/* Reviews */}
-                                                {/* <div className="mt-6">
-                                                                <h4 className="sr-only">Reviews</h4>
-                                                                <div className="flex items-center">
-                                                                    <div className="flex items-center">
-                                                                        {[0, 1, 2, 3, 4].map((rating) => (
-                                                                            <StarIcon
-                                                                                key={rating}
-                                                                                className={classNames(
-                                                                                    product.rating > rating ? 'text-gray-900' : 'text-gray-200',
-                                                                                    'h-5 w-5 flex-shrink-0'
-                                                                                )}
-                                                                                aria-hidden="true"
-                                                                            />
-                                                                        ))}
-                                                                    </div>
-                                                                    <p className="sr-only">{product.rating} out of 5 stars</p>
-                                                                    <a href="#" className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                                                                        {product.reviewCount} reviews
-                                                                    </a>
-                                                                </div>
-                                                            </div> */}
+                                                Reviews
+                                                <div className="mt-6">
+                                                    <h4 className="sr-only">Reviews</h4>
+                                                    <div className="flex items-center">
+                                                        <div className="flex items-center">
+                                                            {[...Array(5)].map((rating) => (
+                                                                <StarIcon
+                                                                    key={rating}
+                                                                    className={classNames(
+                                                                        product.rating > rating ? 'text-yellow-900' : 'text-gray-200',
+                                                                        'h-5 w-5 flex-shrink-0'
+                                                                    )}
+                                                                    aria-hidden="true"
+                                                                />
+                                                            ))}
+                                                        </div>
+                                                        <p className="sr-only">{product.rating} out of 5 stars</p>
+                                                        <button type="button" onClick={routeChange} className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                                                            {reviewsFilter.length} reviews
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </section>
 
                                             <section

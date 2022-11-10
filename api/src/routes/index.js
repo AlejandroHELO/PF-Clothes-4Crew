@@ -11,7 +11,7 @@ const {
 const {
     UpdateCart, getcart 
 } = require('../controller/cart.js');
-const { CreateReview, UpdateReview } = require('../controller/Reviews');
+const { Reviews, CreateReview, UpdateReview } = require('../controller/Reviews');
 const { expressjwt: jwt } = require('express-jwt');
 var jwks = require('jwks-rsa');
 const {JWKS_URI, AUDIENCE, ISSUER} = process.env
@@ -35,8 +35,9 @@ router.get('/',(req,res)=>{
 })
 //---- Products routes ------
 router.use('/products', productsRouter)
-router.post('/products/reviews', CreateReview)
-router.put('/products/reviews', UpdateReview)
+router.get('/reviews', Reviews)
+router.post('/reviews', CreateReview)
+router.put('/reviews', UpdateReview)
 
 router.post('/mercadopago/:id/:addressId',MercadoPago)
 

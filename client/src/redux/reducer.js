@@ -4,6 +4,8 @@ import {
     CLEAR_DETAIL,
     PRODUCT_UPDATE,
     POST_PRODUCT,
+    GET_REVIEWS,
+    OPEN_REVIEW,
     SEARCH,
     GET_CATEGORIES,
     GET_BRANDS,
@@ -35,6 +37,7 @@ const initialState = {
     products: [],
     details: [],
     openDetail: '',
+    reviews: [],
     openReview: '',
     searchResults: [],
     searchResultsFiltered: [],
@@ -106,6 +109,16 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 details: action.payload,
+            }
+        case GET_REVIEWS:
+            return ({
+                ...state,
+                reviews: action.payload
+            })
+        case OPEN_REVIEW:
+            return {
+                ...state,
+                openReview: action.payload
             }
 
 

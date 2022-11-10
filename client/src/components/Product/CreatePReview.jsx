@@ -1,16 +1,15 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import st from './ProductReviews.module.css';
+import st from './CreateReviews.module.css';
 import { createProductReview, getProductDetail } from '../../redux/actions';
-import { StarIcon } from '@heroicons/react/20/solid';
 import { FaStar } from "react-icons/fa";
-import { Container, Radio, Rating } from "./ProductReviewsStyles";
+import { Container, Radio, Rating } from "./CreateReviewsStyles";
 import Footer from '../Footer/Footer';
 import Navbar from '../navbar/navbar';
 
 
-function ProductReviews({id,userId})  {
+function CreatePReviews({id,userId})  {
     const dispatch = useDispatch();
     let productDetail= useSelector((state)=>state.details)
     React.useEffect(()=>{
@@ -77,7 +76,7 @@ function ProductReviews({id,userId})  {
                         {productDetail.name?
                     <div className={st.productInfo}>
                         <h3>{productDetail.name}</h3>
-                        <img className={st.productImg} src={productDetail?.image[0]}/>
+                        <img className={st.productImg} src={productDetail?.image[0]} alt=''/>
                         <span className={st.productDescription}>{productDetail.description}</span> 
                         </div>
                         :null}
@@ -132,4 +131,4 @@ function ProductReviews({id,userId})  {
         </>
     )
 }
-export default ProductReviews;
+export default CreatePReviews;

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { clearDetail, getProductDetail, getopenDetail } from '../../redux/actions';
 import ProductDetail from '../Product/productDetail';
 
+
 const Slider = ({ cat, products }) => {
     const dispatch = useDispatch()
     // const products = useSelector((state) => state.products.filter((p) => p.featured === true)) //featured ->sólo los destacados
@@ -63,7 +64,6 @@ const Slider = ({ cat, products }) => {
                                                 description={e.description}
                                             />
                                         </div>
-
                                     )
                                 })}
                             </div>
