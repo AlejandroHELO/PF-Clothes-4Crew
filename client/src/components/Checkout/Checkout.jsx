@@ -2,7 +2,7 @@ import React, { useEffect }from "react";
 import st from '../Admin/User/User.module.css'
 import { useDispatch, useSelector } from "react-redux";
 import { ChevronLeftIcon, ChevronRightIcon, TrashIcon } from '@heroicons/react/20/solid'
-import { deleteFromCart, CreateAddress, GetCart, getProfile, getUsersAddress,updatedCartDB } from "../../redux/actions";
+import { deleteFromCart,cartEmpty, CreateAddress, GetCart, getProfile, getUsersAddress,updatedCartDB } from "../../redux/actions";
 import {
     PermIdentity,
     AlternateEmail,
@@ -38,6 +38,7 @@ export default function Checkout({id}){
     const [input,setinput]=React.useState({})
     const [addAddress, setaddAddress]=React.useState('Select')
     let [truedis,settrue]=React.useState(false)
+    let [carritook,setcarritook]=React.useState(false)
     useEffect(() => {
         if(isAuthenticated){
         if(props._id&&address===''){
@@ -48,6 +49,16 @@ export default function Checkout({id}){
                 dispatch(getProfile(getAccessTokenSilently,user))
             }
         }
+        if(cart&&
+            cart.length&&
+            (cart[0].products[0].name!=="Don't products"||
+            cart[0].products[0].name)){
+                setcarritook(true) 
+        }else {
+            alert('entro al esle')
+            setcarritook(false)
+        }
+       
         if(cartinfo.msj==='cart modified successfully'){
             dispatch(GetCart(props._id))
             dispatch({
@@ -58,7 +69,7 @@ export default function Checkout({id}){
         }
         console.log('que pasa con truedis ',truedis)
         
-    }, [dispatch,address,truedis,cartinfo])
+    }, [dispatch,address,truedis,cartinfo,cart,carritook])
     
     let value = 0
     const handleQtyClick = (e, product) => {
@@ -102,9 +113,15 @@ export default function Checkout({id}){
     }
     const handleDeleteproduct = (e, product) => {
         e.preventDefault()
-        settrue(false)
         console.log('product en handleDeleteProduct', product)
         dispatch(deleteFromCart(product,props._id))
+        
+        if (JSON.parse(localStorage.getItem('cart')).length === 0) {
+            dispatch(cartEmpty())
+            setcarritook(false)
+            // setOpen(false)
+        }
+        
 
 
 
@@ -399,8 +416,8 @@ export default function Checkout({id}){
                     total=total+(p.price*p.count)
                     return(
                         <div class='my-10'>
-                            <img class='w-10 mx-10'
-                            src={p.image[0]||''}alt=''/>
+                            {p.image?<img class='w-10 mx-10'
+                            src={p.image[0]||''}alt=''/>:null}
                             <span class='mx-10'>
                                 Name: {p.name}</span>
                                 <nav className="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
@@ -446,7 +463,7 @@ export default function Checkout({id}){
                     )
                         
                     
-                }):null}
+                }):<></>}
                 <span class='my-10'
                 >Total: {total}</span>
                 <br/>
@@ -455,13 +472,13 @@ export default function Checkout({id}){
                 <button 
             class=" w-24 my-10 mx-10 inline-flex justify-center rounded-md border border-solid bg-white-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-#9a9696 focus:outline-none focus:ring-2 focus:ring-#9a9696  focus:ring-offset-2"
             onClick={onBack}>back</button>
-           {!truedis? <button 
+           {carritook?!truedis? <button 
              class=" my-10 mx-10 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
              onClick={()=>{settrue(true)}}>confirm</button>:
             <Pago  
             id={props._id}
             address={addAddress}
-            />}
+            />:null}
             </div>
             </div>
             </div>

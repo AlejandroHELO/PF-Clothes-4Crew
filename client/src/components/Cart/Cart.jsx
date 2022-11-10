@@ -33,9 +33,9 @@ export default function Cart({ open, setOpen, products }) {
             //console.log(products)
             dispatch(updatedCartDB(products,userDetail._id))
         }
-
+        
     }, [products,userDetail])
-
+   
 
     const handleQtyClick = (e, product) => {
         e.preventDefault()
@@ -74,8 +74,8 @@ export default function Cart({ open, setOpen, products }) {
     const handleDeleteproduct = (e, product) => {
         e.preventDefault()
         console.log('product en handleDeleteProduct', product)
-        dispatch(deleteFromCart(product))
-
+        dispatch(deleteFromCart(product,userDetail._id))
+        
         if (JSON.parse(localStorage.getItem('cart')).length === 0) {
             dispatch(cartEmpty())
             // setOpen(false)
