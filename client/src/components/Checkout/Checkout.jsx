@@ -54,11 +54,14 @@ export default function Checkout({id}){
             (cart[0].products[0].name!=="Don't products"||
             cart[0].products[0].name)){
                 setcarritook(true) 
-        }else {
-            alert('entro al esle')
-            setcarritook(false)
         }
-       
+        if(cart&&
+            cart.length&&
+            (cart[0].products[0].name==="Don't products"||
+            !cart[0].products[0].name)){
+                setcarritook(false) 
+        } 
+               
         if(cartinfo.msj==='cart modified successfully'){
             dispatch(GetCart(props._id))
             dispatch({
