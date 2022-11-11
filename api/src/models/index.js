@@ -8,8 +8,7 @@ const models = {
     productModel: require('./products.js'),
     scoreModel: require('./puntuacion.js'),
     purchaseModel: require('./purchase.js'),
-    userModel: require('./user.js'),
-    colorModel: require('./color.js'),
+    userModel: require('./user'),
 }
 
 module.exports = models

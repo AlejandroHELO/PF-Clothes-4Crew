@@ -11,14 +11,13 @@ import {
     SEARCH,
     GET_CATEGORIES,
     GET_BRANDS,
-    GET_COLORS,
     GET_ADMINS,
     GET_USERS,
     GET_PROFILE,
     UPDATE_USER_ADM,
     POST_USER,
-    GET_COMMENTS,
-    POST_COMMENT,
+    GET_MESSAGES,
+    POST_MESSAGE,
     ORDER_BY,
     OPEN_DETAIL,
     FILTER,
@@ -38,7 +37,6 @@ import {
 
 } from './types'
 
-
 // -------- Products ----------
 export function getProducts() {
     return async function (dispatch) {
@@ -46,7 +44,6 @@ export function getProducts() {
         return dispatch({ type: GET_PRODUCTS, payload: allData.data })
     }
 }
-
 export function getProductsAdmin() {
     return async function (dispatch) {
         const allData = await axios.get('/products')
@@ -102,6 +99,7 @@ export function updateProduct(id, payload) {
     }
 }
 
+
 //si hago el filtro en el front 
 export function search(query) {
     return {
@@ -109,6 +107,8 @@ export function search(query) {
         payload: query,
     }
 }
+
+
 
 export function getCategories() {
     return async function (dispatch) {
@@ -138,13 +138,6 @@ export function createBrands(payload) {
     }
 }
 
-export function getColors() {
-    return async function (dispatch) {
-        const json = await axios.get('/colors')
-        return dispatch({ type: GET_COLORS, payload: json.data })
-    }
-}
-
 // ------- Filtros y ordenamiento ---------
 
 export function orderBy(order) {
@@ -152,11 +145,11 @@ export function orderBy(order) {
 }
 
 export function filter(fil) {
+
     return function (dispatch) {
         dispatch({ type: FILTER, payload: fil })
     }
 }
-
 export function resetFilter(fil) {
     return function (dispatch) {
         dispatch({ type: RESET_FILTERS, payload: fil })
@@ -185,11 +178,11 @@ export function getAdmins() {
 
 export function getUsers(token, id) { // Obtener todos los Users
     return async function (dispatch) {
-        const config = {
+
+        const config={
             headers:{
                 "Authorization": "Bearer "+ await token()
-            }
-        }
+            }}
 
         let json = await axios.get(`/users?id=${id}`, config)
         return dispatch({
@@ -199,7 +192,8 @@ export function getUsers(token, id) { // Obtener todos los Users
     }
 }
 
-export function getUsersAddress(id) { // Obtener la address de un user
+export function getUsersAddress(id) {
+    // Obtener todos los Users
     return async function (dispatch) {
         let json = await axios.get('/address?id=' + id)
         return dispatch({
@@ -211,11 +205,12 @@ export function getUsersAddress(id) { // Obtener la address de un user
 
 export function getProfile(token, user) { // Visualizar perfil de un User
     return async function (dispatch) {
-        const config = {
+
+        const config={
             headers:{
                 "Authorization": "Bearer "+ await token()
-            }
-        }    
+            }}
+            
 
         let json = await axios.post(`/users/${user.email}`, user, config)
         return dispatch({
@@ -237,7 +232,6 @@ export function LogInAction(data) {
         }
     }
 }
-
 export function logOutAction() {
     return async (dispatch) => {
         try {
@@ -293,29 +287,28 @@ export function createUser(payload) {
 
 // ------- Help Us Mail --------
 
-export function getComments() {
+export function getMessages() {
     // Obtener los mensajes de Help us to improve
     return async function (dispatch) {
-        let json = await axios.get('/comments') // http://localhost:3001/messages
+        let json = await axios.get('/messages') // http://localhost:3001/messages
         return dispatch({
-            type: GET_COMMENTS,
+            type: GET_MESSAGES,
             payload: json.data,
         })
     }
 }
 
-export function postComment(data) {
+export function createMessage(data) {
     //crear un mensaje en el buzón de HelpUsToImprove
     // console.log('SOY LA DATA DE LA ACTION: ', data)
     return async function (dispatch) {
-        let response = await axios.post('/comments/send', data) // http://localhost:3001/messages/send
+        let response = await axios.post('/messages/send', data) // http://localhost:3001/messages/send
         return dispatch({
-            type: POST_COMMENT,
+            type: POST_MESSAGE,
             payload: response,
         })
     }
 }
-
 // ------- Cart --------
 
 export function getViewCart(viewCart) {
@@ -400,7 +393,7 @@ export const getCart = () => {
 
 export function CreateAddress(data) {
     return async function (dispatch) {
-        let response = await axios.post('/address', data)
+        let response = await axios.post('/address', data) // http://localhost:3001/messages/send
         return dispatch({
             type: POST_ADDRESS,
             payload: response.data,
@@ -409,7 +402,7 @@ export function CreateAddress(data) {
 }
 export function GetCart(id) {
     return async function (dispatch) {
-        let response = await axios.get('/cart?userId='+id)
+        let response = await axios.get('/cart?userId=' + id) // http://localhost:3001/messages/send
         return dispatch({
             type: GET_CARTDB,
             payload: response.data,

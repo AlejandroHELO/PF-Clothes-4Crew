@@ -7,7 +7,6 @@ const userSchema = new Schema(
         },
         email: {
             type: String,
-            unique: true,
         },
         password: {
             type: String,
@@ -30,10 +29,10 @@ const userSchema = new Schema(
         image: {
             type: String,
         },
-        identificationType:{
+        identificationtype:{
             type: Number
         },
-        identificationNumber:{
+        identificationnumber:{
             type: Number
         },
         isAdmin: {
