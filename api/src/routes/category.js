@@ -9,7 +9,7 @@ const categoryRouter = Router()
 
 categoryRouter.route("/")
 .get(allCategory)
-.post( CreateCategory)
+.post(CreateCategory)
 .put(UpdateCategory)
 
 module.exports = categoryRouter 

@@ -7,12 +7,13 @@ import {
     SEARCH,
     GET_CATEGORIES,
     GET_BRANDS,
+    GET_COLORS,
     GET_ADMINS,
     GET_USERS,
     GET_PROFILE,
     UPDATE_USER_ADM,
-    GET_MESSAGES,
-    POST_MESSAGE,
+    GET_COMMENTS,
+    POST_COMMENT,
     ORDER_BY,
     OPEN_DETAIL,
     FILTER,
@@ -42,11 +43,12 @@ const initialState = {
     currentFilter: '',
     categories: [],
     brands: [],
+    colors: [],
     users: [],
     userDetail: [],
     userPut: '',
     admins: [],
-    messages: [],
+    comments: [],
     productsFiltered: [],
     favorites: [],
     brandFilteredMemory: [],
@@ -61,8 +63,9 @@ const initialState = {
 
 }
 
+
 const reducer = (state = initialState, action) => {
-    console.log(state)
+    // console.log(state)
     switch (action.type) {
         case GET_PRODUCTS:
             const result=action.payload.filter(f=>f.active===true)
@@ -140,6 +143,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 brands: action.payload,
+            }
+
+        case GET_COLORS:
+            return {
+                ...state,
+                colors: action.payload,
             }
 
         case GET_ADMINS:
@@ -292,9 +301,6 @@ const reducer = (state = initialState, action) => {
                 filtersElect: action.payload,
             }
 
-
-
-
         case RESET_FILTERS:
             return {
                 ...state,
@@ -327,6 +333,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 cart: [...action.payload],
             }
+            
         case CART_EMPTY:
             return {
                 ...state,
@@ -338,23 +345,37 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 cart: action.payload,
             }
+
         case GET_USERSADDRESS:
             return {
                 ...state,
                 address: action.payload,
             }
+
         case POST_ADDRESS:
             console.log(action.payload)
-            return {
+            return{
                 ...state,
             }
+
         case GET_CARTDB:
+            return{
+                ...state,
+                cartDb:action.payload
+            }
+
+        case GET_COMMENTS:
             return {
                 ...state,
-                cartDb: action.payload,
+                comments: action.payload
             }
-        default:
-            return state
+
+        case POST_COMMENT:
+            return {
+                ...state,
+            }
+
+        default: return state
     }
 }
 
