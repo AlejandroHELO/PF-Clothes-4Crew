@@ -14,9 +14,9 @@ export default function UserEdit() {
 
     let info = {}
 
-    userInfo.id
+    userInfo._id
         ? (info = {
-              id: userInfo.id,
+              id: userInfo._id,
               fullName: userInfo.fullName,
               email: userInfo.email,
               birthDate: userInfo.birthDate,

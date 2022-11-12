@@ -10,6 +10,7 @@ const models = {
     purchaseModel: require('./purchase.js'),
     userModel: require('./user.js'),
     colorModel: require('./color.js'),
+    favoriteModel: require('./favorite.js')
 }
 
 module.exports = models

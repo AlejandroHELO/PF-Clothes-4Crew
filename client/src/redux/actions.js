@@ -15,6 +15,7 @@ import {
     GET_ADMINS,
     GET_USERS,
     GET_PROFILE,
+    GET_CURRENT_USER,
     UPDATE_USER_ADM,
     POST_USER,
     GET_COMMENTS,
@@ -209,7 +210,8 @@ export function getUsersAddress(id) { // Obtener la address de un user
     }
 }
 
-export function getProfile(token, user) { // Visualizar perfil de un User
+export function getCurrentUser(token, user) { // Visualizar perfil de un User
+    console.log('SOY EL USERRR: ', user)
     return async function (dispatch) {
         const config = {
             headers:{
@@ -218,6 +220,23 @@ export function getProfile(token, user) { // Visualizar perfil de un User
         }    
 
         let json = await axios.post(`/users/${user.email}`, user, config)
+        return dispatch({
+            type: GET_CURRENT_USER,
+            payload: json.data,
+        })
+    }
+}
+
+export function getUser(token, id) { // Visualizar perfil de un User
+    return async function (dispatch) {
+
+        const config = {
+            headers:{
+                "Authorization": "Bearer "+ await token()
+            }
+        }   
+
+        let json = await axios.get(`/users/find/${id}`, config )
         return dispatch({
             type: GET_PROFILE,
             payload: json.data,

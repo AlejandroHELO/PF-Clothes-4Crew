@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProfile, setUserInfo } from "./redux/actions";
+import { getCurrentUser, setUserInfo } from "./redux/actions";
 import ClipLoader from "react-spinners/ClipLoader";
 import LoginPopup from "./components/LoginPopup/LoginPopup";
 
 
 function AdminRoutes() {
-  const userDetail = useSelector((state) => state.userDetail);
+  const userDetail = useSelector((state) => state.userLogged);
   const navigate = useNavigate()
 
   const { isAuthenticated, isLoading, getAccessTokenSilently, user} =
@@ -16,7 +16,7 @@ function AdminRoutes() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getProfile(getAccessTokenSilently, user));
+    dispatch(getCurrentUser(getAccessTokenSilently, user));
   }, [dispatch, user]);
 
   return isAuthenticated && userDetail.isAdmin ? (

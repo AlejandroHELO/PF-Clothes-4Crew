@@ -1,7 +1,7 @@
 import React,{ useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { getProducts, getCart, getProfile } from './redux/actions'
+import { getProducts, getCart, getCurrentUser } from './redux/actions'
 import { useAuth0 } from "@auth0/auth0-react";
 // import { ConstructionOutlined } from '@mui/icons-materzial'
 import HomePage from './components/HomePage/HomePage'
@@ -30,7 +30,7 @@ export default function App() {
     useEffect(() => {
         if (isAuthenticated) {
             console.log(user)
-            dispatch(getProfile(getAccessTokenSilently, user));
+            dispatch(getCurrentUser(getAccessTokenSilently, user));
         }
     }, [dispatch, isAuthenticated, getAccessTokenSilently, user]);
 
