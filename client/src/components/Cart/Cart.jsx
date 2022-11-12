@@ -277,13 +277,9 @@ export default function Cart({ open, setOpen, products }) {
                                             </div>
                                         </div>
 
-
                                     ) : (
                                         <div>{console.log('no hay productos')}</div>
                                     )}
-
-
-
 
                                 </Dialog.Panel>
                             </Transition.Child>
@@ -295,5 +291,3 @@ export default function Cart({ open, setOpen, products }) {
 
     )
 }
-// ) : (
-//     console.log('no hay nada')

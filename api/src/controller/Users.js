@@ -42,11 +42,12 @@ const allUsers = async (req, res, next) => {
     }
 }
 
-const userProfile = async (req, res, next) => {
-    const {name, picture}=req.body
-    console.log(req.body)
+const userLoggin = async (req, res, next) => {
+    const {name, image}=req.body
+    // console.log(req.body)
     try {
         const { email } = req.params
+
         const Us = await userModel.findOne({email:email})
         
         if(!Us){
@@ -66,9 +67,25 @@ const userProfile = async (req, res, next) => {
         }
         
         else{res.status(200).send(Us)}
-           
+
     } catch (error) {
         console.error("Error occurred. User couldn't be shown.")
+        next(error)
+    }
+}
+
+const userProfile = async (req, res, next) => {
+
+    const { id } = req.params
+    try {
+        if (id) {
+        const Us = await userModel.findById(id)
+            
+        res.status(200).send(Us)
+
+        } else res.send(400).send("There's no ID to find an User")
+    } catch (error) {
+        console.log(error)
         next(error)
     }
 }
@@ -239,6 +256,7 @@ const Admins = async (req, res, next) => {}
 module.exports = {
     allUsers,
     userProfile,
+    userLoggin,
     createUser,
     updateUser,
     updateUserAdmin,

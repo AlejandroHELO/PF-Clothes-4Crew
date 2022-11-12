@@ -5,6 +5,7 @@ const {JWKS_URI, AUDIENCE, ISSUER} = process.env
 const {
     allUsers,
     userProfile,
+    userLoggin,
     Admins,
     createUser,
     updateUser,
@@ -34,7 +35,10 @@ userRouter.route('/:id')
 .put(jwtCheck, updateUser)
 
 userRouter.route( '/:email')
-.post(jwtCheck, userProfile)
+.post(jwtCheck, userLoggin)
+
+userRouter.route( '/find/:id')
+.get(jwtCheck, userProfile)
 
 userRouter.route('/admin/:id')
 .put(jwtCheck, updateUserAdmin)

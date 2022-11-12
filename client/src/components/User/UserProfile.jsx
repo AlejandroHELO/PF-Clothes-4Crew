@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import st from './UserProfile.module.css'
-import { getProfile } from '../../redux/actions.js'
+import { getUser } from '../../redux/actions.js'
 import UserProfileEdit from './UserProfileEdit'
 import Footer from '../Footer/Footer'
+import { useAuth0 } from '@auth0/auth0-react'
 import {
     ManageAccounts,
     AlternateEmail,
@@ -25,31 +26,33 @@ export default function UserProfile() {
     let userInfo = useSelector((state) => state.userDetail)
     // console.log('SOY EL PRODUCT: ', productInfo)
     
+    const { getAccessTokenSilently } = useAuth0()
+
     useEffect(() => {
-        dispatch(getProfile(userId))
+        dispatch(getUser(getAccessTokenSilently, userId))
     }, [])
 
     const [ editMode, setEditMode] = useState(false)
 
-    let props = {}
+    // let props = {}
 
-    userInfo.id ? 
-        props = {
-            // id: userInfo.id,
-            fullName: userInfo.fullName,
-            email: userInfo.email,
-            identificationNumber: userInfo.identificationNumber,
-            birthDate: userInfo.birthDate.slice(0, 10),
-            genre: userInfo.genre,
-            country: userInfo.country,
-            address: userInfo.address,
-            tel: userInfo.tel,
-            image: userInfo.image,
-            active: String(userInfo.active),
-        }
-    : console.log('Algo esta pasando')
+    // userInfo._id ? 
+    //     props = {
+    //         // id: userInfo._id,
+    //         fullName: userInfo.fullName,
+    //         email: userInfo.email,
+    //         identificationNumber: userInfo.identificationNumber,
+    //         birthDate: userInfo.birthDate.slice(0, 10),
+    //         genre: userInfo.genre,
+    //         country: userInfo.country,
+    //         address: userInfo.address,
+    //         tel: userInfo.tel,
+    //         image: userInfo.image,
+    //         active: String(userInfo.active),
+    //     }
+    // : console.log('Algo esta pasando')
 
-    console.log('SOY LAS PROPS: ', props)
+    // console.log('SOY LAS PROPS: ', props)
 
     const changePage = () => {
         console.log('SOY EL EDIT MODE', editMode)

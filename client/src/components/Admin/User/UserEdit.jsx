@@ -14,22 +14,21 @@ export default function UserEdit() {
 
     let info = {}
 
-    userInfo.id ?
-        info = {
-            id: userInfo.id,
-            fullName: userInfo.fullName,
-            email: userInfo.email,
-            birthDate: userInfo.birthDate,
-            genre: userInfo.genre,
-            country: userInfo.country,
-            address: userInfo.address,
-            tel: userInfo.tel,
-            image: userInfo.image,
-            isAdmin: userInfo.isAdmin,
-            active: userInfo.active,
-        }
-
-    : console.log('Algo esta pasando')
+    userInfo._id
+        ? (info = {
+              id: userInfo._id,
+              fullName: userInfo.fullName,
+              email: userInfo.email,
+              birthDate: userInfo.birthDate,
+              genre: userInfo.genre,
+              country: userInfo.country,
+              address: userInfo.address,
+              tel: userInfo.tel,
+              image: userInfo.image,
+              isAdmin: userInfo.isAdmin,
+              active: userInfo.active,
+          })
+        : console.log('Algo esta pasando')
     // console.log('SOY LA INFOOO: ', info)
 
     const [input, setInput] = useState({})

@@ -1,7 +1,7 @@
 import React from "react";
 import st from '../Admin/User/User.module.css'
 import { useDispatch, useSelector } from "react-redux";
-import { CreateAddress, GetCart, getProfile, getUsersAddress } from "../../redux/actions";
+import { CreateAddress, GetCart, getCurrentUser, getUsersAddress } from "../../redux/actions";
 import {
     PermIdentity,
     AlternateEmail,
@@ -38,7 +38,7 @@ export default function Checkout({id}){
     console.log(addAddress)
     React.useEffect(() => {
         if(isAuthenticated){
-        dispatch(getProfile(getAccessTokenSilently,user))}
+        dispatch(getCurrentUser(getAccessTokenSilently,user))}
     }, [dispatch])
     const onSelect=(e)=>{
         if(e.target.value!=='select')

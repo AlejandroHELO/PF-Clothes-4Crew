@@ -10,6 +10,7 @@ import {
     GET_ADMINS,
     GET_USERS,
     GET_PROFILE,
+    GET_CURRENT_USER,
     UPDATE_USER_ADM,
     GET_MESSAGES,
     POST_MESSAGE,
@@ -151,6 +152,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 userDetail: action.payload,
+            }
+
+        case GET_CURRENT_USER:
+            return {
+                ...state,
+                userLogged: action.payload,
             }
 
         case UPDATE_USER_ADM:

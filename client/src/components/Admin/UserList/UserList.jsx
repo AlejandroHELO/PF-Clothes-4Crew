@@ -10,12 +10,12 @@ import { useAuth0 } from '@auth0/auth0-react'
 export default function UserList() {
     const {getAccessTokenSilently} = useAuth0()
     const dispatch = useDispatch()
-    const userDetail = useSelector(state=>state.userDetail)
+    const userLogged = useSelector(state=>state.userLogged)
 
 
     useEffect(() => {
-        dispatch(getUsers(getAccessTokenSilently ,userDetail._id))
-    }, [dispatch, getUsers, userDetail])
+        dispatch(getUsers(getAccessTokenSilently ,userLogged._id))
+    }, [dispatch, getUsers, userLogged])
 
     const allUsers = useSelector((state) => state.users)
 
