@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { getCategories } from '../../redux/actions'
 // import Filters from "../Filters/Filters"
 
-const Cards = ({user}) => {
+const Cards = () => {
     //acá en vez de traer productos traer de category
     //entonces llenar la base de datos con lo necesario
     //hacer collection nueva donde el administrador pueda personalizar el home
@@ -26,14 +26,17 @@ const Cards = ({user}) => {
     }, [products])
 
     return (
-        <div className="m-4 w-full" style={{ textAlign: 'center' }}>
+        <div className="m-4 w-full" style={{textAlign: 'center'}}>
             <h4 className="uppercase mx-4 px-4 italic">
                 LO MEJOR DE LA TEMPORADA PRIMAVERA/VERANO 2022
             </h4>
             {categories?.map((c) => {
                 return (
                     <div key={c}>
-                        <Slider cat={c} products={products} user={user} />
+                        <Slider
+                            cat={c}
+                            products={products}
+                        />
                     </div>
                 )
             })}

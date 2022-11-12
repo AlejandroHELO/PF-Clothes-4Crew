@@ -8,7 +8,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Cart from "../Cart/Cart";
 import Sort from "../SearchResults/Sort"
 
-function Navbar({ auth, getToken }) {
+function Navbar() {
     const dispatch = useDispatch()
     const cart = useSelector(state => state.cart);
     const userLogged = useSelector(state => state.userLogged);
@@ -160,3 +160,4 @@ function Navbar({ auth, getToken }) {
 }
 
 export default Navbar
+/*eslint-enable */

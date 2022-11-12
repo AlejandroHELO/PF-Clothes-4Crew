@@ -288,5 +288,6 @@ export default function Cart({ open, setOpen, products }) {
                 </div>
             </Dialog>
         </Transition.Root>
+
     )
 }

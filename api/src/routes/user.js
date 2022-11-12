@@ -40,9 +40,6 @@ userRouter.route( '/:email')
 userRouter.route( '/find/:id')
 .get(jwtCheck, userProfile)
 
-userRouter.route('/admin/newuser')
-.post(jwtCheck, createUser)
-
 userRouter.route('/admin/:id')
 .put(jwtCheck, updateUserAdmin)
 

@@ -40,7 +40,7 @@ export default function ProductList() {
                     <>
                         <Link
                             to={'/adminView/product/' + params.row.idProd}
-                            style={{ textDecoration: 'none' }}
+                            style={{ 'textDecoration': 'none' }}
                         >
                             <button className={st.productListEdit}>
                                 Detail
