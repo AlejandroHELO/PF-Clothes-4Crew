@@ -11,14 +11,16 @@ import {
     SEARCH,
     GET_CATEGORIES,
     GET_BRANDS,
+    GET_COLORS,
     GET_ADMINS,
     GET_USERS,
     GET_PROFILE,
     GET_CURRENT_USER,
+    UPDATE_USER,
     UPDATE_USER_ADM,
     POST_USER,
-    GET_MESSAGES,
-    POST_MESSAGE,
+    GET_COMMENTS,
+    POST_COMMENT,
     ORDER_BY,
     OPEN_DETAIL,
     FILTER,
@@ -49,6 +51,7 @@ export function getProducts() {
         return dispatch({ type: GET_PRODUCTS, payload: allData.data })
     }
 }
+
 export function getProductsAdmin() {
     return async function (dispatch) {
         const allData = await axios.get('/products')
@@ -104,7 +107,6 @@ export function updateProduct(id, payload) {
     }
 }
 
-
 //si hago el filtro en el front 
 export function search(query) {
     return {
@@ -112,8 +114,6 @@ export function search(query) {
         payload: query,
     }
 }
-
-
 
 export function getCategories() {
     return async function (dispatch) {
@@ -143,6 +143,13 @@ export function createBrands(payload) {
     }
 }
 
+export function getColors() {
+    return async function (dispatch) {
+        const json = await axios.get('/colors')
+        return dispatch({ type: GET_COLORS, payload: json.data })
+    }
+}
+
 // ------- Filtros y ordenamiento ---------
 
 export function orderBy(order) {
@@ -156,6 +163,7 @@ export function filter(fil) {
         dispatch({ type: FILTER, payload: fil })
     }
 }
+
 export function resetFilter(fil) {
     return function (dispatch) {
         dispatch({ type: RESET_FILTERS, payload: fil })
@@ -187,7 +195,8 @@ export function getUsers(token, id) { // Obtener todos los Users
         const config={
             headers:{
                 "Authorization": "Bearer "+ await token()
-            }}
+            }
+        }
 
         let json = await axios.get(`/users?id=${id}`, config)
         return dispatch({
@@ -197,8 +206,8 @@ export function getUsers(token, id) { // Obtener todos los Users
     }
 }
 
-export function getUsersAddress(id) { // Obtener todos los Users
-    return async function (dispatch) {
+export function getUsersAddress(id) { // Obtener la address de un user
+        return async function (dispatch) {
         let json = await axios.get('/address?id='+id)
         return dispatch({
             type: GET_USERSADDRESS,
@@ -302,6 +311,7 @@ return (dispatch) => {
         }
     }
 }
+
 export function logOutAction() {
     return async (dispatch) => {
         try {
@@ -332,7 +342,13 @@ export function SignUpwithPasswwordAndEmail(data) {
 }
 
 export function editUser(id, payload) { // Para que un User actualice su perfil
-
+    return async function (dispatch) {
+        let json = await axios.put(`/users/${id}`, payload)
+        return dispatch({
+            type: UPDATE_USER,
+            payload: json.data,
+        })
+    }
 }
 
 export function editUserAdmin(id, payload) { // Para que un admin actualice el perfil de un User
@@ -357,28 +373,29 @@ export function createUser(payload) { // Crear Usuario
 
 // ------- Help Us Mail --------
 
-export function getMessages() {
+export function getComments() {
     // Obtener los mensajes de Help us to improve
     return async function (dispatch) {
-        let json = await axios.get('/messages') // http://localhost:3001/messages
+        let json = await axios.get('/comments')
         return dispatch({
-            type: GET_MESSAGES,
+            type: GET_COMMENTS,
             payload: json.data,
         })
     }
 }
 
-export function createMessage(data) {
+export function postComment(data) {
     //crear un mensaje en el buzón de HelpUsToImprove
     // console.log('SOY LA DATA DE LA ACTION: ', data)
     return async function (dispatch) {
-        let response = await axios.post('/messages/send', data) // http://localhost:3001/messages/send
+        let response = await axios.post('/comments/send', data)
         return dispatch({
-            type: POST_MESSAGE,
+            type: POST_COMMENT,
             payload: response,
         })
     }
 }
+
 // ------- Cart --------
 
 export function getViewCart(viewCart) {
@@ -456,7 +473,7 @@ export const getCart = () => {
 
 export function CreateAddress(data) {
     return async function (dispatch) {
-        let response = await axios.post('/address', data) // http://localhost:3001/messages/send
+        let response = await axios.post('/address', data)
         return dispatch({
             type: POST_ADDRESS,
             payload: response.data,
@@ -465,7 +482,7 @@ export function CreateAddress(data) {
 }
 export function GetCart(id) {
     return async function (dispatch) {
-        let response = await axios.get('/cart?userId='+id) // http://localhost:3001/messages/send
+        let response = await axios.get('/cart?userId='+id)
         return dispatch({
             type: GET_CARTDB,
             payload: response.data,

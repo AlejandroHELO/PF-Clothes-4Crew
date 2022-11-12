@@ -12,15 +12,13 @@ import SearchResults from './components/SearchResults/SearchResults'
 import Pago from './components/MercadoPago/MercadoPago'
 import Register from './components/login&register/register'
 import Navbar from './components/navbar/navbar'
-import { useAuth0 } from "@auth0/auth0-react";
-import Footer from './components/Footer/Footer'
-import { ConstructionOutlined } from '@mui/icons-material'
 import Filters from './components/SearchResults/Filters'
 import Checkout from './components/Checkout/Checkout'
 import ProductReviews from './components/Product/ProductReviews'
 import AdminRoutes from "./AdminRoutes"
 import ProtectedRoutes from './ProtectedRoutes'
 import UserProfile from './components/User/UserProfile';
+import AboutUs from './components/AboutUs/AboutUs'
 import Footer from './components/Footer/Footer'
 // import './App.css';
 // import Loading from '';
@@ -35,10 +33,9 @@ export default function App() {
             console.log(user)
             dispatch(getCurrentUser(getAccessTokenSilently, user));
         }
-      }, [dispatch, isAuthenticated, getAccessTokenSilently, user]);
+    }, [dispatch, isAuthenticated, getAccessTokenSilently, user]);
 
     useEffect(() => {
-
         dispatch(getCart())
         dispatch(getProducts())
     }, [])
@@ -68,7 +65,7 @@ export default function App() {
                 </Route>
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
-     //       <Footer/>
+            {/* <Footer/> */}
             {/* <Pago id={'63615409b573f3a4a80dfc1f'}/> */}
         </>
 
