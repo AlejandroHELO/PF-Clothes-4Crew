@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import Clou from '../../ImageCloudinary/ImageCloudinary'
+import Clou from "../../ImageCloudinary/ImageCloudinary";
 // import { DriveFolderUpload } from '@mui/icons-material'
 import st from './UserEdit.module.css'
 import { editUserAdmin } from '../../../redux/actions'
@@ -10,37 +10,38 @@ export default function UserEdit() {
     // console.log('HOLA SOY PROPS', props)
     const dispatch = useDispatch()
 
-    const userInfo = useSelector((state) => state.userDetail)
+    const userInfo = useSelector( (state) => state.userDetail)
 
     let info = {}
 
-    userInfo.id
-        ? (info = {
-              id: userInfo.id,
-              fullName: userInfo.fullName,
-              email: userInfo.email,
-              birthDate: userInfo.birthDate,
-              genre: userInfo.genre,
-              country: userInfo.country,
-              address: userInfo.address,
-              tel: userInfo.tel,
-              image: userInfo.image,
-              isAdmin: userInfo.isAdmin,
-              active: userInfo.active,
-          })
-        : console.log('Algo esta pasando')
+    userInfo.id ?
+        info = {
+            id: userInfo.id,
+            fullName: userInfo.fullName,
+            email: userInfo.email,
+            birthDate: userInfo.birthDate,
+            genre: userInfo.genre,
+            country: userInfo.country,
+            address: userInfo.address,
+            tel: userInfo.tel,
+            image: userInfo.image,
+            isAdmin: userInfo.isAdmin,
+            active: userInfo.active,
+        }
+
+    : console.log('Algo esta pasando')
     // console.log('SOY LA INFOOO: ', info)
 
     const [input, setInput] = useState({})
 
     const [nav, setNav] = useState(false)
 
-    useEffect(() => {
-        userInfo.id
-            ? setInput({
-                  ...userInfo,
-              })
-            : console.log('Algo esta pasando en el useEffect')
+    useEffect(()=>{
+        userInfo.id?
+        setInput({    
+            ...userInfo
+        })
+        : console.log('Algo esta pasando en el useEffect')
     }, [userInfo])
 
     // console.log('SOY EL INPUT: ', input)
@@ -62,6 +63,7 @@ export default function UserEdit() {
         }
         //window.location.reload(true)
     }
+
 
     return (
         <div className={st.userUpdate}>
@@ -205,7 +207,10 @@ export default function UserEdit() {
                         />
                         <label htmlFor="file">
                             {/* <DriveFolderUpload className={st.userUpdateIcon} /> */}
-                            <Clou setEditInput={setInput} editInput={input} />
+                            <Clou
+                            setEditInput={setInput}
+                            editInput={input}
+                        /> 
                         </label>
                         <input
                             name="image"

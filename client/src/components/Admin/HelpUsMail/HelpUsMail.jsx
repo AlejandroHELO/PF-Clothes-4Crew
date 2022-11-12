@@ -23,7 +23,7 @@ export default function HelpUsMail() {
                         messages
                             .map((msg, index) => {
                                 return (
-                                    <div key={index} className={st.divItem}>
+                                    <div className={st.divItem}>
                                         <div className={st.listHead}>
                                             <li className={st.listItem}>
                                                 ID: {index + 1}
