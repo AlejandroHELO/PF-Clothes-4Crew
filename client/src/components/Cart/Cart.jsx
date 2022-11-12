@@ -18,7 +18,7 @@ export default function Cart({ open, setOpen, products }) {
     // const products = useSelector((state) => state.cart);
     const dispatch = useDispatch();
     const [total, setTotal] = useState(0);
-    const userDetail = useSelector(state => state.userDetail)
+    const userDetail = useSelector(state => state.userLogged)
 
     React.useEffect(() => {
         // console.log('products en cart', products)
@@ -281,13 +281,9 @@ export default function Cart({ open, setOpen, products }) {
                                             </div>
                                         </div>
 
-
                                     ) : (
                                         <div>{console.log('no hay productos')}</div>
                                     )}
-
-
-
 
                                 </Dialog.Panel>
                             </Transition.Child>
@@ -299,5 +295,3 @@ export default function Cart({ open, setOpen, products }) {
 
     )
 }
-// ) : (
-//     console.log('no hay nada')

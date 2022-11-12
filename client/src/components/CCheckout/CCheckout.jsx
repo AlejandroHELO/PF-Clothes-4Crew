@@ -9,7 +9,7 @@ export default function CCheckout(){
     // para obtener los datos luego de hacer la compra
     const {search}= useLocation()
     const {id}=useParams()
-    const userDetail=useSelector(state=>state.userDetail)
+    const userDetail=useSelector(state=>state.userLogged)
     const createP=useSelector(state=>state.createP)
     const cart=useSelector(state=>state.cart)
     const dispatch=useDispatch()

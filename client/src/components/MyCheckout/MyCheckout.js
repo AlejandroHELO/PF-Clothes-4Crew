@@ -1,7 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, getProfile, GetPurchase } from "../../redux/actions";
+import { getProducts, getCurrentUser, GetPurchase } from "../../redux/actions";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useNavigate } from "react-router-dom";
 import s from './MyCheckout.module.css'
@@ -19,7 +19,7 @@ export default function MyCheckout(){
             dispatch(GetPurchase(userDetail._id))
         }else{
             if(isAuthenticated){
-                dispatch(getProfile(getAccessTokenSilently,user))
+                dispatch(getCurrentUser(getAccessTokenSilently,user))
             }
         }
     },[dispatch])
@@ -45,7 +45,7 @@ export default function MyCheckout(){
             return(
                     <div className={s.itenlist} key={b.paymentId} onClick={()=>{onClickSelect(b)}}>
                     <span>#{b.paymentId}</span>
-                    {b.state?<span>state: {b.state}</span>:null}
+                    {b.state?<span> state: {b.state}</span>:null}
                     <hr/>
                     </div>                 
                    

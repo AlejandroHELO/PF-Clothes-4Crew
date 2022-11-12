@@ -1,7 +1,7 @@
 /*eslint-disable */
 import React, {useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getCategories, getProducts, getBrands, getProfile} from '../../redux/actions'
+import { getCategories, getProducts, getBrands, getCurrentUser} from '../../redux/actions'
 import { Link, useNavigate, Outlet } from 'react-router-dom'
 import SearchBar from './searchbar'
 import { useAuth0 } from "@auth0/auth0-react";
@@ -11,7 +11,7 @@ import Sort from "../SearchResults/Sort"
 function Navbar() {
     const dispatch = useDispatch()
     const cart = useSelector(state => state.cart);
-    const userDetail = useSelector(state => state.userDetail);
+    const userLogged = useSelector(state => state.userLogged);
     const { loginWithPopup, isAuthenticated, user, logout, getAccessTokenSilently} = useAuth0()
     const [openCart, setOpenCart] = React.useState(false)
     const filtersElect = useSelector((state) => state.filtersElect)
@@ -24,7 +24,7 @@ function Navbar() {
     useEffect(() => {
         if (isAuthenticated) {
             console.log("AQUI TOYYY:", user)
-          dispatch(getProfile(getAccessTokenSilently, user));
+          dispatch(getCurrentUser(getAccessTokenSilently, user));
         }
       }, [dispatch, isAuthenticated, getAccessTokenSilently, user]);
 
@@ -50,7 +50,7 @@ function Navbar() {
         dispatch(getProducts())
     }
 
-    console.log("USER DETAIIL: " ,userDetail)
+    console.log("USER DETAIIL: " ,userLogged)
     return (
         <>
             <nav className="w-full h-1/6 mt-2  bg-white shadow-md flex flex-col justify-around ">
@@ -84,11 +84,6 @@ function Navbar() {
                         <button className=" h-11 my-4 border-gray-300 border-2 rounded flex p-2 justify-center items-center ">
                             <SearchBar />
                         </button>
-
-
-
-
-
                     </div>
                     {/* Lado derecho */}
                     <div className="flex space-x-3">
@@ -103,10 +98,10 @@ function Navbar() {
                         {/* Login */}
                         {!isAuthenticated? <button onClick={loginWithPopup} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
                             👤 Iniciar sesión
-                        </button>: userDetail.isAdmin?
+                        </button>: userLogged.isAdmin?
                         <div className='flex gap-3' >
                             <img src={user?.picture} alt="User picture" className='h-10 w-10' />
-                            <Link to="/adminview">
+                            <Link to="/adminview" className=' no-underline'>
                                 <button className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
                                     Admin Panel
                                 </button>
@@ -114,8 +109,13 @@ function Navbar() {
                             <button onClick={logout} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
                                 Logout
                             </button>
-                        </div>: <div className='flex gap-3' >
+                        </div> : <div className='flex gap-3' >
                             <img src={user?.picture} alt="User picture" className='h-10 w-10' />
+                            <Link to={`/profile/${userLogged._id}`} className=' no-underline'>
+                                <button className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                                    Profile
+                                </button>
+                            </Link>
                             <button onClick={logout} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
                                 Logout
                             </button>

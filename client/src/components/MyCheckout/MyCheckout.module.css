@@ -23,6 +23,9 @@ span{
 .itenlist{
    margin: auto;
 }
+.itenlist:hover{
+    cursor: pointer;
+}
 img{
     height:  100%;
     max-width: 100px;
