@@ -108,6 +108,7 @@ export default function HelpUsImprove() {
                     <img src="/images/newLogo.jpg" className={st.image} alt="img" />
                 </div>
             </div>
+            
             <Footer />
         </div>
     )

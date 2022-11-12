@@ -84,11 +84,6 @@ function Navbar() {
                         <button className=" h-11 my-4 border-gray-300 border-2 rounded flex p-2 justify-center items-center ">
                             <SearchBar />
                         </button>
-
-
-
-
-
                     </div>
                     {/* Lado derecho */}
                     <div className="flex space-x-3">
@@ -106,7 +101,7 @@ function Navbar() {
                         </button>: userDetail.isAdmin?
                         <div className='flex gap-3' >
                             <img src={user?.picture} alt="User picture" className='h-10 w-10' />
-                            <Link to="/adminview">
+                            <Link to="/adminview" className=' no-underline'>
                                 <button className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
                                     Admin Panel
                                 </button>
