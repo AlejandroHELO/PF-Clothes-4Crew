@@ -17,11 +17,14 @@ import Checkout from './components/Checkout/Checkout'
 import ProductReviews from './components/Product/ProductReviews'
 import AdminRoutes from "./AdminRoutes"
 import ProtectedRoutes from './ProtectedRoutes'
+import CCheckout from './components/CCheckout/CCheckout'
+import MyCheckout from './components/MyCheckout/MyCheckout'
 import UserProfile from './components/User/UserProfile';
 import AboutUs from './components/AboutUs/AboutUs'
 import Footer from './components/Footer/Footer'
 // import './App.css';
 // import Loading from '';
+
 
 
 export default function App() {
@@ -52,12 +55,15 @@ export default function App() {
                     {/* <Route path='/searchResults/:query' element={<SearchResults open={open} setOpen={setOpen} />} />
                     <Route path="/searchResults/:query/:order" element={<SearchResults open={open} setOpen={setOpen} />} /> */}
                     <Route path='/register' element={<Register />} />
+
                     <Route path='/helpusimprove' element={<HelpUsImprove />} />
                     <Route path='/aboutus' element={<AboutUs />} />
-                    <Route path='/profile/:userId' element={<UserProfile />} />
-                    <Route path='/products/reviews' element={<ProductReviews id='635ae766f530d18d68f103cb' userId='63615409b573f3a4a80dfc1f' />} />
                     <Route element={<ProtectedRoutes/>}>
-                        <Route path="/checkout" element={<Checkout id={'63615409b573f3a4a80dfc1f'} />} />
+                        <Route path='/profile/:userId' element={<UserProfile />} />
+                        <Route path="/products/reviews/:id/:userId" element={<ProductReviews  />} />
+                        <Route path="/checkout" element={<Checkout  />} />
+                        <Route path="/mycheckout" element={<MyCheckout/>} />
+                        <Route path="/checkout/confirm/:id" element={<CCheckout/>} />
                     </Route>
                 </Route>
                 <Route element={<AdminRoutes/>}>

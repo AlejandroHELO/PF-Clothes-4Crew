@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 import {
+    POST_DBCART,
     GET_USERSADDRESS,
     POST_ADDRESS,
     GET_PRODUCTS,
@@ -36,7 +37,9 @@ import {
     GET_CART,
     BRAND_ELECT,
     GET_CARTDB,
-    CREATE_P_REVIEW
+    CREATE_P_REVIEW,
+    POST_CREATE_PORCHASE,
+    GET_CREATE_PORCHASE
 
 } from './types'
 
@@ -432,20 +435,23 @@ export const addToCart = product => async dispatch => {
     }
 };
 
-export const deleteFromCart = product => async dispatch => {
+export const deleteFromCart = (product,props='') => async dispatch => {
     const cart = localStorage.getItem('cart')
         ? JSON.parse(localStorage.getItem('cart'))
         : [];
 
 
     const updatedCart = cart.filter(cartItem => cartItem.id !== product.id);
-
+    console.log(updatedCart)
     localStorage.setItem('cart', JSON.stringify(updatedCart));
 
     dispatch({
         type: DELETE_FROM_CART,
         payload: updatedCart,
     });
+    
+        dispatch(updatedCartDB(updatedCart,props._id))
+    
 };
 
 export const cartEmpty = () => {
@@ -470,6 +476,15 @@ export const getCart = () => {
         payload: cart
     }
 }
+export function updatedCartDB(data,userid) {
+    return async function (dispatch) {
+        let response = await axios.post('/cartupdate/'+userid, data) 
+        return dispatch({
+            type: POST_DBCART,
+            payload: response.data,
+        })
+    }
+}
 
 export function CreateAddress(data) {
     return async function (dispatch) {
@@ -485,6 +500,26 @@ export function GetCart(id) {
         let response = await axios.get('/cart?userId='+id)
         return dispatch({
             type: GET_CARTDB,
+            payload: response.data,
+        })
+    }
+}
+export function CreatePurchase(data) {
+    return async function (dispatch) {
+        let response = await axios.post('/purchase',data) // http://localhost:3001/messages/send
+        console.log(response.data)
+        return dispatch({
+            type:POST_CREATE_PORCHASE,
+            payload: response.data,
+        })
+    }
+}
+export function GetPurchase(data) {
+    return async function (dispatch) {
+        let response = await axios.get('/purchase?userId=',data) // http://localhost:3001/messages/send
+        console.log(response.data)
+        return dispatch({
+            type:GET_CREATE_PORCHASE,
             payload: response.data,
         })
     }

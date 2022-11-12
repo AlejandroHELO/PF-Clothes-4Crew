@@ -7,7 +7,7 @@ const FORM_ID = 'payment-form';
 
 export default function Pago(pros) {
   const [preferenceId, setPreferenceId] = useState(null);
-
+    console.log(pros)
   useEffect(() => {
     // luego de montarse el componente, le pedimos al backend el preferenceId
     axios.post('/mercadopago/'+pros.id+'/'+pros.address).then((order) => {

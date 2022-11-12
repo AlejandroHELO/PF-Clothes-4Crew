@@ -9,7 +9,7 @@ const comments = require ('./comments.js')
 const colors = require ('./colors.js')
 const favoriteRouter = require('./favorite')
 const { 
-    MercadoPago 
+    MercadoPago, GetMP 
 } = require('../controller/MercadoPago.js')
 const {
     UpdateCart, getcart 
@@ -42,7 +42,9 @@ router.use('/products', productsRouter)
 router.post('/products/reviews', CreateReview)
 router.put('/products/reviews', UpdateReview)
 
-router.post('/mercadopago/:id/:addressId', MercadoPago)
+router.post('/mercadopago/:id/:addressId',MercadoPago)
+router.get('/mercadopago/:id',GetMP)
+
 
 //---- Purchase routes ------
 router.use('/purchase', purchaseRouter)
