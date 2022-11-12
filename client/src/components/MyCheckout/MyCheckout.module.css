@@ -1,0 +1,48 @@
+.conten{
+    display: flex;
+    margin: 2%;
+    height: 100%;
+    min-height: 80%;
+
+}
+span{
+    margin:  auto;
+    text-align: center;
+}
+.contenlistcompras{
+    padding: 10px;
+    width: 100%;
+    max-width: 30%;
+    border-right: solid 0.5px  #7b7b7b;
+}
+.contenD{
+    padding: 10px;
+    width: 100%;
+    max-width: 70%; 
+}
+.itenlist{
+   margin: auto;
+}
+.itenlist:hover{
+    cursor: pointer;
+}
+img{
+    height:  100%;
+    max-width: 100px;
+    width: 100%;
+    max-height: 100px;
+}
+.Dcompra{
+    display: flex;
+    margin: auto;
+    border-bottom: solid 0.5px #7b7b7b;
+    margin: 10px 10%;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+}
+.contenDcompra{
+    margin: 10px ; 
+}

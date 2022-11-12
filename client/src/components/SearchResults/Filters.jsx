@@ -19,10 +19,9 @@ import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
 import { filter, brandElect, search } from '../../redux/actions'
-import Navbar from '../navbar/navbar'
 import Card from "../Cards/Card";
 import ProductDetail from '../Product/productDetail';
-import Footer from '../Footer/Footer'
+
 
 
 export default function Filters() {
@@ -224,7 +223,7 @@ export default function Filters() {
                 </Transition.Root>
 
                 <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <Navbar />
+            
 
 
                     <section aria-labelledby="products-heading" className="pt-6 pb-24">
@@ -346,7 +345,7 @@ export default function Filters() {
                     </section>
                 </main>
             </div>
-            <Footer />
+    
         </div >
 
     )

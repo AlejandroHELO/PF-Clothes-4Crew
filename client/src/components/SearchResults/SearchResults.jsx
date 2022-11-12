@@ -197,7 +197,7 @@ export default function SearchResults({ open, setOpen }) {
 
 
             {/* ------------------------------------ */}
-            <Footer />
+         
         </div>
     )
 }

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import Clou from "../../ImageCloudinary/ImageCloudinary";
+import Clou from "../ImageCloudinary/ImageCloudinary";
 // import { DriveFolderUpload } from '@mui/icons-material'
-import st from './UserEdit.module.css'
-import { editUserAdmin } from '../../../redux/actions'
+import st from './UserProfileEdit.module.css'
+import { editUser } from '../../redux/actions.js'
 
 export default function UserEdit() {
     // console.log('HOLA SOY PROPS', props)
@@ -14,21 +14,22 @@ export default function UserEdit() {
 
     let info = {}
 
-    userInfo._id
-        ? (info = {
-              id: userInfo._id,
-              fullName: userInfo.fullName,
-              email: userInfo.email,
-              birthDate: userInfo.birthDate,
-              genre: userInfo.genre,
-              country: userInfo.country,
-              address: userInfo.address,
-              tel: userInfo.tel,
-              image: userInfo.image,
-              isAdmin: userInfo.isAdmin,
-              active: userInfo.active,
-          })
-        : console.log('Algo esta pasando')
+    userInfo.id ?
+        info = {
+            id: userInfo.id,
+            fullName: userInfo.fullName,
+            email: userInfo.email,
+            birthDate: userInfo.birthDate,
+            genre: userInfo.genre,
+            country: userInfo.country,
+            address: userInfo.address,
+            tel: userInfo.tel,
+            image: userInfo.image,
+            isAdmin: userInfo.isAdmin,
+            active: userInfo.active,
+        }
+
+    : console.log('Algo esta pasando')
     // console.log('SOY LA INFOOO: ', info)
 
     const [input, setInput] = useState({})
@@ -57,7 +58,7 @@ export default function UserEdit() {
         e.preventDefault()
 
         if (e.target.name === 'update') {
-            dispatch(editUserAdmin(info.id, input))
+            dispatch(editUser(info.id, input))
             setNav(true)
         }
         //window.location.reload(true)

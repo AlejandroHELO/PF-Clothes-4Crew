@@ -5,13 +5,17 @@ import st from './UserList.module.css'
 import { DataGrid } from '@material-ui/data-grid'
 import { DeleteForever } from '@mui/icons-material'
 import { Link } from 'react-router-dom'
+import { useAuth0 } from '@auth0/auth0-react'
 
 export default function UserList() {
+    const {getAccessTokenSilently} = useAuth0()
     const dispatch = useDispatch()
+    const userLogged = useSelector(state=>state.userLogged)
+
 
     useEffect(() => {
-        dispatch(getUsers())
-    }, [dispatch, getUsers])
+        dispatch(getUsers(getAccessTokenSilently ,userLogged._id))
+    }, [dispatch, getUsers, userLogged])
 
     const allUsers = useSelector((state) => state.users)
 
