@@ -7,13 +7,12 @@ import {
     SEARCH,
     GET_CATEGORIES,
     GET_BRANDS,
-    GET_COLORS,
     GET_ADMINS,
     GET_USERS,
     GET_PROFILE,
     UPDATE_USER_ADM,
-    GET_COMMENTS,
-    POST_COMMENT,
+    GET_MESSAGES,
+    POST_MESSAGE,
     ORDER_BY,
     OPEN_DETAIL,
     FILTER,
@@ -28,8 +27,7 @@ import {
     GET_USERSADDRESS,
     POST_ADDRESS,
     GET_CARTDB,
-    GET_PRODUCTSADMIN,
-    GET_FAVORITES
+    GET_PRODUCTSADMIN
 
 } from './types'
 
@@ -43,14 +41,13 @@ const initialState = {
     currentFilter: '',
     categories: [],
     brands: [],
-    colors: [],
     users: [],
     userDetail: [],
     userPut: '',
     admins: [],
-    comments: [],
+    messages: [],
     productsFiltered: [],
-    favorites: [],
+
     brandFilteredMemory: [],
     resultFilterCombinado1: [],
     filtersElect: [],
@@ -64,8 +61,9 @@ const initialState = {
 }
 
 
+
 const reducer = (state = initialState, action) => {
-    // console.log(state)
+    console.log(state)
     switch (action.type) {
         case GET_PRODUCTS:
             const result=action.payload.filter(f=>f.active===true)
@@ -109,16 +107,7 @@ const reducer = (state = initialState, action) => {
                 details: action.payload,
             }
 
-        case GET_FAVORITES: {
-            // const favoritesProducts = []
-            // action.payload?.map(p => {
-            //     return favoritesProducts.push(p.id)
-            // })
-            return {
-                ...state,
-                favorites: state.favorites.concat(action.payload)
-            }
-        }    
+
 
         //filtro que funciona en el front sin hacer el pedido al back
         case SEARCH:
@@ -139,16 +128,11 @@ const reducer = (state = initialState, action) => {
                 categories: action.payload,
             }
 
+
         case GET_BRANDS:
             return {
                 ...state,
                 brands: action.payload,
-            }
-
-        case GET_COLORS:
-            return {
-                ...state,
-                colors: action.payload,
             }
 
         case GET_ADMINS:
@@ -301,6 +285,9 @@ const reducer = (state = initialState, action) => {
                 filtersElect: action.payload,
             }
 
+
+
+
         case RESET_FILTERS:
             return {
                 ...state,
@@ -317,66 +304,54 @@ const reducer = (state = initialState, action) => {
         // ------- Cart --------
 
         case VIEW_CART:
-            return {
+            return ({
                 ...state,
-                viewCart: action.payload,
-            }
+                viewCart: action.payload
+            })
 
         case ADD_TO_CART:
             return {
                 ...state,
                 cart: [...action.payload],
-            }
+            };
 
         case DELETE_FROM_CART:
             return {
                 ...state,
                 cart: [...action.payload],
-            }
-            
+            };
         case CART_EMPTY:
             return {
                 ...state,
-                cart: action.payload,
+                cart: action.payload
+
             }
 
         case GET_CART:
             return {
                 ...state,
-                cart: action.payload,
+                cart: action.payload
             }
-
         case GET_USERSADDRESS:
-            return {
+            return{
                 ...state,
-                address: action.payload,
+                address:action.payload
             }
-
         case POST_ADDRESS:
             console.log(action.payload)
-            return{
-                ...state,
-            }
-
+                return{
+                    ...state,
+                }        
         case GET_CARTDB:
-            return{
-                ...state,
-                cartDb:action.payload
-            }
-
-        case GET_COMMENTS:
-            return {
-                ...state,
-                comments: action.payload
-            }
-
-        case POST_COMMENT:
-            return {
-                ...state,
-            }
-
-        default: return state
+                return{
+                    ...state,
+                    cartDb:action.payload
+                }
+        default:
+            return state
     }
 }
+
+
 
 export default reducer
