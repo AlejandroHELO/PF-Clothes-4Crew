@@ -2,13 +2,10 @@ const { Schema, model } = require('mongoose')
 
 const commentSchema = new Schema(
     {
-        name: {
+        comment: {
             type: String,
         },
-        email: {
-            type: String,
-        },
-        message: {
+        userId: {
             type: String,
         },
     },
