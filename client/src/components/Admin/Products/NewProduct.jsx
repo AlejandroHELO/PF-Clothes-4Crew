@@ -2,27 +2,24 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import st from './NewProduct.module.css'
-import { createProduct, getCategories, getBrands, getColors } from '../../../redux/actions'
+import { createProduct, getCategories, getBrands } from '../../../redux/actions'
 import Clou from '../../ImageCloudinary/ImageCloudinary'
 
 export default function NewProduct() {
     const dispatch = useDispatch()
 
-
-    const categories = useSelector((state) => state.categories);
-    const brands = useSelector((state) => state.brands);
-    const colors = useSelector((state) => state.colors);
+    const categories = useSelector((state) => state.categories)
+    const brands = useSelector((state) => state.brands)
 
     // console.log('SOY LAS BRANDS: ',brands)
     // console.log('SOY LAS CATEGORIES: ',categories)
 
     useEffect(() => {
-        if (!categories.length || !brands.length || !colors) {
+        if (!categories.length || !brands.length) {
             dispatch(getCategories())
             dispatch(getBrands())
-            dispatch(getColors())
         }
-    },[categories, brands, colors]);
+    }, [categories, brands])
 
     const [input, setInput] = useState({
         name: '',
@@ -40,7 +37,6 @@ export default function NewProduct() {
         size: [],
         stock: 0,
         image: [],
-        active: true,
         featured: false,
     })
 
@@ -67,7 +63,9 @@ export default function NewProduct() {
                 [e.target.name]: objBrand[0],
             })
         } else if (e.target.name === 'category') {
-            const objCateg = categories.filter((cat) => cat.name === e.target.value)
+            const objCateg = categories.filter(
+                (cat) => cat.name === e.target.value
+            )
             setInput({
                 ...input,
                 [e.target.name]: objCateg,
@@ -247,22 +245,12 @@ export default function NewProduct() {
                 </div>
                 <div className={st.newUserItem}>
                     <label>Color</label>
-                    <select
+                    <input
+                        type="text"
                         name="color"
-                        defaultValue=""
-                        className={st.productUpdateInput}
+                        placeholder="Product color"
                         onChange={(e) => handleChange(e)}
-                        >
-                        <option hidden value=""> 
-                            Select a color 
-                        </option>
-                        {colors && colors.map(col => (
-                            <option name={col.name} value={col.name} key={col.name}>
-                                {col.name}
-                            </option> 
-                            )) 
-                        }
-                    </select>
+                    />
                 </div>
                 <div className={st.newUserItem}>
                     <label>Gender</label>

@@ -17,7 +17,7 @@ export default function HomePage({user}) {
             <Cards user={user}/>
             <Brands />
             <img src={'/images/Clothes 4Crew Logo.JPG'} alt="Logo" />
-            <Footer/>
+          
         </div>
     )
 }
