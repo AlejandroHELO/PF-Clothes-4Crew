@@ -8,8 +8,8 @@ import Clou from '../../ImageCloudinary/ImageCloudinary'
 export default function NewProduct() {
     const dispatch = useDispatch()
 
-    const categories = useSelector((state) => state.categories)
-    const brands = useSelector((state) => state.brands)
+    const categories = useSelector((state) => state.categories);
+    const brands = useSelector((state) => state.brands);
 
     // console.log('SOY LAS BRANDS: ',brands)
     // console.log('SOY LAS CATEGORIES: ',categories)
@@ -19,7 +19,7 @@ export default function NewProduct() {
             dispatch(getCategories())
             dispatch(getBrands())
         }
-    }, [categories, brands])
+    },[categories, brands]);
 
     const [input, setInput] = useState({
         name: '',
@@ -29,11 +29,11 @@ export default function NewProduct() {
         genre: '',
         description: '',
         price: '',
-        sizeXS: { size: 'XS', stock: 0 },
-        sizeS: { size: 'S', stock: 0 },
-        sizeM: { size: 'M', stock: 0 },
-        sizeL: { size: 'L', stock: 0 },
-        sizeXL: { size: 'XL', stock: 0 },
+        sizeXS: {size: "XS", stock: 0},
+        sizeS: {size: "S", stock: 0},
+        sizeM: {size: "M", stock: 0},
+        sizeL: {size: "L", stock: 0},
+        sizeXL: {size: "XL", stock: 0},
         size: [],
         stock: 0,
         image: [],
@@ -51,125 +51,69 @@ export default function NewProduct() {
     const handleChange = (e) => {
         setInput({
             ...input,
-            [e.target.name]: e.target.value,
+            [e.target.name]: e.target.value
         })
     }
 
     const handleChangeCategoryAndBrand = (e) => {
-        if (e.target.name === 'brand') {
+        if (e.target.name === "brand"){
             const objBrand = brands.filter((br) => br.name === e.target.value)
             setInput({
                 ...input,
-                [e.target.name]: objBrand[0],
+                [e.target.name]: objBrand[0]
             })
-        } else if (e.target.name === 'category') {
-            const objCateg = categories.filter(
-                (cat) => cat.name === e.target.value
-            )
+        } else if (e.target.name === "category"){
+            const objCateg = categories.filter((cat) => cat.name === e.target.value)
             setInput({
                 ...input,
-                [e.target.name]: objCateg,
+                [e.target.name]: objCateg
             })
         }
     }
 
-    const handleChangeSize = (e) => {
-        if (e.target.name === 'sizeXS') {
+    const handleChangeSize = (e) =>{
+
+        if (e.target.name === "sizeXS"){
             setInput({
                 ...input,
-                sizeXS: { size: 'XS', stock: Number(e.target.value) },
-                size: [
-                    { size: 'XS', stock: Number(e.target.value) },
-                    input.sizeS,
-                    input.sizeM,
-                    input.sizeL,
-                    input.sizeXL,
-                ],
-                stock:
-                    Number(e.target.value) +
-                    input.sizeS.stock +
-                    input.sizeM.stock +
-                    input.sizeL.stock +
-                    input.sizeXL.stock,
+                sizeXS: {size: "XS", stock: Number(e.target.value)},
+                size: [{size: "XS", stock: Number(e.target.value)}, input.sizeS, input.sizeM, input.sizeL, input.sizeXL],
+                stock: Number(e.target.value) + input.sizeS.stock + input.sizeM.stock + input.sizeL.stock + input.sizeXL.stock
             })
-        } else if (e.target.name === 'sizeS') {
+        } else if (e.target.name === "sizeS") {
             setInput({
                 ...input,
-                sizeS: { size: 'S', stock: Number(e.target.value) },
-                size: [
-                    input.sizeXS,
-                    { size: 'S', stock: Number(e.target.value) },
-                    input.sizeM,
-                    input.sizeL,
-                    input.sizeXL,
-                ],
-                stock:
-                    input.sizeXS.stock +
-                    Number(e.target.value) +
-                    input.sizeM.stock +
-                    input.sizeL.stock +
-                    input.sizeXL.stock,
+                sizeS: {size: "S", stock: Number(e.target.value)},
+                size: [input.sizeXS, {size: "S", stock: Number(e.target.value)}, input.sizeM, input.sizeL, input.sizeXL],
+                stock: input.sizeXS.stock + Number(e.target.value) + input.sizeM.stock + input.sizeL.stock + input.sizeXL.stock
             })
-        } else if (e.target.name === 'sizeM') {
+        } else if (e.target.name === "sizeM") {
             setInput({
                 ...input,
-                sizeM: { size: 'M', stock: Number(e.target.value) },
-                size: [
-                    input.sizeXS,
-                    input.sizeS,
-                    { size: 'M', stock: Number(e.target.value) },
-                    input.sizeL,
-                    input.sizeXL,
-                ],
-                stock:
-                    input.sizeXS.stock +
-                    input.sizeS.stock +
-                    Number(e.target.value) +
-                    input.sizeL.stock +
-                    input.sizeXL.stock,
+                sizeM: {size: "M", stock: Number(e.target.value)},
+                size: [input.sizeXS, input.sizeS, {size: "M", stock: Number(e.target.value)}, input.sizeL, input.sizeXL],
+                stock: input.sizeXS.stock + input.sizeS.stock + Number(e.target.value) + input.sizeL.stock + input.sizeXL.stock
             })
-        } else if (e.target.name === 'sizeL') {
+        } else if (e.target.name === "sizeL") {
             setInput({
                 ...input,
-                sizeL: { size: 'L', stock: Number(e.target.value) },
-                size: [
-                    input.sizeXS,
-                    input.sizeS,
-                    input.sizeM,
-                    { size: 'L', stock: Number(e.target.value) },
-                    input.sizeXL,
-                ],
-                stock:
-                    input.sizeXS.stock +
-                    input.sizeS.stock +
-                    input.sizeM.stock +
-                    Number(e.target.value) +
-                    input.sizeXL.stock,
+                sizeL: {size: "L", stock: Number(e.target.value)},
+                size: [input.sizeXS, input.sizeS, input.sizeM, {size: "L", stock: Number(e.target.value)}, input.sizeXL],
+                stock: input.sizeXS.stock + input.sizeS.stock + input.sizeM.stock + Number(e.target.value) + input.sizeXL.stock
             })
-        } else if (e.target.name === 'sizeXL') {
+        } else if (e.target.name === "sizeXL") {
             setInput({
                 ...input,
-                sizeXL: { size: 'XL', stock: Number(e.target.value) },
-                size: [
-                    input.sizeXS,
-                    input.sizeS,
-                    input.sizeM,
-                    input.sizeL,
-                    { size: 'XL', stock: Number(e.target.value) },
-                ],
-                stock:
-                    input.sizeXS.stock +
-                    input.sizeS.stock +
-                    input.sizeM.stock +
-                    input.sizeL.stock +
-                    Number(e.target.value),
+                sizeXL: {size: "XL", stock: Number(e.target.value)},
+                size: [input.sizeXS, input.sizeS, input.sizeM, input.sizeL, {size: "XL", stock: Number(e.target.value)}],
+                stock: input.sizeXS.stock + input.sizeS.stock + input.sizeM.stock + input.sizeL.stock + Number(e.target.value)
             })
         }
     }
 
     const handleCreate = (e) => {
         e.preventDefault()
-
+        
         if (e.target.name === 'create') {
             // setInput({
             //     ...input,
@@ -183,6 +127,7 @@ export default function NewProduct() {
         }
         setNav(true)
     }
+
 
     return (
         <div className={st.newUser}>
@@ -208,16 +153,10 @@ export default function NewProduct() {
                         <option hidden value="">
                             Select a brand
                         </option>
-                        {brands &&
-                            brands.map((brand) => (
-                                <option
-                                    name={brand.name}
-                                    value={brand.name}
-                                    key={brand.name}
-                                >
-                                    {brand.name}
-                                </option>
-                            ))}
+                        {brands && brands.map(brand => (
+                            <option name={brand.name} value={brand.name} key={brand.name}>{brand.name}</option>  
+                            )) 
+                        }
                     </select>
                 </div>
                 <div className={st.newUserItem}>
@@ -231,16 +170,10 @@ export default function NewProduct() {
                         <option hidden value="">
                             Select a category
                         </option>
-                        {categories &&
-                            categories.map((cat) => (
-                                <option
-                                    name={cat.name}
-                                    value={cat.name}
-                                    key={cat.name}
-                                >
-                                    {cat.name}
-                                </option>
-                            ))}
+                        {categories && categories.map(cat => (
+                            <option name={cat.name} value={cat.name} key={cat.name}>{cat.name}</option> 
+                            )) 
+                        }
                     </select>
                 </div>
                 <div className={st.newUserItem}>
@@ -375,7 +308,10 @@ export default function NewProduct() {
                             alt="Product Img"
                         /> */}
                         <label htmlFor="file">
-                            <Clou setEditInput={setInput} editInput={input} />
+                            <Clou
+                                setEditInput={setInput}
+                                editInput={input}
+                            /> 
                         </label>
                         <input
                             name="image"
@@ -387,15 +323,11 @@ export default function NewProduct() {
                     </div>
                 </div>
 
-                <button
-                    name="create"
-                    onClick={handleCreate}
-                    className={st.createNewUser}
-                >
+                <button name="create" onClick={handleCreate} className={st.createNewUser} >
                     Create
                 </button>
             </form>
             {nav ? <Navigate to={'/adminView/products'} /> : null}
         </div>
     )
-}
+};

@@ -4,86 +4,66 @@ import { LockClosedIcon } from '@heroicons/react/20/solid'
 import { validate } from './validation'
 import { LogInAction } from '../../redux/actions'
 import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types'
-import { useAuth0 } from '@auth0/auth0-react'
-
-const rootButton = {
-    transition: 'all 1s ease-in-out',
-    backgroundColor: 'indigo',
-    pointerEvents: 'auto',
-}
-const errorButton = {
-    backgroundColor: 'red',
-    opacity: '50%',
-    pointerEvents: 'none',
-}
-const succsessButton = {
-    backgroundColor: 'green',
-    pointerEvents: 'none',
-    opacity: '50%',
-}
+import {Link} from 'react-router-dom'
 
 export default function LogIn({ open, setOpen }) {
-    const { loginWithPopup } = useAuth0()
     const cancelButtonRef = useRef(null)
     let dispatch = useDispatch()
-    const [error, setErrors] = React.useState({})
+    const [error, setErrors] = React.useState({
+        
+    })
     let [loading, setLoading] = React.useState(false)
     let [input, setInput] = React.useState({
         email: '',
-        password: '',
+        password: ''
     })
     let [buttonText, setButtontext] = React.useState('')
-    let [background, setBack] = React.useState({ ...rootButton })
+    let [background, setBack] = React.useState('indigo')
 
     const handleChange = (e) => {
         setErrors({})
         setInput({
             ...input,
-            [e.target.name]: e.target.value,
+            [e.target.name]: e.target.value
         })
+        console.log(input)
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault()
         setLoading(true)
         setButtontext('Enviando')
-        setErrors(() =>
-            validate({
-                ...input,
-                [e.target.name]: e.target.value,
-            })
-        )
+        setErrors(() => validate({
+            ...input,
+            [e.target.name]: e.target.value
+        }))
+        try {
+            dispatch(LogInAction(input))
+            setTimeout(() => {
+                setBack('green')
+                setButtontext('Todo correcto')
+            }, 1000)
+            setTimeout(() => {
+                setLoading(false)
+                setBack('indigo')
+            },2000)
+        } catch (error) {
+            console.log(error)
+            setBack('red')
+            setButtontext('Algo salió mal')
+            setTimeout(() => {
+                setBack('indigo')
+                setButtontext('Enviar de nuevo')
+                setInput({
+                    email: '',
+                    password: ''
+                })
+                setLoading(false)
+            }, 5000)
+        }
+    } 
 
-        loginWithPopup({ response_type: 'token' })
-            .then(() => {
-                dispatch(LogInAction(input))
-                setTimeout(() => {
-                    setBack({ ...succsessButton })
-                    setButtontext('Todo correcto')
-                }, 1000)
-                setTimeout(() => {
-                    setLoading(false)
-                    setBack({ ...rootButton })
-                }, 2000)
-            })
-
-            .catch((error) => {
-                console.log(error)
-                setBack({ ...errorButton })
-                setButtontext('Algo salió mal')
-                setTimeout(() => {
-                    setBack({ ...rootButton })
-                    setButtontext('Enviar de nuevo')
-                    setInput({
-                        email: '',
-                        password: '',
-                    })
-                    setLoading(false)
-                }, 5000)
-            })
-    }
+ 
 
     return (
         <Transition.Root show={open} as={Fragment}>
@@ -162,31 +142,14 @@ export default function LogIn({ open, setOpen }) {
                                                                 Bienvenido de
                                                                 nuevo
                                                             </h2>
-                                                            <div className="flex justify-content-end w-full">
-                                                                <Link
-                                                                    to="/register"
-                                                                    onClick={() =>
-                                                                        setOpen(
-                                                                            false
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    <p>
-                                                                        Aún no
-                                                                        tengo
-                                                                        cuenta
-                                                                    </p>
-                                                                </Link>
-                                                            </div>
+                                                          <div className='flex justify-content-end w-full'>
+                                                          <Link to='/register'><p>Aún no tengo cuenta</p></Link>
+                                                          </div>
                                                             <form
                                                                 className="mt-8 space-y-6"
                                                                 action="#"
                                                                 method="POST"
-                                                                onSubmit={(e) =>
-                                                                    handleSubmit(
-                                                                        e
-                                                                    )
-                                                                }
+                                                                onSubmit={(e) => handleSubmit(e)}
                                                             >
                                                                 <input
                                                                     type="hidden"
@@ -208,28 +171,15 @@ export default function LogIn({ open, setOpen }) {
                                                                             autoComplete="email"
                                                                             className={`relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm ${error.email}`}
                                                                             placeholder="Email address"
-                                                                            onChange={(
-                                                                                e
-                                                                            ) =>
-                                                                                handleChange(
-                                                                                    e
-                                                                                )
-                                                                            }
-                                                                            value={
-                                                                                input.email
-                                                                            }
+                                                                            onChange={(e) => handleChange(e)}
+                                                                            value={input.email}
                                                                         />
-                                                                        {error.email && (
-                                                                            <p
-                                                                                style={{
-                                                                                    color: 'red',
-                                                                                }}
-                                                                            >
-                                                                                {
-                                                                                    error.email
-                                                                                }
-                                                                            </p>
-                                                                        )}
+                                                                        {
+                                                                            error.email && (
+                                                                                <p style={{color:'red'}}>{error.email}</p>
+                                                                            )
+
+                                                                        }
                                                                     </div>
                                                                     <div>
                                                                         <label
@@ -245,28 +195,14 @@ export default function LogIn({ open, setOpen }) {
                                                                             autoComplete="current-password"
                                                                             className={`relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm ${error.password}`}
                                                                             placeholder="Password"
-                                                                            onChange={(
-                                                                                e
-                                                                            ) =>
-                                                                                handleChange(
-                                                                                    e
-                                                                                )
-                                                                            }
-                                                                            value={
-                                                                                input.password
-                                                                            }
+                                                                            onChange={(e) => handleChange(e)}
+                                                                            value={input.password}
                                                                         />
-                                                                        {error.password && (
-                                                                            <p
-                                                                                style={{
-                                                                                    color: 'red',
-                                                                                }}
-                                                                            >
-                                                                                {
-                                                                                    error.password
-                                                                                }
-                                                                            </p>
-                                                                        )}
+                                                                        {
+                                                                            error.password && (
+                                                                                <p style={{color: 'red'}}>{error.password}</p>
+                                                                            )
+                                                                        }
                                                                     </div>
                                                                 </div>
 
@@ -280,8 +216,9 @@ export default function LogIn({ open, setOpen }) {
                 /> */}
                                                                         {/* <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
                   Remember me
-                </label> */}
-                                                                    </div>
+                </label> */}                
+                                                             
+                                                                </div>
 
                                                                     <div className="text-sm">
                                                                         <a
@@ -298,13 +235,8 @@ export default function LogIn({ open, setOpen }) {
                                                                 <div>
                                                                     <button
                                                                         type="submit"
-                                                                        className={`group relative flex w-full justify-center rounded-md border border-transparent py-2 px-4 text-sm font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-75 transition ease-in-out duration-300`}
-                                                                        disabled={
-                                                                            loading
-                                                                        }
-                                                                        style={{
-                                                                            ...background,
-                                                                        }}
+                                                                        className={`group relative flex w-full justify-center rounded-md border border-transparent bg-${background}-600 py-2 px-4 text-sm font-medium text-white hover:bg-${background}-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-75 transition ease-in-out duration-300`}
+                                                                        disabled={loading}
                                                                     >
                                                                         <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                                                                             <LockClosedIcon
@@ -312,10 +244,13 @@ export default function LogIn({ open, setOpen }) {
                                                                                 aria-hidden="true"
                                                                             />
                                                                         </span>
-                                                                        {loading ===
-                                                                        true
-                                                                            ? `${buttonText}`
-                                                                            : 'Enviar'}
+                                                                        {
+                                                                            loading === true ? (
+                                                                                `${buttonText}`
+                                                                            ) : (
+                                                                                'Enviar'
+                                                                            )
+                                                                        }
                                                                     </button>
                                                                 </div>
                                                             </form>
@@ -333,9 +268,4 @@ export default function LogIn({ open, setOpen }) {
             </Dialog>
         </Transition.Root>
     )
-}
-
-LogIn.propTypes = {
-    open: PropTypes.bool,
-    setOpen: PropTypes.func,
 }

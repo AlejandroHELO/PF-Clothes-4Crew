@@ -5,7 +5,6 @@ const brandsRouter = require("./brands")
 const addressRouter = require("./address")
 const userRouter = require('./user')
 const purchaseRouter = require('./purchase')
-const favoriteRouter = require('./favorite')
 const { 
     MercadoPago 
 } = require('../controller/MercadoPago.js')
@@ -63,9 +62,6 @@ router.post('/cartupdate/:id',UpdateCart)
 
 //---- Users routes ------
 router.use('/users', userRouter)
-
-//--------favoritos-------
-router.use('/favorites', favoriteRouter)
 
 //middleware para el Not Found
 router.use((req, res, next) => {

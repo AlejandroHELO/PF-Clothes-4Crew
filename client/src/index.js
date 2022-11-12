@@ -7,8 +7,7 @@ import { Provider } from 'react-redux'
 import store from './redux/store'
 import axios from 'axios'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { Auth0Provider } from '@auth0/auth0-react'
-import env from 'react-dotenv'
+import { Auth0Provider } from "@auth0/auth0-react";
 
 axios.defaults.baseURL = process.env.REACT_APP_API || 'http://localhost:3001'
 
@@ -23,7 +22,8 @@ ReactDOM.render(
                 <App />
             </Router>
         </Provider>
-    </Auth0Provider>,
+    </Auth0Provider>
+    ,
     document.getElementById('root')
 )
 
