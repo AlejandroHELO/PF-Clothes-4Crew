@@ -7,8 +7,13 @@ const userRouter = require('./user')
 const purchaseRouter = require('./purchase')
 const comments = require ('./comments.js')
 const colors = require ('./colors.js')
-const { MercadoPago } = require('../controller/MercadoPago.js')
-const { UpdateCart, getcart } = require('../controller/cart.js');
+const favoriteRouter = require('./favorite')
+const { 
+    MercadoPago 
+} = require('../controller/MercadoPago.js')
+const {
+    UpdateCart, getcart 
+} = require('../controller/cart.js');
 const { CreateReview, UpdateReview } = require('../controller/Reviews');
 const { expressjwt: jwt } = require('express-jwt');
 var jwks = require('jwks-rsa');
@@ -64,6 +69,10 @@ router.use('/users', userRouter)
 
 //------ Comments routes ---------
 router.use('/comments', comments)
+
+//--------favoritos-------
+router.use('/favorites', favoriteRouter)
+
 
 //middleware para el Not Found
 router.use((req, res, next) => {

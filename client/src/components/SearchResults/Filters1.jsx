@@ -1,7 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { filter, orderBy, resetFilter } from '../../redux/actions'
+import PropTypes from 'prop-types'
+
+Filters.propTypes = {
+    results: PropTypes.array,
+    query: PropTypes.string,
+}
 
 export default function Filters({ results, query }) {
     const dispatch = useDispatch()
@@ -16,7 +22,7 @@ export default function Filters({ results, query }) {
 
     const handleSelect = (e) => {
         e.preventDefault()
-        var order = e.target.value
+        const order = e.target.value
         dispatch(orderBy(order))
         // if (order === "priceAsc") setOrderDir({ alpha: false, price: true })
         // if (order === "priceDesc") setOrderDir({ alpha: false, price: false })

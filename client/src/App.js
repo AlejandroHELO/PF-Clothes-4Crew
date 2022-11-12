@@ -37,8 +37,7 @@ export default function App() {
     useEffect(() => {
         dispatch(getCart())
         dispatch(getProducts())
-    }, [])
-
+    }, [isAuthenticated])
 
     return (
         <>
@@ -46,7 +45,7 @@ export default function App() {
             <Routes>
 
                 <Route path='/' element={<Navbar/>} >
-                    <Route path='/' element={<HomePage />} />
+                    <Route path='/' element={<HomePage user={user} />} />
                     <Route path='/searchResults/' element={<Filters />} />
                     {/* <Route path='/searchResults/:query' element={<SearchResults open={open} setOpen={setOpen} />} />
                     <Route path="/searchResults/:query/:order" element={<SearchResults open={open} setOpen={setOpen} />} /> */}

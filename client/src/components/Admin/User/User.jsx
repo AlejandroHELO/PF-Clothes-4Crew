@@ -28,21 +28,21 @@ export default function User() {
 
     let props = {}
 
-    userInfo.id ? 
-        props = {
-            id: userInfo.id,
-            fullName: userInfo.fullName,
-            email: userInfo.email,
-            birthDate: userInfo.birthDate.slice(0, 10),
-            genre: userInfo.genre,
-            country: userInfo.country,
-            address: userInfo.address,
-            tel: userInfo.tel,
-            image: userInfo.image,
-            isAdmin: String(userInfo.isAdmin),
-            active: String(userInfo.active),
-        }
-    : console.log('Algo esta pasando')
+    userInfo.id
+        ? (props = {
+              id: userInfo.id,
+              fullName: userInfo.fullName,
+              email: userInfo.email,
+              birthDate: userInfo.birthDate.slice(0, 10),
+              genre: userInfo.genre,
+              country: userInfo.country,
+              address: userInfo.address,
+              tel: userInfo.tel,
+              image: userInfo.image,
+              isAdmin: String(userInfo.isAdmin),
+              active: String(userInfo.active),
+          })
+        : console.log('Algo esta pasando')
 
     console.log('SOY LAS PROPS: ', props)
 
