@@ -1,12 +1,33 @@
 /*eslint-disable */
+import './favoriteCard.css'
 import React, {useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getCategories, getProducts, getBrands, getCurrentUser} from '../../redux/actions'
+import { getCategories, getProducts, getBrands, getCurrentUser, getProductDetail, getopenDetail} from '../../redux/actions'
 import { Link, useNavigate, Outlet } from 'react-router-dom'
 import SearchBar from './searchbar'
 import { useAuth0 } from "@auth0/auth0-react";
 import Cart from "../Cart/Cart";
 import Sort from "../SearchResults/Sort"
+import heartFill from '../../icons/heartFill.svg'
+
+const styled = {
+    backgroundColor: 'rgba(255, 0, 0, .2)',
+    position: 'absolute',
+    overflowY: 'auto',
+    height: '0px',
+    width: '0px',
+    zIndex: '5',
+    right: '9%',
+    top: '5%',
+    borderRadius: '20px',
+    padding: '0%', 
+    transition: 'all 1s ease-in-out .5s',
+    boxShadow: '-5px 7px 12px black',
+    backdropFilter: 'blur(10px)',
+    gridAutoColumns: '100%', 
+
+}
+
 
 function Navbar() {
     const dispatch = useDispatch()
@@ -15,9 +36,13 @@ function Navbar() {
     const { loginWithPopup, isAuthenticated, user, logout, getAccessTokenSilently} = useAuth0()
     const [openCart, setOpenCart] = React.useState(false)
     const filtersElect = useSelector((state) => state.filtersElect)
-
+    const favorites = useSelector(state => state.favorites)
     const categories = useSelector((state) => state.categories)
+    const [openFavorites,setOpenFavorites] = React.useState(false)
     let navigate = useNavigate();
+    const [style, setStyle] = React.useState({
+        ...styled
+    })
 
 
     
@@ -34,6 +59,40 @@ function Navbar() {
         dispatch(getBrands())
         console.log("pido categories y brands en el navbar al renderizarse")
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+    function handleOpen() {
+        if(openFavorites === false) {
+            setOpenFavorites(true)
+            setStyle({
+                ...styled,
+                height: '30em',
+                width: '20em',
+               padding:'.2%'
+                
+            })
+        }
+        if(openFavorites === true) {
+            setOpenFavorites(false)
+            setStyle({
+                ...styled,
+                height: '0px',
+                width: '0px',
+                padding: '0%' 
+                
+            })
+        }
+    }
+
+    function removeFromFavorites(id) {
+        dispatch(deleteFromFavorites(id))
+    }
+    
+    const handleOnClickDetail = (id) => {
+        dispatch(getProductDetail(id))
+        dispatch(getopenDetail(id))
+    }
+    
+
 
     const handleAllProducts = (e) => {
         e.preventDefault()
@@ -86,9 +145,39 @@ function Navbar() {
                         </button>
                     </div>
                     {/* Lado derecho */}
+                    <div style={style} onMouseLeave={() => handleOpen()}>
+                            {
+                                favorites.map((i) => {
+                                    return (
+                                        <div key={i.id} className="favoriteCard">
+                                            <div className="img">
+                                                <img src={i.image[0]} alt="" srcset="" s className='productImage'/>
+                                            </div>
+                                            <div className="header">
+                                                {i.name}
+                                            </div>
+                                            <div className="main">
+                                                $ {i.price} USD
+                                            </div>
+                                            <div className="footer">
+                                                <div className="deleteButton">
+                                                    <button onClick={() => removeFromFavorites(i.id)}>
+                                                        <img src={heartFill} alt="" style={{width: '1.5em', height:'1.5em'}}/>
+                                                    </button>
+                                                </div>
+                                                <div className="addtocartButton">
+                                                        <button onClick={() => handleOnClickDetail(i.id)} className='addToCartButton'>Details</button>
+                                                </div>
+                                               
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
+                    </div>
                     <div className="flex space-x-3">
                         {/* Favoritos */}
-                        <button className="rounded p-2 flex justify-center items-center">
+                        <button onClick={()=> handleOpen()} className="rounded p-2 flex justify-center items-center">
                             🖤
                         </button>
                         {/* Carrito */}

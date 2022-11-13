@@ -22,6 +22,8 @@ import {
     FILTER,
     RESET_FILTERS,
     LOGIN,
+    GET_FAVORITES,
+    REMOVE_FROM_FAVORITES,
     VIEW_CART,
     ADD_TO_CART,
     DELETE_FROM_CART,
@@ -56,7 +58,8 @@ const initialState = {
     admins: [],
     comments: [],
     productsFiltered: [],
-
+    favorites:[],
+    favoritesId:[],
     brandFilteredMemory: [],
     resultFilterCombinado1: [],
     filtersElect: [],
@@ -340,6 +343,24 @@ const reducer = (state = initialState, action) => {
                 filtersElect: action.payload,
             }
 
+            case GET_FAVORITES: {
+                // const favoritesProducts = []
+                // action.payload?.map(p => {
+                //     return favoritesProducts.push(p.id)
+                // })
+                return {
+                    ...state,
+                    favorites: state.favorites.concat(action.payload.product),
+                    favoritesId: state.favoritesId.concat(action.payload.id)
+                }
+            } 
+            case REMOVE_FROM_FAVORITES: {
+                return {
+                    ...state,
+                    favorites: state.favorites.filter(p => p.id !== action.payload),
+                    favoritesId: state.favoritesId.filter(p => p !== action.payload)
+                }
+            }   
         case RESET_FILTERS:
             return {
                 ...state,
