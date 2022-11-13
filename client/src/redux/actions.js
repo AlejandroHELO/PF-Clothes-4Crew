@@ -31,9 +31,9 @@ import {
     ADD_TO_CART,
     DELETE_FROM_CART,
     CART_EMPTY,
-
+    GET_FAVORITES,
     GET_PRODUCTSADMIN,
-
+    REMOVE_FROM_FAVORITES,
     GET_CART,
     BRAND_ELECT,
     GET_CARTDB,
@@ -524,3 +524,35 @@ export function GetPurchase(data) {
         })
     }
 }
+
+export function favoriteProduct(product) {
+    // return async function() {
+    //     try {
+    //         await axios.post('/favorites', {
+    //             productId: productId,
+    //             userId: userId
+    //         })
+    //     } catch (error) {
+    //         throw new Error(error)
+    //     }
+    // }
+    return async function(dispatch) {
+        dispatch({
+            type: GET_FAVORITES,
+            payload: {
+                product: product,
+                id: product.id
+            }
+        })
+    }
+}
+
+export function deleteFromFavorites(id) {
+    return async function(dispatch) {
+        dispatch({
+            type: REMOVE_FROM_FAVORITES,
+            payload: id
+        })
+    }
+}
+        
