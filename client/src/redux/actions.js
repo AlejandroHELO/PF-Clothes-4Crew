@@ -30,7 +30,7 @@ import {
     ADD_TO_CART,
     DELETE_FROM_CART,
     CART_EMPTY,
-
+    GET_FAVORITES,
     GET_PRODUCTSADMIN,
 
     GET_CART,
@@ -38,10 +38,6 @@ import {
     GET_CARTDB
 
 } from './types'
-
-// <<<<<<< HEAD
-// import { logInWithEmailandPassword, logOut, CreateuserwithEandP } from '../firebase/auth'
-// =======
 
 // -------- Products ----------
 export function getProducts() {
@@ -103,7 +99,7 @@ export function createProductReview(payload){
         let json = await axios.post('/reviews', payload)
         return dispatch({
             type: CREATE_P_REVIEW,
-            payload: json.data
+            payload: json.data,
         })
     }
 }
@@ -158,8 +154,7 @@ export function createBrands(payload) {
 // ------- Filtros y ordenamiento ---------
 
 export function orderBy(order) {
-    return({ type: ORDER_BY, payload: order })
-    
+    return { type: ORDER_BY, payload: order }
 }
 
 export function filter(fil) {
@@ -183,7 +178,8 @@ export function brandElect(brand) {
 
 // ------- Users ---------
 
-export function getAdmins() { // Obtener todos los Admins
+export function getAdmins() {
+    // Obtener todos los Admins
     return async function (dispatch) {
         let json = await axios.get('/users/admins')
         return dispatch({
@@ -209,9 +205,10 @@ export function getUsers(token, id) { // Obtener todos los Users
     }
 }
 
-export function getUsersAddress(id) { // Obtener todos los Users
+export function getUsersAddress(id) {
+    // Obtener todos los Users
     return async function (dispatch) {
-        let json = await axios.get('/address?id='+id)
+        let json = await axios.get('/address?id=' + id)
         return dispatch({
             type: GET_USERSADDRESS,
             payload: json.data,
@@ -237,59 +234,11 @@ export function getProfile(token, user) { // Visualizar perfil de un User
 }
 
 export function LogInAction(data) {
-
-// <<<<<<< HEAD
-//      try {
-//          let userCredental = logInWithEmailandPassword(data)
-//          return dispatch({
-//              type: LOGIN,
-//              payload: userCredental
-//          })
-//      } catch (error) {
-//          throw new Error(error)
-//      }
-//     }
-//  }
-//  export function logOutAction() {
-//      return async(dispatch) => {
-//          try {
-//              await logOut()
-//              return dispatch({
-//                  type: LOGIN,
-//                  payload: {}
-//              })
-//          } catch (error) {
-//              throw new Error(error.code)
-//          }
-//      } 
-//  }
- 
-//  export function SignUpwithPasswwordAndEmail(data) {
-//      return async(dispatch) =>{
-//          try {
-//              let  newUser = await CreateuserwithEandP(data)
-//              dispatch({
-//                  type: LOGIN,
-//                  payload: newUser
-//              })
- 
-//          } catch (error) {
-//           throw new Error(error)   
-//          }
-//      }
-//  }
-
-// export function editUser(id, payload) { // Para que un User actualice su perfil
-
-// }
-
-// =======
-return (dispatch) => {
+    return async (dispatch) => {
         try {
-
             return dispatch({
                 type: LOGIN,
-                payload: "userCredental"
+                payload: data,
             })
         } catch (error) {
             throw new Error(error)
@@ -299,10 +248,9 @@ return (dispatch) => {
 export function logOutAction() {
     return async (dispatch) => {
         try {
-
             return dispatch({
                 type: LOGIN,
-                payload: {}
+                payload: {},
             })
         } catch (error) {
             throw new Error(error.code)
@@ -318,18 +266,18 @@ export function SignUpwithPasswwordAndEmail(data) {
                 type: LOGIN,
                 payload: result.data
             })
-
         } catch (error) {
             throw new Error(error)
         }
     }
 }
 
-export function editUser(id, payload) { // Para que un User actualice su perfil
-
+export function editUser(id, payload) {
+    // Para que un User actualice su perfil
 }
 
-export function editUserAdmin(id, payload) { // Para que un admin actualice el perfil de un User
+export function editUserAdmin(id, payload) {
+    // Para que un admin actualice el perfil de un User
     return async function (dispatch) {
         let json = await axios.put(`/users/admin/${id}`, payload)
         return dispatch({
@@ -339,7 +287,8 @@ export function editUserAdmin(id, payload) { // Para que un admin actualice el p
     }
 }
 
-export function createUser(payload) { // Crear Usuario
+export function createUser(payload) {
+    // Crear Usuario
     return async function (dispatch) {
         let json = await axios.post('/users/register', payload)
         return dispatch({
@@ -382,53 +331,61 @@ export function getViewCart(viewCart) {
     }
 }
 
-export const addToCart = product => async dispatch => {
+export const addToCart = (product) => async (dispatch) => {
     //si el carrito ya existe en el almacenamiento local, utilícelo; de lo contrario, configúrelo en una matriz vacía
     const cart = localStorage.getItem('cart')
         ? JSON.parse(localStorage.getItem('cart'))
-        : [];
+        : []
     console.log('product//////////////en actions addToCart///', product)
     // comprobar si se duplica
-    const duplicates = cart.filter(cartItem => cartItem.id === product.id);
+    const duplicates = cart.filter((cartItem) => cartItem.id === product.id)
     // si no hay duplicados, proceda
     if (duplicates.length === 0) {
         // preparar los datos del producto
         const productToAdd = {
             ...product,
             count: 1,
-        };
+        }
         // agregar datos del producto al carrito
-        cart.push(productToAdd);
+        cart.push(productToAdd)
         // agregar carro al local storage
-        localStorage.setItem('cart', JSON.stringify(cart));
+        localStorage.setItem('cart', JSON.stringify(cart))
         // agregar carro a redux
         dispatch({
             type: ADD_TO_CART,
             payload: cart,
-        });
+        })
     }
-};
+}
 
-export const deleteFromCart = product => async dispatch => {
+export const deleteFromCart = (product) => async (dispatch) => {
     const cart = localStorage.getItem('cart')
         ? JSON.parse(localStorage.getItem('cart'))
-        : [];
+        : []
 
+    const updatedCart = cart.filter((cartItem) => cartItem.id !== product.id)
 
-    const updatedCart = cart.filter(cartItem => cartItem.id !== product.id);
-
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
+    localStorage.setItem('cart', JSON.stringify(updatedCart))
 
     dispatch({
         type: DELETE_FROM_CART,
         payload: updatedCart,
-    });
-};
+    })
+}
 
 export const cartEmpty = () => {
     return {
         type: CART_EMPTY,
-        payload: [{ key: 1, id: 1, name: "Don't products", image: 'https://img.freepik.com/vector-gratis/ups-error-404-ilustracion-concepto-robot-roto_114360-5529.jpg?w=2000', price: 0, brand: '' }]
+        payload: [
+            {
+                key: 1,
+                id: 1,
+                name: "Don't products",
+                image: 'https://img.freepik.com/vector-gratis/ups-error-404-ilustracion-concepto-robot-roto_114360-5529.jpg?w=2000',
+                price: 0,
+                brand: '',
+            },
+        ],
     }
 }
 
@@ -436,15 +393,14 @@ export const getCart = () => {
     let cart
     if (JSON.parse(localStorage.getItem('cart'))) {
         if (JSON.parse(localStorage.getItem('cart')).length !== 0) {
-            cart = JSON.parse(localStorage.getItem('cart'));
+            cart = JSON.parse(localStorage.getItem('cart'))
         }
-
     } else {
         cart = [{ key: 1, id: 1, name: "No products", image: 'https://img.freepik.com/vector-gratis/ups-error-404-ilustracion-concepto-robot-roto_114360-5529.jpg?w=2000', price: 0, brand: '' }];
     }
     return {
         type: GET_CART,
-        payload: cart
+        payload: cart,
     }
 }
 
@@ -459,10 +415,44 @@ export function CreateAddress(data) {
 }
 export function GetCart(id) {
     return async function (dispatch) {
-        let response = await axios.get('/cart?userId='+id) // http://localhost:3001/messages/send
+        let response = await axios.get('/cart?userId=' + id) // http://localhost:3001/messages/send
         return dispatch({
             type: GET_CARTDB,
             payload: response.data,
         })
+    }
+}
+
+
+export function favoriteProduct(productId) {
+    // return async function() {
+    //     try {
+    //         await axios.post('/favorites', {
+    //             productId: productId,
+    //             userId: userId
+    //         })
+    //     } catch (error) {
+    //         throw new Error(error)
+    //     }
+    // }
+    return async function(dispatch) {
+        dispatch({
+            type: GET_FAVORITES,
+            payload: productId
+        })
+    }
+}
+
+export function getUserFavorites(userId) {
+    return async function(dispatch) {
+        try {
+            let favorites = await axios.get(`/favorites/${userId}`)
+            return dispatch({
+                type: GET_FAVORITES,
+                payload: favorites.data
+            })
+        } catch (error) {
+            
+        }
     }
 }

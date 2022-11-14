@@ -68,7 +68,7 @@
     justify-content: center;
 }
 
-.productInfoItemCont{
+.productInfoItemCont {
     display: flex;
     flex-direction: column;
 }
