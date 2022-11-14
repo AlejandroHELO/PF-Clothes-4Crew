@@ -14,89 +14,142 @@
 */
 import { Fragment, useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
-import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
+import { Dialog, Disclosure, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
-import { filter, brandElect, search } from '../../redux/actions'
+import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid'
+import { filter, getColors, getCategories } from '../../redux/actions'
 import Card from "../Cards/Card";
 import ProductDetail from '../Product/productDetail';
+
+import Brand from './Brand'
+
+
 import Footer from '../Footer/Footer'
 
 
+
 export default function Filters() {
+    const colors = useSelector((state) => state.colors)
+    const categories = useSelector((state) => state.categories)
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
     const products = useSelector((state) => state.productsFiltered)
     const brands = useSelector((state) => state.brands)
     const brandFilteredMemory = useSelector((state) => state.brandFilteredMemory)
     const [optionsFilters, setOptionsFilters] = useState([])
-    const brandElectR = useSelector((state) => state.brandElect)
     const searchName = useSelector((state) => state.searchName)
+    const [filters, setFilters] = useState([])
 
 
 
-    const filters = [
-        {
-            id: 'color',
-            name: 'Color',
-            options: [
-                { value: 'White', label: 'White', checked: false },
-                { value: 'Black', label: 'Black', checked: false },
-                { value: 'Blue', label: 'Blue', checked: false },
-                { value: 'Grey', label: 'Grey', checked: false },
-                { value: 'Pink', label: 'Pink', checked: false },
-                { value: 'Red', label: 'Red', checked: false },
-                { value: 'Violet', label: 'Violet', checked: false },
-                { value: 'Green', label: 'Green', checked: false },
-            ],
-        },
-        {
-            id: 'category',
-            name: 'Category',
-            options: [
-                { value: 'Shoes', label: 'Shoes', checked: false },
-                { value: 'T-shirts', label: 'T-shirts', checked: false },
-                { value: 'Jackets', label: 'Jackets', checked: false },
-                { value: 'Caps', label: 'Caps', checked: false },
-                { value: 'Shorts', label: 'Shorts', checked: false },
-                { value: 'Pants', label: 'Pants', checked: false },
-                { value: 'Accessories', label: 'Accessories', checked: false },
-            ],
-        },
-        // {
-        //     id: 'size',
-        //     name: 'Size',
-        //     options: [
-        //         { value: 'XS', label: 'XS', checked: false },
-        //         { value: 'S', label: 'S', checked: false },
-        //         { value: 'M', label: 'M', checked: false },
-        //         { value: 'L', label: 'L', checked: false },
-        //         { value: 'XL', label: 'XL', checked: false },
-        //     ],
-        // },
-        {
-            id: 'genre',
-            name: 'Genre',
-            options: [
-                { value: 'Mens', label: 'Mens', checked: false },
-                { value: 'Womens', label: 'Womens', checked: false },
-                { value: 'Unisex', label: 'Unisex', checked: false },
-            ],
-        },
-    ]
+
+    // const filters = [
+    //     {
+    //         id: 'color',
+    //         name: 'Color',
+    //         options: [
+    //             { value: 'White', label: 'White', checked: false },
+    //             { value: 'Black', label: 'Black', checked: false },
+    //             { value: 'Blue', label: 'Blue', checked: false },
+    //             { value: 'Grey', label: 'Grey', checked: false },
+    //             { value: 'Pink', label: 'Pink', checked: false },
+    //             { value: 'Red', label: 'Red', checked: false },
+    //             { value: 'Violet', label: 'Violet', checked: false },
+    //             { value: 'Green', label: 'Green', checked: false },
+    //         ],
+    //     },
+    //     {
+    //         id: 'category',
+    //         name: 'Category',
+    //         options: [
+    //             { value: 'Shoes', label: 'Shoes', checked: false },
+    //             { value: 'T-shirts', label: 'T-shirts', checked: false },
+    //             { value: 'Jackets', label: 'Jackets', checked: false },
+    //             { value: 'Caps', label: 'Caps', checked: false },
+    //             { value: 'Shorts', label: 'Shorts', checked: false },
+    //             { value: 'Pants', label: 'Pants', checked: false },
+    //             { value: 'Accessories', label: 'Accessories', checked: false },
+    //         ],
+    //     },
+    // {
+    //     id: 'size',
+    //     name: 'Size',
+    //     options: [
+    //         { value: 'XS', label: 'XS', checked: false },
+    //         { value: 'S', label: 'S', checked: false },
+    //         { value: 'M', label: 'M', checked: false },
+    //         { value: 'L', label: 'L', checked: false },
+    //         { value: 'XL', label: 'XL', checked: false },
+    //     ],
+    // },
+    //     {
+    //         id: 'genre',
+    //         name: 'Genre',
+    //         options: [
+    //             { value: 'Mens', label: 'Mens', checked: false },
+    //             { value: 'Womens', label: 'Womens', checked: false },
+    //             { value: 'Unisex', label: 'Unisex', checked: false },
+    //         ],
+    //     },
+    // ]
 
     const dispatch = useDispatch()
 
-    const handleClickBrand = (e, filters, name) => {
-        e.preventDefault()
-        dispatch(filter([{ filters: filters, name: name, id: e.target.id }, ...optionsFilters]))
-        dispatch(brandElect(name))
-        dispatch(search(searchName))
-    }
+    useEffect(() => {
+        dispatch(getCategories())
+        dispatch(getColors())
 
-    const handleClickRadio = (e, section, optionValue) => {
+    }, [])
+
+    useEffect(() => {
+        console.log("colors en Filters------------>>>>>>>>>>>", colors)
+        console.log("categories en Filters------------>>>>>>>>>>>", categories)
+        let filteres = [
+            {
+                id: 'color',
+                name: 'Color',
+                options: [],
+            },
+            {
+                id: 'category',
+                name: 'Category',
+                options: [],
+            },
+            {
+                id: 'genre',
+                name: 'Genre',
+                options: [
+                    { value: 'Mens', label: 'Mens', checked: false },
+                    { value: 'Womens', label: 'Womens', checked: false },
+                    { value: 'Unisex', label: 'Unisex', checked: false },
+                ],
+            },
+        ]
+        // if (colors.length !== 0) {
+        let optionsColor = colors?.map((c) => {
+            return {
+                value: c.name,
+                label: c.name,
+                checked: false,
+            }
+        })
+        filteres[0].options = [...optionsColor]
+        // }
+        // if (categories.length !== 0) {
+        let optionsCategory = categories?.map((c) => {
+            return {
+                value: c.name,
+                label: c.name,
+                checked: false,
+            }
+        })
+        filteres[1].options = [...optionsCategory]
+        // }
+        setFilters(filteres)
+    }, [colors, categories])
+
+    const handleClickRadio = (e, section) => {
         // e.preventDefault()
-        console.log('estoy en handleClickRadio section y optionValue y optionId', section, optionValue, e.target.id, e.target.checked, e.target.value)
+        console.log('estoy en handleClickRadio section y optionValue y optionId', section, e.target.id, e.target.checked, e.target.value)
         // e.target.id
         // filter-color-0
         // filter-category-0
@@ -110,8 +163,12 @@ export default function Filters() {
 
     }
 
+    const handleClickRadioButtonMinusPlus = (e) => {
+        console.log('hice click en handleClickRadioButtonMinusPlus----->')
+    }
+
     useEffect(() => {
-        console.log("en componente Filters brand memory en useEffect", brandFilteredMemory)
+        console.log("en componente optionsFilters en useEffect", optionsFilters)
         dispatch(filter(optionsFilters))
     }, [optionsFilters])
 
@@ -161,14 +218,19 @@ export default function Filters() {
                                     {/* Filters */}
                                     <form className="mt-4 border-t border-gray-200">
                                         <h3 className="sr-only">Brands</h3>
+                                        <Brand
+                                            optionsFilters={optionsFilters}
+                                            searchName={searchName}
+                                            brandFilteredMemory={brandFilteredMemory}
+                                        />
                                         <ul role="list" className="px-2 py-3 font-medium text-gray-900">
-                                            {brands?.map((brand) => (
+                                            {/* {brands?.map((brand) => (
                                                 <li key={brand.name}>
                                                     <button id={brand.name} onClick={(e) => handleClickBrand(e, "brand", brand.name)} className="block px-2 py-3">
                                                         {brand.name}
                                                     </button>
                                                 </li>
-                                            ))}
+                                            ))} */}
                                         </ul>
 
                                         {filters?.map((section) => (
@@ -176,7 +238,9 @@ export default function Filters() {
                                                 {({ open }) => (
                                                     <>
                                                         <h3 className="-mx-2 -my-3 flow-root">
-                                                            <Disclosure.Button className="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
+                                                            <Disclosure.Button
+                                                                onClick={(e) => handleClickRadioButtonMinusPlus(e)}
+                                                                className="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
                                                                 <span className="font-medium text-gray-900">{section.name}</span>
                                                                 <span className="ml-6 flex items-center">
                                                                     {open ? (
@@ -184,6 +248,7 @@ export default function Filters() {
                                                                     ) : (
                                                                         <PlusIcon className="h-5 w-5" aria-hidden="true" />
                                                                     )}
+
                                                                 </span>
                                                             </Disclosure.Button>
                                                         </h3>
@@ -223,7 +288,7 @@ export default function Filters() {
                 </Transition.Root>
 
                 <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            
+
                     <section aria-labelledby="products-heading" className="pt-6 pb-24">
                         <h2 id="products-heading" className="sr-only">
                             Products
@@ -233,12 +298,16 @@ export default function Filters() {
                             {/* Filters */}
                             <form className="hidden lg:block">
                                 <h3 className="sr-only">Brands</h3>
+                                <Brand
+                                    optionsFilters={optionsFilters}
+                                    searchName={searchName}
+                                />
                                 <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
-                                    {brands?.map((brand) => (
+                                    {/* {brands?.map((brand) => (
                                         <li key={brand.name}>
                                             <button id={brand.name} onClick={(e) => handleClickBrand(e, "brand", brand.name)} >{brand.name}</button>
                                         </li>
-                                    ))}
+                                    ))} */}
                                 </ul>
 
                                 {filters?.map((section) => (
@@ -289,15 +358,15 @@ export default function Filters() {
 
                             {/* Product grid */}
                             <div className="lg:col-span-3">
-                                <h3>{brandElectR}</h3>
+
 
                                 {/* Replace with your content */}
                                 <div className='flex flex-wrap'>
                                     {products?.map((e) => {
                                         return (
-                                            <div >
+                                            <div className='flex items-center justify-start text-center'>
 
-                                                <div key={e._id}>
+                                                <div key={e._id} className=" my-3">
 
                                                     <Card
                                                         key={e._id}
@@ -344,7 +413,7 @@ export default function Filters() {
                 </main>
                 <Footer/>
             </div>
-    
+
         </div >
 
     )

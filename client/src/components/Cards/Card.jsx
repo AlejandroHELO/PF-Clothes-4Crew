@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProductDetail, getopenDetail, addToCart, favoriteProduct, deleteFromFavorites } from '../../redux/actions';
 import emptyHeart from '../../icons/emptyHeart.svg'
 import heartFill from '../../icons/heartFill.svg'
-import { userContext } from '../../App'
+// import { userContext } from '../../App'
 
 const Card = (p) => {
     const dispatch = useDispatch()
@@ -29,21 +29,21 @@ const Card = (p) => {
             className=" w-60 h-80 shadow-2xl m-2 flex flex-col items-center justify-between"
             key={p.id}
         >
-             {
-              favorite.includes(p.id) ? (
-                 <div style={{ width: 'fit-content', display: 'flex', marginLeft: '70%', marginTop: '10%'}}>
-            <button onClick={() => handleRemove(p.id)} style={{width:'fit-content'}}>
-                       <img alt='favorite button' src={heartFill} style={{width: '1.5em'}}/>
-                    </button>
-         </div>
-                ):(
-                    <div style={{ width: 'fit-content', display: 'flex', marginLeft: '70%', marginTop: '10%'}}>
-            <button onClick={() => handleFavorite(p)} style={{width:'fit-content'}}>
-                        <img alt='favorite button' src={emptyHeart} style={{width: '1.5em'}}/>
-                    </button>
-            </div>
+            {
+                favorite.includes(p.id) ? (
+                    <div style={{ width: 'fit-content', display: 'flex', marginLeft: '70%', marginTop: '10%' }}>
+                        <button onClick={() => handleRemove(p.id)} style={{ width: 'fit-content' }}>
+                            <img alt='favorite button' src={heartFill} style={{ width: '1.5em' }} />
+                        </button>
+                    </div>
+                ) : (
+                    <div style={{ width: 'fit-content', display: 'flex', marginLeft: '70%', marginTop: '10%' }}>
+                        <button onClick={() => handleFavorite(p)} style={{ width: 'fit-content' }}>
+                            <img alt='favorite button' src={emptyHeart} style={{ width: '1.5em' }} />
+                        </button>
+                    </div>
                 )
-            }  
+            }
             <button className='transparent' onClick={() => handleOnClickDetail(p.id)}>
                 <div>
                     {p.image.length !== 0 ? (
