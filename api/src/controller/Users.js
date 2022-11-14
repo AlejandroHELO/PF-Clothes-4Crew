@@ -42,11 +42,12 @@ const allUsers = async (req, res, next) => {
     }
 }
 
-const userProfile = async (req, res, next) => {
-    const {name, picture}=req.body
-    console.log(req.body)
+const userLoggin = async (req, res, next) => {
+    const {name, image}=req.body
+    // console.log(req.body)
     try {
         const { email } = req.params
+
         const Us = await userModel.findOne({email:email})
         
         if(!Us){
@@ -66,15 +67,31 @@ const userProfile = async (req, res, next) => {
         }
         
         else{res.status(200).send(Us)}
-           
+
     } catch (error) {
         console.error("Error occurred. User couldn't be shown.")
         next(error)
     }
 }
 
+const userProfile = async (req, res, next) => {
+
+    const { id } = req.params
+    try {
+        if (id) {
+        const Us = await userModel.findById(id)
+            
+        res.status(200).send(Us)
+
+        } else res.send(400).send("There's no ID to find an User")
+    } catch (error) {
+        console.log(error)
+        next(error)
+    }
+}
+
 const createUser = async (req, res, next) => {
-    console.log(req.body)
+    // console.log(req.body)
     let {
         fullName,
         email,
@@ -85,36 +102,36 @@ const createUser = async (req, res, next) => {
         address,
         tel,
         image,
+        isAdmin
     } = req.body
     //date = date.toLocaleString()
 
-    if (!fullName || !email || !password)
-        res.status(400).send('Falta enviar datos obligatorios')
+    if (!fullName || !email || !password) res.status(400).send('Falta enviar datos obligatorios')
     // else if (typeof fullName !== 'string' || typeof email !== "string") {
     // res.status(400).send("Error, los tipos de datos son incorrectos")}
 
     try {
-       const userCreate= new userModel({
+        const userCreate= new userModel({
             fullName, 
             email, 
             password, 
-           birthDate, 
+            birthDate, 
             genre, 
             country, 
             address, 
             tel, 
             image,
-            isAdmin: false,
+            isAdmin: isAdmin || false,
             active: true,
         });
-        const result=await userCreate.save()
+        const result = await userCreate.save()
         console.log(result)
-        const cart= await CreateCart(result._id)
+        const cart = await CreateCart(result._id)
         console.log('create carrito: '+ cart)
         await EmeilerConfig(req.body.email,req.body.firstName)
            
-        //res.status(201).json({msj:'User Successfully Created'});
-        console.log('User Successfully Created')
+        res.status(201).send('User Successfully Created');
+        // console.log('User Successfully Created')
 
         // let crearUser = await new userModel({})
         // crearUser.save().then( result => {
@@ -129,21 +146,18 @@ const createUser = async (req, res, next) => {
 }
 
 const deleteUser = async (req, res, next) => {
-    try {
-        const { id } = req.params
+    // try {
+    //     const { id } = req.params
 
 
-        let response = await userModel.deleteOne({
-                id:id}
-            ) // este ultimo parámetro hace que nos devuelva el user actualizado
-                // console.log(updatedPatient)
-        res.status(200).send({msg:'User Successfully Deleted', db_response: await response})
+    //     let response = await userModel.deleteOne({id:id})
+    //     res.status(200).send({msg:'User Successfully Deleted', db_response: await response})
         
-    } catch (error) {
-        console.log(error)
-        console.error('Failed to delete the user')
-        next(error)
-    }
+    // } catch (error) {
+    //     console.log(error)
+    //     console.error('Failed to delete the user')
+    //     next(error)
+    // }
 }
 
 const updateUser = async (req, res, next) => {
@@ -157,31 +171,31 @@ const updateUser = async (req, res, next) => {
             genre,
             country,
             address,
+            identificationNumber,
             tel,
             image,
         } = req.body
 
-        await userModel
-            .findByIdAndUpdate(
-                id,
-                {
-                    fullName: fullName,
-                    email: email,
-                    password: password,
-                    birthDate: birthDate,
-                    genre: genre,
-                    country: country,
-                    address: address,
-                    tel: tel,
-                    image: image,
-                },
-                { new: true }
-            ) // este ultimo parámetro hace que nos devuelva el user actualizado
-
-            .then(() => {
-                // console.log(updatedPatient)
-                res.status(200).send('User Successfully Updated')
-            })
+        await userModel.findByIdAndUpdate(
+            id,
+            {
+                fullName: fullName,
+                email: email,
+                password: password,
+                birthDate: birthDate,
+                genre: genre,
+                country: country,
+                address: address,
+                identificationNumber: identificationNumber,
+                tel: tel,
+                image: image,
+            },
+            { new: true } // este ultimo parámetro hace que nos devuelva el user actualizado
+        )
+        .then(() => {
+            // console.log(updatedPatient)
+            res.status(200).send('User Successfully Updated')
+        })
     } catch (error) {
         console.error('Failed to update the user')
         next(error)
@@ -199,35 +213,35 @@ const updateUserAdmin = async (req, res, next) => {
             genre,
             country,
             address,
+            identificationNumber,
             tel,
             image,
             active,
             isAdmin,
         } = req.body
 
-        await userModel
-            .findByIdAndUpdate(
-                id,
-                {
-                    fullName: fullName,
-                    email: email,
-                    password: password,
-                    birthDate: birthDate,
-                    genre: genre,
-                    country: country,
-                    address: address,
-                    tel: tel,
-                    image: image,
-                    active: active,
-                    isAdmin: isAdmin,
-                },
-                { new: true }
-            ) // este ultimo parámetro hace que nos devuelva el user actualizado
-
-            .then(() => {
-                // console.log(updatedPatient)
-                res.status(200).send('User Successfully Updated')
-            })
+         await userModel.findByIdAndUpdate(
+            id,
+            {
+                fullName: fullName,
+                email: email,
+                password: password,
+                birthDate: birthDate,
+                genre: genre,
+                country: country,
+                address: address,
+                identificationNumber,
+                tel: tel,
+                image: image,
+                active: active,
+                isAdmin: isAdmin,
+            },
+            { new: true }  // este ultimo parámetro hace que nos devuelva el user actualizado
+        )
+        .then(() => {
+            // console.log(updatedPatient)
+            res.status(200).send('User Successfully Updated')
+        })
     } catch (error) {
         console.error('Failed to update the user')
         next(error)
@@ -239,6 +253,7 @@ const Admins = async (req, res, next) => {}
 module.exports = {
     allUsers,
     userProfile,
+    userLoggin,
     createUser,
     updateUser,
     updateUserAdmin,

@@ -1,12 +1,16 @@
 /*eslint-disable */
-import React, { useRef, Fragment, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getopenDetail, addToCart, getProducts, getPReviews } from '../../redux/actions'
+import { useRef } from 'react'
+import { useParams } from 'react-router-dom';
+import { getProductDetail, getopenDetail, addToCart, getProducts, getPReviews } from '../../redux/actions';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../navbar/navbar'
+import Navbar from '../navbar/navbar';
+import { Fragment, useState } from 'react'
 import { Dialog, RadioGroup, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { StarIcon } from '@heroicons/react/20/solid'
+
 
 function ProductDetail(product) {
     console.log(product)
@@ -61,69 +65,45 @@ function ProductDetail(product) {
 
         if (openDetail === product.id) {
             setOpen(true)
-            console.log(open)
+            // console.log(open)
         }
-    }, [product, openDetail, selectedSize])
+    }, [product, openDetail])
+
+    React.useEffect(() => {
+        // console.log(selectedSize)
+    }, [selectedSize])
 
     const handleOnClickClose = (e) => {
         e.preventDefault()
-        product.setOpen ? product.setOpen(false) : setOpen(false)
+        product.setOpen ?
+            product.setOpen(false) :
+            setOpen(false)
         dispatch(getopenDetail(''))
     }
 
     const handleChangeSize = (e) => {
+        // console.log('select size en detail', e)
         setSelectedSize(e)
-        console.log(e)
     }
-    const handleAddToCart = (product) => {
+    const handleAddToCart = (e) => {
+        e.preventDefault()
+        // console.log('add to cart')
         productAddCart = { ...product }
         productAddCart.size = selectedSize
+        // console.log('e en add to cart--------------------------', e.target.value, product.size, selectedSize, productAddCart);
         setOpen(false)
         dispatch(getopenDetail(''))
-        dispatch(addToCart(productAddCart))
+        dispatch(addToCart(productAddCart));
         dispatch(getProducts())
     }
-
-    // console.log('En detail product', product.size)
-    // ----------------------------------------------------------------
-    //const product = {name: 'Basic Tee 6-Pack ',
-    //   price: '$192',////////////////////
-    //   rating: 3.9,/////////////////
-    //   reviewCount: 117,//////////////////////
-    //   href: '#',  NO ESTÁ???????----------------------
-    //   imageSrc: 'https://tailwindui.com/img/ecommerce-images/product-quick-preview-02-detail.jpg',///////
-    //   imageAlt: 'Two each of gray, white, and black shirts arranged on table.',///////
-    //   colors: [    ARREGLAR QUE SE VEA UNO SOLO--------------------------------
-    //     { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
-    //     { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
-    //     { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-gray-900' },
-    //   ],
-    //   sizes: [///////////////////////////////////////////////
-    //     { name: 'XXS', inStock: true },
-    //     { name: 'XS', inStock: true },
-    //     { name: 'S', inStock: true },
-    //     { name: 'M', inStock: true },
-    //     { name: 'L', inStock: true },
-    //     { name: 'XL', inStock: true },
-    //     { name: 'XXL', inStock: true },
-    //     { name: 'XXXL', inStock: false },
-    //   ],
-    // }
 
     function classNames(...classes) {
         return classes.filter(Boolean).join(' ')
     }
 
     return product.name ? (
-        <Transition.Root
-            show={product.opne ? product.opne : open}
-            as={Fragment}
-        >
-            <Dialog
-                as="div"
-                className="relative z-10"
-                onClose={handleOnClickClose}
-            >
+        <Transition.Root show={product.opne ? product.opne : open} as={Fragment}>
+            <Dialog as="div" className="relative z-10" onClose={handleOnClickClose}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -167,19 +147,19 @@ function ProductDetail(product) {
                                             {/* <img src={product.image[0]} alt='imagen producto' className="object-scale-down object-center" /> */}
                                             <div className="flex items-center justify-center w-full h-full">
                                                 <button
-                                                    className="h-3 w-3"
                                                     onClick={() =>
                                                         (slider.current.scrollLeft -= 200)
                                                     }
                                                 >
                                                     <img
+                                                        className="h-4 w-4 m-2"
                                                         src="/flecha1.png"
                                                         alt="flecha1"
                                                     />
                                                 </button>
                                                 <div
                                                     ref={slider}
-                                                    className="snap-x overflow-scroll scroll-smooth h-full flex items-center justify-start text-center"
+                                                    className="snap-x overflow-scroll scroll-smooth h-full flex items-center justify-start text-center m-4"
                                                 >
                                                     {product.image?.map((e) => {
                                                         return (
@@ -192,12 +172,12 @@ function ProductDetail(product) {
                                                     })}
                                                 </div>
                                                 <button
-                                                    className="h-3 w-3"
                                                     onClick={() =>
                                                         (slider.current.scrollLeft += 200)
                                                     }
                                                 >
                                                     <img
+                                                        className="h-4 w-4 m-2"
                                                         src="/flecha2.png"
                                                         alt="flecha2"
                                                     />
@@ -311,33 +291,20 @@ function ProductDetail(product) {
 
                                                         <RadioGroup
                                                             value={selectedSize}
-                                                            onChange={(e) => {
-                                                                handleChangeSize(
-                                                                    e
-                                                                )
-                                                            }}
+                                                            onChange={setSelectedSize}
                                                             className="mt-4"
                                                         >
                                                             <RadioGroup.Label className="sr-only">
-                                                                {' '}
-                                                                Choose a size{' '}
+                                                                Choose a size
                                                             </RadioGroup.Label>
                                                             <div className="grid grid-cols-4 gap-4">
                                                                 {product.size?.map(
                                                                     (s) => (
                                                                         <RadioGroup.Option
-                                                                            key={
-                                                                                s.size
-                                                                            }
-                                                                            value={
-                                                                                s
-                                                                            }
-                                                                            disabled={
-                                                                                !s.stock
-                                                                            }
-                                                                            className={({
-                                                                                active,
-                                                                            }) =>
+                                                                            key={s.size}
+                                                                            value={s}
+                                                                            disabled={!s.stock}
+                                                                            className={({ active }) =>
                                                                                 classNames(
                                                                                     s.stock
                                                                                         ? 'bg-white shadow-sm text-gray-900 cursor-pointer'
@@ -346,62 +313,46 @@ function ProductDetail(product) {
                                                                                         ? 'ring-2 ring-gray-900'
                                                                                         : '',
                                                                                     'group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1'
-                                                                                )
-                                                                            }
-                                                                        >
-                                                                            {({
-                                                                                active,
-                                                                                checked,
-                                                                            }) => (
-                                                                                <>
-                                                                                    <RadioGroup.Label as="span">
-                                                                                        {
-                                                                                            s.size
-                                                                                        }
-                                                                                    </RadioGroup.Label>
-                                                                                    {s.stock ? (
-                                                                                        <span
-                                                                                            className={classNames(
-                                                                                                active
-                                                                                                    ? 'border'
-                                                                                                    : 'border-2',
-                                                                                                checked
-                                                                                                    ? 'border-gray-900'
-                                                                                                    : 'border-transparent',
-                                                                                                'pointer-events-none absolute -inset-px rounded-md'
-                                                                                            )}
-                                                                                            aria-hidden="true"
-                                                                                        />
-                                                                                    ) : (
-                                                                                        <span
-                                                                                            aria-hidden="true"
-                                                                                            className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
+                                                                                )}>
+                                                                            {({ active, checked }) => (<>
+                                                                                <RadioGroup.Label as="span">
+                                                                                    {s.size}
+                                                                                </RadioGroup.Label>
+                                                                                {s.stock ? (
+                                                                                    <span
+                                                                                        className={classNames(
+                                                                                            active
+                                                                                                ? 'border'
+                                                                                                : 'border-2',
+                                                                                            checked
+                                                                                                ? 'border-gray-900'
+                                                                                                : 'border-transparent',
+                                                                                            'pointer-events-none absolute -inset-px rounded-md'
+                                                                                        )}
+                                                                                        aria-hidden="true"
+                                                                                    />
+                                                                                ) : (
+                                                                                    <span
+                                                                                        aria-hidden="true"
+                                                                                        className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
+                                                                                    >
+                                                                                        <svg
+                                                                                            className="absolute inset-0 h-full w-full stroke-2 text-gray-200"
+                                                                                            viewBox="0 0 100 100"
+                                                                                            preserveAspectRatio="none"
+                                                                                            stroke="currentColor"
                                                                                         >
-                                                                                            <svg
-                                                                                                className="absolute inset-0 h-full w-full stroke-2 text-gray-200"
-                                                                                                viewBox="0 0 100 100"
-                                                                                                preserveAspectRatio="none"
-                                                                                                stroke="currentColor"
-                                                                                            >
-                                                                                                <line
-                                                                                                    x1={
-                                                                                                        0
-                                                                                                    }
-                                                                                                    y1={
-                                                                                                        100
-                                                                                                    }
-                                                                                                    x2={
-                                                                                                        100
-                                                                                                    }
-                                                                                                    y2={
-                                                                                                        0
-                                                                                                    }
-                                                                                                    vectorEffect="non-scaling-stroke"
-                                                                                                />
-                                                                                            </svg>
-                                                                                        </span>
-                                                                                    )}
-                                                                                </>
+                                                                                            <line
+                                                                                                x1={0}
+                                                                                                y1={100}
+                                                                                                x2={100}
+                                                                                                y2={0}
+                                                                                                vectorEffect="non-scaling-stroke"
+                                                                                            />
+                                                                                        </svg>
+                                                                                    </span>
+                                                                                )}
+                                                                            </>
                                                                             )}
                                                                         </RadioGroup.Option>
                                                                     )
@@ -411,11 +362,7 @@ function ProductDetail(product) {
                                                     </div>
 
                                                     <button
-                                                        onClick={() =>
-                                                            handleAddToCart(
-                                                                product
-                                                            )
-                                                        }
+                                                        onClick={e => handleAddToCart(e, product)}
                                                         type="button"
                                                         className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-900 py-3 px-8 text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
                                                     >
@@ -431,8 +378,10 @@ function ProductDetail(product) {
                     </div>
                 </div>
             </Dialog>
-        </Transition.Root>
-    ) : null
+        </Transition.Root >
+    ) : (
+        console.log('no hay nada')
+    )
 }
 
 export default ProductDetail

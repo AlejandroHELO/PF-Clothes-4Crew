@@ -51,9 +51,9 @@ const MercadoPago=async (req,res)=>{
                             }
                         },
                         "back_urls": {
-                            "success": "https://clothes-4-crew.vercel.app/",
-                            "failure": "https://clothes-4-crew.vercel.app/",
-                            "pending": "https://clothes-4-crew.vercel.app/"
+                            "success": "https://clothes-4-crew.vercel.app/checkout/confirm/"+address._id,
+                            "failure": "https://clothes-4-crew.vercel.app/checkout/confirm/"+address._id,
+                            "pending": "https://clothes-4-crew.vercel.app/checkout/confirm/"+address._id
                         },
                         "auto_return": "approved",
                         "payment_methods": {
@@ -116,6 +116,18 @@ const MercadoPago=async (req,res)=>{
         }
         
 }
+const GetMP= async (id)=>{
+    let result=[]
+    mercadopago.payment.get(id)
+    .then((resp)=>{
+        result=[...resp.body]
+    })
+    .catch((err)=>{
+        result={msj:'algo salio mal'}
+    })
+    return result
+}
 module.exports={
-    MercadoPago
+    MercadoPago,
+    GetMP
 }

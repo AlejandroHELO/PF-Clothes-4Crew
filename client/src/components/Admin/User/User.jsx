@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { getProfile } from '../../../redux/actions'
+import { getUser, getCurrentUser } from '../../../redux/actions'
 import st from './User.module.css'
 import UserEdit from './UserEdit.jsx'
+import { useAuth0 } from '@auth0/auth0-react'
 import {
     PermIdentity,
     AlternateEmail,
@@ -22,15 +23,17 @@ export default function User() {
     let userInfo = useSelector((state) => state.userDetail)
     console.log('SOY EL USER: ', userInfo)
 
+    const { getAccessTokenSilently } = useAuth0()
+
     useEffect(() => {
-        dispatch(getProfile(userId))
-    }, [])
+        dispatch(getUser(getAccessTokenSilently, userId))
+    }, [getAccessTokenSilently, userId])
 
     let props = {}
 
-    userInfo.id
+    userInfo._id
         ? (props = {
-              id: userInfo.id,
+              id: userInfo._id,
               fullName: userInfo.fullName,
               email: userInfo.email,
               birthDate: userInfo.birthDate.slice(0, 10),

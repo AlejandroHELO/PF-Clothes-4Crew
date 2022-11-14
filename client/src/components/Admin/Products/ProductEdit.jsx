@@ -1,47 +1,50 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect} from 'react'
 import { Navigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Clou from '../../ImageCloudinary/ImageCloudinary'
 import st from './ProductEdit.module.css'
-import { updateProduct, getCategories, getBrands } from '../../../redux/actions'
+import { updateProduct, getCategories, getBrands, getColors } from '../../../redux/actions'
 
-export default function ProductEdit({ changePage, editMode }) {
-    // console.log('HOLA SOY LAS PROPS: ', props)
 
-    const dispatch = useDispatch()
+export default function ProductEdit({changePage,editMode}) {
 
-    const productInfo = useSelector((state) => state.details)
-    const categories = useSelector((state) => state.categories)
-    const brands = useSelector((state) => state.brands)
+    const dispatch = useDispatch() 
+
+    const productInfo = useSelector((state) => state.details);
+    const categories = useSelector((state) => state.categories);
+    const brands = useSelector((state) => state.brands);
+    const colors = useSelector((state) => state.colors);
 
     useEffect(() => {
         dispatch(getCategories())
         dispatch(getBrands())
-    }, [])
+        dispatch(getColors())
+    }, []);
 
     let info = {}
 
-    if (productInfo.brand && productInfo.category && productInfo.size) {
+    if(productInfo.brand && productInfo.category && productInfo.size){
         info = {
-            id: productInfo._id,
-            name: productInfo.name,
-            brand: productInfo.brand.name,
-            category: productInfo.category[0].name,
-            color: productInfo.color,
-            genre: productInfo.genre,
-            description: productInfo.description,
-            price: productInfo.price,
-            stock: productInfo.stock,
-            size: productInfo.size,
-            sizeXS: productInfo.size[0].stock,
-            sizeS: productInfo.size[1].stock,
-            sizeM: productInfo.size[2].stock,
-            sizeL: productInfo.size[3].stock,
-            sizeXL: productInfo.size[4].stock,
-            image: productInfo.image,
-            active: productInfo.active,
-            featured: productInfo.featured,
+        id: productInfo._id,
+        name: productInfo.name,
+        brand: productInfo.brand.name,
+        category: productInfo.category[0].name,
+        color: productInfo.color,
+        genre: productInfo.genre,
+        description: productInfo.description,
+        price: productInfo.price,
+        stock: productInfo.stock,
+        size: productInfo.size,
+        sizeXS: productInfo.size[0].stock,
+        sizeS: productInfo.size[1].stock,
+        sizeM: productInfo.size[2].stock,
+        sizeL: productInfo.size[3].stock,
+        sizeXL: productInfo.size[4].stock,
+        image: productInfo.image,
+        active: productInfo.active,
+        featured: productInfo.featured,
         }
+
     } else console.log('Algo esta pasando')
     // console.log('SOY LA INFOOO: ', info)
 
@@ -49,17 +52,17 @@ export default function ProductEdit({ changePage, editMode }) {
 
     const [nav, setNav] = useState(false)
 
-    useEffect(() => {
-        productInfo.size
-            ? setInput({
-                  ...productInfo,
-                  sizeXS: { size: 'XS', stock: productInfo.size[0].stock },
-                  sizeS: { size: 'S', stock: productInfo.size[1].stock },
-                  sizeM: { size: 'M', stock: productInfo.size[2].stock },
-                  sizeL: { size: 'L', stock: productInfo.size[3].stock },
-                  sizeXL: { size: 'XL', stock: productInfo.size[4].stock },
-              })
-            : console.log('Algo esta pasando en el useEffect')
+    useEffect(()=>{
+        productInfo.size?
+        setInput({    
+            ...productInfo,
+            sizeXS: {size: "XS", stock: productInfo.size[0].stock},
+            sizeS: {size: "S", stock: productInfo.size[1].stock},
+            sizeM: {size: "M", stock: productInfo.size[2].stock},
+            sizeL: {size: "L", stock: productInfo.size[3].stock},
+            sizeXL: {size: "XL", stock: productInfo.size[4].stock}
+        })
+        : console.log('Algo esta pasando en el useEffect')
     }, [productInfo])
 
     // console.log('SOY EL INPUT: ', input)
@@ -72,113 +75,57 @@ export default function ProductEdit({ changePage, editMode }) {
     }
 
     const handleChangeCategoryAndBrand = (e) => {
-        if (e.target.name === 'brand') {
+        if (e.target.name === "brand"){
             const objBrand = brands.filter((br) => br.name === e.target.value)
             setInput({
                 ...input,
-                [e.target.name]: objBrand[0],
+                [e.target.name]: objBrand[0]
             })
-        } else if (e.target.name === 'category') {
-            const objCateg = categories.filter(
-                (cat) => cat.name === e.target.value
-            )
+        } else if (e.target.name === "category"){
+            const objCateg = categories.filter((cat) => cat.name === e.target.value)
             setInput({
                 ...input,
-                [e.target.name]: objCateg,
+                [e.target.name]: objCateg
             })
         }
     }
 
-    const handleChangeSize = (e) => {
-        if (e.target.name === 'sizeXS') {
+    const handleChangeSize = (e) =>{
+
+        if (e.target.name === "sizeXS"){
             setInput({
                 ...input,
-                sizeXS: { size: 'XS', stock: Number(e.target.value) },
-                size: [
-                    { size: 'XS', stock: Number(e.target.value) },
-                    input.sizeS,
-                    input.sizeM,
-                    input.sizeL,
-                    input.sizeXL,
-                ],
-                stock:
-                    Number(e.target.value) +
-                    input.sizeS.stock +
-                    input.sizeM.stock +
-                    input.sizeL.stock +
-                    input.sizeXL.stock,
+                sizeXS: {size: "XS", stock: Number(e.target.value)},
+                size: [{size: "XS", stock: Number(e.target.value)}, input.sizeS, input.sizeM, input.sizeL, input.sizeXL],
+                stock: Number(e.target.value) + input.sizeS.stock + input.sizeM.stock + input.sizeL.stock + input.sizeXL.stock
             })
-        } else if (e.target.name === 'sizeS') {
+        } else if (e.target.name === "sizeS") {
             setInput({
                 ...input,
-                sizeS: { size: 'S', stock: Number(e.target.value) },
-                size: [
-                    input.sizeXS,
-                    { size: 'S', stock: Number(e.target.value) },
-                    input.sizeM,
-                    input.sizeL,
-                    input.sizeXL,
-                ],
-                stock:
-                    input.sizeXS.stock +
-                    Number(e.target.value) +
-                    input.sizeM.stock +
-                    input.sizeL.stock +
-                    input.sizeXL.stock,
+                sizeS: {size: "S", stock: Number(e.target.value)},
+                size: [input.sizeXS, {size: "S", stock: Number(e.target.value)}, input.sizeM, input.sizeL, input.sizeXL],
+                stock: input.sizeXS.stock + Number(e.target.value) + input.sizeM.stock + input.sizeL.stock + input.sizeXL.stock
             })
-        } else if (e.target.name === 'sizeM') {
+        } else if (e.target.name === "sizeM") {
             setInput({
                 ...input,
-                sizeM: { size: 'M', stock: Number(e.target.value) },
-                size: [
-                    input.sizeXS,
-                    input.sizeS,
-                    { size: 'M', stock: Number(e.target.value) },
-                    input.sizeL,
-                    input.sizeXL,
-                ],
-                stock:
-                    input.sizeXS.stock +
-                    input.sizeS.stock +
-                    Number(e.target.value) +
-                    input.sizeL.stock +
-                    input.sizeXL.stock,
+                sizeM: {size: "M", stock: Number(e.target.value)},
+                size: [input.sizeXS, input.sizeS, {size: "M", stock: Number(e.target.value)}, input.sizeL, input.sizeXL],
+                stock: input.sizeXS.stock + input.sizeS.stock + Number(e.target.value) + input.sizeL.stock + input.sizeXL.stock
             })
-        } else if (e.target.name === 'sizeL') {
+        } else if (e.target.name === "sizeL") {
             setInput({
                 ...input,
-                sizeL: { size: 'L', stock: Number(e.target.value) },
-                size: [
-                    input.sizeXS,
-                    input.sizeS,
-                    input.sizeM,
-                    { size: 'L', stock: Number(e.target.value) },
-                    input.sizeXL,
-                ],
-                stock:
-                    input.sizeXS.stock +
-                    input.sizeS.stock +
-                    input.sizeM.stock +
-                    Number(e.target.value) +
-                    input.sizeXL.stock,
+                sizeL: {size: "L", stock: Number(e.target.value)},
+                size: [input.sizeXS, input.sizeS, input.sizeM, {size: "L", stock: Number(e.target.value)}, input.sizeXL],
+                stock: input.sizeXS.stock + input.sizeS.stock + input.sizeM.stock + Number(e.target.value) + input.sizeXL.stock
             })
-        } else if (e.target.name === 'sizeXL') {
+        } else if (e.target.name === "sizeXL") {
             setInput({
                 ...input,
-                sizeXL: { size: 'XL', stock: Number(e.target.value) },
-                size: [
-                    input.sizeXS,
-                    input.sizeS,
-                    input.sizeM,
-                    input.sizeL,
-                    { size: 'XL', stock: Number(e.target.value) },
-                ],
-                stock:
-                    input.sizeXS.stock +
-                    input.sizeS.stock +
-                    input.sizeM.stock +
-                    input.sizeL.stock +
-                    Number(e.target.value),
+                sizeXL: {size: "XL", stock: Number(e.target.value)},
+                size: [input.sizeXS, input.sizeS, input.sizeM, input.sizeL, {size: "XL", stock: Number(e.target.value)}],
+                stock: input.sizeXS.stock + input.sizeS.stock + input.sizeM.stock + input.sizeL.stock + Number(e.target.value)
             })
         }
     }
@@ -192,7 +139,9 @@ export default function ProductEdit({ changePage, editMode }) {
             setNav(true)
         }
         //window.location.reload(true)
+ 
     }
+
 
     return (
         <div className={st.productUpdate}>
@@ -212,60 +161,47 @@ export default function ProductEdit({ changePage, editMode }) {
                     <div className={st.productUpdateItem}>
                         <label>Brand</label>
                         <select
-                            name="brand"
-                            defaultValue=""
-                            className={st.productUpdateInput}
-                            onChange={(e) => handleChangeCategoryAndBrand(e)}
+                        name="brand"
+                        defaultValue=""
+                        className={st.productUpdateInput}
+                        onChange={(e) => handleChangeCategoryAndBrand(e)}
                         >
-                            <option hidden value="">
-                                {' '}
-                                {info.brand}{' '}
-                            </option>
-                            {brands &&
-                                brands.map((brand) => (
-                                    <option
-                                        name={brand.name}
-                                        value={brand.name}
-                                        key={brand.name}
-                                    >
-                                        {brand.name}
-                                    </option>
-                                ))}
+                        <option hidden value=""> {info.brand} </option> 
+                        {brands && brands.map(brand => (
+                            <option name={brand.name} value={brand.name} key={brand.name}>{brand.name}</option>  
+                            )) 
+                        }
                         </select>
                     </div>
                     <div className={st.productUpdateItem}>
                         <label>Category</label>
                         <select
-                            name="category"
-                            defaultValue=""
-                            className={st.productUpdateInput}
-                            onChange={(e) => handleChangeCategoryAndBrand(e)}
+                        name="category"
+                        defaultValue=""
+                        className={st.productUpdateInput}
+                        onChange={(e) => handleChangeCategoryAndBrand(e)}
                         >
-                            <option hidden value="">
-                                {' '}
-                                {info.category}{' '}
-                            </option>
-                            {categories &&
-                                categories.map((cat) => (
-                                    <option
-                                        name={cat.name}
-                                        value={cat.name}
-                                        key={cat.name}
-                                    >
-                                        {cat.name}
-                                    </option>
-                                ))}
+                        <option hidden value=""> {info.category} </option>
+                        {categories && categories.map(cat => (
+                            <option name={cat.name} value={cat.name} key={cat.name}>{cat.name}</option> 
+                            )) 
+                        }
                         </select>
                     </div>
                     <div className={st.productUpdateItem}>
                         <label>Color</label>
-                        <input
-                            type="text"
-                            name="color"
-                            placeholder={info.color}
-                            className={st.productUpdateInput}
-                            onChange={(e) => handleChange(e)}
-                        />
+                        <select
+                        name="color"
+                        defaultValue=""
+                        className={st.productUpdateInput}
+                        onChange={(e) => handleChange(e)}
+                        >
+                        <option hidden value=""> {info.color} </option>
+                        {colors && colors.map(col => (
+                            <option name={col.name} value={col.name} key={col.name}>{col.name}</option> 
+                            )) 
+                        }
+                        </select>
                     </div>
                     <div className={st.productUpdateItem}>
                         <label>Gender</label>
@@ -360,7 +296,7 @@ export default function ProductEdit({ changePage, editMode }) {
                             onChange={(e) => handleChange(e)}
                         >
                             <option hidden value="">
-                                {String(info.active)}
+                            {String(info.active)}
                             </option>
                             <option name="true" value="true">
                                 Active
@@ -400,7 +336,7 @@ export default function ProductEdit({ changePage, editMode }) {
                                 <Clou
                                     setEditInput={setInput}
                                     editInput={input}
-                                />
+                                /> 
                             </label>
                             <input
                                 name="image"
