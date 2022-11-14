@@ -1,7 +1,7 @@
 /*eslint-disable */
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useRef } from 'react'
+import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { getProductDetail, getopenDetail, addToCart, getProducts, getPReviews } from '../../redux/actions';
 import { useNavigate } from 'react-router-dom';
