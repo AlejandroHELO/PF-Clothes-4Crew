@@ -61,12 +61,13 @@ export default function App() {
 
                     <Route path='/helpusimprove' element={<HelpUsImprove />} />
                     <Route path='/aboutus' element={<AboutUs />} />
-                    <Route element={<ProtectedRoutes />}>
-                        <Route path='/profile/:userId' element={<UserProfile />} />
-                        <Route path="/products/reviews/:id/:userId" element={<ProductReviews />} />
-                        <Route path="/checkout" element={<Checkout />} />
-                        <Route path="/mycheckout" element={<MyCheckout />} />
-                        <Route path="/checkout/confirm/:id" element={<CCheckout />} />
+
+                    <Route path='/profile/:userId' element={<UserProfile />} />
+                    <Route element={<ProtectedRoutes/>}>
+                        <Route path="/products/reviews/:id/:userId" element={<ProductReviews  />} />
+                        <Route path="/checkout" element={<Checkout  />} />
+                        <Route path="/mycheckout" element={<MyCheckout/>} />
+
                     </Route>
                 </Route>
                 <Route element={<AdminRoutes />}>

@@ -20,7 +20,11 @@ import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid'
 import { filter, getColors, getCategories } from '../../redux/actions'
 import Card from "../Cards/Card";
 import ProductDetail from '../Product/productDetail';
+
 import Brand from './Brand'
+
+
+import Footer from '../Footer/Footer'
 
 
 
@@ -285,8 +289,6 @@ export default function Filters() {
 
                 <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-
-
                     <section aria-labelledby="products-heading" className="pt-6 pb-24">
                         <h2 id="products-heading" className="sr-only">
                             Products
@@ -409,6 +411,7 @@ export default function Filters() {
                         </div>
                     </section>
                 </main>
+                <Footer/>
             </div>
 
         </div >
