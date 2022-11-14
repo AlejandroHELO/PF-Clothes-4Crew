@@ -1,7 +1,8 @@
 /*eslint-disable */
 import React, { useRef, Fragment, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getopenDetail, addToCart, getProducts } from '../../redux/actions'
+import { getopenDetail, addToCart, getProducts, getPReviews } from '../../redux/actions'
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../navbar/navbar'
 import { Dialog, RadioGroup, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
@@ -19,14 +20,39 @@ function ProductDetail(product) {
     const [selectedSize, setSelectedSize] = useState(product.size[2])
     const slider = useRef()
 
+    const [promedReviews, setPromedReviews] = useState(0)
+    const [countReviews, setCountReviews] = useState(0)
+
+    React.useEffect(() => {
+        let reviewsPId = reviews.filter((e) => e.productId === product.id)
+        // console.log('reviewsPId***//////////------------++++++++++++', reviewsPId)
+
+        if (reviewsPId.length !== 0) {
+            // console.log('products reviews---------------/////////////////', product.reviews)
+            let count = reviewsPId.length
+            let sumaReviews = 0
+            reviewsPId.map((r) => {
+                sumaReviews = sumaReviews + r.score
+            })
+            let promedioReviews = sumaReviews / count
+            console.log('promedio de reviews--------------------------------', sumaReviews, count, promedioReviews)
+            setPromedReviews(promedioReviews)
+            setCountReviews(count)
+        }
+
+    }, [])
+
+    let navigate = useNavigate()
+    const routeChange = () => {
+        let path = "/cardReviews";
+        navigate(path)
+    }
+
     let productAddCart = {}
 
     React.useEffect(() => {
         dispatch(getPReviews())
     }, [dispatch])
-
-    const reviewsFilter = reviews.filter(r => r.productId === product.id)
-    console.log(filter)
 
     React.useEffect(() => {
         product.size?.map((s) => {
@@ -209,16 +235,16 @@ function ProductDetail(product) {
                                                                 <StarIcon
                                                                     key={rating}
                                                                     className={classNames(
-                                                                        product.rating > rating ? 'text-yellow-900' : 'text-gray-200',
+                                                                        promedReviews > rating ? 'text-yellow-600' : 'text-gray-200',
                                                                         'h-5 w-5 flex-shrink-0'
                                                                     )}
                                                                     aria-hidden="true"
                                                                 />
                                                             ))}
                                                         </div>
-                                                        <p className="sr-only">{product.rating} out of 5 stars</p>
-                                                        <button type="button" onClick={routeChange} className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                                                            {reviewsFilter.length} reviews
+                                                        <p className="sr-only">{promedReviews} out of 5 stars</p>
+                                                        <button type="button" onClick={routeChange}className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                                                            {countReviews} reviews
                                                         </button>
                                                     </div>
                                                 </div>

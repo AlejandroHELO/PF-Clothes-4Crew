@@ -5,7 +5,7 @@ import {
     PRODUCT_UPDATE,
     POST_PRODUCT,
     GET_REVIEWS,
-    OPEN_REVIEW,
+    REVIEWS_FILTER,
     SEARCH,
     GET_CATEGORIES,
     GET_BRANDS,
@@ -39,7 +39,7 @@ const initialState = {
     details: [],
     openDetail: '',
     reviews: [],
-    openReview: '',
+    reviews_copy: [],
     searchResults: [],
     searchResultsFiltered: [],
     currentOrder: '',
@@ -112,14 +112,49 @@ const reducer = (state = initialState, action) => {
         case GET_REVIEWS:
             return ({
                 ...state,
-                reviews: action.payload
+                reviews: action.payload,
+                reviews_copy: action.payload
             })
-        case OPEN_REVIEW:
-            return {
-                ...state,
-                openReview: action.payload
+        case REVIEWS_FILTER:
+            const reviews = state.reviews_copy
+            if(action.payload === 'All rates'){
+                return({
+                    ...state,
+                    reviews: reviews
+                })
+            }else if(action.payload === '5'){
+                const filter = reviews.filter(r => r.score === 5)
+                return({
+                    ...state,
+                    reviews: filter
+                })
+            }else if(action.payload === '4'){
+                const filter = reviews.filter(r => r.score === 4)
+                return({
+                    ...state,
+                    reviews: filter
+                })
+                
+            }else if(action.payload === '3'){
+                const filter = reviews.filter(r => r.score === 3)
+                return({
+                    ...state,
+                    reviews: filter
+                })
+            }else if(action.payload === '2'){
+                const filter = reviews.filter(r => r.score === 2)
+                return({
+                    ...state,
+                    reviews: filter
+                })
+                
+            }else if(action.payload === '1'){
+                const filter = reviews.filter(r => r.score === 1)
+                return({
+                    ...state,
+                    reviews: filter
+                })
             }
-
         case GET_FAVORITES: {
             // const favoritesProducts = []
             // action.payload?.map(p => {

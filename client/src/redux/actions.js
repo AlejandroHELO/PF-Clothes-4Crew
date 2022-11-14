@@ -22,7 +22,7 @@ import {
     OPEN_DETAIL,
     CREATE_P_REVIEW,
     GET_REVIEWS,
-    OPEN_REVIEW,
+    REVIEWS_FILTER,
     FILTER,
     RESET_FILTERS,
     LOGIN,
@@ -90,10 +90,6 @@ export function getPReviews(){
     }
 }
 
-export function getOpenReviews(_id){
-    return {type: OPEN_REVIEW, payload: _id}
-}
-
 export function createProductReview(payload){
     return async function(dispatch){
         let json = await axios.post('/reviews', payload)
@@ -102,6 +98,10 @@ export function createProductReview(payload){
             payload: json.data,
         })
     }
+}
+
+export function reviewsFilter(payload){
+    return {type: REVIEWS_FILTER, payload: payload}
 }
 
 export function updateProduct(id, payload) {

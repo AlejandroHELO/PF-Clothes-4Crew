@@ -65,7 +65,6 @@ function CreatePReviews({id,userId})  {
 
     return(
         <>
-        <Navbar/>
         <div>
             <div className={st.Container}>
                 {/* <h1 className={st.title}>Score our product and comment your experience</h1> */}

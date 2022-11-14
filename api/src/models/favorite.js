@@ -14,5 +14,5 @@ const favoriteSchema = new Schema(
         versionKey: false,
     }
 )
-const favoriteModel = model('Brand', favoriteSchema)
+const favoriteModel = model('Favorite', favoriteSchema)
 module.exports = favoriteModel

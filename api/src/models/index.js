@@ -9,6 +9,7 @@ const models = {
     scoreModel: require('./puntuacion.js'),
     purchaseModel: require('./purchase.js'),
     userModel: require('./user'),
+    favoriteModel: require('./favorite.js')
 }
 
 module.exports = models
