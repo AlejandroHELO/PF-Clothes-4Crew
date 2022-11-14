@@ -21,7 +21,7 @@ import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from
 import { filter, brandElect, search } from '../../redux/actions'
 import Card from "../Cards/Card";
 import ProductDetail from '../Product/productDetail';
-
+import Footer from '../Footer/Footer'
 
 
 export default function Filters() {
@@ -224,8 +224,6 @@ export default function Filters() {
 
                 <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             
-
-
                     <section aria-labelledby="products-heading" className="pt-6 pb-24">
                         <h2 id="products-heading" className="sr-only">
                             Products
@@ -344,6 +342,7 @@ export default function Filters() {
                         </div>
                     </section>
                 </main>
+                <Footer/>
             </div>
     
         </div >

@@ -4,15 +4,13 @@ import { useDispatch } from 'react-redux'
 import { orderBy, search, getProductDetail, getopenDetail } from '../../redux/actions'
 import { Link, useParams } from 'react-router-dom'
 import Card from '../Cards/Card'
-import Navbar from '../navbar/navbar'
-
-// import Filters from './Filters'
-
 import Filters from './Filters1'
-
 import ProductDetail from '../Product/productDetail'
+// import Navbar from '../navbar/navbar'
+// import Filters from './Filters'
+// import Footer from '../Footer/Footer' 
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
-import Footer from '../Footer/Footer'
+
 
 export default function SearchResults({ open, setOpen }) {
     const { query, order } = useParams()
@@ -54,8 +52,6 @@ export default function SearchResults({ open, setOpen }) {
     }, [query, order, resultsFilted,openDetail])
 
 
-
-
     const renderRes = (resArray) => {
 
         return resArray.map((res) => {
@@ -93,6 +89,7 @@ export default function SearchResults({ open, setOpen }) {
             )
         })
     }
+
     return (
         <div>
 
@@ -107,7 +104,6 @@ export default function SearchResults({ open, setOpen }) {
                 </div>
             </div>
             {/* ----------------------------- */}
-
 
             {/* 
             <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
@@ -194,7 +190,6 @@ export default function SearchResults({ open, setOpen }) {
                     </div>
                 </div>
             </div> */}
-
 
             {/* ------------------------------------ */}
          

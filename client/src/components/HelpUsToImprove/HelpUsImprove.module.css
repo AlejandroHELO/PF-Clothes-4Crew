@@ -39,7 +39,8 @@
 .inputField{
     border: none;
     margin: 4% 5%;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid rgb(27, 26, 26);
+    border-radius: 10px;
 }
 
 .InputButtonForm{
@@ -48,11 +49,12 @@
     justify-content: flex-end;
 }
 
-.imageDiv{
-    float: right;
-}
+/* .imageDiv{
+    
+} */
 
 .image{
-    width: 200px;
+    margin-right: 10px;
+    width: 200px ;
     border-radius: 50%;
 }
