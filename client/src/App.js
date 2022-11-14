@@ -1,7 +1,7 @@
-import React,{ useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import { getProducts, getCart, getCurrentUser } from './redux/actions'
+import { getProducts, getCart, getCurrentUser, getBrands, getColors, getCategories } from './redux/actions'
 import { useAuth0 } from "@auth0/auth0-react";
 // import { ConstructionOutlined } from '@mui/icons-materzial'
 import HomePage from './components/HomePage/HomePage'
@@ -41,15 +41,18 @@ export default function App() {
     useEffect(() => {
         dispatch(getCart())
         dispatch(getProducts())
+        dispatch(getCategories())
+        dispatch(getColors())
+        dispatch(getBrands())
     }, [])
 
 
     return (
         <>
-            
+
             <Routes>
 
-                <Route path='/' element={<Navbar/>} >
+                <Route path='/' element={<Navbar />} >
                     <Route path='/' element={<HomePage />} />
                     <Route path='/searchResults/' element={<Filters />} />
                     {/* <Route path='/searchResults/:query' element={<SearchResults open={open} setOpen={setOpen} />} />
@@ -58,15 +61,15 @@ export default function App() {
 
                     <Route path='/helpusimprove' element={<HelpUsImprove />} />
                     <Route path='/aboutus' element={<AboutUs />} />
-                    <Route element={<ProtectedRoutes/>}>
+                    <Route element={<ProtectedRoutes />}>
                         <Route path='/profile/:userId' element={<UserProfile />} />
-                        <Route path="/products/reviews/:id/:userId" element={<ProductReviews  />} />
-                        <Route path="/checkout" element={<Checkout  />} />
-                        <Route path="/mycheckout" element={<MyCheckout/>} />
-                        <Route path="/checkout/confirm/:id" element={<CCheckout/>} />
+                        <Route path="/products/reviews/:id/:userId" element={<ProductReviews />} />
+                        <Route path="/checkout" element={<Checkout />} />
+                        <Route path="/mycheckout" element={<MyCheckout />} />
+                        <Route path="/checkout/confirm/:id" element={<CCheckout />} />
                     </Route>
                 </Route>
-                <Route element={<AdminRoutes/>}>
+                <Route element={<AdminRoutes />}>
                     <Route path="/adminview//*" element={<AdminView />} />
                 </Route>
                 <Route path="*" element={<Navigate to="/" />} />
@@ -75,6 +78,6 @@ export default function App() {
             {/* <Pago id={'63615409b573f3a4a80dfc1f'}/> */}
         </>
 
-    ) 
+    )
 }
 

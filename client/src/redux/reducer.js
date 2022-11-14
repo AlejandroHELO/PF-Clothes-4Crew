@@ -29,7 +29,7 @@ import {
     DELETE_FROM_CART,
     CART_EMPTY,
     GET_CART,
-    BRAND_ELECT,    
+    BRAND_ELECT,
     GET_USERSADDRESS,
     POST_ADDRESS,
     GET_CARTDB,
@@ -58,20 +58,20 @@ const initialState = {
     admins: [],
     comments: [],
     productsFiltered: [],
-    favorites:[],
-    favoritesId:[],
+    favorites: [],
+    favoritesId: [],
     brandFilteredMemory: [],
     resultFilterCombinado1: [],
     filtersElect: [],
-    brandElect: "",
+    brandFilterName: "",
     searchName: "",
-
+    selectedBrands: [],
     userLogged: {},
-    address:'',
-    cartDb:'',
-    updatecartdb:'',
-    createP:'',
-    compras:''
+    address: '',
+    cartDb: '',
+    updatecartdb: '',
+    createP: '',
+    compras: ''
 
 }
 
@@ -80,34 +80,34 @@ const reducer = (state = initialState, action) => {
     console.log(state)
     switch (action.type) {
         case GET_CREATE_PORCHASE:
-            return{
+            return {
                 ...state,
-                compras:action.payload
+                compras: action.payload
             }
-        case  DELETE_CREATE_PORCHASE:
-        console.log(action.payload)    
-        return{
+        case DELETE_CREATE_PORCHASE:
+            console.log(action.payload)
+            return {
                 ...state,
-                createP:action.payload
+                createP: action.payload
             }
-        case  POST_CREATE_PORCHASE:
-        console.log(action.payload)    
-        return{
+        case POST_CREATE_PORCHASE:
+            console.log(action.payload)
+            return {
                 ...state,
-                createP:action.payload
+                createP: action.payload
             }
         case POST_DBCART:
-            return{
+            return {
                 ...state,
-                updatecartdb:action.payload
+                updatecartdb: action.payload
             }
         case POST_DBCARTD:
-            return{
+            return {
                 ...state,
-                updatecartdb:''
+                updatecartdb: ''
             }
         case GET_PRODUCTS:
-            const result=action.payload.filter(f=>f.active===true)
+            const result = action.payload.filter(f => f.active === true)
             return {
                 ...state,
                 products: [...result],
@@ -271,30 +271,35 @@ const reducer = (state = initialState, action) => {
 
         case FILTER:
             let n = 0
-
+            //Filtro de Brand
             let brandFilter = action.payload.filter((f) => f.filters === "brand")
-
+            //si elijo All en brands me trae todos los productos, si elijo otra opción -> me filtra según esa opción de brand
             if (brandFilter.length > 0) {
-                const brandFilterName = state.products.filter((product) => product.brand.name === brandFilter[0].name)
-                const brandFilterId = brandFilterName.map((e) => { return ({ ...e, idd: n++ }) })
+                if (brandFilter[0].name === 'All') {
+                    state.brandFilterName = state.products
+                } else {
+                    state.brandFilterName = state.products.filter((product) => product.brand.name === brandFilter[0].name)
+                }
+
+                const brandFilterId = state.brandFilterName.map((e) => { return ({ ...e, idd: n++ }) })
 
                 state.productsFiltered = brandFilterId
                 state.brandFilteredMemory = brandFilterId //memory filter de brand
             }
 
-            //arrays con los filtros
+            //arrays con los filtros, de color, category y genre
             let colorFilter = action.payload.filter((f) => f.filters === "color")
             let categoryFilter = action.payload.filter((f) => f.filters === "category")
-            // let sizeFilter = action.payload.filter((f) => f.filters === "size")
+            // let sizeFilter = action.payload.filter((f) => f.filters === "size") //Los filtros de size decidí no usarlos
             let genreFilter = action.payload.filter((f) => f.filters === "genre")
-            console.log("en reducer filter color category size y genre", colorFilter, categoryFilter, genreFilter)
+            // console.log("en reducer filter color category size y genre", colorFilter, categoryFilter, genreFilter)
             // , sizeFilter
             //arrays con el nombre seleccionado en cada sección
             colorFilter = colorFilter.map((c) => c.name)
             categoryFilter = categoryFilter.map((c) => c.name)
             // sizeFilter = sizeFilter.map((s) => s.name)
             genreFilter = genreFilter.map((g) => g.name)
-            console.log("en reducer arrays con names de las secciones", colorFilter, categoryFilter, genreFilter)
+            // console.log("en reducer arrays con names de las secciones", colorFilter, categoryFilter, genreFilter)
             // , sizeFilter
             //aplico los filtros names
             //si hay filtros en color le aplico el filtro, de lo contrario no lo aplico
@@ -306,18 +311,18 @@ const reducer = (state = initialState, action) => {
                     state.brandFilteredMemory?.filter((e) => e.color === c))]
             }
             state.resultFilterCombinado1 = state.resultFilterCombinado1.flat()
-            console.log("resultado de color en reducer 1", state.resultFilterCombinado1)
+            // console.log("resultado de color en reducer 1", state.resultFilterCombinado1)
 
             // aplico filtro category si no está vacío
             if (categoryFilter.length > 0) {
                 state.resultFilterCombinado1 = categoryFilter?.map((c) => state.resultFilterCombinado1?.filter((e) => e.category[0].name === c))
                 state.resultFilterCombinado1 = state.resultFilterCombinado1.flat()
-                console.log('resultado de categoryFilter', categoryFilter.lenght > 0)
+                // console.log('resultado de categoryFilter', categoryFilter.lenght > 0)
             } else {
                 state.resultFilterCombinado1 = state.resultFilterCombinado1.flat()
             }
-            console.log('resultado de categoryFilter', categoryFilter.length)
-            console.log("resultado de category en reducer 2", state.resultFilterCombinado1)
+            // console.log('resultado de categoryFilter', categoryFilter.length)
+            // console.log("resultado de category en reducer 2", state.resultFilterCombinado1)
             //si size no está vacío aplico los filtros
             // const resultFilterCombinado3 = (sizeFilter.lenght !== 0)
             //     ?
@@ -333,34 +338,34 @@ const reducer = (state = initialState, action) => {
                 state.resultFilterCombinado1 = state.resultFilterCombinado1.flat()
             }
 
-            console.log("resultado de genre en reducer 4", state.resultFilterCombinado1)
+            // console.log("resultado de genre en reducer 4", state.resultFilterCombinado1)
             //ya aplicados los filtros los guardo en el estado
-            console.log('valor del resultado fuera de los ? 4', state.resultFilterCombinado1)
-            console.log("estado en reducer", state)
+            // console.log('valor del resultado fuera de los ? 4', state.resultFilterCombinado1)
+            // console.log("estado en reducer", state)
             return {
                 ...state,
                 productsFiltered: state.resultFilterCombinado1,
                 filtersElect: action.payload,
             }
 
-            case GET_FAVORITES: {
-                // const favoritesProducts = []
-                // action.payload?.map(p => {
-                //     return favoritesProducts.push(p.id)
-                // })
-                return {
-                    ...state,
-                    favorites: state.favorites.concat(action.payload.product),
-                    favoritesId: state.favoritesId.concat(action.payload.id)
-                }
-            } 
-            case REMOVE_FROM_FAVORITES: {
-                return {
-                    ...state,
-                    favorites: state.favorites.filter(p => p.id !== action.payload),
-                    favoritesId: state.favoritesId.filter(p => p !== action.payload)
-                }
-            }   
+        case GET_FAVORITES: {
+            // const favoritesProducts = []
+            // action.payload?.map(p => {
+            //     return favoritesProducts.push(p.id)
+            // })
+            return {
+                ...state,
+                favorites: state.favorites.concat(action.payload.product),
+                favoritesId: state.favoritesId.concat(action.payload.id)
+            }
+        }
+        case REMOVE_FROM_FAVORITES: {
+            return {
+                ...state,
+                favorites: state.favorites.filter(p => p.id !== action.payload),
+                favoritesId: state.favoritesId.filter(p => p !== action.payload)
+            }
+        }
         case RESET_FILTERS:
             return {
                 ...state,
@@ -371,7 +376,7 @@ const reducer = (state = initialState, action) => {
         case BRAND_ELECT:
             return {
                 ...state,
-                brandElect: action.payload,
+                selectedBrands: action.payload,
             }
 
         // ------- Cart --------
@@ -407,21 +412,21 @@ const reducer = (state = initialState, action) => {
             }
 
         case GET_USERSADDRESS:
-            return{
+            return {
                 ...state,
-                address:action.payload
+                address: action.payload
             }
 
         case POST_ADDRESS:
             console.log(action.payload)
-            return{
+            return {
                 ...state,
             }
 
         case GET_CARTDB:
-            return{
+            return {
                 ...state,
-                cartDb:action.payload
+                cartDb: action.payload
             }
 
         case GET_COMMENTS:
@@ -434,7 +439,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
             }
-        
+
         default: return state
     }
 }
