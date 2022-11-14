@@ -6,7 +6,7 @@ import Clou from "../ImageCloudinary/ImageCloudinary";
 import st from './UserProfileEdit.module.css'
 import { editUser } from '../../redux/actions.js'
 
-export default function UserEdit() {
+export default function UserEdit({changePage,editMode}) {
     // console.log('HOLA SOY PROPS', props)
     const dispatch = useDispatch()
 
@@ -14,35 +14,36 @@ export default function UserEdit() {
 
     let info = {}
 
-    userInfo.id ?
-        info = {
-            id: userInfo.id,
-            fullName: userInfo.fullName,
-            email: userInfo.email,
-            birthDate: userInfo.birthDate,
-            genre: userInfo.genre,
-            country: userInfo.country,
-            address: userInfo.address,
-            tel: userInfo.tel,
-            image: userInfo.image,
-            isAdmin: userInfo.isAdmin,
-            active: userInfo.active,
-        }
+    // userInfo._id ?
+    //     info = {
+    //         id: userInfo._id,
+    //         fullName: userInfo.fullName,
+    //         email: userInfo.email,
+    //         identificationNumber: userInfo.identificationNumber,
+    //         birthDate: userInfo.birthDate,
+    //         genre: userInfo.genre,
+    //         country: userInfo.country,
+    //         address: userInfo.address,
+    //         tel: userInfo.tel,
+    //         image: userInfo.image,
+    //         isAdmin: userInfo.isAdmin,
+    //         active: userInfo.active,
+    //     }
 
-    : console.log('Algo esta pasando')
+    // : console.log('Algo esta pasando')
     // console.log('SOY LA INFOOO: ', info)
 
     const [input, setInput] = useState({})
 
     const [nav, setNav] = useState(false)
 
-    useEffect(()=>{
-        userInfo.id?
-        setInput({    
-            ...userInfo
-        })
-        : console.log('Algo esta pasando en el useEffect')
-    }, [userInfo])
+    // useEffect(()=>{
+    //     userInfo._id?
+    //     setInput({    
+    //         ...userInfo
+    //     })
+    //     : console.log('Algo esta pasando en el useEffect')
+    // }, [userInfo])
 
     // console.log('SOY EL INPUT: ', input)
 
@@ -67,9 +68,32 @@ export default function UserEdit() {
 
     return (
         <div className={st.userUpdate}>
-            <span className={st.userUpdateTitle}>Edit</span>
+            <h4 className=' text-center mb-10'>Edit profile</h4>
             <form onSubmit={handleUpdate} className={st.userUpdateForm}>
-                <div className={st.userUpdateLeft}>
+
+                <div className={st.userUpdateUpload}>
+                    <img
+                        className={st.userUpdateImg}
+                        src="https://www.elheraldo.hn/binrepository/533x400/0c0/0d0/none/45933/RIDI/kevin.25060_EH1503649_MG210707224.jpg"//{info.image}
+                        alt="Profile Pic"
+                    />
+                    <label htmlFor="file">
+                        {/* <DriveFolderUpload className={st.userUpdateIcon} /> */}
+                        <Clou
+                        setEditInput={setInput}
+                        editInput={input}
+                    /> 
+                    </label>
+                    <input
+                        name="image"
+                        type="file"
+                        id="file"
+                        style={{ display: 'none' }}
+                        onChange={(e) => handleChange(e)}
+                    />
+                </div>
+
+                <div className={st.userInputs}>
                     <div className={st.userUpdateItem}>
                         <label>Name</label>
                         <input
@@ -86,28 +110,20 @@ export default function UserEdit() {
                             type="email"
                             name="email"
                             placeholder={info.email}
+                            disabled
                             className={st.userUpdateInput}
                             onChange={(e) => handleChange(e)}
                         />
                     </div>
                     <div className={st.userUpdateItem}>
-                        <label>Active</label>
-                        <select
-                            name="active"
-                            defaultValue=""
+                        <label>DNI</label>
+                        <input
+                            type="number"
+                            name="identificationNumber"
+                            placeholder={info.identificationNumber}
                             className={st.userUpdateInput}
                             onChange={(e) => handleChange(e)}
-                        >
-                            <option hidden value="">
-                                Select a status
-                            </option>
-                            <option name="true" value="true">
-                                Active
-                            </option>
-                            <option name="false" value="false">
-                                Disabled
-                            </option>
-                        </select>
+                        />
                     </div>
                     <div className={st.userUpdateItem}>
                         <label>Genre</label>
@@ -155,9 +171,9 @@ export default function UserEdit() {
                         />
                     </div>
                     <div className={st.userUpdateItem}>
-                        <label>Tel</label>
+                        <label>Phone</label>
                         <input
-                            type="tel"
+                            type={"tel"}
                             name="tel"
                             placeholder={info.tel}
                             className={st.userUpdateInput}
@@ -174,62 +190,26 @@ export default function UserEdit() {
                             onChange={(e) => handleChange(e)}
                         />
                     </div>
-                    <div className={st.userUpdateItem}>
-                        <label>Is an admin?</label>
-                        <div className={st.newUserIsAdm}>
-                            <label>True</label>
-                            <input
-                                type={'radio'}
-                                name="isAdmin"
-                                id="true"
-                                value={true}
-                                className={st.userUpdateInputRadio}
-                                onChange={(e) => handleChange(e)}
-                            />
-                            <label>False</label>
-                            <input
-                                type={'radio'}
-                                name="isAdmin"
-                                id="false"
-                                value={false}
-                                className={st.userUpdateInputRadio}
-                                onChange={(e) => handleChange(e)}
-                            />
-                        </div>
-                    </div>
+                    
                 </div>
-                <div className={st.userUpdateRight}>
-                    <div className={st.userUpdateUpload}>
-                        <img
-                            className={st.userUpdateImg}
-                            src={info.image}
-                            alt="Profile Pic"
-                        />
-                        <label htmlFor="file">
-                            {/* <DriveFolderUpload className={st.userUpdateIcon} /> */}
-                            <Clou
-                            setEditInput={setInput}
-                            editInput={input}
-                        /> 
-                        </label>
-                        <input
-                            name="image"
-                            type="file"
-                            id="file"
-                            style={{ display: 'none' }}
-                            onChange={(e) => handleChange(e)}
-                        />
-                    </div>
+                <div className=' flex justify-around'>
+                    <button
+                        onClick={changePage}
+                        className=' w-28 h-14 p-2 font-medium bg-slate-900 text-slate-50 rounded-lg flex justify-center items-center transition hover:bg-slate-50 hover:text-slate-900 hover:border-2 hover:border-slate-900'
+                        >
+                        {"<<--- Back"}
+                    </button>
                     <button
                         name="update"
                         onClick={handleUpdate}
-                        className={st.userUpdateBotton}
-                    >
+                        className=' w-28 h-14 p-2 font-medium bg-slate-900 text-slate-50 rounded-lg flex justify-center items-center transition hover:bg-slate-50 hover:text-slate-900 hover:border-2 hover:border-slate-900'
+                        >
                         Update
                     </button>
                 </div>
             </form>
-            {nav ? <Navigate to={'/adminView/users'} /> : null}
+
+            {nav ? <Navigate to={`/profile/${userInfo.id}`} /> : null}
         </div>
     )
 }

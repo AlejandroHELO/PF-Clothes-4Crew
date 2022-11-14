@@ -54,3 +54,9 @@
     margin-top: 3rem;
     text-align: -webkit-center;
 }
+
+.userEditCont{
+    margin: 3rem 0 4rem 0;
+    display: flex;
+    justify-content: center;
+}

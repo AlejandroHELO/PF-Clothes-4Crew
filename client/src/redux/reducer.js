@@ -77,7 +77,7 @@ const initialState = {
 
 
 const reducer = (state = initialState, action) => {
-    console.log(state)
+    // console.log(state)
     switch (action.type) {
         case GET_CREATE_PORCHASE:
             return{

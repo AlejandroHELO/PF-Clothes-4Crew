@@ -22,6 +22,7 @@ import {
 export default function UserProfile() {
 
     const { userId } = useParams() //usar el mismo nombre de variable que en la ruta principal
+    console.log('SOY EL USER ID: ', userId)
     const dispatch = useDispatch()
     let userInfo = useSelector((state) => state.userDetail)
     // console.log('SOY EL PRODUCT: ', productInfo)
@@ -152,9 +153,7 @@ export default function UserProfile() {
                             className=' w-28 h-14 p-2 bg-slate-900 text-slate-50 rounded-lg flex justify-center items-center transition hover:bg-slate-50 hover:text-slate-900 hover:border-2 hover:border-slate-900'
                             name='edit' 
                             // ref={target}
-                            onClick={(e) => {
-                                // handleSubmit(e);
-                            }}>
+                            onClick={changePage}>
                                 Edit profile
                             </button>
                         </div>
