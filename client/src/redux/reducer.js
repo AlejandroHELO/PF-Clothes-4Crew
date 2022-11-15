@@ -92,19 +92,21 @@ const reducer = (state = initialState, action) => {
             }
 
         case GET_CREATE_PURCHASE:
-            return{
+            return {
                 ...state,
                 compras: action.payload
             }
-        case  DELETE_CREATE_PORCHASE:
-        console.log(action.payload)    
-        return{
+
+        case DELETE_CREATE_PURCHASE:
+            console.log(action.payload)    
+            return {
                 ...state,
                 createP: action.payload
             }
-        case  POST_CREATE_PORCHASE:
-        console.log(action.payload)    
-        return{
+        
+        case POST_CREATE_PURCHASE:
+            console.log(action.payload)    
+            return {
                 ...state,
                 createP: action.payload
             }
@@ -170,6 +172,7 @@ const reducer = (state = initialState, action) => {
                 reviews: action.payload,
                 reviews_copy: action.payload
             })
+        
         case REVIEWS_FILTER:
             const reviews = state.reviews_copy
             if(action.payload === 'All rates'){
@@ -210,16 +213,6 @@ const reducer = (state = initialState, action) => {
                     reviews: filter
                 })
             }
-        case GET_FAVORITES: {
-            // const favoritesProducts = []
-            // action.payload?.map(p => {
-            //     return favoritesProducts.push(p.id)
-            // })
-            return {
-                ...state,
-                favorites: state.favorites.concat(action.payload)
-            }
-        }    
 
         //filtro que funciona en el front sin hacer el pedido al back
         case SEARCH:

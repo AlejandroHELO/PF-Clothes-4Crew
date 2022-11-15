@@ -143,7 +143,7 @@ function Navbar() {
                                 key="all"
                                 className=" h-10 no-underline box-border bg-slate-900 text-slate-50 rounded flex p-2 justify-center items-center transition hover:bg-slate-50 hover:text-slate-900 hover:border-2 hover:border-slate-900"
                             >
-                                SEE ALL
+                                All Products
                             </button>
                         </div>
                         {/* h-16 border-gray-300 border-2 rounded  flex justify-center items-center p-2 */}
