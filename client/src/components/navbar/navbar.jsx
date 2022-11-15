@@ -184,11 +184,10 @@ function Navbar() {
                                             </div>
 
                                         </div>
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
+                                    )
+                                })
+                            }
+                        </div>
                     <div className="flex space-x-3">
                         {/* Favoritos */}
                         <button onClick={() => handleOpen()} className="rounded p-2 flex justify-center items-center">
