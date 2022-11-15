@@ -44,8 +44,6 @@ function Navbar() {
         ...styled
     })
 
-
-
     useEffect(() => {
         if (isAuthenticated) {
             console.log("AQUI TOYYY:", user)
@@ -93,8 +91,6 @@ function Navbar() {
         dispatch(getopenDetail(id))
     }
 
-
-
     const handleAllProducts = (e) => {
         e.preventDefault()
         let filtersElectSinBrand = []
@@ -123,8 +119,8 @@ function Navbar() {
 
     console.log("USER DETAIIL: ", userLogged)
     return (
-        <>
-            <nav className="w-full h-28 mt-2  bg-white shadow-md flex flex-col justify-around ">
+        <div className='w-full'>
+            <nav className="w-full h-1/6 mt-2  bg-white shadow-md flex flex-col justify-around ">
                 {/* Botones */}
                 <div className="flex justify-between items-center">
                     {/* Lado izquierdo */}
@@ -147,7 +143,7 @@ function Navbar() {
                                 key="all"
                                 className=" h-10 no-underline box-border bg-slate-900 text-slate-50 rounded flex p-2 justify-center items-center transition hover:bg-slate-50 hover:text-slate-900 hover:border-2 hover:border-slate-900"
                             >
-                                SEE ALL
+                                All Products
                             </button>
                         </div>
                         {/* h-16 border-gray-300 border-2 rounded  flex justify-center items-center p-2 */}
@@ -163,7 +159,7 @@ function Navbar() {
                                 return (
                                     <div key={i.id} className="favoriteCard">
                                         <div className="img">
-                                            <img src={i.image[0]} alt="" srcset="" s className='productImage' />
+                                            <img src={i.image[0]} alt="product image" className='productImage'/>
                                         </div>
                                         <div className="header">
                                             {i.name}
@@ -174,14 +170,15 @@ function Navbar() {
                                         <div className="footer">
                                             <div className="deleteButton">
                                                 <button onClick={() => removeFromFavorites(i.id)}>
-                                                    <img src={heartFill} alt="" style={{ width: '1.5em', height: '1.5em' }} />
+                                                    <img src={heartFill} alt="" style={{width: '1.5em', height:'1.5em'}}/>
                                                 </button>
                                             </div>
                                             <div className="addtocartButton">
-                                                <button onClick={() => handleOnClickDetail(i.id)} className='addToCartButton'>Details</button>
+                                                    <button onClick={() => handleOnClickDetail(i.id)} className='addToCartButton'>Details</button>
                                             </div>
-
+                                            
                                         </div>
+
                                     </div>
                                 )
                             })
@@ -197,9 +194,11 @@ function Navbar() {
                             🛒
                         </button>
                         {/* Login */}
-                        {!isAuthenticated ? <button onClick={loginWithPopup} className="mx-4  box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
-                            👤 LOGIN
-                        </button> : userLogged.isAdmin ?
+                        {!isAuthenticated ? 
+                            <button onClick={loginWithPopup} className="mx-4  box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                            👤 Sign In
+                            </button> 
+                            : userLogged.isAdmin ?
                             <div className='flex gap-3' >
                                 <img src={user?.picture} alt="User picture" className='h-10 w-10' />
                                 <Link to="/adminview" className=' no-underline'>
@@ -207,10 +206,16 @@ function Navbar() {
                                         Admin Panel
                                     </button>
                                 </Link>
+                                <Link to={`/profile/${userLogged._id}`} className=' no-underline'>
+                                    <button className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                                        Profile
+                                    </button>
+                                </Link>
                                 <button onClick={logout} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
-                                    Logout
+                                    LogOut
                                 </button>
-                            </div> : <div className='flex gap-3' >
+                            </div> 
+                            : <div className='flex gap-3' >
                                 <img src={user?.picture} alt="User picture" className='h-10 w-10' />
                                 <Link to={`/profile/${userLogged._id}`} className=' no-underline'>
                                     <button className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
@@ -218,11 +223,10 @@ function Navbar() {
                                     </button>
                                 </Link>
                                 <button onClick={logout} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
-                                    Logout
+                                    LogOut
                                 </button>
                             </div>
                         }
-
                     </div>
                 </div>
                 {/* Categorías */}
@@ -255,8 +259,8 @@ function Navbar() {
                 />
 
             </nav>
-            <Outlet />
-        </>
+            <Outlet/>
+        </div>
     )
 }
 

@@ -11,8 +11,8 @@ import User from './User/User'
 import NewUser from './User/NewUser'
 import ProductList from './ProductList/ProductList'
 import Product from './Products/Product'
-import ProductEdit from './Products/ProductEdit'
 import NewProduct from './Products/NewProduct'
+import SalesList from './SalesList/SalesList'
 
 export default function AdminView() {
     // const [actualPage, setActualPage] = useState("home")
@@ -33,6 +33,7 @@ export default function AdminView() {
                     <Route path="/products" element={<ProductList />} />
                     <Route path="/product/:productId" element={<Product />} />
                     <Route path="/newproduct" element={<NewProduct />} />
+                    <Route path="/sales" element={<SalesList />} />
                     <Route path="*" element={<HomeAdmin />} />
                 </Routes>
             </div>

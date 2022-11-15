@@ -10,7 +10,7 @@ export default function ProductList() {
 
     useEffect(() => {
         dispatch(getProductsAdmin())
-    }, [dispatch, getProductsAdmin])
+    }, [getProductsAdmin])
 
     const allItems = useSelector((state) => state.products)
     // console.log('SOY TODOS LOS PRODUCTOS: ', allItems)
@@ -40,7 +40,7 @@ export default function ProductList() {
                     <>
                         <Link
                             to={'/adminView/product/' + params.row.idProd}
-                            style={{ 'textDecoration': 'none' }}
+                            className=' no-underline'
                         >
                             <button className={st.productListEdit}>
                                 Detail

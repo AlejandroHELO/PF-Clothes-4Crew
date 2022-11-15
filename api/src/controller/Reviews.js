@@ -3,7 +3,7 @@ const { scoreModel } = require('../models/index')
 const Reviews = async (req, res, next) => {
     const { productId, userId } = req.query;
     const allReviews = await scoreModel.find({});
-    console.log(allReviews)
+    // console.log(allReviews)
     try {
         if (productId) {
             const filter = allReviews.filter(f => f.productId === productId)
@@ -27,9 +27,9 @@ const Reviews = async (req, res, next) => {
                 return res.status(400).json({ msj: 'Something went wrong' })
             }
         }
-    } catch (e) {
-        console.log(e)
-        // next(e)
+    } catch (error) {
+        console.log(error)
+        next(error)
     }
 }
 
@@ -74,6 +74,7 @@ const UpdateReview = async(req, res) => {
         }
     }
 }
+
 module.exports = {
     Reviews,
     CreateReview,
