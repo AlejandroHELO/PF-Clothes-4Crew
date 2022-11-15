@@ -16,7 +16,8 @@ ReactDOM.render(
     domain={process.env.REACT_APP_AUTH_DOMAIN}
     clientId={process.env.REACT_APP_CLIENT_ID}
     audience={process.env.REACT_APP_AUDIENCE}
-  >
+    redirectUri={window.location.origin}
+    >
         <Provider store={store}>
             <Router>
                 <App />

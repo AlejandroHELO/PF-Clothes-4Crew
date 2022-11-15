@@ -1,8 +1,9 @@
 .productUpdate {
+    margin: 5px;
     display: flex;
+    justify-content: center;
     flex-direction: column;
-    align-items: center;
-    width: 850px;
+    width: 80%;
     padding: 20px;
     -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.8);
     box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.8);
@@ -11,23 +12,33 @@
 }
 
 .productUpdateTitle {
+    align-self: center;
     font-size: 25px;
     font-weight: 600;
-    margin-left: 10px;
+    /* margin-left: 10px; */
 }
 
-.productUpdateForm {
+.productUpdateContainer {
     display: flex;
-    justify-content: space-between;
     margin-top: 20px;
     margin-bottom: 20px;
     margin-left: 10px;
+    flex-direction: column;
+}
+
+.productUpdateForm{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
 
 .productUpdateItem {
     display: flex;
     flex-direction: column;
+    align-items: center;
     margin-top: 12px;
+    width: 50%;
 }
 
 .productUpdateItem > label {
@@ -37,7 +48,7 @@
 
 .productUpdateInput {
     border: none;
-    width: 250px;
+    width: 80%;
     height: 40px;
     border-bottom: 1px solid grey;
 }
@@ -49,25 +60,38 @@
 .productUpdateUpload {
     display: flex;
     align-items: center;
+    margin-top: 2rem;
 }
 
 .productUpdateImg {
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
     border-radius: 20px;
     object-fit: cover;
-    margin-right: 20px;
+    margin-right: 1rem;
 }
 
-/* .productUpdateIcon{
-    cursor: pointer;
-    font-size: 35px !important;
-} */
+.buttons{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 3rem;
+}
 
-.productUpdateBotton {
-    width: 150px;
+.productBackButton{
+    width: 120px;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    background-color: rgb(250, 115, 61);
+    color: white;
+    font-weight: 600;
+}
+
+.productUpdateButton {
+    width: 120px;
+    border: none;
+    border-radius: 10px;
     padding: 10px;
     cursor: pointer;
     background-color: rgb(250, 115, 61);

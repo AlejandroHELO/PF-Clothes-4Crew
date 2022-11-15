@@ -139,231 +139,232 @@ export default function ProductEdit({changePage,editMode}) {
             setNav(true)
         }
         //window.location.reload(true)
- 
     }
 
 
     return (
         <div className={st.productUpdate}>
             <span className={st.productUpdateTitle}>Edit</span>
-            <form onSubmit={handleUpdate} className={st.productUpdateForm}>
-                <div className={st.productUpdateLeft}>
-                    <div className={st.productUpdateItem}>
-                        <label>Name</label>
-                        <input
-                            type="text"
-                            name="name"
-                            placeholder={info.name}
-                            className={st.productUpdateInput}
-                            onChange={(e) => handleChange(e)}
-                        />
-                    </div>
-                    <div className={st.productUpdateItem}>
-                        <label>Brand</label>
-                        <select
-                        name="brand"
-                        defaultValue=""
-                        className={st.productUpdateInput}
-                        onChange={(e) => handleChangeCategoryAndBrand(e)}
-                        >
-                        <option hidden value=""> {info.brand} </option> 
-                        {brands && brands.map(brand => (
-                            <option name={brand.name} value={brand.name} key={brand.name}>{brand.name}</option>  
-                            )) 
-                        }
-                        </select>
-                    </div>
-                    <div className={st.productUpdateItem}>
-                        <label>Category</label>
-                        <select
-                        name="category"
-                        defaultValue=""
-                        className={st.productUpdateInput}
-                        onChange={(e) => handleChangeCategoryAndBrand(e)}
-                        >
-                        <option hidden value=""> {info.category} </option>
-                        {categories && categories.map(cat => (
-                            <option name={cat.name} value={cat.name} key={cat.name}>{cat.name}</option> 
-                            )) 
-                        }
-                        </select>
-                    </div>
-                    <div className={st.productUpdateItem}>
-                        <label>Color</label>
-                        <select
-                        name="color"
-                        defaultValue=""
-                        className={st.productUpdateInput}
-                        onChange={(e) => handleChange(e)}
-                        >
-                        <option hidden value=""> {info.color} </option>
-                        {colors && colors.map(col => (
-                            <option name={col.name} value={col.name} key={col.name}>{col.name}</option> 
-                            )) 
-                        }
-                        </select>
-                    </div>
-                    <div className={st.productUpdateItem}>
-                        <label>Gender</label>
-                        <select
-                            name="genre"
-                            defaultValue=""
-                            className={st.productUpdateInput}
-                            onChange={(e) => handleChange(e)}
-                        >
-                            <option hidden value="">
-                                {info.genre}
-                            </option>
-                            <option name="Mens" value="Mens">
-                                Mens
-                            </option>
-                            <option name="Womens" value="Womens">
-                                Womens
-                            </option>
-                            <option name="Unisex" value="Unisex">
-                                Unisex
-                            </option>
-                        </select>
-                    </div>
-                    <div className={st.productUpdateItem}>
-                        <label>Description</label>
-                        <input
-                            type="text"
-                            name="description"
-                            placeholder={info.description}
-                            className={st.productUpdateInput}
-                            onChange={(e) => handleChange(e)}
-                        />
-                    </div>
-                    <div className={st.productUpdateItem}>
-                        <label>Price</label>
-                        <input
-                            type="number"
-                            name="price"
-                            placeholder={info.price}
-                            className={st.productUpdateInput}
-                            onChange={(e) => handleChange(e)}
-                        />
-                    </div>
-                    <div className={st.productUpdateItem}>
-                        <label>Stock Sizes XS</label>
-                        <input
-                            type="number"
-                            name="sizeXS"
-                            placeholder={info.sizeXS}
-                            onChange={(e) => handleChangeSize(e)}
-                            className={st.productUpdateInput}
-                        />
-                        <label>Stock Sizes S</label>
-                        <input
-                            type="number"
-                            name="sizeS"
-                            placeholder={info.sizeS}
-                            onChange={(e) => handleChangeSize(e)}
-                            className={st.productUpdateInput}
-                        />
-                        <label>Stock Sizes M</label>
-                        <input
-                            type="number"
-                            name="sizeM"
-                            placeholder={info.sizeM}
-                            onChange={(e) => handleChangeSize(e)}
-                            className={st.productUpdateInput}
-                        />
-                        <label>Stock Sizes L</label>
-                        <input
-                            type="number"
-                            name="sizeL"
-                            placeholder={info.sizeL}
-                            onChange={(e) => handleChangeSize(e)}
-                            className={st.productUpdateInput}
-                        />
-                        <label>Stock Sizes XL</label>
-                        <input
-                            type="number"
-                            name="sizeXL"
-                            placeholder={info.sizeXL}
-                            onChange={(e) => handleChangeSize(e)}
-                            className={st.productUpdateInput}
-                        />
-                    </div>
-                    <div className={st.productUpdateItem}>
-                        <label>Active</label>
-                        <select
-                            name="active"
-                            defaultValue=""
-                            className={st.productUpdateInput}
-                            onChange={(e) => handleChange(e)}
-                        >
-                            <option hidden value="">
-                            {String(info.active)}
-                            </option>
-                            <option name="true" value="true">
-                                Active
-                            </option>
-                            <option name="false" value="false">
-                                Disabled
-                            </option>
-                        </select>
-                    </div>
-                    <div className={st.productUpdateItem}>
-                        <label>Featured</label>
-                        <select
-                            name="featured"
-                            defaultValue=""
-                            className={st.productUpdateInput}
-                            onChange={(e) => handleChange(e)}
-                        >
-                            <option hidden value="">
-                                {String(info.featured)}
-                            </option>
-                            <option name="true" value="true">
-                                True
-                            </option>
-                            <option name="false" value="false">
-                                False
-                            </option>
-                        </select>
-                    </div>
-                    <div className={st.productUpdateItem}>
-                        <div className={st.productUpdateUpload}>
-                            <img
-                                className={st.productUpdateImg}
-                                src={info.image}
-                                alt="Product Img"
-                            />
-                            <label htmlFor="file">
-                                <Clou
-                                    setEditInput={setInput}
-                                    editInput={input}
-                                /> 
-                            </label>
+            <div className={st.productUpdateContainer}>
+                <form onSubmit={handleUpdate}>
+                    <div className={st.productUpdateForm}>
+                        <div className={st.productUpdateItem}>
+                            <label>Name</label>
                             <input
-                                name="image"
-                                type="file"
-                                id="file"
-                                style={{ display: 'none' }}
+                                type="text"
+                                name="name"
+                                placeholder={info.name}
+                                className={st.productUpdateInput}
                                 onChange={(e) => handleChange(e)}
                             />
                         </div>
+                        <div className={st.productUpdateItem}>
+                            <label>Brand</label>
+                            <select
+                            name="brand"
+                            defaultValue=""
+                            className={st.productUpdateInput}
+                            onChange={(e) => handleChangeCategoryAndBrand(e)}
+                            >
+                            <option hidden value=""> {info.brand} </option> 
+                            {brands && brands.map(brand => (
+                                <option name={brand.name} value={brand.name} key={brand.name}>{brand.name}</option>  
+                                )) 
+                            }
+                            </select>
+                        </div>
+                        <div className={st.productUpdateItem}>
+                            <label>Category</label>
+                            <select
+                            name="category"
+                            defaultValue=""
+                            className={st.productUpdateInput}
+                            onChange={(e) => handleChangeCategoryAndBrand(e)}
+                            >
+                            <option hidden value=""> {info.category} </option>
+                            {categories && categories.map(cat => (
+                                <option name={cat.name} value={cat.name} key={cat.name}>{cat.name}</option> 
+                                )) 
+                            }
+                            </select>
+                        </div>
+                        <div className={st.productUpdateItem}>
+                            <label>Color</label>
+                            <select
+                            name="color"
+                            defaultValue=""
+                            className={st.productUpdateInput}
+                            onChange={(e) => handleChange(e)}
+                            >
+                            <option hidden value=""> {info.color} </option>
+                            {colors && colors.map(col => (
+                                <option name={col.name} value={col.name} key={col.name}>{col.name}</option> 
+                                )) 
+                            }
+                            </select>
+                        </div>
+                        <div className={st.productUpdateItem}>
+                            <label>Gender</label>
+                            <select
+                                name="genre"
+                                defaultValue=""
+                                className={st.productUpdateInput}
+                                onChange={(e) => handleChange(e)}
+                            >
+                                <option hidden value="">
+                                    {info.genre}
+                                </option>
+                                <option name="Mens" value="Mens">
+                                    Mens
+                                </option>
+                                <option name="Womens" value="Womens">
+                                    Womens
+                                </option>
+                                <option name="Unisex" value="Unisex">
+                                    Unisex
+                                </option>
+                            </select>
+                        </div>
+                        <div className={st.productUpdateItem}>
+                            <label>Description</label>
+                            <textarea
+                                type="text"
+                                name="description"
+                                placeholder={info.description}
+                                className={st.productUpdateInput}
+                                onChange={(e) => handleChange(e)}
+                            />
+                        </div>
+                        <div className={st.productUpdateItem}>
+                            <label>Stock Sizes XS</label>
+                            <input
+                                type="number"
+                                name="sizeXS"
+                                placeholder={info.sizeXS}
+                                onChange={(e) => handleChangeSize(e)}
+                                className={st.productUpdateInput}
+                            />
+                            <label>Stock Sizes S</label>
+                            <input
+                                type="number"
+                                name="sizeS"
+                                placeholder={info.sizeS}
+                                onChange={(e) => handleChangeSize(e)}
+                                className={st.productUpdateInput}
+                            />
+                            <label>Stock Sizes M</label>
+                            <input
+                                type="number"
+                                name="sizeM"
+                                placeholder={info.sizeM}
+                                onChange={(e) => handleChangeSize(e)}
+                                className={st.productUpdateInput}
+                            />
+                            <label>Stock Sizes L</label>
+                            <input
+                                type="number"
+                                name="sizeL"
+                                placeholder={info.sizeL}
+                                onChange={(e) => handleChangeSize(e)}
+                                className={st.productUpdateInput}
+                            />
+                            <label>Stock Sizes XL</label>
+                            <input
+                                type="number"
+                                name="sizeXL"
+                                placeholder={info.sizeXL}
+                                onChange={(e) => handleChangeSize(e)}
+                                className={st.productUpdateInput}
+                            />
+                        </div>
+                        <div className={st.productUpdateItem}>
+                            <label>Price</label>
+                            <input
+                                type="number"
+                                name="price"
+                                placeholder={info.price}
+                                className={st.productUpdateInput}
+                                onChange={(e) => handleChange(e)}
+                            />
+                        </div>
+                        <div className={st.productUpdateItem}>
+                            <label>Active</label>
+                            <select
+                                name="active"
+                                defaultValue=""
+                                className={st.productUpdateInput}
+                                onChange={(e) => handleChange(e)}
+                            >
+                                <option hidden value="">
+                                {String(info.active)}
+                                </option>
+                                <option name="true" value="true">
+                                    Active
+                                </option>
+                                <option name="false" value="false">
+                                    Disabled
+                                </option>
+                            </select>
+                        </div>
+                        <div className={st.productUpdateItem}>
+                            <label>Featured</label>
+                            <select
+                                name="featured"
+                                defaultValue=""
+                                className={st.productUpdateInput}
+                                onChange={(e) => handleChange(e)}
+                            >
+                                <option hidden value="">
+                                    {String(info.featured)}
+                                </option>
+                                <option name="true" value="true">
+                                    True
+                                </option>
+                                <option name="false" value="false">
+                                    False
+                                </option>
+                            </select>
+                        </div>
+                        <div className={st.productUpdateItem}>
+                            <div className={st.productUpdateUpload}>
+                                <img
+                                    className={st.productUpdateImg}
+                                    src={info.image}
+                                    alt="Product Img"
+                                />
+                                <label htmlFor="file">
+                                    <Clou
+                                        setEditInput={setInput}
+                                        editInput={input}
+                                    /> 
+                                </label>
+                                <input
+                                    name="image"
+                                    type="file"
+                                    id="file"
+                                    style={{ display: 'none' }}
+                                    onChange={(e) => handleChange(e)}
+                                />
+                            </div>
+                        </div>
                     </div>
-
+                </form>
+                <div className={st.buttons}>
+                    <button
+                        onClick={changePage}
+                        className={st.productBackButton}
+                        >
+                        Back
+                    </button>
                     <button
                         name="update"
                         onClick={handleUpdate}
-                        className={st.productUpdateBotton}
-                    >
+                        className={st.productUpdateButton}
+                        >
                         Update
                     </button>
-
-                    <button
-                        onClick={changePage}
-                        // className={st.productUpdateBotton}
-                    >
-                        Back
-                    </button>
                 </div>
-            </form>
+            </div>
 
             {nav ? <Navigate to={'/adminView/products/'} /> : null}
         </div>

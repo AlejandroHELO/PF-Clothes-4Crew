@@ -15,16 +15,16 @@ export default function UserList() {
 
     useEffect(() => {
         dispatch(getUsers(getAccessTokenSilently ,userLogged._id))
-    }, [dispatch, getUsers, userLogged])
+    }, [getUsers, userLogged])
 
     const allUsers = useSelector((state) => state.users)
 
     const columns = [
-        { field: 'id', headerName: 'ID', width: 100 },
+        { field: 'id', headerName: 'ID', width: 92 },
         {
             field: 'pic',
-            headerName: 'Pic',
-            width: 100,
+            headerName: 'Photo',
+            width: 115,
             renderCell: (params) => {
                 return (
                     <div className={st.userListUser}>
@@ -40,9 +40,9 @@ export default function UserList() {
         },
         { field: 'idUser', headerName: 'User ID', width: 130 },
         { field: 'fullName', headerName: 'Full Name', width: 150 },
-        { field: 'email', headerName: 'Email', width: 150 },
+        { field: 'email', headerName: 'Email', width: 180 },
         { field: 'genre', headerName: 'Genre', width: 120 },
-        { field: 'country', headerName: 'Country', width: 135 },
+        { field: 'country', headerName: 'Country', width: 130 },
         { field: 'tel', headerName: 'Tel', type: 'number', width: 100 },
         { field: 'active', headerName: 'Active', width: 120 },
         {
@@ -54,7 +54,7 @@ export default function UserList() {
                     <>
                         <Link
                             to={'/adminView/user/' + params.row.idUser}
-                            style={{ 'textDecoration': 'none' }}
+                            className=' no-underline'
                         >
                             <button className={st.userListEdit}>Detail</button>
                         </Link>

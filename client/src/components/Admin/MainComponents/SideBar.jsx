@@ -32,11 +32,11 @@ export default function SideBar() {
                         {/* <li className={st.sidebarListItem}>
                             <Timeline className={st.sidebarIcon} />
                             Analytics
-                        </li>
+                        </li> */}
                         <li className={st.sidebarListItem}>
                             <TrendingUp className={st.sidebarIcon} />
                             Sales
-                        </li> */}
+                        </li>
                     </ul>
                 </div>
 
@@ -96,14 +96,14 @@ export default function SideBar() {
                             </Link>
                         </li>
 
-                        {/* <li className={st.sidebarListItem}>
+                        <li className={st.sidebarListItem}>
                             <Link to="/adminView/sales" className={st.link}>
                                 <Storage className={st.sidebarIcon} />
                                 Sales history
                             </Link>
                         </li>
 
-                        <li className={st.sidebarListItem}>
+                        {/* <li className={st.sidebarListItem}>
                             <Link
                                 to="/adminView/categories"
                                 className={st.link}

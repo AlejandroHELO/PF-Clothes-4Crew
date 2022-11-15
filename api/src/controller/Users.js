@@ -51,19 +51,25 @@ const userLoggin = async (req, res, next) => {
         const Us = await userModel.findOne({email:email})
         
         if(!Us){
-        const User = {
-            fullName: name,
-            email: email,
-            image: picture,
-            isAdmin: false,
-        }
-        const response = await userModel.create(User)
-        res.status(200).send({
-            msg:"User created succesfully",
-            data:User,
-            db_response: response        
-        })
+            const User = {
+                fullName: name,
+                email: email,
+                image: image,
+                active: true,
+                isAdmin: false,
+            }
+            const response = await userModel.create(User)
 
+            const cart = await CreateCart(response._id)
+            console.log('create carrito: '+ cart)
+
+            await EmeilerConfig(User.email, User.fullName)
+            
+            res.status(200).send({
+                msg:"User created succesfully",
+                data:User,
+                db_response: response        
+            })
         }
         
         else{res.status(200).send(Us)}
@@ -75,7 +81,6 @@ const userLoggin = async (req, res, next) => {
 }
 
 const userProfile = async (req, res, next) => {
-
     const { id } = req.params
     try {
         if (id) {
@@ -166,7 +171,6 @@ const updateUser = async (req, res, next) => {
         let {
             fullName,
             email,
-            password,
             birthDate,
             genre,
             country,
@@ -181,7 +185,6 @@ const updateUser = async (req, res, next) => {
             {
                 fullName: fullName,
                 email: email,
-                password: password,
                 birthDate: birthDate,
                 genre: genre,
                 country: country,
@@ -208,7 +211,6 @@ const updateUserAdmin = async (req, res, next) => {
         let {
             fullName,
             email,
-            password,
             birthDate,
             genre,
             country,
@@ -220,12 +222,11 @@ const updateUserAdmin = async (req, res, next) => {
             isAdmin,
         } = req.body
 
-         await userModel.findByIdAndUpdate(
+        await userModel.findByIdAndUpdate(
             id,
             {
                 fullName: fullName,
                 email: email,
-                password: password,
                 birthDate: birthDate,
                 genre: genre,
                 country: country,
@@ -248,7 +249,21 @@ const updateUserAdmin = async (req, res, next) => {
     }
 }
 
-const Admins = async (req, res, next) => {}
+const Admins = async (req, res, next) => {
+    try {
+
+        const admins = await userModel.find({isAdmin:true})
+            
+        admins ?
+        res.status(200).send(admins)
+        : 
+        res.send(400).send("There are no admins in the db")
+
+    } catch (error) {
+        console.log(error)
+        next(error)
+    }
+}
 
 module.exports = {
     allUsers,
