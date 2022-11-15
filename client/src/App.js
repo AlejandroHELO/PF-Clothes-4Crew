@@ -14,7 +14,7 @@ import Register from './components/login&register/register'
 import Navbar from './components/navbar/navbar'
 import Filters from './components/SearchResults/Filters'
 import Checkout from './components/Checkout/Checkout'
-import ProductReviews from './components/Product/ProductReviews'
+import CreatePReview from './components/Product/CreatePReview'
 import AdminRoutes from "./AdminRoutes"
 import ProtectedRoutes from './ProtectedRoutes'
 import CCheckout from './components/CCheckout/CCheckout'
@@ -24,6 +24,7 @@ import AboutUs from './components/AboutUs/AboutUs'
 import Footer from './components/Footer/Footer'
 // import './App.css';
 // import Loading from '';
+import ProductReview from './components/Product/ProductReview'
 
 
 
@@ -63,8 +64,10 @@ export default function App() {
                     <Route path='/aboutus' element={<AboutUs />} />
 
                     <Route path='/profile/:userId' element={<UserProfile />} />
+                    <Route path="/helpusimprove" element={<HelpUsImprove />} />
+                    <Route path="/cardReviews" element={<ProductReview />}/>
                     <Route element={<ProtectedRoutes/>}>
-                        <Route path="/products/reviews/:id/:userId" element={<ProductReviews  />} />
+                        <Route path="/reviews/:id/:userId" element={<CreatePReview id='635ae766f530d18d68f103cb' userId='63615409b573f3a4a80dfc1f' />} />
                         <Route path="/checkout" element={<Checkout  />} />
                         <Route path="/mycheckout" element={<MyCheckout/>} />
 

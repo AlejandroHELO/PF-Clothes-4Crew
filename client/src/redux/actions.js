@@ -24,6 +24,9 @@ import {
     POST_COMMENT,
     ORDER_BY,
     OPEN_DETAIL,
+    CREATE_P_REVIEW,
+    GET_REVIEWS,
+    REVIEWS_FILTER,
     FILTER,
     RESET_FILTERS,
     LOGIN,
@@ -37,7 +40,6 @@ import {
     GET_CART,
     BRAND_ELECT,
     GET_CARTDB,
-    CREATE_P_REVIEW,
     POST_CREATE_PORCHASE,
     GET_CREATE_PORCHASE
 
@@ -92,14 +94,25 @@ export function createProduct(payload) {
     }
 }
 
+export function getPReviews(){
+    return async function(dispatch){
+        const allData = await axios.get('/reviews')
+        return dispatch({type: GET_REVIEWS, payload: allData.data})
+    }
+}
+
 export function createProductReview(payload){
     return async function(dispatch){
-        let json = await axios.post('/products/reviews', payload)
+        let json = await axios.post('/reviews', payload)
         return dispatch({
             type: CREATE_P_REVIEW,
             payload: json.data
         })
     }
+}
+
+export function reviewsFilter(payload){
+    return {type: REVIEWS_FILTER, payload: payload}
 }
 
 export function updateProduct(id, payload) {

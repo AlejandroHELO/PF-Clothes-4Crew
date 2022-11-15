@@ -1,9 +1,10 @@
 /*eslint-disable */
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useRef } from 'react'
+import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { getProductDetail, getopenDetail, addToCart, getProducts } from '../../redux/actions';
+import { getProductDetail, getopenDetail, addToCart, getProducts, getPReviews } from '../../redux/actions';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../navbar/navbar';
 import { Fragment, useState } from 'react'
 import { Dialog, RadioGroup, Transition } from '@headlessui/react'
@@ -17,12 +18,45 @@ function ProductDetail(product) {
     // const { productId } = useParams();
     // const product = useSelector((state) => state.details)
     const openDetail = useSelector((state) => state.openDetail)
+    const reviews = useSelector((state) => state.reviews)
     const [open, setOpen] = useState(false)
     // const [selectedColor, setSelectedColor] = useState(product.colors[0])
     const [selectedSize, setSelectedSize] = useState(product.size[2])
     const slider = useRef()
 
-    let productAddCart = {};
+    const [promedReviews, setPromedReviews] = useState(0)
+    const [countReviews, setCountReviews] = useState(0)
+
+    React.useEffect(() => {
+        let reviewsPId = reviews.filter((e) => e.productId === product.id)
+        // console.log('reviewsPId***//////////------------++++++++++++', reviewsPId)
+
+        if (reviewsPId.length !== 0) {
+            // console.log('products reviews---------------/////////////////', product.reviews)
+            let count = reviewsPId.length
+            let sumaReviews = 0
+            reviewsPId.map((r) => {
+                sumaReviews = sumaReviews + r.score
+            })
+            let promedioReviews = sumaReviews / count
+            console.log('promedio de reviews--------------------------------', sumaReviews, count, promedioReviews)
+            setPromedReviews(promedioReviews)
+            setCountReviews(count)
+        }
+
+    }, [])
+
+    let navigate = useNavigate()
+    const routeChange = () => {
+        let path = "/cardReviews";
+        navigate(path)
+    }
+
+    let productAddCart = {}
+
+    React.useEffect(() => {
+        dispatch(getPReviews())
+    }, [dispatch])
 
     React.useEffect(() => {
         product.size?.map((s) => {
@@ -172,28 +206,28 @@ function ProductDetail(product) {
                                                     U$S {product.price}
                                                 </p>
 
-                                                {/* Reviews */}
-                                                {/* <div className="mt-6">
-                                                                <h4 className="sr-only">Reviews</h4>
-                                                                <div className="flex items-center">
-                                                                    <div className="flex items-center">
-                                                                        {[0, 1, 2, 3, 4].map((rating) => (
-                                                                            <StarIcon
-                                                                                key={rating}
-                                                                                className={classNames(
-                                                                                    product.rating > rating ? 'text-gray-900' : 'text-gray-200',
-                                                                                    'h-5 w-5 flex-shrink-0'
-                                                                                )}
-                                                                                aria-hidden="true"
-                                                                            />
-                                                                        ))}
-                                                                    </div>
-                                                                    <p className="sr-only">{product.rating} out of 5 stars</p>
-                                                                    <a href="#" className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                                                                        {product.reviewCount} reviews
-                                                                    </a>
-                                                                </div>
-                                                            </div> */}
+                                                Reviews
+                                                <div className="mt-6">
+                                                    <h4 className="sr-only">Reviews</h4>
+                                                    <div className="flex items-center">
+                                                        <div className="flex items-center">
+                                                            {[...Array(5)].map((rating) => (
+                                                                <StarIcon
+                                                                    key={rating}
+                                                                    className={classNames(
+                                                                        promedReviews > rating ? 'text-yellow-600' : 'text-gray-200',
+                                                                        'h-5 w-5 flex-shrink-0'
+                                                                    )}
+                                                                    aria-hidden="true"
+                                                                />
+                                                            ))}
+                                                        </div>
+                                                        <p className="sr-only">{promedReviews} out of 5 stars</p>
+                                                        <button type="button" onClick={routeChange}className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                                                            {countReviews} reviews
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </section>
 
                                             <section
