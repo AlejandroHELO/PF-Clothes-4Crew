@@ -44,8 +44,6 @@ function Navbar() {
         ...styled
     })
 
-
-    
     useEffect(() => {
         if (isAuthenticated) {
             console.log("AQUI TOYYY:", user)
@@ -91,8 +89,6 @@ function Navbar() {
         dispatch(getProductDetail(id))
         dispatch(getopenDetail(id))
     }
-    
-
 
     const handleAllProducts = (e) => {
         e.preventDefault()
@@ -186,7 +182,7 @@ function Navbar() {
                         </button>
                         {/* Login */}
                         {!isAuthenticated? <button onClick={loginWithPopup} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
-                            👤 Iniciar sesión
+                            👤 Sign In
                         </button>: userLogged.isAdmin?
                         <div className='flex gap-3' >
                             <img src={user?.picture} alt="User picture" className='h-10 w-10' />
@@ -195,8 +191,13 @@ function Navbar() {
                                     Admin Panel
                                 </button>
                             </Link>
+                            <Link to={`/profile/${userLogged._id}`} className=' no-underline'>
+                                <button className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                                    Profile
+                                </button>
+                            </Link>
                             <button onClick={logout} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
-                                Logout
+                                LogOut
                             </button>
                         </div> : <div className='flex gap-3' >
                             <img src={user?.picture} alt="User picture" className='h-10 w-10' />
@@ -206,7 +207,7 @@ function Navbar() {
                                 </button>
                             </Link>
                             <button onClick={logout} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
-                                Logout
+                                LogOut
                             </button>
                         </div>
                         }

@@ -26,7 +26,6 @@ import Footer from './components/Footer/Footer'
 // import Loading from '';
 
 
-
 export default function App() {
     const dispatch = useDispatch()
     const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
@@ -55,11 +54,10 @@ export default function App() {
                     {/* <Route path='/searchResults/:query' element={<SearchResults open={open} setOpen={setOpen} />} />
                     <Route path="/searchResults/:query/:order" element={<SearchResults open={open} setOpen={setOpen} />} /> */}
                     <Route path='/register' element={<Register />} />
-
                     <Route path='/helpusimprove' element={<HelpUsImprove />} />
                     <Route path='/aboutus' element={<AboutUs />} />
-                    <Route path='/profile/:userId' element={<UserProfile />} />
                     <Route element={<ProtectedRoutes/>}>
+                        <Route path='/profile/:userId' element={<UserProfile />} />
                         <Route path="/products/reviews/:id/:userId" element={<ProductReviews  />} />
                         <Route path="/checkout" element={<Checkout  />} />
                         <Route path="/mycheckout" element={<MyCheckout/>} />
