@@ -123,8 +123,8 @@ function Navbar() {
 
     console.log("USER DETAIIL: ", userLogged)
     return (
-        <>
-            <nav className="w-full h-28 mt-2  bg-white shadow-md flex flex-col justify-around ">
+        <div className='w-full'>
+            <nav className="w-full h-1/6 mt-2  bg-white shadow-md flex flex-col justify-around ">
                 {/* Botones */}
                 <div className="flex justify-between items-center">
                     {/* Lado izquierdo */}
@@ -158,35 +158,36 @@ function Navbar() {
                     </div>
                     {/* Lado derecho */}
                     <div style={style} onMouseLeave={() => handleOpen()}>
-                        {
-                            favorites.map((i) => {
-                                return (
-                                    <div key={i.id} className="favoriteCard">
-                                        <div className="img">
-                                            <img src={i.image[0]} alt="" srcset="" s className='productImage' />
-                                        </div>
-                                        <div className="header">
-                                            {i.name}
-                                        </div>
-                                        <div className="main">
-                                            $ {i.price} USD
-                                        </div>
-                                        <div className="footer">
-                                            <div className="deleteButton">
-                                                <button onClick={() => removeFromFavorites(i.id)}>
-                                                    <img src={heartFill} alt="" style={{ width: '1.5em', height: '1.5em' }} />
-                                                </button>
+                            {
+                                favorites.map((i) => {
+                                    return (
+                                        <div key={i.id} className="favoriteCard">
+                                            <div className="img">
+                                                <img src={i.image[0]} alt="product image" className='productImage'/>
                                             </div>
-                                            <div className="addtocartButton">
-                                                <button onClick={() => handleOnClickDetail(i.id)} className='addToCartButton'>Details</button>
+                                            <div className="header">
+                                                {i.name}
+                                            </div>
+                                            <div className="main">
+                                                $ {i.price} USD
+                                            </div>
+                                            <div className="footer">
+                                                <div className="deleteButton">
+                                                    <button onClick={() => removeFromFavorites(i.id)}>
+                                                        <img src={heartFill} alt="" style={{width: '1.5em', height:'1.5em'}}/>
+                                                    </button>
+                                                </div>
+                                                <div className="addtocartButton">
+                                                        <button onClick={() => handleOnClickDetail(i.id)} className='addToCartButton'>Details</button>
+                                                </div>
+                                               
                                             </div>
 
                                         </div>
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
+                                    )
+                                })
+                            }
+                        </div>
                     <div className="flex space-x-3">
                         {/* Favoritos */}
                         <button onClick={() => handleOpen()} className="rounded p-2 flex justify-center items-center">
@@ -255,8 +256,8 @@ function Navbar() {
                 />
 
             </nav>
-            <Outlet />
-        </>
+            <Outlet/>
+        </div>
     )
 }
 

@@ -49,8 +49,8 @@ export default function App() {
 
 
     return (
-        <>
-
+        <div className='w-full'>
+            
             <Routes>
 
                 <Route path='/' element={<Navbar />} >
@@ -80,7 +80,7 @@ export default function App() {
             </Routes>
             {/* <Footer/> */}
             {/* <Pago id={'63615409b573f3a4a80dfc1f'}/> */}
-        </>
+        </div>
 
     )
 }

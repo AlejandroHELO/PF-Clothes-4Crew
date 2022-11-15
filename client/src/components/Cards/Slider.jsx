@@ -16,21 +16,21 @@ const Slider = ({ cat, products }) => {
     // console.log('products en slider', products)
 
     return (
-        <div>
-            <div className="flex flex-col justify-center items center">
-                <h5 className="uppercase ml-24">{cat}</h5>
-                <div className=" h-96 w-full">
+        <div className='w-full overflow-hidden'>
+            <div className="flex flex-col justify-center w-full" >
+                <h5 className="uppercase">{cat}</h5>
+                <div className= "h-96 w-full">
                     {products?.length !== 0 ? (
-                        <div className="flex items-center justify-center w-full h-full">
+                        <div className="flex items-center justify-center w-full h-full position-relative">
                             <button
-                                className="h-10 w-10 mx-8"
+                                className="h-fit w-fit position-absolute z-20 left-0  "
                                 onClick={() => (slider.current.scrollLeft -= 200)}
                             >
-                                <img className="h-7 w-7 mx-8" src="/flecha1.png" alt="flecha1" />
+                                <img src="/flecha1.png" alt="flecha1" className='w-10 h-10 hover:w-13 hover:h-13'/>
                             </button>
                             <div
                                 ref={slider}
-                                className="snap-x overflow-scroll scroll-smooth h-full flex items-center justify-start text-center"
+                                className="snap-x w-full overflow-hidden scroll-smooth h-full flex items-center text-center"
                             >
 
                                 {products?.filter((p) => p.category[0].name === cat).map((e) => {
@@ -68,10 +68,10 @@ const Slider = ({ cat, products }) => {
                                 })}
                             </div>
                             <button
-                                className="h-10 w-10 mx-8"
+                                className="h-fit w-fit position-absolute right-0"
                                 onClick={() => (slider.current.scrollLeft += 200)}
                             >
-                                <img className="h-7 w-7 mx-8" src="/flecha2.png" alt="flecha2" />
+                                <img src="/flecha2.png" alt="flecha2" className='w-10 h-10 hover:w-13 hover:h-13' />
                             </button>
                         </div>
                     ) : (
