@@ -13,14 +13,13 @@ export default function HomePage() {
 
 
     return (
-        <div className=" w-full">
-
+        <div className=" w-full overflow-hidden">
+      
             <HeroSlider />
             {/* <Outlet /> */}
             <Cards />
             <Brands />
-            {/* <img src={'/images/Clothes 4Crew Logo.JPG'} alt="Logo" /> */}
-            <Footer />
+            <Footer/>
         </div>
     )
 }

@@ -32,7 +32,7 @@ const Cards = () => {
             </h4>
             {categories?.map((c) => {
                 return (
-                    <div key={c}>
+                    <div key={c} className='w-full'>
                         <Slider
                             cat={c}
                             products={products}
