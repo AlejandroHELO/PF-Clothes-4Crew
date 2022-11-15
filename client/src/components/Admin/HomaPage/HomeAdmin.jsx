@@ -5,14 +5,19 @@ import Chart from './Chart'
 import SmallWidget from './Widgets/SmallWidget'
 import LargeWidget from './Widgets/LargeWidget'
 import { userData } from '../../../dummyData'
+import { useSelector } from 'react-redux'
 
 export default function HomeAdmin() {
+
+const purchases =useSelector(f=>f.purchases)
+
+
     return (
         <div className={st.HomeAdmin}>
             <FeaturedInfo />
             <Chart
                 title="User Analytics"
-                data={userData}
+                data={userData(purchases,2022)}
                 dataKey="Active users"
                 grid
             />
