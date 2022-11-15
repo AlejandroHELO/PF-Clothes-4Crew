@@ -13,32 +13,31 @@ function ProtectedRoutes() {
 
   useEffect(() => {
     if (isAuthenticated) {
-
-        dispatch(getCurrentUser(getAccessTokenSilently, user));
-
+      dispatch(getCurrentUser(getAccessTokenSilently, user));
     }
-}, [dispatch, user, userDetail]);
+  }, [dispatch, user, userDetail]);
 
-//HAY QUE VERIFICAR QUE SU EMAIL ESTÉ VERIFICADO Y 
-// QUE TENGA TODOS LOS CAMPOS NECESARIOS LLENOS
+  //HAY QUE VERIFICAR QUE SU EMAIL ESTÉ VERIFICADO Y 
+  // QUE TENGA TODOS LOS CAMPOS NECESARIOS LLENOS
   return (
     
     isAuthenticated ? (
     <Outlet />
-  ) : isLoading ? (
-    <div
+    ) : isLoading ? 
+    ( <div
       style={{
         marginTop: "10rem",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
       }}
-    >
+      >
       <ClipLoader color="#ef8354" size={70} margin={10} />
-    </div>
-  ) : (
+      </div>
+    ) : (
     <LoginPopup userDetail={userDetail }/>
-  ))
+    )
+  )
 }
 
 export default ProtectedRoutes;

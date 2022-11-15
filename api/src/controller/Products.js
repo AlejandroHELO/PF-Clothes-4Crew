@@ -1,4 +1,4 @@
-const { productModel } = require('../models/index')
+const { productModel} = require('../models/index')
 
 const Products = async (req, res) => {
     const { name } = req.query
@@ -160,5 +160,5 @@ module.exports = {
     Products,
     CreateProduct,
     ProductsID,
-    UpdateProduct,
+    UpdateProduct
 }

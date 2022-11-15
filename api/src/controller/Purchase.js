@@ -10,7 +10,7 @@ const getPurchase= async(req,res)=>{
         if(result){
             res.status(200).json(result)
         }else{
-            res.status(404).json({msj:'purchase no font'})
+            res.status(404).json({msj:'purchase not found'})
         }
     }else{
         res.status(200).json(purchase)
@@ -22,46 +22,47 @@ const CreatePurchase=async (req,res)=>{
     if(!paymentId||!userId||!products||!addresId){
         res.status(404).json( {msj:'campos requeridos'})
     }
-   try {
-    const getmp= await GetMP(paymentId)
-    //console.log(getmp)
-    if(getmp){
-        const create= new purchaseModel({
-            paymentId:paymentId,
-            userId:userId,
-            products:products,
-            addresId:addresId,
-            time:new Date(),
-            state:'Prosses'
-        })
-        const save= await create.save()
-        //console.log(save)
-        const user= await userModel.findOne({userId:userId})
-        //console.log(user)
-        if(user){
-            await cartModel.findOneAndUpdate({userId:userId},{
-                products:[]
-            },{ new: true })
-            .then((r)=>{
-                console.log(r)
+    try {
+        const getmp= await GetMP(paymentId)
+        //console.log(getmp)
+        if(getmp){
+            const create= new purchaseModel({
+                paymentId:paymentId,
+                userId:userId,
+                products:products,
+                addresId:addresId,
+                time:new Date(),
+                state:'Prosses'
             })
-            
+            const save = await create.save()
+            //console.log(save)
+            const user = await userModel.findOne({userId:userId})
+            //console.log(user)
+            if(user){
+                await cartModel.findOneAndUpdate({userId:userId},{
+                    products:[]
+                },{ new: true })
+                .then((r)=>{
+                    console.log(r)
+                })
+                
+            }
+            products.forEach(async(p)=> {
+            //console.log('soy los productos: ',p)
+            await actualizarStock(p)
+            })
+            res.status(201).json( {msj:'purchase created'})
         }
-        products.forEach(async(p)=> {
-        //console.log('soy los productos: ',p)
-        await actualizarStock(p)
-        })
-        res.status(201).json( {msj:'purchase create'})
+    } catch (err) {
+        console.log(err)
     }
-   } catch (err) {
-    console.log(err)
-   }
 }
+
 async function actualizarStock(product){
     let produc= await productModel.findById({_id:product.id})
     
     if(produc){
-         const size=produc.size.map(p=>{
+        const size=produc.size.map(p=>{
             if(p.size===product.size.size){
                 const stock=p.stock-product.count
                 return{
@@ -72,15 +73,14 @@ async function actualizarStock(product){
                 return p
             }
         })
-           
-
+        
         await productModel.findByIdAndUpdate(product.id,{
             size:size
         },{ new: true })
         .then((e)=>console.log(e))
-        
     }
 }
+
 module.exports={
     getPurchase,
     CreatePurchase

@@ -1,5 +1,38 @@
 const { scoreModel } = require('../models/index')
 
+const Reviews = async (req, res, next) => {
+    const { productId, userId } = req.query;
+    const allReviews = await scoreModel.find({});
+    // console.log(allReviews)
+    try {
+        if (productId) {
+            const filter = allReviews.filter(f => f.productId === productId)
+            if (filter.length) {
+                res.status(200).json(filter)
+            } else {
+                res.status(400).json({ msj: 'Review not found' })
+            }
+        } else if (userId) {
+            const filter = allReviews.filter(f => f.userId === userId)
+            if (filter.length) {
+                res.status(200).json(filter)
+            } else {
+                res.status(400).json({ msj: 'Review not found' })
+            }
+        }
+        else {
+            if (allReviews) {
+                return res.status(200).json(allReviews);
+            } else {
+                return res.status(400).json({ msj: 'Something went wrong' })
+            }
+        }
+    } catch (error) {
+        console.log(error)
+        next(error)
+    }
+}
+
 const CreateReview = async(req, res) => {
     const {userId, score, comment, productId} = req.body;
 
@@ -41,7 +74,9 @@ const UpdateReview = async(req, res) => {
         }
     }
 }
-module.exports={
+
+module.exports = {
+    Reviews,
     CreateReview,
     UpdateReview
 }

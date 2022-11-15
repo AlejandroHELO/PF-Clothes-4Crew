@@ -57,13 +57,13 @@ export default function HeroSlider() {
             className=" w-full select-none overflow-hidden relative"
         >
             <img
-                className="min-w-min ml-[50%] -translate-x-1/2"
+                className="w-full ml-[50%] -translate-x-1/2"
                 src={heroImages[currentIndex]}
                 alt="/images/Clothes 4Crew Logo.jpg"
             />
             <div className="absolute w-full top-1/2 transform -translate-y-1/2 px-3 flex justify-between items-center">
-                <button onClick={handlePrev}>⏪</button>
-                <button onClick={handleNext}>⏩</button>
+                <button onClick={handlePrev}><img className="h-7 w-7 mx-8 " src="/flecha1.png" alt="flecha1" /></button>
+                <button onClick={handleNext}><img className="h-7 w-7 mx-8 " src="/flecha2.png" alt="flecha2" /></button>
             </div>
         </div>
     )

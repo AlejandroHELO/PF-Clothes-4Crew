@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useNavigation, useParams } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
 import { CreatePurchase,cartEmpty } from "../../redux/actions";
-import { DELETE_CREATE_PORCHASE } from "../../redux/types";
+import { DELETE_CREATE_PURCHASE } from "../../redux/types";
 
 export default function CCheckout(){
     // para obtener los datos luego de hacer la compra
@@ -30,7 +30,7 @@ export default function CCheckout(){
         if(obj.addresId&&obj.paymentId&&obj.products.length&&obj.userId&&vali==='false'){
             setvalid('ya esta')
             dispatch({
-                type:DELETE_CREATE_PORCHASE,
+                type:DELETE_CREATE_PURCHASE,
                 payload:''
             })
             localStorage.setItem('cart', JSON.stringify([]))

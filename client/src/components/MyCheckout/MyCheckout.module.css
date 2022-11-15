@@ -5,33 +5,33 @@
     min-height: 80%;
 
 }
-span{
+
+.spans{
     margin:  auto;
     text-align: center;
 }
+
 .contenlistcompras{
     padding: 10px;
     width: 100%;
     max-width: 30%;
     border-right: solid 0.5px  #7b7b7b;
 }
+
 .contenD{
     padding: 10px;
     width: 100%;
     max-width: 70%; 
 }
+
 .itenlist{
    margin: auto;
 }
+
 .itenlist:hover{
     cursor: pointer;
 }
-img{
-    height:  100%;
-    max-width: 100px;
-    width: 100%;
-    max-height: 100px;
-}
+
 .Dcompra{
     display: flex;
     margin: auto;
@@ -43,6 +43,14 @@ img{
     flex-wrap: nowrap;
     align-content: center;
 }
+
 .contenDcompra{
     margin: 10px ; 
+}
+
+.image{
+    height: 100%;
+    max-width: 100px;
+    width: 100%;
+    max-height: 100px;
 }
