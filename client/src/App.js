@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { getProducts, getCart, getCurrentUser, getBrands, getColors, getCategories } from './redux/actions'
@@ -32,6 +32,7 @@ export default function App() {
     const dispatch = useDispatch()
     const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
 
+
     useEffect(() => {
         if (isAuthenticated) {
             console.log(user)
@@ -52,7 +53,7 @@ export default function App() {
         <>
 
             <Routes>
-
+        
                 <Route path='/' element={<Navbar />} >
                     <Route path='/' element={<HomePage />} />
                     <Route path='/searchResults/' element={<Filters />} />
@@ -77,6 +78,7 @@ export default function App() {
                     <Route path="/adminview//*" element={<AdminView />} />
                 </Route>
                 <Route path="*" element={<Navigate to="/" />} />
+    
             </Routes>
             {/* <Footer/> */}
             {/* <Pago id={'63615409b573f3a4a80dfc1f'}/> */}

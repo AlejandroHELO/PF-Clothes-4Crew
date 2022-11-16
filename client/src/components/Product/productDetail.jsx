@@ -13,7 +13,7 @@ import { StarIcon } from '@heroicons/react/20/solid'
 
 
 function ProductDetail(product) {
-    console.log(product)
+
     const dispatch = useDispatch()
     // const { productId } = useParams();
     // const product = useSelector((state) => state.details)
