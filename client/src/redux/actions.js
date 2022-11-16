@@ -267,31 +267,29 @@ export function getUser(token, id) { // Visualizar perfil de un User
     }
 }
 
-// export function getUser(id) { // Visualizar perfil de un User
-//    
-//     return async function (dispatch) {
-//         let json = await axios.get(`/users/find/${id}`)
-//         return dispatch({
-//             type: GET_PROFILE,
-//             payload: json.data,
-//         })
-//     }
-// }
-
 export function LogInAction(data) {
+    return (dispatch) => {
+        try {
+            return dispatch({
+                type: LOGIN,
+                payload: "userCredental"
+            })
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
+    //      try {
+    //          let userCredental = logInWithEmailandPassword(data)
+    //          return dispatch({
+    //              type: LOGIN,
+    //              payload: userCredental
+    //          })
+    //      } catch (error) {
+    //          throw new Error(error)
+    //      }
+    //     }
+}
 
-// <<<<<<< HEAD
-//      try {
-//          let userCredental = logInWithEmailandPassword(data)
-//          return dispatch({
-//              type: LOGIN,
-//              payload: userCredental
-//          })
-//      } catch (error) {
-//          throw new Error(error)
-//      }
-//     }
-//  }
 //  export function logOutAction() {
 //      return async(dispatch) => {
 //          try {
@@ -314,30 +312,11 @@ export function LogInAction(data) {
 //                  type: LOGIN,
 //                  payload: newUser
 //              })
- 
 //          } catch (error) {
 //           throw new Error(error)   
 //          }
 //      }
 //  }
-
-// export function editUser(id, payload) { // Para que un User actualice su perfil
-
-// }
-
-// =======
-return (dispatch) => {
-        try {
-
-            return dispatch({
-                type: LOGIN,
-                payload: "userCredental"
-            })
-        } catch (error) {
-            throw new Error(error)
-        }
-    }
-}
 
 export function logOutAction() {
     return async (dispatch) => {
@@ -367,9 +346,15 @@ export function SignUpwithPasswwordAndEmail(data) {
     }
 }
 
-export function editUser(id, payload) { // Para que un User actualice su perfil
+export function editUser(token, id, payload) { // Para que un User actualice su perfil
     return async function (dispatch) {
-        let json = await axios.put(`/users/${id}`, payload)
+        const config = {
+            headers:{
+                "Authorization": "Bearer "+ await token()
+            }
+        }
+
+        let json = await axios.put(`/users/${id}`, payload, config)
         return dispatch({
             type: UPDATE_USER,
             payload: json.data,
@@ -377,9 +362,15 @@ export function editUser(id, payload) { // Para que un User actualice su perfil
     }
 }
 
-export function editUserAdmin(id, payload) { // Para que un admin actualice el perfil de un User
+export function editUserAdmin(token, id, payload) { // Para que un admin actualice el perfil de un User
     return async function (dispatch) {
-        let json = await axios.put(`/users/admin/${id}`, payload)
+        const config = {
+            headers:{
+                "Authorization": "Bearer "+ await token()
+            }
+        }
+
+        let json = await axios.put(`/users/admin/${id}`, payload, config)
         return dispatch({
             type: UPDATE_USER_ADM,
             payload: json.data,

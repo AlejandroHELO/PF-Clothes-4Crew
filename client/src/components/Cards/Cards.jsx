@@ -32,7 +32,7 @@ const Cards = () => {
             </h4>
             {categories?.map((c) => {
                 return (
-                    <div key={c} className='w-full'>
+                    <div key={c} className='w-fit m-auto px-5' style={{display: 'inline-grid'}}>
                         <Slider
                             cat={c}
                             products={products}

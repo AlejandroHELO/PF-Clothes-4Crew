@@ -80,11 +80,9 @@ function ProductDetail(product) {
 
     
 
-    const handleOnClickClose = (e) => {
-        e.preventDefault()
-        product.setOpen ?
-            product.setOpen(false) :
-            setOpen(false)
+    const handleOnClickClose = () => {
+       
+        setOpen(false)
         dispatch(getopenDetail(''))
     }
 
@@ -111,8 +109,8 @@ function ProductDetail(product) {
    
 
     return product.name ? (
-        <Transition.Root show={product.opne ? product.opne : open} as={Fragment}>
-            <Dialog as="div" className="relative z-30" onClose={(e) => handleOnClickClose(e)}>
+        <Transition.Root show={open} as={Fragment}>
+            <Dialog as="div" className="relative z-30" onClose={() => handleOnClickClose()}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -141,7 +139,7 @@ function ProductDetail(product) {
                                     <button
                                         type="button"
                                         className="absolute top-4 right-4 text-gray-400 hover:text-gray-500 sm:top-8 sm:right-6 md:top-6 md:right-6 lg:top-8 lg:right-8"
-                                        onClick={(e) => handleOnClickClose(e)}
+                                        onClick={() => handleOnClickClose()}
                                     >
                                         <span className="sr-only">Close</span>
                                         <XMarkIcon
@@ -387,7 +385,7 @@ function ProductDetail(product) {
                                                     </div>
 
                                                     <button
-                                                        onClick={e => handleAddToCart(e, product)}
+                                                        onClick={e => handleAddToCart(e)}
                                                         type="button"
                                                         className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-900 py-3 px-8 text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
                                                     >
