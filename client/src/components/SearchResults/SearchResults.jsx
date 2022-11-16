@@ -45,10 +45,10 @@ export default function SearchResults({ open, setOpen }) {
         dispatch(search(query))
         if (order) {
             dispatch(orderBy(order))
-            console.log(order)
+           
         }
         
-        console.log(query)
+       
     }, [query, order, resultsFilted,openDetail])
 
 

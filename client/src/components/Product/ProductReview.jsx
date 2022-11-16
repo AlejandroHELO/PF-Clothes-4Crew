@@ -21,7 +21,7 @@ function ProductReview() {
     }, [dispatch])
 
     const filter = reviews.filter(r => r.productId === pDetail)
-    console.log(filter)
+   
 
     function classNames(...classes) {
         return classes.filter(Boolean).join(' ')
@@ -49,13 +49,13 @@ function ProductReview() {
             {
                 (filter.length) ?
                 <div>
-                    {filter?.map((review) => {
+                    {filter?.map((review, i) => {
                         return (
-                            <div className={st.card}>
+                            <div key={i} className={st.card}>
                                 <Container className={st.starsCont}>
-                                {[0, 1, 2, 3, 4].map((rating) => (
+                                {[0, 1, 2, 3, 4].map((rating, l) => (
                                         <StarIcon 
-                                            key={rating}
+                                            key={l}
                                             className={classNames(
                                                 review.score > rating ? 'text-yellow-600' : 'text-gray-200',
                                                 'h-5 w-5 flex-shrink-0',

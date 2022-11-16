@@ -18,7 +18,6 @@ export default function SearchBar() {
     useEffect(() => {
         dispatch(filter(filtersElect))
         dispatch(search(query))
-        console.log(query)
     }, [query])
     const handleSubmit = (query, e) => {
         e.preventDefault()

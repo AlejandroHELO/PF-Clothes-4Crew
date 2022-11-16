@@ -31,7 +31,6 @@ function Sort() {
 
     const handleClickSort = (e, name) => {
         e.preventDefault()
-        console.log('click en sort', name)
         if (name === 'Price: Low to High') {
             dispatch(orderBy('priceAsc'))
         } else if (name === 'Price: High to Low') {

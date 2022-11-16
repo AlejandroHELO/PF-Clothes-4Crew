@@ -41,14 +41,14 @@ export default function Cart({ open, setOpen, products }) {
         e.preventDefault()
         // console.log('e. target en handle click', e.currentTarget.id, product.count)
         if (e.currentTarget.id === 'Mas') {
-            console.log('entré en mas')
+           
             value = product?.count + 1;
             if (value > product?.size?.stock) {
                 value = product?.size?.stock;
             }
         }
         else {
-            console.log('entré en menos')
+            
             value = product?.count - 1;
             if (value < 1) {
                 value = 1;
@@ -73,7 +73,7 @@ export default function Cart({ open, setOpen, products }) {
 
     const handleDeleteproduct = (e, product) => {
         e.preventDefault()
-        console.log('product en handleDeleteProduct', product)
+      
         dispatch(deleteFromCart(product,userDetail._id))
         
         if (JSON.parse(localStorage.getItem('cart')).length === 0) {
@@ -255,8 +255,8 @@ export default function Cart({ open, setOpen, products }) {
                                                 </div>
                                                 <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                                                 <div className="mt-6">
-                                                    <NavLink to='/checkout' class='no-underline'>
-                                                    <div class='no-underline'
+                                                    <NavLink to='/checkout' className='no-underline'>
+                                                    <div className='no-underline'
                                                         type="button"
                                                         className="flex items-center justify-center rounded-md border border-transparent bg-black px-6 py-3 text-base font-medium text-white shadow-sm  hover:bg-zinc-700"
                                                         onClick={() => setOpen(false)}
@@ -282,8 +282,9 @@ export default function Cart({ open, setOpen, products }) {
                                         </div>
 
                                     ) : (
-                                        <div>{console.log('no hay productos')}</div>
-                                    )}
+                                        null
+                                    )
+                                }
 
                                 </Dialog.Panel>
                             </Transition.Child>

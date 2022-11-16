@@ -30,7 +30,6 @@ export default function HelpUsImprove() {
         e.preventDefault()
 
         if (e.target.name === 'update') {
-            console.log('SOY EL MENSAJE', Message)
             dispatch(postComment(Message))
             setMessage({
                 name: '',

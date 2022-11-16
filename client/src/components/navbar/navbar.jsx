@@ -1,8 +1,9 @@
 /*eslint-disable */
 import './favoriteCard.css'
+import './responsivenavbar.css'
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getCategories, getProducts, getBrands, getCurrentUser, getProductDetail, getopenDetail, getCart, brandElect, getColors } from '../../redux/actions'
+import { getCategories, getProducts, getBrands, getCurrentUser, getProductDetail, getopenDetail, getCart, brandElect, getColors, deleteFromFavorites } from '../../redux/actions'
 import { Link, useNavigate, Outlet } from 'react-router-dom'
 import SearchBar from './searchbar'
 import { useAuth0 } from "@auth0/auth0-react";
@@ -46,7 +47,6 @@ function Navbar() {
 
     useEffect(() => {
         if (isAuthenticated) {
-            console.log("AQUI TOYYY:", user)
             dispatch(getCurrentUser(getAccessTokenSilently, user));
         }
     }, [dispatch, isAuthenticated, getAccessTokenSilently, user]);
@@ -56,7 +56,7 @@ function Navbar() {
         dispatch(getCategories())
         dispatch(getColors())
         dispatch(getBrands())
-        console.log("pido categories y brands en el navbar al renderizarse")
+        
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     function handleOpen() {
@@ -94,13 +94,12 @@ function Navbar() {
     const handleAllProducts = (e) => {
         e.preventDefault()
         let filtersElectSinBrand = []
-        console.log("presioné botón del all y me dirige a searchResult, el valor de filtersElect", filtersElect)
+       
 
         navigate('/searchResults/');
         if (filtersElect.length > 0) {
             filtersElectSinBrand = filtersElect.filter((f) => f.filters !== "brand")
         }
-        console.log("presioné botón del all y me dirige a searchResult, el valor de filtersElectSinBrand", filtersElectSinBrand)
         if (filtersElectSinBrand.length > 0) {
 
             let ids = filtersElectSinBrand?.map((f) => {
@@ -117,12 +116,11 @@ function Navbar() {
         }))
     }
 
-    console.log("USER DETAIIL: ", userLogged)
     return (
         <div className='w-full'>
-            <nav className="w-full h-1/6 mt-2  bg-white shadow-md flex flex-col justify-around ">
+            <nav id='fullWidNavbar' className="w-full h-1/6 mt-2  bg-white shadow-md flex flex-col justify-around ">
                 {/* Botones */}
-                <div className="flex justify-between items-center">
+                <div className="flex w-full justify-between items-center">
                     {/* Lado izquierdo */}
                     <div className="flex space-x-2 mx-3">
                         <div className=" w-32 flex justify-center items-center">
@@ -230,28 +228,6 @@ function Navbar() {
                     </div>
                 </div>
                 {/* Categorías */}
-                <div className="flex justify-between mt-2">
-                    {/* <Link
-                        to={`/searchResults/all`}
-                        key="all"
-                        className="no-underline text-inherit p-1 hover:bg-black hover:text-white hover:rounded"
-                    >
-                        All products
-                    </Link> */}
-
-                    {/* {categories?.map((cat) => {
-                        return (
-                            <Link
-                                to={`/searchResults/${cat.name.toLowerCase()}`}
-                                key={cat._id}
-                                className="no-underline text-inherit p-1 hover:bg-black hover:text-white hover:rounded"
-                            >
-                                {cat.name}
-                            </Link>
-                        )
-                    })} */}
-                </div>
-
                 <Cart
                     open={openCart}
                     setOpen={setOpenCart}

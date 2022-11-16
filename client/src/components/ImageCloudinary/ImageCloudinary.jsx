@@ -13,16 +13,16 @@ export default function Clou({ editInput, setEditInput, setError=false, validati
     };
     await openUploadWidget(uploadOptions, (error, photos) => {
       if (!error) {
-        console.log('SOY EL EVENT', photos.event)
         if (photos.event === 'success') {
-          console.log('SOY LA FOTO', photos)
           setEditInput({ ...editInput, image: [...editInput.image, photos.info.secure_url] })
           if(setError){
             setError(validationError({ ...editInput, image: photos.info.secure_url }))
           }
         }
       } else {
-      }})
+        
+      }
+    })
   }
 
   useEffect(() => {
