@@ -62,17 +62,18 @@ export default function App() {
                     <Route path='/aboutus' element={<AboutUs />} />
                     <Route path="/cardReviews" element={<ProductReview />}/>
 
-                    <Route path="/adminview//*" element={<AdminView />} />
 
                     <Route element={<ProtectedRoutes/>}>
                         <Route path='/profile/:userId' element={<UserProfile />} />
                         <Route path="/products/reviews/:id/:userId" element={<ProductReview  />} />
                         <Route path="/reviews/:id/:userId" element={<CreatePReview id='635ae766f530d18d68f103cb' userId='63615409b573f3a4a80dfc1f' />} />
                         <Route path="/checkout" element={<Checkout  />} />
+                        <Route path="/checkout/confirm/:id" element={<CCheckout/>} />
                         <Route path="/mycheckout" element={<MyCheckout/>} />
                     </Route>
                 </Route>
                 <Route element={<AdminRoutes />}>
+                    <Route path="/adminview//*" element={<AdminView />} />
                 </Route>
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
