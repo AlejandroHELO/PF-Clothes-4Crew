@@ -62,6 +62,7 @@ export default function App() {
                     <Route path='/aboutus' element={<AboutUs />} />
                     <Route path="/cardReviews" element={<ProductReview />}/>
 
+
                     <Route element={<ProtectedRoutes/>}>
                         <Route path='/profile/:userId' element={<UserProfile />} />
                         <Route path="/products/reviews/:id/:userId" element={<ProductReview  />} />

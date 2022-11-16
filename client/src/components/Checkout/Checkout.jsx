@@ -153,6 +153,7 @@ export default function Checkout({id}){
         dispatch(CreateAddress(post))
         
         dispatch(getUsersAddress(props._id))
+        alert('address create')
         setaddAddress('Select')
         
     }

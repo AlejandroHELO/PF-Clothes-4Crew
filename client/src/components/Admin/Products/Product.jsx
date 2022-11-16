@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import Chart from '../HomaPage/Chart'
 import st from './Product.module.css'
 import { productData } from '../../../dummyData.js'
-import { getProductDetail } from '../../../redux/actions'
+import { getProductDetail, getPurchases } from '../../../redux/actions'
 import ProductEdit from './ProductEdit'
 
 export default function Product() {
@@ -17,7 +17,15 @@ export default function Product() {
     useEffect(() => {
         dispatch(getProductDetail(productId))
     }, [])
-
+    const purchases =useSelector(f=>f.purchases)
+    let [data,setdata]=React.useState([])
+    console.log('soy la data: ', data ,'soy las compras: ',purchases)
+    React.useEffect(()=>{
+    
+        !purchases.length?dispatch(getPurchases()):console.log('epa')
+        purchases.length&&!data.length&&productInfo.name?setdata(productData(purchases,new Date().getFullYear(),productInfo._id)):console.log('falta algun dato')
+    
+    },[data,purchases,dispatch,productInfo])
     const [ editMode, setEditMode] = useState(false)
 
     let props = {}
@@ -155,7 +163,7 @@ export default function Product() {
                     <div className={st.productInfoBottom}>
                         <Chart
                             className={st.productTopChart}
-                            data={productData}
+                            data={data}
                             dataKey="Sales"
                             title="Sales performance"
                             grid
