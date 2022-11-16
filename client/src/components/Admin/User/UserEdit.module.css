@@ -34,7 +34,14 @@
 .userUpdateInput {
     border: none;
     width: 250px;
-    height: 20px;
+    height: 30px;
+    border-bottom: 1px solid grey;
+}
+
+.userUpdateSelect{
+    border: none;
+    width: 250px;
+    height: 40px;
     border-bottom: 1px solid grey;
 }
 
