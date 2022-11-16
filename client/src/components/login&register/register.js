@@ -63,7 +63,7 @@ function Register() {
           dispatch(SignUpwithPasswwordAndEmail(input))
           navigate('/', ({force: true}))
         } catch (error) {
-          console.log(error)
+          throw new Error(error)
         }
 
     }

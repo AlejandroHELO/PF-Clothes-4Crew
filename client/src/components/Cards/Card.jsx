@@ -26,7 +26,7 @@ const Card = (p) => {
         dispatch(getopenDetail(id))
     }
     const handleFavorite = (product) => {
-        console.log(product)
+       
         dispatch(favoriteProduct(product))
     }
     const handleRemove = (id) => {

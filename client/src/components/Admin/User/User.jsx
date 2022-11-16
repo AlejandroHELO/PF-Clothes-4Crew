@@ -21,7 +21,7 @@ export default function User() {
     const { userId } = useParams() //usar el mismo nombre de variable que en la ruta principal
     const dispatch = useDispatch()
     let userInfo = useSelector((state) => state.userDetail)
-    console.log('SOY EL USER: ', userInfo)
+   
 
     const { getAccessTokenSilently } = useAuth0()
 
@@ -47,7 +47,7 @@ export default function User() {
           })
         : console.log('Algo esta pasando')
 
-    console.log('SOY LAS PROPS: ', props)
+    
 
     return (
         <div className={st.User}>

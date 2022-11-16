@@ -84,10 +84,8 @@ export function clearDetail() {
 }
 
 export function createProduct(payload) {
-    console.log(payload)
     return async function (dispatch) {
         let json = await axios.post('/products', payload)
-        console.log(json.data)
         return dispatch({
             type: POST_PRODUCT,
             payload: json.data,
@@ -439,7 +437,6 @@ export const addToCart = product => async dispatch => {
     const cart = localStorage.getItem('cart')
         ? JSON.parse(localStorage.getItem('cart'))
         : [];
-    console.log('product//////////////en actions addToCart///', product)
     // comprobar si se duplica
     const duplicates = cart.filter(cartItem => cartItem.id === product.id);
     // si no hay duplicados, proceda
@@ -461,13 +458,12 @@ export const addToCart = product => async dispatch => {
     }
 };
 
-export const deleteFromCart = (product,props='') => async dispatch => {
+export const deleteFromCart = (product,props='') => dispatch => {
     const cart = localStorage.getItem('cart')
     ? JSON.parse(localStorage.getItem('cart'))
     : [];
 
     const updatedCart = cart.filter(cartItem => cartItem.id !== product.id);
-    console.log(updatedCart)
     localStorage.setItem('cart', JSON.stringify(updatedCart));
 
     dispatch({
@@ -533,23 +529,30 @@ export function GetCart(id) {
 
 export function CreatePurchase(data) { //Crear una compra
     return async function (dispatch) {
+       try {
         let response = await axios.post('/purchase',data)
-        console.log(response.data)
         return dispatch({
             type:POST_CREATE_PURCHASE,
             payload: response.data,
         })
+       } catch(error) {
+        throw new Error(error)
+       }
     }
 }
 
 export function GetPurchase(data) { //Obtener las compras de un user
     return async function (dispatch) {
+       try{
         let response = await axios.get('/purchase?userId=',data)
-        console.log(response.data)
+      
         return dispatch({
             type:GET_CREATE_PURCHASE,
             payload: response.data,
         })
+       }catch(error) {
+        throw new Error(error)
+       }
     }
 }
 
