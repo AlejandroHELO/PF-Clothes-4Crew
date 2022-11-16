@@ -423,7 +423,7 @@ export default function Checkout({id}){
                             <span className='mx-10'>
                                 Name: {p.name}</span>
                                 <nav className="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
-                                <botton
+                                <button
                                  type="button"
                                  onClick={e => handleQtyClick(e, p)}
                                  name="Menos"
@@ -432,15 +432,15 @@ export default function Checkout({id}){
                                  >
                                  <span className="sr-only">Menos</span>
                                 <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" name="Menos" />
-                                </botton>
+                                </button>
                                 {/* Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" */}
-                                <botton
+                                <button
                                    aria-current="page"
                                    className="relative z-10 inline-flex items-center border border-indigo-500 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 focus:z-20"
                                >
                                    {p.count}
-                                 </botton>
-                                <botton
+                                 </button>
+                                <button
                                  type="button"
                                  onClick={e => handleQtyClick(e, p)}
                                  name="Mas"
@@ -449,7 +449,7 @@ export default function Checkout({id}){
                                  >
                                  <span className="sr-only">Mas</span>
                                  <ChevronRightIcon className="h-5 w-5" aria-hidden="true" name="Mas" />
-                              </botton>
+                              </button>
                             </nav>
                             <span className='mx-10'>
                                 Price: {p.price}</span>

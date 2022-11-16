@@ -10,30 +10,56 @@ const Slider = ({ cat, products }) => {
     const dispatch = useDispatch()
     // const products = useSelector((state) => state.products.filter((p) => p.featured === true)) //featured ->sólo los destacados
     const slider = useRef()
+    const [open, setOpen] = React.useState(false)
+    const [catProducts, setProducts] = React.useState([])
     // console.log(cat)
     // className=" mx-8  px-2  shadow-md h-80"
-
+    const [productsSlice, setSlice] =React.useState(0)
+    const catSlice = catProducts.slice(productsSlice,productsSlice + 8)
     // console.log('products en slider', products)
+    React.useEffect(() => {
+        setProducts(products?.filter((p) => p.category[0].name === cat))
+    }, [products])
+
+
+    function next() {
+        if(catProducts.length <= productsSlice + 3) {
+            setSlice(productsSlice)
+        }else {
+            setSlice(productsSlice + 3)
+        }
+    }
+
+    function prev() {
+        if(productsSlice < 7) {
+            setSlice(0)
+        } else {
+            setSlice(productsSlice - 3)
+        }
+    }
 
     return (
-        <div className='w-full overflow-hidden flex justify-center'>
-            <div className="flex flex-col justify-center w-full" >
+        <div className='w-full flex justify-center'>
+            <div className="flex flex-col justify-center w-full py-5" >
                 <h5 className="uppercase">{cat}</h5>
-                <div className= "h-96 w-full">
-                    {products?.length !== 0 ? (
+                <div className= "w-full, h-64">                    {products?.length !== 0 ? (
                         <div className="flex items-center justify-center w-full h-full position-relative">
-                            <button
-                                className="h-fit w-fit position-absolute z-20 left-0  "
-                                onClick={() => (slider.current.scrollLeft -= 200)}
+                           {
+                            catProducts.length > 3 && productsSlice !== 0? (
+                                <button
+                                className="h-fit w-fit  z-20 left-0  "
+                                onClick={() => prev()}
                             >
-                                <img src="/flecha1.png" alt="flecha1" className='w-10 h-10 hover:w-13 hover:h-13'/>
+                                <img src="/flecha1.png" style={{filter:'invert(.5)'}} alt="flecha1" className='w-10 h-10 hover:w-13 hover:h-13'/>
                             </button>
+                            ): null
+                           }
                             <div
                                 ref={slider}
-                                className="snap-x w-full overflow-hidden scroll-smooth h-full flex items-center text-center"
+                                className="snap-x w-full  scroll-smooth h-full flex items-center text-center"
                             >
 
-                                {products?.filter((p) => p.category[0].name === cat).map((e) => {
+                                {(catSlice).map((e) => {
                                     return (
                                         <div className='flex justify-center' key={e._id}>
 
@@ -61,18 +87,24 @@ const Slider = ({ cat, products }) => {
                                                 color={e.color}
                                                 size={e.size}
                                                 description={e.description}
+                                                open={open}
+                                                setOpen={setOpen}
                                             />
                                         </div>
 
                                     )
                                 })}
                             </div>
-                            <button
-                                className="h-fit w-fit position-absolute right-0"
-                                onClick={() => (slider.current.scrollLeft += 200)}
+                            {
+                                catProducts.length > 3 && catProducts.length >= productsSlice + 8 ? (
+                                    <button
+                                className="h-fit w-fit  right-0"
+                                onClick={() => next()}
                             >
-                                <img src="/flecha2.png" alt="flecha2" className='w-10 h-10 hover:w-13 hover:h-13' />
+                                <img src="/flecha2.png" style={{filter:'invert(.5)'}} alt="flecha2" className='w-10 h-10 hover:w-13 hover:h-13' />
                             </button>
+                                ): null
+                            }
                         </div>
                     ) : (
                         null
