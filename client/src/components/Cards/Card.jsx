@@ -38,7 +38,7 @@ const Card = (p) => {
     return (
 
         <div
-            className='h-fit w-fit overflow-hidden rounded border-2 position-relative shadow-xl shadow-slate-400 p-3 m-2 flex flex-col items-center justify-between'
+            className='w-fit h-fit overflow-hidden rounded border-2 position-relative shadow-xl shadow-slate-400 p-3 m-2 flex flex-col items-center justify-between  '
             key={p.id}
             
         >
