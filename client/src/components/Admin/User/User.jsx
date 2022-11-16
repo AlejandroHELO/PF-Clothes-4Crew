@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { getUser, getCurrentUser } from '../../../redux/actions'
@@ -21,8 +21,7 @@ export default function User() {
     const { userId } = useParams() //usar el mismo nombre de variable que en la ruta principal
     const dispatch = useDispatch()
     let userInfo = useSelector((state) => state.userDetail)
-   
-
+    
     const { getAccessTokenSilently } = useAuth0()
 
     useEffect(() => {

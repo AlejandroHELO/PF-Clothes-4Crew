@@ -14,7 +14,7 @@ export default function HelpUsMail() {
    
     return (
         <div className={st.Container}>
-            <h1 className={st.title}> Help Us Mail </h1>
+            <h2 className={st.title}> Help Us Mail </h2>
 
             <div className={st.listContainer}>
                 <ul className={st.listMessages}>
@@ -22,22 +22,22 @@ export default function HelpUsMail() {
                         (msg, index) => {
                             return (
                                 <div key={index} className={st.divItem}>
-                                  <div className={st.listHead}>
-                                      <li className={st.listItem}>
-                                          ID: {index + 1}
-                                      </li>
-                                      <li className={st.listItem}>
-                                          Name: {msg.name}
-                                      </li>
-                                      <li className={st.listItem}>
-                                          Email: {msg.email}
-                                      </li>
-                                   </div>
-                                   <div className={st.itemMsg}>
-                                      <li className={st.listItem}>
-                                          Message: {msg.message}
-                                      </li>
-                                   </div>
+                                    <div className={st.listHead}>
+                                        <li className={st.listItem}>
+                                            <strong>ID:</strong> {index + 1}
+                                        </li>
+                                        <li className={st.listItem}>
+                                            <strong>Name:</strong> {msg.name}
+                                        </li>
+                                        <li className={st.listItem}>
+                                            <strong>Email:</strong> {msg.email}
+                                        </li>
+                                    </div>
+                                    <div className={st.itemMsg}>
+                                        <li className={st.listItem}>
+                                            <strong>Message:</strong> {msg.message}
+                                        </li>
+                                    </div>
                                 </div>
                             )
                         }

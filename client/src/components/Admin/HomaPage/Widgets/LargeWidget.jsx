@@ -30,7 +30,7 @@ export default function LargeWidget() {
                     <td className="LgWidgetDate">19-Oct-2022</td>
                     <td className="LgWidgetCountry">Mexico</td>
                     <td className="LgWidgetStatus">
-                        <Button type="Approved" />
+                        <Button type="Finished" />
                     </td>
                 </tr>
                 <tr className="LgWidgetTr">
@@ -45,7 +45,7 @@ export default function LargeWidget() {
                     <td className="LgWidgetDate">19-Oct-2022</td>
                     <td className="LgWidgetCountry">Colombia</td>
                     <td className="LgWidgetStatus">
-                        <Button type="Pending" />
+                        <Button type="In-Process" />
                     </td>
                 </tr>
                 <tr className="LgWidgetTr">
@@ -62,7 +62,7 @@ export default function LargeWidget() {
                     <td className="LgWidgetDate">17-Oct-2022</td>
                     <td className="LgWidgetCountry">Argentina</td>
                     <td className="LgWidgetStatus">
-                        <Button type="Approved" />
+                        <Button type="Finished" />
                     </td>
                 </tr>
                 <tr className="LgWidgetTr">
@@ -77,7 +77,7 @@ export default function LargeWidget() {
                     <td className="LgWidgetDate">16-Oct-2022</td>
                     <td className="LgWidgetCountry">Argentina</td>
                     <td className="LgWidgetStatus">
-                        <Button type="Approved" />
+                        <Button type="Finished" />
                     </td>
                 </tr>
                 <tr className="LgWidgetTr">
@@ -92,7 +92,7 @@ export default function LargeWidget() {
                     <td className="LgWidgetDate">16-Oct-2022</td>
                     <td className="LgWidgetCountry">Chile</td>
                     <td className="LgWidgetStatus">
-                        <Button type="Declined" />
+                        <Button type="Cancelled" />
                     </td>
                 </tr>
                 <tr className="LgWidgetTr">
@@ -109,7 +109,7 @@ export default function LargeWidget() {
                     <td className="LgWidgetDate">14-Oct-2022</td>
                     <td className="LgWidgetCountry">Panamá</td>
                     <td className="LgWidgetStatus">
-                        <Button type="Approved" />
+                        <Button type="Finished" />
                     </td>
                 </tr>
             </table>
