@@ -3,33 +3,6 @@
     flex: 7;
     padding: 0px 20px;
 }
-.userUpdateItem {
-    display: flex;
-    flex-direction: column;
-    margin-top: 12px;
-}
-.userTitleContainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.userUpdateInput {
-    border: none;
-    width: 250px;
-    height: 20px;
-    border-bottom: 1px solid grey;
-}
-
-/* .useadAddButton{
-    width: 80px;
-    border: none;
-    padding: 10px;
-    background-color: teal;
-    border-radius: 5px;
-    cursor: pointer;
-    color:white;
-    font-size: 16px;
-} */
 
 .userContainer {
     display: flex;
@@ -71,10 +44,10 @@
 
 .userShowUsername {
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 600;
 }
 
-.userShowID {
+.userShowID, .userShowData {
     font-size: 18px;
     font-weight: 400;
 }

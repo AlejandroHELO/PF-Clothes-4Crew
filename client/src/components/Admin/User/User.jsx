@@ -14,7 +14,7 @@ import {
     MyLocation,
     PhoneInTalk,
     ManageAccounts,
-    DriveFolderUpload,
+    Pin,
 } from '@mui/icons-material'
 
 export default function User() {
@@ -31,23 +31,25 @@ export default function User() {
 
     let props = {}
 
-    userInfo._id
-        ? (props = {
-              id: userInfo._id,
-              fullName: userInfo.fullName,
-              email: userInfo.email,
-              birthDate: userInfo.birthDate.slice(0, 10),
-              genre: userInfo.genre,
-              country: userInfo.country,
-              address: userInfo.address,
-              tel: userInfo.tel,
-              image: userInfo.image,
-              isAdmin: String(userInfo.isAdmin),
-              active: String(userInfo.active),
-          })
-        : console.log('Algo esta pasando')
+    userInfo._id ? 
+    (props = {
+        id: userInfo._id,
+        fullName: userInfo.fullName,
+        email: userInfo.email,
+        identificationNumber: userInfo.identificationNumber,
+        birthDate: userInfo.birthDate?.slice(0, 10),
+        genre: userInfo.genre,
+        country: userInfo.country,
+        address: userInfo.address,
+        tel: userInfo.tel,
+        image: userInfo.image,
+        isAdmin: String(userInfo.isAdmin),
+        active: String(userInfo.active),
+    })
+    : 
+    console.log('Algo esta pasando')
 
-    
+    // console.log('SOY LAS PROPS: ', props)
 
     return (
         <div className={st.User}>
@@ -80,25 +82,31 @@ export default function User() {
 
                         <div className={st.userShowInfo}>
                             <AlternateEmail className={st.userShowIcon} />
-                            <span className={st.userShowInfoTitle}>
+                            <span className={st.userShowData}>
                                 Email: {props.email}
                             </span>
                         </div>
                         <div className={st.userShowInfo}>
+                            <Pin className={st.userShowIcon} />
+                            <span className={st.userShowData}>
+                                DNI: {props.identificationNumber}
+                            </span>
+                        </div>
+                        <div className={st.userShowInfo}>
                             <Wc className={st.userShowIcon} />
-                            <span className={st.userShowInfoTitle}>
+                            <span className={st.userShowData}>
                                 Genre: {props.genre}
                             </span>
                         </div>
                         <div className={st.userShowInfo}>
                             <PermIdentity className={st.userShowIcon} />
-                            <span className={st.userShowInfoTitle}>
+                            <span className={st.userShowData}>
                                 Active: {props.active}
                             </span>
                         </div>
                         <div className={st.userShowInfo}>
                             <ManageAccounts className={st.userShowIcon} />
-                            <span className={st.userShowInfoTitle}>
+                            <span className={st.userShowData}>
                                 Admin: {props.isAdmin}
                             </span>
                         </div>
@@ -109,25 +117,25 @@ export default function User() {
 
                         <div className={st.userShowInfo}>
                             <Public className={st.userShowIcon} />
-                            <span className={st.userShowInfoTitle}>
+                            <span className={st.userShowData}>
                                 Country: {props.country}
                             </span>
                         </div>
                         <div className={st.userShowInfo}>
                             <MyLocation className={st.userShowIcon} />
-                            <span className={st.userShowInfoTitle}>
+                            <span className={st.userShowData}>
                                 Address: {props.address}
                             </span>
                         </div>
                         <div className={st.userShowInfo}>
                             <PhoneInTalk className={st.userShowIcon} />
-                            <span className={st.userShowInfoTitle}>
+                            <span className={st.userShowData}>
                                 Tel: {props.tel}
                             </span>
                         </div>
                         <div className={st.userShowInfo}>
                             <CalendarMonth className={st.userShowIcon} />
-                            <span className={st.userShowInfoTitle}>
+                            <span className={st.userShowData}>
                                 BirthDate: {props.birthDate}
                             </span>
                         </div>

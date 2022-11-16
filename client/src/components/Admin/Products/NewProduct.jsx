@@ -135,7 +135,7 @@ export default function NewProduct() {
     return (
         <div className={st.newUser}>
             <h1 className={st.newUserTitle}>New Product</h1>
-            <form /* onSubmit={handleCreate} */ className={st.newUserForm}>
+            <div className={st.newUserForm}>
                 <div className={st.newUserItem}>
                     <label>Name</label>
                     <input
@@ -337,7 +337,7 @@ export default function NewProduct() {
                 <button name="create" onClick={handleCreate} className={st.createNewUser} >
                     Create
                 </button>
-            </form>
+            </div>
             {nav ? <Navigate to={'/adminView/products'} /> : null}
         </div>
     )
