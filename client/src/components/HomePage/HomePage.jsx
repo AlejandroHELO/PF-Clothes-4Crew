@@ -13,9 +13,9 @@ export default function HomePage() {
         <div className=" w-full overflow-hidden">
       
             <HeroSlider />
+            <Brands />
             {/* <Outlet /> */}
             <Cards />
-            <Brands />
             <Footer/>
             
         </div>
