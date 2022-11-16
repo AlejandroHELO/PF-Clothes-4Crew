@@ -64,7 +64,6 @@ function CreatePReviews(){
             alert('Score field must be fulfilled')
         }
     }
-    console.log(input)
 
     return(
         <>

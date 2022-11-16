@@ -1,50 +1,28 @@
 /*eslint-disable */
-import React, { useEffect } from 'react'
+import React, {Fragment, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useRef } from 'react';
-import { useParams } from 'react-router-dom';
-import { getProductDetail, getopenDetail, addToCart, getProducts, getPReviews } from '../../redux/actions';
+import { getopenDetail, addToCart, getProducts, getPReviews } from '../../redux/actions';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../navbar/navbar';
-import { Fragment, useState } from 'react'
 import { Dialog, RadioGroup, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { StarIcon } from '@heroicons/react/20/solid'
+import StarIcon  from '../../icons/StartIcon.svg'
+import StarIconFill from '../../icons/starIconFill.svg'
 
 
 function ProductDetail(product) {
-    console.log(product)
     const dispatch = useDispatch()
     // const { productId } = useParams();
     // const product = useSelector((state) => state.details)
     const openDetail = useSelector((state) => state.openDetail)
+    
     const reviews = useSelector((state) => state.reviews)
     const [open, setOpen] = useState(false)
     // const [selectedColor, setSelectedColor] = useState(product.colors[0])
     const [selectedSize, setSelectedSize] = useState(product.size[2])
     const slider = useRef()
-
     const [promedReviews, setPromedReviews] = useState(0)
     const [countReviews, setCountReviews] = useState(0)
-
-    React.useEffect(() => {
-        let reviewsPId = reviews.filter((e) => e.productId === product.id)
-        // console.log('reviewsPId***//////////------------++++++++++++', reviewsPId)
-
-        if (reviewsPId.length !== 0) {
-            // console.log('products reviews---------------/////////////////', product.reviews)
-            let count = reviewsPId.length
-            let sumaReviews = 0
-            reviewsPId.map((r) => {
-                sumaReviews = sumaReviews + r.score
-            })
-            let promedioReviews = sumaReviews / count
-            console.log('promedio de reviews--------------------------------', sumaReviews, count, promedioReviews)
-            setPromedReviews(promedioReviews)
-            setCountReviews(count)
-        }
-
-    }, [])
+    const [image, setImage]=React.useState(0)
 
     let navigate = useNavigate()
     const routeChange = () => {
@@ -54,11 +32,41 @@ function ProductDetail(product) {
 
     let productAddCart = {}
 
-    React.useEffect(() => {
-        dispatch(getPReviews())
-    }, [dispatch])
+    function nextImage() {
+        if(image === product.image.length -1) {
+            setImage(0)
+        } else {
+            setImage(image + 1)
+        }
+    }
+
+    function prevImage() {
+        if(image === 0) {
+            setImage(product.image.length - 1)
+        } else {
+            setImage(image - 1)
+        }
+    }
+
 
     React.useEffect(() => {
+        if(reviews.length === 0) {
+            dispatch(getPReviews())
+        }
+        let reviewsPId = reviews.filter((e) => e.productId === product.id)
+        // console.log('reviewsPId***//////////------------++++++++++++', reviewsPId)
+
+        if (reviewsPId.length !== 0) {
+            // console.log('products reviews---------------/////////////////', product.reviews)
+            let count = reviewsPId.length
+            let sumaReviews = 0
+            reviewsPId.map((r) => {
+                sumaReviews += r.score
+            })
+            let promedioReviews = sumaReviews / count
+            setPromedReviews(promedioReviews)
+            setCountReviews(count)
+        }
         product.size?.map((s) => {
             s.stock > 0 ? (s.inStock = true) : (s.inStock = false)
         })
@@ -67,17 +75,13 @@ function ProductDetail(product) {
             setOpen(true)
             // console.log(open)
         }
-    }, [product, openDetail])
+    }, [product, openDetail, selectedSize, image])
 
-    React.useEffect(() => {
-        // console.log(selectedSize)
-    }, [selectedSize])
+    
 
-    const handleOnClickClose = (e) => {
-        e.preventDefault()
-        product.setOpen ?
-            product.setOpen(false) :
-            setOpen(false)
+    const handleOnClickClose = () => {
+       
+        setOpen(false)
         dispatch(getopenDetail(''))
     }
 
@@ -101,9 +105,11 @@ function ProductDetail(product) {
         return classes.filter(Boolean).join(' ')
     }
 
+   
+
     return product.name ? (
-        <Transition.Root show={product.opne ? product.opne : open} as={Fragment}>
-            <Dialog as="div" className="relative z-10" onClose={handleOnClickClose}>
+        <Transition.Root show={open} as={Fragment}>
+            <Dialog as="div" className="relative z-30" onClose={() => handleOnClickClose()}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -116,7 +122,7 @@ function ProductDetail(product) {
                     <div className="fixed inset-0 hidden bg-gray-500 bg-opacity-75 transition-opacity md:block" />
                 </Transition.Child>
 
-                <div className="fixed inset-0 z-10 overflow-y-auto">
+                <div className="fixed inset-0  overflow-y-auto">
                     <div className="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
                         <Transition.Child
                             as={Fragment}
@@ -132,7 +138,7 @@ function ProductDetail(product) {
                                     <button
                                         type="button"
                                         className="absolute top-4 right-4 text-gray-400 hover:text-gray-500 sm:top-8 sm:right-6 md:top-6 md:right-6 lg:top-8 lg:right-8"
-                                        onClick={(e) => handleOnClickClose(e)}
+                                        onClick={() => handleOnClickClose()}
                                     >
                                         <span className="sr-only">Close</span>
                                         <XMarkIcon
@@ -145,43 +151,47 @@ function ProductDetail(product) {
                                         <div className="aspect-w-2 aspect-h-3 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5">
                                             {/* poner carrusel con mapeo de imagenes */}
                                             {/* <img src={product.image[0]} alt='imagen producto' className="object-scale-down object-center" /> */}
-                                            <div className="flex items-center justify-center w-full h-full">
+                                            <div className="flex items-center bg-white justify-center w-full h-full">
+                                             
                                                 <button
-                                                    onClick={() =>
-                                                        (slider.current.scrollLeft -= 200)
-                                                    }
-                                                >
-                                                    <img
-                                                        className="h-4 w-4 m-2"
-                                                        src="/flecha1.png"
-                                                        alt="flecha1"
-                                                    />
-                                                </button>
+                                                className='z-20 w-fit h-fit position-absolute left-0'
+                                                onClick={() =>
+                                                    prevImage()
+                                                }
+                                            >
+                                                <img
+                                                    className="h-6 w-6 hover:h-7 hover:w-7"
+                                                    src="/flecha1.png"
+                                                    alt="flecha1"
+                                                />
+                                            </button>
+                                            
                                                 <div
                                                     ref={slider}
-                                                    className="snap-x overflow-scroll scroll-smooth h-full flex items-center justify-start text-center m-4"
+                                                    className="snap-x overflow-hidden scroll-smooth h-fit flex items-center justify-start text-center m-4"
                                                 >
-                                                    {product.image?.map((e) => {
-                                                        return (
-                                                            <img
-                                                                src={e}
-                                                                alt="imagen producto"
-                                                                className="object-scale-down object-center"
-                                                            />
-                                                        )
-                                                    })}
+                                                    
+                                                    <img
+                                                        src={product.image[image]}
+                                                        alt="imagen producto"
+                                                        className="object-scale-down object-center w-full h-full"
+                                                    />
+                                                    
                                                 </div>
-                                                <button
+                                                
+                                                    <button
+                                                    className='w-fit h-fit z-20 position-absolute right-0'
                                                     onClick={() =>
-                                                        (slider.current.scrollLeft += 200)
+                                                        nextImage()
                                                     }
                                                 >
                                                     <img
-                                                        className="h-4 w-4 m-2"
+                                                        className="h-6 w-6 hover:h-7 hover:w-7"
                                                         src="/flecha2.png"
                                                         alt="flecha2"
                                                     />
                                                 </button>
+                                              
                                             </div>
                                         </div>
                                         <div className="sm:col-span-8 lg:col-span-7">
@@ -203,7 +213,7 @@ function ProductDetail(product) {
                                                 </h3>
 
                                                 <p className="text-2xl text-gray-900">
-                                                    U$S {product.price}
+                                                     ${product.price} USD
                                                 </p>
 
                                                 Reviews
@@ -211,16 +221,28 @@ function ProductDetail(product) {
                                                     <h4 className="sr-only">Reviews</h4>
                                                     <div className="flex items-center">
                                                         <div className="flex items-center">
-                                                            {[...Array(5)].map((rating) => (
-                                                                <StarIcon
-                                                                    key={rating}
-                                                                    className={classNames(
-                                                                        promedReviews > rating ? 'text-yellow-600' : 'text-gray-200',
-                                                                        'h-5 w-5 flex-shrink-0'
-                                                                    )}
-                                                                    aria-hidden="true"
-                                                                />
-                                                            ))}
+                                                            {
+                                                                [...Array(5)].map((rating, i) => {
+                                                                   return (
+                                                                    promedReviews > i ? (
+                                                                        
+                                                                        <img 
+                                                                         src={StarIconFill}
+                                                                        key={i}
+                                                                        className={classNames(
+                                                                            'h-5 w-5 flex-shrink-0'
+                                                                        )}/>
+                                                                ): (
+                                                                    <img 
+                                                                    src={StarIcon}
+                                                                   key={i}
+                                                                   className={classNames(
+                                                                       'h-5 w-5 flex-shrink-0'
+                                                                   )}/>
+                                                                ) 
+                                                                   )
+                                                                })
+                                                            }              
                                                         </div>
                                                         <p className="sr-only">{promedReviews} out of 5 stars</p>
                                                         <button type="button" onClick={routeChange}className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
@@ -268,7 +290,7 @@ function ProductDetail(product) {
                                                                                     <span
                                                                                         aria-hidden="true"
                                                                                         className={classNames(
-                                                                                            color.class,
+                                                                                            color.className,
                                                                                             'h-8 w-8 border border-black border-opacity-10 rounded-full'
                                                                                         )}
                                                                                     />
@@ -362,7 +384,7 @@ function ProductDetail(product) {
                                                     </div>
 
                                                     <button
-                                                        onClick={e => handleAddToCart(e, product)}
+                                                        onClick={e => handleAddToCart(e)}
                                                         type="button"
                                                         className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-900 py-3 px-8 text-base font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
                                                     >
@@ -380,7 +402,7 @@ function ProductDetail(product) {
             </Dialog>
         </Transition.Root >
     ) : (
-        console.log('no hay nada')
+        null
     )
 }
 

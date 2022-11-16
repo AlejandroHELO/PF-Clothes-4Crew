@@ -26,7 +26,7 @@ const Card = (p) => {
         dispatch(getopenDetail(id))
     }
     const handleFavorite = (product) => {
-        console.log(product)
+       
         dispatch(favoriteProduct(product))
     }
     const handleRemove = (id) => {
@@ -38,7 +38,7 @@ const Card = (p) => {
     return (
 
         <div
-            className='h-fit w-fit overflow-hidden ease-in-out duration-1000 hover:transition-all position-relative shadow-2xl p-3 m-2 flex flex-col items-center justify-between'
+            className='h-fit w-fit overflow-hidden rounded border-2 position-relative shadow-xl shadow-slate-400 p-3 m-2 flex flex-col items-center justify-between'
             key={p.id}
             
         >
@@ -58,7 +58,7 @@ const Card = (p) => {
                     </div>
                 )
             }  
-            <button onMouseEnter={() => handleMain()} onMouseLeave={() => handleMain()} className='transparent p-auto w-fit h-fit ' onClick={() => handleOnClickDetail(p.id)}>
+            <button onMouseEnter={() => handleMain()} onMouseLeave={() => handleMain()} className='transparent p-auto w-40 h-36 hover:h-60 hover:transition-all ease-in-out duration-500' onClick={() => handleOnClickDetail(p.id)}>
                 <div className='w-40 h-40 p-auto flex justify-center'>
                 { 
                     p.image.length !== 0  &&  
