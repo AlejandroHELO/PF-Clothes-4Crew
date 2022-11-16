@@ -54,7 +54,7 @@ export const userData = (data,año)=>{
     let fecha=new Date(p.time)
     console.log(fecha)
     if(fecha.getFullYear()===año){
-         filter[fecha.getMonth()][`Active user`]= filter[fecha.getMonth()][`Active user`]+1
+         filter[fecha.getMonth()][`Active users`]= filter[fecha.getMonth()][`Active users`]+1
     }
 })
 return filter
@@ -65,58 +65,58 @@ export const productData = (data,año,productId)=>{
          [
              {
                  name: 'Jan',
-                 'Sale': 0,
+                 'Sales': 0,
              },
              {
                  name: 'Feb',
-                 'Sale': 0,
+                 'Sales': 0,
              },
              {
                  name: 'Marc',
-                 'Sale': 0,
+                 'Sales': 0,
              },
              {
                  name: 'Apr',
-                 'Sale': 0,
+                 'Sales': 0,
              },
              {
                  name: 'May',
-                 'Sale': 0,
+                 'Sales': 0,
              },
              {
                  name: 'Jun',
-                 'Sale': 0,
+                 'Sales': 0,
            },
              {
                  name: 'Jul',
-                 'Sale': 0,
+                 'Sales': 0,
              },
              {
                  name: 'Agu',
-                 'Sale': 0,
+                 'Sales': 0,
              },
              {
                  name: 'Sep',
-                 'Sale': 0,
+                 'Sales': 0,
              },
              {
                  name: 'Oct',
-                 'Sale': 0,
+                 'Sales': 0,
              },
              {
                  name: 'Nov',
-                 'Sale': 0,
+                 'Sales': 0,
              },
              {
                 name: 'Dec',
-                 'Sale': 0,
+                 'Sales': 0,
              },
          ]
 if(productId){
     
     data.forEach(p=>{
         let dato=0
-        p.produts.forEach(b=>{
+        p.products.forEach(b=>{
             if(b.id===productId){
                 dato=dato+b.price
             }
@@ -124,7 +124,7 @@ if(productId){
         let fecha=new Date(p.time)
         console.log(fecha)
         if(fecha.getFullYear()===año){ 
-            filter[fecha.getMonth()][`Sale`]= filter[fecha.getMonth()][`Sale`]+dato
+            filter[fecha.getMonth()][`Sales`]= filter[fecha.getMonth()][`Sales`]+dato
         }
     })
 }
