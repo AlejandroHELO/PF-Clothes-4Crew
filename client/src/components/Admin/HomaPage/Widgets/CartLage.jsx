@@ -6,16 +6,15 @@ import './LgWidget.css'
 
 export function CartLarge({userId,time}){
 
+    const Button = ({ type }) => {
+        return <button className={`LgWidgetButton ${type}`}>{type}</button>
+    }
     const {getAccessTokenSilently} = useAuth0()
     const dispatch = useDispatch()
     const userLogged = useSelector(state=>state.userLogged)
 
-    const Button = ({ type }) => {
-        return <button className={`LgWidgetButton ${type}`}>{type}</button>
-    }
     React.useEffect(() => {
         dispatch(getUsers(getAccessTokenSilently ,userLogged._id))
-        // dispatch(getUsersAddress(address))
     }, [getUsers, userLogged])
     let user=[]
     const allUsers = useSelector((state) => state.users)
