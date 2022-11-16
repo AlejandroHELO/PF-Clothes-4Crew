@@ -26,7 +26,6 @@ export default function LogIn({ open, setOpen }) {
             ...input,
             [e.target.name]: e.target.value
         })
-        console.log(input)
     }
 
     const handleSubmit = async(e) => {
@@ -48,7 +47,6 @@ export default function LogIn({ open, setOpen }) {
                 setBack('indigo')
             },2000)
         } catch (error) {
-            console.log(error)
             setBack('red')
             setButtontext('Algo salió mal')
             setTimeout(() => {

@@ -84,10 +84,8 @@ export function clearDetail() {
 }
 
 export function createProduct(payload) {
-    console.log(payload)
     return async function (dispatch) {
         let json = await axios.post('/products', payload)
-        console.log(json.data)
         return dispatch({
             type: POST_PRODUCT,
             payload: json.data,
@@ -117,7 +115,6 @@ export function reviewsFilter(payload){
 }
 
 export function updateProduct(id, payload) {
-    // console.log('SOY EL ID: ', id, 'SOY EL PAYLOAD: ', payload)
     return async function (dispatch) {
         const json = await axios.put(`/products/${id}`, payload)
         return dispatch({ type: PRODUCT_UPDATE, payload: json.payload })
@@ -236,7 +233,7 @@ export function getUsersAddress(id) { // Obtener la address de un user
 }
 
 export function getCurrentUser(token, user) { // Visualizar perfil de un User
-    // console.log('SOY EL USERRR: ', user)
+    
     return async function (dispatch) {
 
         const config={
@@ -271,7 +268,7 @@ export function getUser(token, id) { // Visualizar perfil de un User
 }
 
 // export function getUser(id) { // Visualizar perfil de un User
-//     // console.log('SOY EL ID DE LAS ACTIONS: ', id)
+//    
 //     return async function (dispatch) {
 //         let json = await axios.get(`/users/find/${id}`)
 //         return dispatch({
@@ -415,7 +412,7 @@ export function getComments() {
 
 export function postComment(data) {
     //crear un mensaje en el buzón de HelpUsToImprove
-    // console.log('SOY LA DATA DE LA ACTION: ', data)
+   
     return async function (dispatch) {
         let response = await axios.post('/comments/send', data)
         return dispatch({
@@ -439,7 +436,6 @@ export const addToCart = product => async dispatch => {
     const cart = localStorage.getItem('cart')
         ? JSON.parse(localStorage.getItem('cart'))
         : [];
-    console.log('product//////////////en actions addToCart///', product)
     // comprobar si se duplica
     const duplicates = cart.filter(cartItem => cartItem.id === product.id);
     // si no hay duplicados, proceda
@@ -461,13 +457,12 @@ export const addToCart = product => async dispatch => {
     }
 };
 
-export const deleteFromCart = (product,props='') => async dispatch => {
+export const deleteFromCart = (product,props='') => dispatch => {
     const cart = localStorage.getItem('cart')
     ? JSON.parse(localStorage.getItem('cart'))
     : [];
 
     const updatedCart = cart.filter(cartItem => cartItem.id !== product.id);
-    console.log(updatedCart)
     localStorage.setItem('cart', JSON.stringify(updatedCart));
 
     dispatch({
@@ -533,30 +528,36 @@ export function GetCart(id) {
 
 export function CreatePurchase(data) { //Crear una compra
     return async function (dispatch) {
+       try {
         let response = await axios.post('/purchase',data)
-        console.log(response.data)
         return dispatch({
             type:POST_CREATE_PURCHASE,
             payload: response.data,
         })
+       } catch(error) {
+        throw new Error(error)
+       }
     }
 }
 
 export function GetPurchase(data) { //Obtener las compras de un user
     return async function (dispatch) {
+       try{
         let response = await axios.get('/purchase?userId=',data)
-        console.log(response.data)
+      
         return dispatch({
             type:GET_CREATE_PURCHASE,
             payload: response.data,
         })
+       }catch(error) {
+        throw new Error(error)
+       }
     }
 }
 
 export function getPurchases() { //Obtener todas las compras hechas
     return async function (dispatch) {
         let response = await axios.get('/purchase')
-        // console.log(response.data)
         return dispatch({
             type: GET_PURCHASES,
             payload: response.data,

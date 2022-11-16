@@ -16,7 +16,7 @@ const Slider = ({ cat, products }) => {
     // console.log('products en slider', products)
 
     return (
-        <div className='w-full overflow-hidden'>
+        <div className='w-full overflow-hidden flex justify-center'>
             <div className="flex flex-col justify-center w-full" >
                 <h5 className="uppercase">{cat}</h5>
                 <div className= "h-96 w-full">
@@ -35,11 +35,11 @@ const Slider = ({ cat, products }) => {
 
                                 {products?.filter((p) => p.category[0].name === cat).map((e) => {
                                     return (
-                                        <div key={e._id}>
+                                        <div className='flex justify-center' key={e._id}>
 
-                                            <div key={e._id & e._id} >
+                                            <div key={e._id} >
                                                 <Card
-                                                    key={e._id}
+                                                   
                                                     id={e._id}
                                                     name={e.name}
                                                     image={e.image}
@@ -52,7 +52,7 @@ const Slider = ({ cat, products }) => {
                                             </div>
 
                                             <ProductDetail
-                                                key={e._id & e._id & e._id}
+                                            
                                                 id={e._id}
                                                 name={e.name}
                                                 image={e.image}
@@ -75,7 +75,7 @@ const Slider = ({ cat, products }) => {
                             </button>
                         </div>
                     ) : (
-                        <div>{console.log('no hay productos')}</div>
+                        null
                     )}
                 </div>
             </div>

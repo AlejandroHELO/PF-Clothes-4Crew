@@ -33,10 +33,10 @@ export default function App() {
 
     useEffect(() => {
         if (isAuthenticated) {
-            console.log(user)
+           
             dispatch(getCurrentUser(getAccessTokenSilently, user));
         }
-    }, [dispatch, isAuthenticated, getAccessTokenSilently, user]);
+    }, [isAuthenticated, getAccessTokenSilently, user]);
 
     useEffect(() => {
         dispatch(getCart())
