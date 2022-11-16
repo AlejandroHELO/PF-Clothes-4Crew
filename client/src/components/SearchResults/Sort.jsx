@@ -43,7 +43,7 @@ function Sort() {
 
     return (
 
-        < div className="flex items-baseline justify-between border-b border-gray-200 " >
+        < div className=" h-fit flex items-baseline justify-between border-b border-gray-200 " >
             {/* pt-24 pb-6 */}
             {/* <h1 className="text-4xl font-bold tracking-tight text-gray-900">New Arrivals</h1> */}
 

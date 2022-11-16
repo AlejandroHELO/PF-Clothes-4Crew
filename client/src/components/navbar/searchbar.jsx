@@ -27,18 +27,18 @@ export default function SearchBar() {
 
 
     return (
-        <form className="border-none hover:border-transparent">
+        <form className=" flex items-center hover:border-2">
 
-            <button className='flex justify-center items-center hover:border-transparent' onClick={(e) => handleSubmit(query, e)}>
+            <button className='flex h-fit justify-center items-center hover:border-transparent' onClick={(e) => handleSubmit(query, e)}>
                 <input
-                    className="border-none hover:border-none"
+                    className="border-none rounded hover:border-none"
                     type="text"
                     placeholder="Search clothes..."
                     onChange={(e) => handleInputChange(e)}
 
                     value={query}
                 />
-                <MagnifyingGlassCircleIcon className='h-8 w-8 my-4' />
+                <MagnifyingGlassCircleIcon className='h-8 w-8' />
             </button>
         </form>
     )
