@@ -5,5 +5,17 @@
     #fullWidNavbar {
         display: none;
     }
+    #responsiveNavButton {
+        display: block;
+    }
     
+}
+
+@media (min-width: 1204px) {
+    #fullWidNavbar {
+        display: block;
+    }
+    #responsiveNavButton {
+        display: none;
+    }
 }
