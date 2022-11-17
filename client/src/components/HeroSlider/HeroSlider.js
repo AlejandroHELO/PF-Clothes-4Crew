@@ -57,7 +57,7 @@ export default function HeroSlider() {
             className=" w-full select-none overflow-hidden relative"
         >
             <img
-                className="min-w-min ml-[50%] -translate-x-1/2"
+                className="w-full ml-[50%] -translate-x-1/2"
                 src={heroImages[currentIndex]}
                 alt="/images/Clothes 4Crew Logo.jpg"
             />

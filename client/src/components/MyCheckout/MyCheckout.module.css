@@ -6,7 +6,7 @@
 
 }
 
-span{
+.spans{
     margin:  auto;
     text-align: center;
 }
@@ -48,8 +48,8 @@ span{
     margin: 10px ; 
 }
 
-.contenDcompra > img{
-    height:  100%;
+.image{
+    height: 100%;
     max-width: 100px;
     width: 100%;
     max-height: 100px;

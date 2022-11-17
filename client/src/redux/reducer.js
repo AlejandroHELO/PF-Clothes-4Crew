@@ -35,11 +35,12 @@ import {
     GET_USERSADDRESS,
     POST_ADDRESS,
     GET_CARTDB,
-    GET_PRODUCTSADMIN,
+    GET_PRODUCTS_ADMIN,
     POST_DBCARTD,
-    POST_CREATE_PORCHASE,
-    DELETE_CREATE_PORCHASE,
-    GET_CREATE_PORCHASE
+    POST_CREATE_PURCHASE,
+    DELETE_CREATE_PURCHASE,
+    GET_CREATE_PURCHASE,
+    GET_PURCHASES,
 
 } from './types'
 
@@ -71,45 +72,57 @@ const initialState = {
     searchName: "",
     selectedBrands: [],
     userLogged: {},
-    address: '',
-    cartDb: '',
-    updatecartdb: '',
-    createP: '',
-    compras: ''
-
+    address:'',
+    cartDb:'',
+    updatecartdb:'',
+    createP:'',
+    compras:'',
+    purchases: []
 }
 
 
 const reducer = (state = initialState, action) => {
-    // console.log(state)
+   
     switch (action.type) {
-        case GET_CREATE_PORCHASE:
+
+        case GET_PURCHASES:
+            return{
+                ...state,
+                purchases:action.payload
+            }
+
+        case GET_CREATE_PURCHASE:
             return {
                 ...state,
                 compras: action.payload
             }
-        case DELETE_CREATE_PORCHASE:
-            console.log(action.payload)
+
+        case DELETE_CREATE_PURCHASE:
+           
             return {
                 ...state,
                 createP: action.payload
             }
-        case POST_CREATE_PORCHASE:
-            console.log(action.payload)
+        
+        case POST_CREATE_PURCHASE:
+             
             return {
                 ...state,
                 createP: action.payload
             }
+
         case POST_DBCART:
             return {
                 ...state,
                 updatecartdb: action.payload
             }
+
         case POST_DBCARTD:
             return {
                 ...state,
                 updatecartdb: ''
             }
+
         case GET_PRODUCTS:
             const result = action.payload.filter(f => f.active === true)
             return {
@@ -121,7 +134,7 @@ const reducer = (state = initialState, action) => {
                 filtersElect: [],
             }
 
-        case GET_PRODUCTSADMIN:
+        case GET_PRODUCTS_ADMIN:
             return {
                 ...state,
                 products: [...action.payload],
@@ -159,6 +172,7 @@ const reducer = (state = initialState, action) => {
                 reviews: action.payload,
                 reviews_copy: action.payload
             })
+        
         case REVIEWS_FILTER:
             const reviews = state.reviews_copy
             if(action.payload === 'All rates'){
@@ -199,16 +213,6 @@ const reducer = (state = initialState, action) => {
                     reviews: filter
                 })
             }
-        case GET_FAVORITES: {
-            // const favoritesProducts = []
-            // action.payload?.map(p => {
-            //     return favoritesProducts.push(p.id)
-            // })
-            return {
-                ...state,
-                favorites: state.favorites.concat(action.payload)
-            }
-        }    
 
         //filtro que funciona en el front sin hacer el pedido al back
         case SEARCH:
@@ -278,9 +282,7 @@ const reducer = (state = initialState, action) => {
             }
 
         case ORDER_BY:
-            console.log('order by en reducer productsFiltered', state.productsFiltered)
             if (action.payload === 'A-Z' || action.payload === 'Z-A') {
-                console.log('estoy en reducer A-Z')
                 let n = 0;
                 const ordenV = (action.payload === 'A-Z')
                     ?
@@ -298,7 +300,7 @@ const reducer = (state = initialState, action) => {
             }
 
             if (action.payload === 'priceAsc') {
-                console.log('estoy en reducer priceAsc')
+              
                 let n = 0;
                 const ordenV = state.productsFiltered.sort((prev, next) => {
                     return prev.price - next.price
@@ -313,7 +315,6 @@ const reducer = (state = initialState, action) => {
                 }
             }
             if (action.payload === 'priceDesc') {
-                console.log('estoy en reducer priceDesc')
                 let n = 0;
                 const ordenV = state.productsFiltered.sort((prev, next) => {
                     return next.price - prev.price
@@ -327,7 +328,6 @@ const reducer = (state = initialState, action) => {
                 }
             }
             return state
-
 
         case FILTER:
             let n = 0
@@ -352,14 +352,13 @@ const reducer = (state = initialState, action) => {
             let categoryFilter = action.payload.filter((f) => f.filters === "category")
             // let sizeFilter = action.payload.filter((f) => f.filters === "size") //Los filtros de size decidí no usarlos
             let genreFilter = action.payload.filter((f) => f.filters === "genre")
-            // console.log("en reducer filter color category size y genre", colorFilter, categoryFilter, genreFilter)
-            // , sizeFilter
+          
             //arrays con el nombre seleccionado en cada sección
             colorFilter = colorFilter.map((c) => c.name)
             categoryFilter = categoryFilter.map((c) => c.name)
             // sizeFilter = sizeFilter.map((s) => s.name)
             genreFilter = genreFilter.map((g) => g.name)
-            // console.log("en reducer arrays con names de las secciones", colorFilter, categoryFilter, genreFilter)
+           
             // , sizeFilter
             //aplico los filtros names
             //si hay filtros en color le aplico el filtro, de lo contrario no lo aplico
@@ -371,25 +370,23 @@ const reducer = (state = initialState, action) => {
                     state.brandFilteredMemory?.filter((e) => e.color === c))]
             }
             state.resultFilterCombinado1 = state.resultFilterCombinado1.flat()
-            // console.log("resultado de color en reducer 1", state.resultFilterCombinado1)
+            
 
             // aplico filtro category si no está vacío
             if (categoryFilter.length > 0) {
                 state.resultFilterCombinado1 = categoryFilter?.map((c) => state.resultFilterCombinado1?.filter((e) => e.category[0].name === c))
                 state.resultFilterCombinado1 = state.resultFilterCombinado1.flat()
-                // console.log('resultado de categoryFilter', categoryFilter.lenght > 0)
+               
             } else {
                 state.resultFilterCombinado1 = state.resultFilterCombinado1.flat()
             }
-            // console.log('resultado de categoryFilter', categoryFilter.length)
-            // console.log("resultado de category en reducer 2", state.resultFilterCombinado1)
+            //
             //si size no está vacío aplico los filtros
             // const resultFilterCombinado3 = (sizeFilter.lenght !== 0)
             //     ?
             //     sizeFilter?.map((c) => resultFilterCombinado2?.filter((e) => e === c))
             //     :
             //     resultFilterCombinado2
-            // console.log("resultado de color en size 3", resultFilterCombinado3)
             //si genre no está vacío aplico los filtros
             if (genreFilter.length > 0) {
                 state.resultFilterCombinado1 = genreFilter?.map((c) => state.resultFilterCombinado1?.filter((e) => e.genre === c))
@@ -398,10 +395,9 @@ const reducer = (state = initialState, action) => {
                 state.resultFilterCombinado1 = state.resultFilterCombinado1.flat()
             }
 
-            // console.log("resultado de genre en reducer 4", state.resultFilterCombinado1)
+           
             //ya aplicados los filtros los guardo en el estado
-            // console.log('valor del resultado fuera de los ? 4', state.resultFilterCombinado1)
-            // console.log("estado en reducer", state)
+
             return {
                 ...state,
                 productsFiltered: state.resultFilterCombinado1,
@@ -419,6 +415,7 @@ const reducer = (state = initialState, action) => {
                 favoritesId: state.favoritesId.concat(action.payload.id)
             }
         }
+
         case REMOVE_FROM_FAVORITES: {
             return {
                 ...state,
@@ -426,6 +423,7 @@ const reducer = (state = initialState, action) => {
                 favoritesId: state.favoritesId.filter(p => p !== action.payload)
             }
         }
+
         case RESET_FILTERS:
             return {
                 ...state,
@@ -478,7 +476,7 @@ const reducer = (state = initialState, action) => {
             }
 
         case POST_ADDRESS:
-            console.log(action.payload)
+          
             return {
                 ...state,
             }
@@ -503,7 +501,5 @@ const reducer = (state = initialState, action) => {
         default: return state
     }
 }
-
-
 
 export default reducer

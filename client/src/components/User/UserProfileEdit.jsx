@@ -5,45 +5,44 @@ import Clou from "../ImageCloudinary/ImageCloudinary";
 // import { DriveFolderUpload } from '@mui/icons-material'
 import st from './UserProfileEdit.module.css'
 import { editUser } from '../../redux/actions.js'
+import { useAuth0 } from '@auth0/auth0-react';
 
-export default function UserEdit({changePage,editMode}) {
-    // console.log('HOLA SOY PROPS', props)
+export default function UserEdit({changePage}) {
+
     const dispatch = useDispatch()
-
-    const userInfo = useSelector( (state) => state.userDetail)
+    const userInfo = useSelector((state) => state.userDetail)
+    const { getAccessTokenSilently } = useAuth0()
 
     let info = {}
 
-    // userInfo._id ?
-    //     info = {
-    //         id: userInfo._id,
-    //         fullName: userInfo.fullName,
-    //         email: userInfo.email,
-    //         identificationNumber: userInfo.identificationNumber,
-    //         birthDate: userInfo.birthDate,
-    //         genre: userInfo.genre,
-    //         country: userInfo.country,
-    //         address: userInfo.address,
-    //         tel: userInfo.tel,
-    //         image: userInfo.image,
-    //         isAdmin: userInfo.isAdmin,
-    //         active: userInfo.active,
-    //     }
-
-    // : console.log('Algo esta pasando')
+    userInfo._id ?
+        info = {
+            id: userInfo._id,
+            fullName: userInfo.fullName,
+            email: userInfo.email,
+            identificationNumber: userInfo.identificationNumber,
+            birthDate: userInfo.birthDate,
+            genre: userInfo.genre,
+            country: userInfo.country,
+            address: userInfo.address,
+            tel: userInfo.tel,
+            image: userInfo.image,
+            active: userInfo.active,
+        }
+    : console.log('Algo esta pasando')
     // console.log('SOY LA INFOOO: ', info)
 
     const [input, setInput] = useState({})
 
-    const [nav, setNav] = useState(false)
+    // const [nav, setNav] = useState(false)
 
-    // useEffect(()=>{
-    //     userInfo._id?
-    //     setInput({    
-    //         ...userInfo
-    //     })
-    //     : console.log('Algo esta pasando en el useEffect')
-    // }, [userInfo])
+    useEffect(()=>{
+        userInfo._id?
+        setInput({    
+            ...userInfo
+        })
+        : console.log('Algo esta pasando en el useEffect')
+    }, [])
 
     // console.log('SOY EL INPUT: ', input)
 
@@ -59,10 +58,11 @@ export default function UserEdit({changePage,editMode}) {
         e.preventDefault()
 
         if (e.target.name === 'update') {
-            dispatch(editUser(info.id, input))
-            setNav(true)
+            dispatch(editUser(getAccessTokenSilently, info.id, input))
+            // setNav(true)
+            window.location.reload(true)
+            changePage()
         }
-        //window.location.reload(true)
     }
 
 
@@ -74,7 +74,7 @@ export default function UserEdit({changePage,editMode}) {
                 <div className={st.userUpdateUpload}>
                     <img
                         className={st.userUpdateImg}
-                        src="https://www.elheraldo.hn/binrepository/533x400/0c0/0d0/none/45933/RIDI/kevin.25060_EH1503649_MG210707224.jpg"//{info.image}
+                        src={info.image}
                         alt="Profile Pic"
                     />
                     <label htmlFor="file">
@@ -134,7 +134,7 @@ export default function UserEdit({changePage,editMode}) {
                             onChange={(e) => handleChange(e)}
                         >
                             <option hidden value="">
-                                Select a genre
+                                {info.genre}
                             </option>
                             <option name="Male" value="Male">
                                 Male
@@ -209,7 +209,7 @@ export default function UserEdit({changePage,editMode}) {
                 </div>
             </form>
 
-            {nav ? <Navigate to={`/profile/${userInfo.id}`} /> : null}
+            {/* {nav ? <Navigate to={`/profile/${info.id}`} /> : null} */}
         </div>
     )
 }

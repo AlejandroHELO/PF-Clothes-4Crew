@@ -10,13 +10,14 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { Auth0Provider } from '@auth0/auth0-react'
 
 axios.defaults.baseURL = process.env.REACT_APP_API || 'http://localhost:3001'
-console.log(window.location.origin)
+// console.log(window.location.origin)
 ReactDOM.render(
     <Auth0Provider
     domain={process.env.REACT_APP_AUTH_DOMAIN}
     clientId={process.env.REACT_APP_CLIENT_ID}
     audience={process.env.REACT_APP_AUDIENCE}
-  >
+    redirectUri={window.location.origin}
+    >
         <Provider store={store}>
             <Router>
                 <App />

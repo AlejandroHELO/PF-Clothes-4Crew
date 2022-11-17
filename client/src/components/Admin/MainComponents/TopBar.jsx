@@ -1,6 +1,5 @@
 import React from 'react'
 import st from './TopBar.module.css'
-// import Logo from '/images/clothes4crew.jpg'
 import { Link } from 'react-router-dom'
 import { NotificationsNone, Language, Settings, Logout } from '@mui/icons-material'
 
@@ -10,7 +9,8 @@ import { useAuth0 } from '@auth0/auth0-react'
 
 export default function TopBar() {
 
-    const {logout} = useAuth0()
+    const {logout, user} = useAuth0()
+    
     // const handleLogOut = async (e) => {
     //     e.preventDefault()
     //     try {
@@ -26,16 +26,21 @@ export default function TopBar() {
         <nav className={st.topbar}>
             <div className={st.topbarWrapper}>
                 <div className={st.topLeft}>
-                    <img
+                    <Link
+                        to='/'
+                        className=' no-underline'
+                    >
+                        <img
                         className={st.logo}
                         src={'/images/clothes4crew.jpg'}
                         alt="Logo Clothes 4Crew"
-                    />
+                        />
+                    </Link>
                 </div>
                 <div className={st.topRight}>
                     <Link
                         to="/adminView/helpusmail"
-                        style={{ 'textDecoration': 'none', color: '#141616' }}
+                        className=' no-underline text-gray-800'
                     >
                         <div className={st.topbarIconsContainer}>
                             <NotificationsNone />
@@ -52,13 +57,13 @@ export default function TopBar() {
 
                     <Dropdown>
                         <Dropdown.Toggle
-                            style={{ display: 'flex', 'alignItems': 'center' }}
+                            style={{display:"flex", alignItems: "center"}}
                             variant="#D7FCF1"
                             id="dropdown-basic"
                         >
                             <img
-                                src="https://e7.pngegg.com/pngimages/788/424/png-clipart-computer-icons-computer-servers-administrator-miscellaneous-logo.png"
-                                alt="Foto de perfil"
+                                src={user.picture || "https://e7.pngegg.com/pngimages/788/424/png-clipart-computer-icons-computer-servers-administrator-miscellaneous-logo.png"}
+                                alt="Profile Pic"
                                 className={st.topAvatar}
                             />
                         </Dropdown.Toggle>

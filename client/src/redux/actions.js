@@ -35,13 +35,14 @@ import {
     DELETE_FROM_CART,
     CART_EMPTY,
     GET_FAVORITES,
-    GET_PRODUCTSADMIN,
+    GET_PRODUCTS_ADMIN,
     REMOVE_FROM_FAVORITES,
     GET_CART,
     BRAND_ELECT,
     GET_CARTDB,
-    POST_CREATE_PORCHASE,
-    GET_CREATE_PORCHASE
+    POST_CREATE_PURCHASE,
+    GET_PURCHASES,
+    GET_CREATE_PURCHASE
 
 } from './types'
 
@@ -60,7 +61,7 @@ export function getProducts() {
 export function getProductsAdmin() {
     return async function (dispatch) {
         const allData = await axios.get('/products')
-        return dispatch({ type: GET_PRODUCTSADMIN, payload: allData.data })
+        return dispatch({ type: GET_PRODUCTS_ADMIN, payload: allData.data })
     }
 }
 
@@ -83,10 +84,8 @@ export function clearDetail() {
 }
 
 export function createProduct(payload) {
-    console.log(payload)
     return async function (dispatch) {
         let json = await axios.post('/products', payload)
-        console.log(json.data)
         return dispatch({
             type: POST_PRODUCT,
             payload: json.data,
@@ -116,7 +115,6 @@ export function reviewsFilter(payload){
 }
 
 export function updateProduct(id, payload) {
-    // console.log('SOY EL ID: ', id, 'SOY EL PAYLOAD: ', payload)
     return async function (dispatch) {
         const json = await axios.put(`/products/${id}`, payload)
         return dispatch({ type: PRODUCT_UPDATE, payload: json.payload })
@@ -170,11 +168,9 @@ export function getColors() {
 
 export function orderBy(order) {
     return({ type: ORDER_BY, payload: order })
-    
 }
 
 export function filter(fil) {
-
     return function (dispatch) {
         dispatch({ type: FILTER, payload: fil })
     }
@@ -192,12 +188,17 @@ export function brandElect(brand) {
     }
 }
 
-
 // ------- Users ---------
 
-export function getAdmins() { // Obtener todos los Admins
+export function getAdmins(token) { // Obtener todos los Admins
     return async function (dispatch) {
-        let json = await axios.get('/users/admins')
+        const config={
+            headers:{
+                "Authorization": "Bearer "+ await token()
+            }
+        }
+
+        let json = await axios.get('/users/admin', config)
         return dispatch({
             type: GET_ADMINS,
             payload: json.data,
@@ -207,7 +208,6 @@ export function getAdmins() { // Obtener todos los Admins
 
 export function getUsers(token, id) { // Obtener todos los Users
     return async function (dispatch) {
-
         const config={
             headers:{
                 "Authorization": "Bearer "+ await token()
@@ -233,14 +233,14 @@ export function getUsersAddress(id) { // Obtener la address de un user
 }
 
 export function getCurrentUser(token, user) { // Visualizar perfil de un User
-    console.log('SOY EL USERRR: ', user)
+    
     return async function (dispatch) {
 
         const config={
             headers:{
                 "Authorization": "Bearer "+ await token()
-            }}
-            
+            }
+        }
 
         let json = await axios.post(`/users/${user.email}`, user, config)
         return dispatch({
@@ -268,19 +268,28 @@ export function getUser(token, id) { // Visualizar perfil de un User
 }
 
 export function LogInAction(data) {
+    return (dispatch) => {
+        try {
+            return dispatch({
+                type: LOGIN,
+                payload: "userCredental"
+            })
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
+    //      try {
+    //          let userCredental = logInWithEmailandPassword(data)
+    //          return dispatch({
+    //              type: LOGIN,
+    //              payload: userCredental
+    //          })
+    //      } catch (error) {
+    //          throw new Error(error)
+    //      }
+    //     }
+}
 
-// <<<<<<< HEAD
-//      try {
-//          let userCredental = logInWithEmailandPassword(data)
-//          return dispatch({
-//              type: LOGIN,
-//              payload: userCredental
-//          })
-//      } catch (error) {
-//          throw new Error(error)
-//      }
-//     }
-//  }
 //  export function logOutAction() {
 //      return async(dispatch) => {
 //          try {
@@ -303,35 +312,15 @@ export function LogInAction(data) {
 //                  type: LOGIN,
 //                  payload: newUser
 //              })
- 
 //          } catch (error) {
 //           throw new Error(error)   
 //          }
 //      }
 //  }
 
-// export function editUser(id, payload) { // Para que un User actualice su perfil
-
-// }
-
-// =======
-return (dispatch) => {
-        try {
-
-            return dispatch({
-                type: LOGIN,
-                payload: "userCredental"
-            })
-        } catch (error) {
-            throw new Error(error)
-        }
-    }
-}
-
 export function logOutAction() {
     return async (dispatch) => {
         try {
-
             return dispatch({
                 type: LOGIN,
                 payload: {}
@@ -357,9 +346,15 @@ export function SignUpwithPasswwordAndEmail(data) {
     }
 }
 
-export function editUser(id, payload) { // Para que un User actualice su perfil
+export function editUser(token, id, payload) { // Para que un User actualice su perfil
     return async function (dispatch) {
-        let json = await axios.put(`/users/${id}`, payload)
+        const config = {
+            headers:{
+                "Authorization": "Bearer "+ await token()
+            }
+        }
+
+        let json = await axios.put(`/users/${id}`, payload, config)
         return dispatch({
             type: UPDATE_USER,
             payload: json.data,
@@ -367,9 +362,15 @@ export function editUser(id, payload) { // Para que un User actualice su perfil
     }
 }
 
-export function editUserAdmin(id, payload) { // Para que un admin actualice el perfil de un User
+export function editUserAdmin(token, id, payload) { // Para que un admin actualice el perfil de un User
     return async function (dispatch) {
-        let json = await axios.put(`/users/admin/${id}`, payload)
+        const config = {
+            headers:{
+                "Authorization": "Bearer "+ await token()
+            }
+        }
+
+        let json = await axios.put(`/users/admin/${id}`, payload, config)
         return dispatch({
             type: UPDATE_USER_ADM,
             payload: json.data,
@@ -377,7 +378,7 @@ export function editUserAdmin(id, payload) { // Para que un admin actualice el p
     }
 }
 
-export function createUser(payload) { // Crear Usuario
+export function createUser(payload) { // Crear Usuario desde el admin
     return async function (dispatch) {
         let json = await axios.post('/users/register', payload)
         return dispatch({
@@ -402,7 +403,7 @@ export function getComments() {
 
 export function postComment(data) {
     //crear un mensaje en el buzón de HelpUsToImprove
-    // console.log('SOY LA DATA DE LA ACTION: ', data)
+   
     return async function (dispatch) {
         let response = await axios.post('/comments/send', data)
         return dispatch({
@@ -426,7 +427,6 @@ export const addToCart = product => async dispatch => {
     const cart = localStorage.getItem('cart')
         ? JSON.parse(localStorage.getItem('cart'))
         : [];
-    console.log('product//////////////en actions addToCart///', product)
     // comprobar si se duplica
     const duplicates = cart.filter(cartItem => cartItem.id === product.id);
     // si no hay duplicados, proceda
@@ -448,14 +448,12 @@ export const addToCart = product => async dispatch => {
     }
 };
 
-export const deleteFromCart = (product,props='') => async dispatch => {
+export const deleteFromCart = (product,props='') => dispatch => {
     const cart = localStorage.getItem('cart')
-        ? JSON.parse(localStorage.getItem('cart'))
-        : [];
-
+    ? JSON.parse(localStorage.getItem('cart'))
+    : [];
 
     const updatedCart = cart.filter(cartItem => cartItem.id !== product.id);
-    console.log(updatedCart)
     localStorage.setItem('cart', JSON.stringify(updatedCart));
 
     dispatch({
@@ -463,8 +461,7 @@ export const deleteFromCart = (product,props='') => async dispatch => {
         payload: updatedCart,
     });
     
-        dispatch(updatedCartDB(updatedCart,props._id))
-    
+    dispatch(updatedCartDB(updatedCart,props._id))
 };
 
 export const cartEmpty = () => {
@@ -489,9 +486,10 @@ export const getCart = () => {
         payload: cart
     }
 }
+
 export function updatedCartDB(data,userid) {
     return async function (dispatch) {
-        let response = await axios.post('/cartupdate/'+userid, data) 
+        let response = await axios.post('/cartupdate/'+ userid, data) 
         return dispatch({
             type: POST_DBCART,
             payload: response.data,
@@ -508,6 +506,7 @@ export function CreateAddress(data) {
         })
     }
 }
+
 export function GetCart(id) {
     return async function (dispatch) {
         let response = await axios.get('/cart?userId='+id)
@@ -517,26 +516,47 @@ export function GetCart(id) {
         })
     }
 }
-export function CreatePurchase(data) {
+
+export function CreatePurchase(data) { //Crear una compra
     return async function (dispatch) {
-        let response = await axios.post('/purchase',data) // http://localhost:3001/messages/send
-        console.log(response.data)
+       try {
+        let response = await axios.post('/purchase',data)
         return dispatch({
-            type:POST_CREATE_PORCHASE,
+            type:POST_CREATE_PURCHASE,
+            payload: response.data,
+        })
+       } catch(error) {
+        throw new Error(error)
+       }
+    }
+}
+
+export function GetPurchase(data) { //Obtener las compras de un user
+    return async function (dispatch) {
+       try{
+        let response = await axios.get('/purchase?userId=',data)
+      
+        return dispatch({
+            type:GET_CREATE_PURCHASE,
+            payload: response.data,
+        })
+       }catch(error) {
+        throw new Error(error)
+       }
+    }
+}
+
+export function getPurchases() { //Obtener todas las compras hechas
+    return async function (dispatch) {
+        let response = await axios.get('/purchase')
+        return dispatch({
+            type: GET_PURCHASES,
             payload: response.data,
         })
     }
 }
-export function GetPurchase(data) {
-    return async function (dispatch) {
-        let response = await axios.get('/purchase?userId=',data) // http://localhost:3001/messages/send
-        console.log(response.data)
-        return dispatch({
-            type:GET_CREATE_PORCHASE,
-            payload: response.data,
-        })
-    }
-}
+
+// ------- Favorites ---------
 
 export function favoriteProduct(product) {
     // return async function() {

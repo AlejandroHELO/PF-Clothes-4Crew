@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getBrands } from '../../redux/actions'
 import BrandCard from './BrandCard'
 
+
 export default function Brands() {
     const dispatch = useDispatch()
     const brands = useSelector((state) => state.brands)
@@ -13,12 +14,12 @@ export default function Brands() {
     }, [])
 
     return (
-        <div className="py-8 grid grid-cols-5 justify-items-center items-center">
+        <div className="py-8 flex flex-row justify-items-center items-center">
             {brands?.map((brand) => {
                 return (
                     <div
                         key={brand._id}
-                        className="m-8 h-full flex p-2 justify-center items-center"
+                        className="w-full"
                     >
                         <BrandCard name={brand.name} />
                     </div>

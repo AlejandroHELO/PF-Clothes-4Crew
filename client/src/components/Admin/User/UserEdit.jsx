@@ -5,30 +5,32 @@ import Clou from "../../ImageCloudinary/ImageCloudinary";
 // import { DriveFolderUpload } from '@mui/icons-material'
 import st from './UserEdit.module.css'
 import { editUserAdmin } from '../../../redux/actions'
+import { useAuth0 } from '@auth0/auth0-react';
 
 export default function UserEdit() {
     // console.log('HOLA SOY PROPS', props)
     const dispatch = useDispatch()
-
+    const { getAccessTokenSilently } = useAuth0()
     const userInfo = useSelector( (state) => state.userDetail)
-
+    console.log('soy la info del user: ',userInfo)
     let info = {}
 
-    userInfo._id
-        ? (info = {
-              id: userInfo._id,
-              fullName: userInfo.fullName,
-              email: userInfo.email,
-              birthDate: userInfo.birthDate,
-              genre: userInfo.genre,
-              country: userInfo.country,
-              address: userInfo.address,
-              tel: userInfo.tel,
-              image: userInfo.image,
-              isAdmin: userInfo.isAdmin,
-              active: userInfo.active,
-          })
-        : console.log('Algo esta pasando')
+    userInfo._id ? 
+    info = {
+        id: userInfo._id,
+        fullName: userInfo.fullName,
+        email: userInfo.email,
+        birthDate: userInfo.birthDate,
+        genre: userInfo.genre,
+        country: userInfo.country,
+        address: userInfo.address,
+        tel: userInfo.tel,
+        image: userInfo.image,
+        isAdmin: userInfo.isAdmin,
+        active: userInfo.active,
+    }
+    : 
+    console.log('Algo esta pasando')
     // console.log('SOY LA INFOOO: ', info)
 
     const [input, setInput] = useState({})
@@ -36,7 +38,7 @@ export default function UserEdit() {
     const [nav, setNav] = useState(false)
 
     useEffect(()=>{
-        userInfo.id?
+        userInfo._id?
         setInput({    
             ...userInfo
         })
@@ -57,7 +59,7 @@ export default function UserEdit() {
         e.preventDefault()
 
         if (e.target.name === 'update') {
-            dispatch(editUserAdmin(info.id, input))
+            dispatch(editUserAdmin(getAccessTokenSilently, info.id, input))
             setNav(true)
         }
         //window.location.reload(true)
@@ -67,7 +69,7 @@ export default function UserEdit() {
     return (
         <div className={st.userUpdate}>
             <span className={st.userUpdateTitle}>Edit</span>
-            <form onSubmit={handleUpdate} className={st.userUpdateForm}>
+            <div onSubmit={handleUpdate} className={st.userUpdateForm}>
                 <div className={st.userUpdateLeft}>
                     <div className={st.userUpdateItem}>
                         <label>Name</label>
@@ -84,6 +86,7 @@ export default function UserEdit() {
                         <input
                             type="email"
                             name="email"
+                            disabled
                             placeholder={info.email}
                             className={st.userUpdateInput}
                             onChange={(e) => handleChange(e)}
@@ -94,7 +97,7 @@ export default function UserEdit() {
                         <select
                             name="active"
                             defaultValue=""
-                            className={st.userUpdateInput}
+                            className={st.userUpdateSelect}
                             onChange={(e) => handleChange(e)}
                         >
                             <option hidden value="">
@@ -113,11 +116,11 @@ export default function UserEdit() {
                         <select
                             name="genre"
                             defaultValue=""
-                            className={st.userUpdateInput}
+                            className={st.userUpdateSelect}
                             onChange={(e) => handleChange(e)}
                         >
                             <option hidden value="">
-                                Select a genre
+                                {info.genre}
                             </option>
                             <option name="Male" value="Male">
                                 Male
@@ -227,7 +230,7 @@ export default function UserEdit() {
                         Update
                     </button>
                 </div>
-            </form>
+            </div>
             {nav ? <Navigate to={'/adminView/users'} /> : null}
         </div>
     )

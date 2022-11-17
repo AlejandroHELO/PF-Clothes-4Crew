@@ -16,42 +16,44 @@ import {
     MyLocation,
     PhoneInTalk,
     AccountBox,
-    DriveFolderUpload,
 } from '@mui/icons-material'
 
 export default function UserProfile() {
 
     const { userId } = useParams() //usar el mismo nombre de variable que en la ruta principal
-    console.log('SOY EL USER ID: ', userId)
-    const dispatch = useDispatch()
-    let userInfo = useSelector((state) => state.userDetail)
-    // console.log('SOY EL PRODUCT: ', productInfo)
-    
+    // console.log('SOY EL USER ID: ', userId)
     const { getAccessTokenSilently } = useAuth0()
+    const dispatch = useDispatch()
+
+    let userInfo = useSelector((state) => state.userDetail)
+  
 
     useEffect(() => {
         dispatch(getUser(getAccessTokenSilently, userId))
-    }, [])
+    }, [userId])
+    // useEffect(() => {
+    //     dispatch(getUser(userId))
+    // }, [])
 
     const [ editMode, setEditMode] = useState(false)
 
-    // let props = {}
+    let props = {}
 
-    // userInfo._id ? 
-    //     props = {
-    //         // id: userInfo._id,
-    //         fullName: userInfo.fullName,
-    //         email: userInfo.email,
-    //         identificationNumber: userInfo.identificationNumber,
-    //         birthDate: userInfo.birthDate.slice(0, 10),
-    //         genre: userInfo.genre,
-    //         country: userInfo.country,
-    //         address: userInfo.address,
-    //         tel: userInfo.tel,
-    //         image: userInfo.image,
-    //         active: String(userInfo.active),
-    //     }
-    // : console.log('Algo esta pasando')
+    userInfo._id ? 
+        props = {
+            id: userInfo._id,
+            fullName: userInfo.fullName,
+            email: userInfo.email,
+            identificationNumber: userInfo.identificationNumber,
+            birthDate: userInfo.birthDate?.slice(0, 10),
+            genre: userInfo.genre,
+            country: userInfo.country,
+            address: userInfo.address,
+            tel: userInfo.tel,
+            image: userInfo.image,
+            active: String(userInfo.active),
+        }
+    : console.log('Algo esta pasando')
 
     // console.log('SOY LAS PROPS: ', props)
 
@@ -78,31 +80,31 @@ export default function UserProfile() {
                                 <div className={st.userDetails}>
                                     <AccountBox className={st.userShowIcon} />
                                     <span className={st.userDetailsInfo}>
-                                        Full name: Pepito Pereza Puerta
+                                        Full name: {props.fullName}
                                     </span>
                                 </div>
                                 <div className={st.userDetails}>
                                     <AlternateEmail className={st.userShowIcon} />
                                     <span className={st.userDetailsInfo}>
-                                        Email: xxxx@gmail.com
+                                        Email: {props.email}
                                     </span>
                                 </div>
                                 <div className={st.userDetails}>
                                     <Pin className={st.userShowIcon} />
                                     <span className={st.userDetailsInfo}>
-                                        DNI: 999 999 999
+                                        DNI: {props.identificationNumber}
                                     </span>
                                 </div>
                                 <div className={st.userDetails}>
                                     <Wc className={st.userShowIcon} />
                                     <span className={st.userDetailsInfo}>
-                                        Genre: Male
+                                        Genre: {props.genre}
                                     </span>
                                 </div>
                                 <div className={st.userDetails}>
                                     <ManageAccounts className={st.userShowIcon} />
                                     <span className={st.userDetailsInfo}>
-                                        Active: True
+                                        Active: {props.active}
                                     </span>
                                 </div>
                                 {/* <div className={st.userDetails}>
@@ -119,31 +121,31 @@ export default function UserProfile() {
                                 <div className={st.userDetails}>
                                     <Public className={st.userShowIcon} />
                                     <span className={st.userDetailsInfo}>
-                                        Country: Colombia
+                                        Country: {props.country}
                                     </span>
                                 </div>
                                 <div className={st.userDetails}>
                                     <MyLocation className={st.userShowIcon} />
                                     <span className={st.userDetailsInfo}>
-                                        Address: Calle 10 No. 10 - 10
+                                        Address: {props.address}
                                     </span>
                                 </div>
                                 <div className={st.userDetails}>
                                     <PhoneInTalk className={st.userShowIcon} />
                                     <span className={st.userDetailsInfo}>
-                                        Tel: 987 654 321
+                                        Tel: {props.tel}
                                     </span>
                                 </div>
                                 <div className={st.userDetails}>
                                     <CalendarMonth className={st.userShowIcon} />
                                     <span className={st.userDetailsInfo}>
-                                        BirthDate: 01/01/2022
+                                        BirthDate: {props.birthDate}
                                     </span>
                                 </div>
                             </div> 
 
                             <div className={st.leftSide}>
-                                <img src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt="Profile Pict" className={st.userImg} />
+                                <img src={props.image} alt="Profile Pict" className={st.userImg} />
                             </div>
 
                         </div>

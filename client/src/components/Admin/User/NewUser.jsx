@@ -43,7 +43,7 @@ export default function NewUser() {
     return (
         <div className={st.newUser}>
             <h1 className={st.newUserTitle}>New User</h1>
-            <form onSubmit={handleCreate} className={st.newUserForm}>
+            <div className={st.newUserForm}>
                 <div className={st.newUserItem}>
                     <label>Full Name</label>
                     <input
@@ -186,7 +186,7 @@ export default function NewUser() {
                 >
                     Create
                 </button>
-            </form>
+            </div>
             {nav ? <Navigate to={'/adminView/users'} /> : null}
         </div>
     )

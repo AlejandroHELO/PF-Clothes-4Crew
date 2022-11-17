@@ -11,8 +11,7 @@ export default function HelpUsMail() {
         dispatch(getComments())
     }, [comments])
 
-    console.log(comments)
-
+   
     return (
         <div className={st.Container}>
             <h1 className={st.title}> Help Us Mail </h1>
