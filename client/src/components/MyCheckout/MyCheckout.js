@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import s from './MyCheckout.module.css'
 
 export default function MyCheckout(){
-    const userDetail=useSelector(stata =>stata.userDetail)
+    const userDetail=useSelector(stata =>stata.userLogged)
     const compras=useSelector(state =>state.compras)
     const dispatch=useDispatch()
     const nav=useNavigate()
@@ -15,14 +15,15 @@ export default function MyCheckout(){
     const [desplegar, setdesplegar] = React.useState('')
     const [mostrar, setmostrar] = React.useState({})
     React.useEffect(()=>{
-        if(userDetail){
+        if(userDetail._id){
+            console.log(userDetail)
             dispatch(GetPurchase(userDetail._id))
         }else {
             if(isAuthenticated){
                 dispatch(getCurrentUser(getAccessTokenSilently, user))
             }
         }
-    },[dispatch])
+    },[userDetail])
 
     React.useEffect(()=>{
         dispatch(getProducts())
@@ -43,7 +44,7 @@ export default function MyCheckout(){
     return(
         <div className={s.conten}>
             <div className={s.contenlistcompras}>
-            { compras?compras?.map( b => {
+            { compras&&userDetail._id?compras?.filter(f=>f.userId===userDetail._id)?.map( b => {
                     return(
                         <div className={s.itenlist} key={b.paymentId} onClick={()=>{onClickSelect(b)}}>
                             <span className={s.spans}> #{b.paymentId} </span>
