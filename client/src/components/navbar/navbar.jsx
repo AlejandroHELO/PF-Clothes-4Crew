@@ -48,7 +48,7 @@ function Navbar() {
     const [openNav, setOpenNav] = React.useState(false)
 
     useEffect(() => {
-        if (isAuthenticated) {
+        if (isAuthenticated&&!userLogged._id) {
             dispatch(getCurrentUser(getAccessTokenSilently, user));
         }
     }, [dispatch, isAuthenticated, getAccessTokenSilently, user]);

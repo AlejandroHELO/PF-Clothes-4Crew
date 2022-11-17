@@ -46,7 +46,7 @@ export default function Checkout({id}){
             dispatch(GetCart(props._id))
         }
         if(!props){
-                dispatch(getCurrentUser(getAccessTokenSilently,user))
+                //dispatch(getCurrentUser(getAccessTokenSilently,user))
             }
         }
         if(cart&&
