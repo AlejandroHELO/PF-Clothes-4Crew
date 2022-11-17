@@ -30,7 +30,7 @@ export default function UserProfile() {
 
     useEffect(() => {
         dispatch(getUser(getAccessTokenSilently, userId))
-    }, [])
+    }, [userId])
     // useEffect(() => {
     //     dispatch(getUser(userId))
     // }, [])

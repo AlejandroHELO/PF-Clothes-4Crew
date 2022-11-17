@@ -47,17 +47,17 @@
     border-radius: 10px;
 }
 
-.LgWidgetButton.Approved {
-    background-color: #aff5da;
-    color: #3bb077;
+.LgWidgetButton.Finished {
+    background-color: #52f5a6;
+    color: #297032;
 }
 
-.LgWidgetButton.Declined {
-    background-color: #f3c4c7;
-    color: #d95087;
+.LgWidgetButton.Cancelled {
+    background-color: #f7a6c6;
+    color: #b3315c;
 }
 
-.LgWidgetButton.Pending {
-    background-color: #bbcdf5;
-    color: #2a7ade;
+.LgWidgetButton.In-Process {
+    background-color: #7db3f5;
+    color: #1543c2;
 }

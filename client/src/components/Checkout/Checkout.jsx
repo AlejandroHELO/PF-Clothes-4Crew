@@ -70,23 +70,23 @@ export default function Checkout({id}){
             })
         settrue(false)
         }
-        console.log('que pasa con truedis ',truedis)
         
-    }, [dispatch,address,truedis,cartinfo,cart,carritook])
+        
+    }, [dispatch, address, truedis, cartinfo, cart, carritook, user])
     
     let value = 0
     const handleQtyClick = (e, product) => {
         e.preventDefault()
         // console.log('e. target en handle click', e.currentTarget.id, product.count)
         if (e.currentTarget.id === 'Mas') {
-            console.log('entré en mas')
+            
             value = product?.count + 1;
             if (value > product?.size?.stock) {
                 value = product?.size?.stock;
             }
         }
         else {
-            console.log('entré en menos')
+           
             value = product?.count - 1;
             if (value < 1) {
                 value = 1;
@@ -116,7 +116,7 @@ export default function Checkout({id}){
     }
     const handleDeleteproduct = (e, product) => {
         e.preventDefault()
-        console.log('product en handleDeleteProduct', product)
+       
         dispatch(deleteFromCart(product,props._id))
         
         if (JSON.parse(localStorage.getItem('cart')).length === 0) {
@@ -130,9 +130,9 @@ export default function Checkout({id}){
 
     }
     const onSelect=(e)=>{
+        console.log(e.target.value)
         if(e.target.value!=='select')
         setaddAddress(e.target.value)
-       console.log(e.target.value)
     }
     const onCreateInput=(e)=>{
         setinput({...input,[e.target.name]:e.target.value})
@@ -150,10 +150,12 @@ export default function Checkout({id}){
             userId:props._id,
             ...input,
         }
-        console.log(post)
+       
         dispatch(CreateAddress(post))
         
         dispatch(getUsersAddress(props._id))
+        alert('address create')
+        window.location.reload()
         setaddAddress('Select')
         
     }
@@ -175,8 +177,8 @@ export default function Checkout({id}){
         setpasos(pasos-1)
     }
     return(
-        <div class="grid h-screen place-items-center my-10 mx-10">
-        {pasos===0?<div class="content-center">
+        <div className="grid h-screen place-items-center my-10 mx-10">
+        {pasos===0?<div className="content-center">
         <div className={st.userTitleContainer}>
                 <h1 className={st.userTitle}>Personal Information</h1>
             </div>
@@ -244,7 +246,7 @@ export default function Checkout({id}){
                         </div>
                     </div>
                     <button 
-            class=" my-10 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className=" my-10 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             onClick={onNext}>next</button>
                 </div>
             
@@ -341,7 +343,7 @@ export default function Checkout({id}){
                             onChange={onCreateInput}
                         />
                          <button 
-             class=" my-10 mx-10 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+             className=" my-10 mx-10 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
              onClick={onCreate}>Create</button>
                     </div>
                 </div>
@@ -397,19 +399,19 @@ export default function Checkout({id}){
                  
              </div>   
                 :null}
-            <div class="  place-items-center" >
+            <div className="  place-items-center" >
             <button 
-            class="my-10 mx-10 inline-flex justify-center rounded-md border border-solid bg-white-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-#9a9696 focus:outline-none focus:ring-2 focus:ring-#9a9696  focus:ring-offset-2"
+            className="my-10 mx-10 inline-flex justify-center rounded-md border border-solid bg-white-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-#9a9696 focus:outline-none focus:ring-2 focus:ring-#9a9696  focus:ring-offset-2"
             onClick={onBack}>back</button>
             <button 
-             class=" my-10 mx-10 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+             className=" my-10 mx-10 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
              onClick={onNextSelect}>next</button>
              </div>
              </div>
              </div>
         </div>:
-        pasos===2?<div class='content-center'>
-             <div className={st.userTitleContainer} class="  place-items-center">
+        pasos===2?<div className='content-center'>
+             <div className={`${st.userTitleContainer} place-items-center`}>
                 <h1 className={st.userTitle}>Checkout Information</h1>
             </div>
               <div className={st.userContainer}>
@@ -418,13 +420,13 @@ export default function Checkout({id}){
                 {cart.length?cart[0]?.products?.map(p=>{
                     total=total+(p.price*p.count)
                     return(
-                        <div class='my-10'>
-                            {p.image?<img class='w-10 mx-10'
+                        <div className='my-10'>
+                            {p.image?<img className='w-10 mx-10'
                             src={p.image[0]||''}alt=''/>:null}
-                            <span class='mx-10'>
+                            <span className='mx-10'>
                                 Name: {p.name}</span>
                                 <nav className="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
-                                <botton
+                                <button
                                  type="button"
                                  onClick={e => handleQtyClick(e, p)}
                                  name="Menos"
@@ -433,15 +435,15 @@ export default function Checkout({id}){
                                  >
                                  <span className="sr-only">Menos</span>
                                 <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" name="Menos" />
-                                </botton>
+                                </button>
                                 {/* Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" */}
-                                <botton
+                                <button
                                    aria-current="page"
                                    className="relative z-10 inline-flex items-center border border-indigo-500 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 focus:z-20"
                                >
                                    {p.count}
-                                 </botton>
-                                <botton
+                                 </button>
+                                <button
                                  type="button"
                                  onClick={e => handleQtyClick(e, p)}
                                  name="Mas"
@@ -450,9 +452,9 @@ export default function Checkout({id}){
                                  >
                                  <span className="sr-only">Mas</span>
                                  <ChevronRightIcon className="h-5 w-5" aria-hidden="true" name="Mas" />
-                              </botton>
+                              </button>
                             </nav>
-                            <span class='mx-10'>
+                            <span className='mx-10'>
                                 Price: {p.price}</span>
                             <br/>
                             <button
@@ -467,16 +469,16 @@ export default function Checkout({id}){
                         
                     
                 }):<></>}
-                <span class='my-10'
+                <span className='my-10'
                 >Total: {total}</span>
                 <br/>
-                <div class='flex'>
+                <div className='flex'>
 
                 <button 
-            class=" w-24 my-10 mx-10 inline-flex justify-center rounded-md border border-solid bg-white-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-#9a9696 focus:outline-none focus:ring-2 focus:ring-#9a9696  focus:ring-offset-2"
+            className=" w-24 my-10 mx-10 inline-flex justify-center rounded-md border border-solid bg-white-600 py-2 px-4 text-sm font-medium text-black shadow-sm hover:bg-#9a9696 focus:outline-none focus:ring-2 focus:ring-#9a9696  focus:ring-offset-2"
             onClick={onBack}>back</button>
            {carritook?!truedis? <button 
-             class=" my-10 mx-10 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+             className=" my-10 mx-10 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
              onClick={()=>{settrue(true)}}>confirm</button>:
             <Pago  
             id={props._id}

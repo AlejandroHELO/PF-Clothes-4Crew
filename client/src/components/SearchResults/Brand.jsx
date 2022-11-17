@@ -43,9 +43,6 @@ export default function Brand({ optionsFilters, searchName, brandFilteredMemory 
     }, [selectedBrands])
 
     const handleClickBrand = (e, filters, name, brand) => {
-        console.log('name en handleClickBrand', name, brand)
-
-        console.log('id en handleClickBrand', e.currentTarget.id)
         setSelected(brand)
         dispatch(filter([{ filters: filters, name: name, id: e.currentTarget.id }, ...optionsFilters]))
         dispatch(brandElect(brand))
@@ -53,8 +50,6 @@ export default function Brand({ optionsFilters, searchName, brandFilteredMemory 
 
 
     }
-
-    console.log('brand selected en Brand.jsx------------>>>>>>>>>>', selected)
 
     return (
         <Listbox value={selected} onChange={setSelected}>

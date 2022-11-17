@@ -101,8 +101,6 @@ export default function Filters() {
     }, [])
 
     useEffect(() => {
-        console.log("colors en Filters------------>>>>>>>>>>>", colors)
-        console.log("categories en Filters------------>>>>>>>>>>>", categories)
         let filteres = [
             {
                 id: 'color',
@@ -149,7 +147,6 @@ export default function Filters() {
 
     const handleClickRadio = (e, section) => {
         // e.preventDefault()
-        console.log('estoy en handleClickRadio section y optionValue y optionId', section, e.target.id, e.target.checked, e.target.value)
         // e.target.id
         // filter-color-0
         // filter-category-0
@@ -172,7 +169,7 @@ export default function Filters() {
         dispatch(filter(optionsFilters))
     }, [optionsFilters])
 
-    console.log("en componente Filters brand memory", brandFilteredMemory)
+    
 
     return (
         <div className="bg-white">

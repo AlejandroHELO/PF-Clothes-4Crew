@@ -13,6 +13,7 @@ import ProductList from './ProductList/ProductList'
 import Product from './Products/Product'
 import NewProduct from './Products/NewProduct'
 import SalesList from './SalesList/SalesList'
+import Sales from './Sales/Sales'
 
 export default function AdminView() {
     // const [actualPage, setActualPage] = useState("home")
@@ -34,6 +35,7 @@ export default function AdminView() {
                     <Route path="/product/:productId" element={<Product />} />
                     <Route path="/newproduct" element={<NewProduct />} />
                     <Route path="/sales" element={<SalesList />} />
+                    <Route path="/sales/:purchaseId" element={<Sales />} />
                     <Route path="*" element={<HomeAdmin />} />
                 </Routes>
             </div>

@@ -45,10 +45,10 @@ export default function SearchResults({ open, setOpen }) {
         dispatch(search(query))
         if (order) {
             dispatch(orderBy(order))
-            console.log(order)
+            
         }
         
-        console.log(query)
+        
     }, [query, order, resultsFilted,openDetail])
 
 
@@ -93,13 +93,19 @@ export default function SearchResults({ open, setOpen }) {
     return (
         <div>
 
-            <div className="py-4 flex justify-between m-8">
+            <div className="py-4 flex w-full justify-between m-8">
                 <Filters results={results} query={query} />
-                <div className="grid grid-cols-5">
+                <div className="grid grid-cols-4 w-full">
                     {resultsFilted.length < 1 ? (
-                        <>{renderRes(results)}</>
+                        <div className='w-full'>
+                            {renderRes(results)}
+                        </div>
                     ) : (
-                        <>{renderRes(resultsFilted)}</>
+                        <div className='w-full'>
+                            {
+                                renderRes(resultsFilted)
+                            }
+                        </div>
                     )}
                 </div>
             </div>

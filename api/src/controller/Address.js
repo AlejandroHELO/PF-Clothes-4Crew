@@ -22,7 +22,7 @@ const CreateAddress= async(req,res)=>{
         codeNumber,
         phoneNumber,
         houseNumber,
-        cp,
+        cp, 
         city,
         userId,
         country

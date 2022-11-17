@@ -14,7 +14,24 @@ const Cards = () => {
     const dispatch = useDispatch()
     const products = useSelector((state) => state.productsFiltered)
     const [categories, setCategories] = useState([])
+    const [windowSize, setWindowSize] = React.useState(getWindowSize());
+    function getWindowSize() {
+        const {innerWidth, innerHeight} = window;
+        return {innerWidth, innerHeight};
+      }
 
+    React.useEffect(() => {
+        
+        function handleWindowreSize() {
+            setWindowSize(getWindowSize());
+        }
+        window.addEventListener('resize', handleWindowreSize)
+        return () => {
+            window.removeEventListener('resize', handleWindowreSize);
+          };
+    }, [products])
+
+    
     React.useEffect(() => {
         dispatch(getCategories())
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
@@ -26,16 +43,17 @@ const Cards = () => {
     }, [products])
 
     return (
-        <div className=" my-6 w-full" style={{ textAlign: 'center' }}>
+        <div className=" my-6" style={{ textAlign: 'center', maxWidth: windowSize.innerWidth }}>
             <h4 className="uppercase mx-4 px-4 italic">
                 2022 SPRING/SUMMER THE BEST OF SEASON
             </h4>
             {categories?.map((c) => {
                 return (
-                    <div key={c} className='w-full'>
+                    <div key={c} className='m-auto' style={{display: 'inline-grid', maxWidth: windowSize.innerWidth, minWidth:'fit-content'}}>
                         <Slider
                             cat={c}
                             products={products}
+                            windowSize={windowSize}
                         />
                     </div>
                 )

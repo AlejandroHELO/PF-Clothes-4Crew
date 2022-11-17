@@ -43,18 +43,18 @@ const allUsers = async (req, res, next) => {
 }
 
 const userLoggin = async (req, res, next) => {
-    const {name, image}=req.body
+    const {name, picture }=req.body
     // console.log(req.body)
     try {
         const { email } = req.params
 
         const Us = await userModel.findOne({email:email})
-        
+
         if(!Us){
             const User = {
                 fullName: name,
                 email: email,
-                image: image,
+                image: picture,
                 active: true,
                 isAdmin: false,
             }
@@ -70,8 +70,9 @@ const userLoggin = async (req, res, next) => {
                 data:User,
                 db_response: response        
             })
+        } else if (Us.active === false){
+            res.status(403).send({msg: "User Blocked"})
         }
-        
         else{res.status(200).send(Us)}
 
     } catch (error) {

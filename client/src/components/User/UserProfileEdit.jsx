@@ -5,11 +5,13 @@ import Clou from "../ImageCloudinary/ImageCloudinary";
 // import { DriveFolderUpload } from '@mui/icons-material'
 import st from './UserProfileEdit.module.css'
 import { editUser } from '../../redux/actions.js'
+import { useAuth0 } from '@auth0/auth0-react';
 
 export default function UserEdit({changePage}) {
 
     const dispatch = useDispatch()
     const userInfo = useSelector((state) => state.userDetail)
+    const { getAccessTokenSilently } = useAuth0()
 
     let info = {}
 
@@ -52,11 +54,19 @@ export default function UserEdit({changePage}) {
         }))
     }
 
+    const handleChangeImage = (e) => {
+        e.preventDefault()
+        setInput((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value,
+        }))
+    }
+
     const handleUpdate = (e) => {
         e.preventDefault()
 
         if (e.target.name === 'update') {
-            dispatch(editUser(info.id, input))
+            dispatch(editUser(getAccessTokenSilently, info.id, input))
             // setNav(true)
             window.location.reload(true)
             changePage()
@@ -87,7 +97,7 @@ export default function UserEdit({changePage}) {
                         type="file"
                         id="file"
                         style={{ display: 'none' }}
-                        onChange={(e) => handleChange(e)}
+                        onChange={(e) => handleChangeImage(e)}
                     />
                 </div>
 

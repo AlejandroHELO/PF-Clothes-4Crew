@@ -1,7 +1,10 @@
-body {
-    overflow-y: scroll; /* Show vertical scrollbar */
-    overflow-x: scroll; /* Show horizontal scrollbar */
-  }
+.button {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
+    width: 40px;
+    border-radius: 1rem;
+    font-size: larger;
+    padding: 5px;
+}
 
 .Container {
     /* color: black; */
