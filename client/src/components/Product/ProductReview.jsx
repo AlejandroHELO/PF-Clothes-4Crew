@@ -6,6 +6,7 @@ import st from './ReviewCard.module.css';
 import { Container } from "./CreateReviewsStyles";
 import { StarIcon } from '@heroicons/react/20/solid'
 import { useNavigate } from 'react-router-dom';
+import Footer from '../Footer/Footer.jsx';
 
 
 function ProductReview() {
@@ -13,13 +14,18 @@ function ProductReview() {
     // const product = useSelector((state) => state.details)
     // const reviews = useSelector(state => state.reviews)
     const reviews = useSelector(state => state.reviews)
+    const filteredReviews = useSelector(state => state.filteredReviews)
     const pDetail = useSelector(state => state.openDetail)
     let navigate = useNavigate()
+    console.log(reviews)
 
 
     React.useEffect(() => {
+        dispatch(reviewsFilter('All rates'))
+        if(!reviews.length){
         dispatch(getPReviews())
-    }, [dispatch])
+        }
+    }, [])
 
     function classNames(...classes) {
         return classes.filter(Boolean).join(' ')
@@ -29,6 +35,8 @@ function ProductReview() {
         e.preventDefault()
         dispatch(reviewsFilter(e.target.value))
     }
+
+
 
     const routeChange = () => {
         let path = "/";
@@ -52,9 +60,9 @@ function ProductReview() {
                     </select>
                 </div>
                 {
-                    (reviews.length) ?
+                    (filteredReviews.length) ?
                     <div>
-                        {reviews.filter(r => r.productId === pDetail)
+                        {filteredReviews.filter(r => r.productId === pDetail)
                         ?.map((review) => {
                             return (
                                 <div className={st.card}>
@@ -86,6 +94,7 @@ function ProductReview() {
                 }
                 </div>
             </div>
+            <Footer></Footer>
         </div>
     )
 }

@@ -50,6 +50,7 @@ const initialState = {
     openDetail: '',
     reviews: [],
     reviews_copy: [],
+    filteredReviews: [],
     searchResults: [],
     searchResultsFiltered: [],
     currentOrder: '',
@@ -178,39 +179,39 @@ const reducer = (state = initialState, action) => {
             if(action.payload === 'All rates'){
                 return({
                     ...state,
-                    reviews: reviews
+                    filteredReviews: reviews
                 })
             }else if(action.payload === '5'){
                 const filter = reviews.filter(r => r.score === 5)
                 return({
                     ...state,
-                    reviews: filter
+                    filteredReviews: filter
                 })
             }else if(action.payload === '4'){
                 const filter = reviews.filter(r => r.score === 4)
                 return({
                     ...state,
-                    reviews: filter
+                    filteredReviews: filter
                 })
                 
             }else if(action.payload === '3'){
                 const filter = reviews.filter(r => r.score === 3)
                 return({
                     ...state,
-                    reviews: filter
+                    filteredReviews: filter
                 })
             }else if(action.payload === '2'){
                 const filter = reviews.filter(r => r.score === 2)
                 return({
                     ...state,
-                    reviews: filter
+                    filteredReviews: filter
                 })
                 
             }else if(action.payload === '1'){
                 const filter = reviews.filter(r => r.score === 1)
                 return({
                     ...state,
-                    reviews: filter
+                    filteredReviews: filter
                 })
             }
 
