@@ -13,7 +13,7 @@ export default function Bot() {
 
 
     return (
-        <div className='fixed bottom-10 right-10 my-24'>
+        <div className='fixed bottom-0 right-0'>
             <button onClick={(e) => handleOpenChatbot(e)}>
                 <img
                     src='/images/bot/bot1.png' alt="bot"
