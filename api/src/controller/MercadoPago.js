@@ -51,9 +51,9 @@ const MercadoPago=async (req,res)=>{
                             }
                         },
                         "back_urls": {
-                            "success": "https://localhost:3000/checkout/confirm/"+address._id,
-                            "failure":"https://localhost:3000/checkout/confirm/"+address._id,
-                            "pending": "https://localhost:3000/checkout/confirm/"+address._id
+                            "success": "https://clothes-4-crew.vercel.app/checkout/confirm/"+address._id,
+                            "failure":"https://clothes-4-crew.vercel.app/checkout/confirm/"+address._id,
+                            "pending": "https://clothes-4-crew.vercel.app/checkout/confirm/"+address._id
                         },  //"https://clothes-4-crew.vercel.app/checkout/confirm/"
                         "auto_return": "approved",
                         "payment_methods": {
