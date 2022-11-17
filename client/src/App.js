@@ -23,6 +23,12 @@ import Pago from './components/MercadoPago/MercadoPago'
 import Footer from './components/Footer/Footer'
 // import './App.css';
 
+// import Loading from '';
+import ProductReview from './components/Product/ProductReview'
+import Chatbots from './components/Chatbot/Chatbots'
+import Bot from './components/Chatbot/Bot'
+
+
 
 export default function App() {
     const dispatch = useDispatch()
@@ -30,6 +36,7 @@ export default function App() {
 
     useEffect(() => {
         if (isAuthenticated) {
+
             dispatch(getCurrentUser(getAccessTokenSilently, user));
         }
     }, [isAuthenticated, getAccessTokenSilently, user]);
@@ -44,9 +51,9 @@ export default function App() {
 
     return (
         <div className='w-full'>
-            
+
             <Routes>
-        
+
                 <Route path='/' element={<Navbar />} >
                     <Route path='/' element={<HomePage />} />
                     <Route path='/searchResults/' element={<Filters />} />
@@ -55,25 +62,29 @@ export default function App() {
                     <Route path='/register' element={<Register />} />
                     <Route path='/helpusimprove' element={<HelpUsImprove />} />
                     <Route path='/aboutus' element={<AboutUs />} />
-                    <Route path="/cardReviews" element={<ProductReview />}/>
+                    <Route path="/cardReviews" element={<ProductReview />} />
 
 
-                    <Route element={<ProtectedRoutes/>}>
+                    <Route element={<ProtectedRoutes />}>
                         <Route path='/profile/:userId' element={<UserProfile />} />
-                        <Route path="/products/reviews/:id/:userId" element={<ProductReview  />} />
+                        <Route path="/products/reviews/:id/:userId" element={<ProductReview />} />
                         <Route path="/reviews/:id/:userId" element={<CreatePReview id='635ae766f530d18d68f103cb' userId='63615409b573f3a4a80dfc1f' />} />
-                        <Route path="/checkout" element={<Checkout  />} />
-                        <Route path="/checkout/confirm/:id" element={<CCheckout/>} />
-                        <Route path="/mycheckout" element={<MyCheckout/>} />
+                        <Route path="/checkout" element={<Checkout />} />
+                        <Route path="/checkout/confirm/:id" element={<CCheckout />} />
+                        <Route path="/mycheckout" element={<MyCheckout />} />
                     </Route>
                 </Route>
                 <Route element={<AdminRoutes />}>
                     <Route path="/adminview//*" element={<AdminView />} />
                 </Route>
                 <Route path="*" element={<Navigate to="/" />} />
-    
+
             </Routes>
             {/* <Pago id={'63615409b573f3a4a80dfc1f'}/> */}
+            <div className="relative">
+                <Bot />
+                <Chatbots />
+            </div>
         </div>
     )
 }
