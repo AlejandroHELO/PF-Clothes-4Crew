@@ -3,7 +3,7 @@ import './favoriteCard.css'
 import './responsivenavbar.css'
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getCategories, getProducts, getBrands, getCurrentUser, getProductDetail, getopenDetail, getCart, brandElect, getColors, deleteFromFavorites } from '../../redux/actions'
+import { getCategories, getProducts, getBrands, getCurrentUser, getProductDetail, getopenDetail, getCart, brandElect, getColors, deleteFromFavorites, cartEmpty } from '../../redux/actions'
 import { Link, useNavigate, Outlet } from 'react-router-dom'
 import SearchBar from './searchbar'
 import { useAuth0 } from "@auth0/auth0-react";
@@ -60,7 +60,12 @@ function Navbar() {
         dispatch(getBrands())
         
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
-
+    function OnClicklogout(){
+        localStorage.setItem('cart',JSON.stringify([]))
+        dispatch(cartEmpty())
+        logout()
+        
+    }
     function handleOpen() {
         if (openFavorites === false) {
             setOpenFavorites(true)
@@ -221,7 +226,7 @@ function Navbar() {
                                         Profile
                                     </button>
                                 </Link>
-                                <button onClick={logout} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                                <button onClick={OnClicklogout} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
                                     LogOut
                                 </button>
                             </div> 
@@ -232,7 +237,7 @@ function Navbar() {
                                         Profile
                                     </button>
                                 </Link>
-                                <button onClick={logout} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                                <button onClick={OnClicklogout} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
                                     LogOut
                                 </button>
                             </div>
@@ -317,7 +322,7 @@ function Navbar() {
                                         Profile
                                     </button>
                                 </Link>
-                                <button onClick={logout} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                                <button onClick={OnClicklogout} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
                                     LogOut
                                 </button>
                             </div> 
@@ -328,7 +333,7 @@ function Navbar() {
                                         Profile
                                     </button>
                                 </Link>
-                                <button onClick={logout} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                                <button onClick={OnClicklogout} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
                                     LogOut
                                 </button>
                             </div>
