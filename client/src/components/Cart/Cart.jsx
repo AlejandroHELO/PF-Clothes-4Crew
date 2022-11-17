@@ -16,6 +16,7 @@ export default function Cart({ open, setOpen, products }) {
     // const [open, setOpen] = useState(false)
     const openDetail = useSelector((state) => state.openDetail)
     const cart = useSelector((state) => state.cart);
+    const cartdb = useSelector((state) => state.cartDb);
     const dispatch = useDispatch();
     const [total, setTotal] = useState(0);
     const userDetail = useSelector(state => state.userLogged)
@@ -33,10 +34,11 @@ export default function Cart({ open, setOpen, products }) {
         //comparo las cantidades guardadas en LocalStorage y las guardadas en la base de datos
         if(userDetail._id){
             //console.log(products)
-            dispatch(updatedCartDB(products,userDetail._id))
+          
+        dispatch(updatedCartDB(products,userDetail._id))
         }
         
-    }, [products,userDetail])
+    }, [products])
    
 
     const handleQtyClick = (e, product) => {

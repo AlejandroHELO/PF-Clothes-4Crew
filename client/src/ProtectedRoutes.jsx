@@ -15,7 +15,9 @@ function ProtectedRoutes() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      dispatch(getCurrentUser(getAccessTokenSilently, user));
+      if(!userLogged._id){
+        dispatch(getCurrentUser(getAccessTokenSilently, user));
+      }
     }
   }, [dispatch, user, userLogged]);
 
