@@ -84,11 +84,11 @@ export default function UserList() {
 
     return (
         <div className={st.userList}>
-            <div className={st.userButtonContainer}>
+            {/* <div className={st.userButtonContainer}>
                 <Link to="/adminView/newuser">
                     <button className={st.userAddButton}>Create</button>
                 </Link>
-            </div>
+            </div> */}
 
             <DataGrid
                 rows={userRows}

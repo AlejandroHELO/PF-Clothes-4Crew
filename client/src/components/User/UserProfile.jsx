@@ -26,7 +26,7 @@ export default function UserProfile() {
     const dispatch = useDispatch()
 
     let userInfo = useSelector((state) => state.userDetail)
-  
+    console.log('SOY EL USER: ', userInfo)
 
     useEffect(() => {
         dispatch(getUser(getAccessTokenSilently, userId))

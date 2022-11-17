@@ -12,7 +12,7 @@ export default function UserEdit() {
     const dispatch = useDispatch()
     const { getAccessTokenSilently } = useAuth0()
     const userInfo = useSelector( (state) => state.userDetail)
-    console.log('soy la info del user: ',userInfo)
+    // console.log('soy la info del user: ', userInfo)
     let info = {}
 
     userInfo._id ? 

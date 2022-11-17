@@ -54,6 +54,14 @@ export default function UserEdit({changePage}) {
         }))
     }
 
+    const handleChangeImage = (e) => {
+        e.preventDefault()
+        setInput((prev) => ({
+            ...prev,
+            [e.target.name]: e.target.value,
+        }))
+    }
+
     const handleUpdate = (e) => {
         e.preventDefault()
 
@@ -89,7 +97,7 @@ export default function UserEdit({changePage}) {
                         type="file"
                         id="file"
                         style={{ display: 'none' }}
-                        onChange={(e) => handleChange(e)}
+                        onChange={(e) => handleChangeImage(e)}
                     />
                 </div>
 
