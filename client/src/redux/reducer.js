@@ -42,8 +42,7 @@ import {
     GET_PURCHASES,
     GET_CREATE_PURCHASE,
     GET_PURCHASE_DETAIL,
-    UPDATE_PURCHASE,
-    VIEW_CHAT_BOT
+    UPDATE_PURCHASE
 } from './types'
 
 const initialState = {
@@ -75,26 +74,23 @@ const initialState = {
     searchName: "",
     selectedBrands: [],
     userLogged: {},
-    address: '',
-    cartDb: '',
-    updatecartdb: '',
-    createP: '',
-    compras: '',
+    address:'',
+    cartDb:'',
+    updatecartdb:'',
+    createP:'',
+    compras:'',
     purchases: [],
     purchaseDetail: [],
-    purchasePut: '',
-    viewChat: {
-        value: false
-    },
+    purchasePut: ''
 }
 
 
 const reducer = (state = initialState, action) => {
-
+   
     switch (action.type) {
 
         case GET_PURCHASES:
-            return {
+            return{
                 ...state,
                 purchases: action.payload
             }
@@ -110,7 +106,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 createP: action.payload
             }
-
+        
         case POST_CREATE_PURCHASE:
             return {
                 ...state,
@@ -190,43 +186,43 @@ const reducer = (state = initialState, action) => {
                 reviews: action.payload,
                 reviews_copy: action.payload
             })
-
+        
         case REVIEWS_FILTER:
             const reviews = state.reviews_copy
-            if (action.payload === 'All rates') {
-                return ({
+            if(action.payload === 'All rates'){
+                return({
                     ...state,
                     filteredReviews: reviews
                 })
-            } else if (action.payload === '5') {
+            }else if(action.payload === '5'){
                 const filter = reviews.filter(r => r.score === 5)
-                return ({
+                return({
                     ...state,
                     filteredReviews: filter
                 })
-            } else if (action.payload === '4') {
+            }else if(action.payload === '4'){
                 const filter = reviews.filter(r => r.score === 4)
-                return ({
+                return({
                     ...state,
                     filteredReviews: filter
                 })
-
-            } else if (action.payload === '3') {
+                
+            }else if(action.payload === '3'){
                 const filter = reviews.filter(r => r.score === 3)
-                return ({
+                return({
                     ...state,
                     filteredReviews: filter
                 })
-            } else if (action.payload === '2') {
+            }else if(action.payload === '2'){
                 const filter = reviews.filter(r => r.score === 2)
-                return ({
+                return({
                     ...state,
                     filteredReviews: filter
                 })
-
-            } else if (action.payload === '1') {
+                
+            }else if(action.payload === '1'){
                 const filter = reviews.filter(r => r.score === 1)
-                return ({
+                return({
                     ...state,
                     filteredReviews: filter
                 })
@@ -318,7 +314,7 @@ const reducer = (state = initialState, action) => {
             }
 
             if (action.payload === 'priceAsc') {
-
+              
                 let n = 0;
                 const ordenV = state.productsFiltered.sort((prev, next) => {
                     return prev.price - next.price
@@ -370,13 +366,13 @@ const reducer = (state = initialState, action) => {
             let categoryFilter = action.payload.filter((f) => f.filters === "category")
             // let sizeFilter = action.payload.filter((f) => f.filters === "size") //Los filtros de size decidí no usarlos
             let genreFilter = action.payload.filter((f) => f.filters === "genre")
-
+          
             //arrays con el nombre seleccionado en cada sección
             colorFilter = colorFilter.map((c) => c.name)
             categoryFilter = categoryFilter.map((c) => c.name)
             // sizeFilter = sizeFilter.map((s) => s.name)
             genreFilter = genreFilter.map((g) => g.name)
-
+           
             // , sizeFilter
             //aplico los filtros names
             //si hay filtros en color le aplico el filtro, de lo contrario no lo aplico
@@ -388,13 +384,13 @@ const reducer = (state = initialState, action) => {
                     state.brandFilteredMemory?.filter((e) => e.color === c))]
             }
             state.resultFilterCombinado1 = state.resultFilterCombinado1.flat()
-
+            
 
             // aplico filtro category si no está vacío
             if (categoryFilter.length > 0) {
                 state.resultFilterCombinado1 = categoryFilter?.map((c) => state.resultFilterCombinado1?.filter((e) => e.category[0].name === c))
                 state.resultFilterCombinado1 = state.resultFilterCombinado1.flat()
-
+               
             } else {
                 state.resultFilterCombinado1 = state.resultFilterCombinado1.flat()
             }
@@ -413,7 +409,7 @@ const reducer = (state = initialState, action) => {
                 state.resultFilterCombinado1 = state.resultFilterCombinado1.flat()
             }
 
-
+           
             //ya aplicados los filtros los guardo en el estado
 
             return {
@@ -514,15 +510,6 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
             }
-
-        //----------------chatBot-----------------
-        case VIEW_CHAT_BOT:
-            return ({
-                ...state,
-                viewChat: {
-                    value: action.payload
-                }
-            })
 
         default: return state
     }
