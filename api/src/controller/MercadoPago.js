@@ -26,8 +26,8 @@ const MercadoPago=async (req,res)=>{
                         "unit_price": cart.price
                     }
                 })
-                const address = addressModel.findOne({_id:addressId})
-                console.log(address)
+                const address = await addressModel.findOne({_id:addressId})
+                console.log('soy la direccion: '+address)
                 //const address = addres.filter(f=>f._id===addressId)
                 if(address){
                     const body = {
@@ -37,7 +37,7 @@ const MercadoPago=async (req,res)=>{
                             "surname": user.fullName,
                             "email": user.email,
                             "phone": {
-                                "area_code": address.codeNumber,
+                                "area_code": address.codeNumber.toString(),
                                 "number":address.phoneNumber
                             },
                             "identification": {
@@ -46,15 +46,15 @@ const MercadoPago=async (req,res)=>{
                             },
                             "address": {
                                 "street_name": address.street,
-                                "street_number": address.houseNumber,
-                                "zip_code": address.cp
+                                "street_number": address.houseNumber, 
+                                "zip_code": address.cp.toString()
                             }
                         },
                         "back_urls": {
-                            "success": "https://clothes-4-crew.vercel.app/checkout/confirm/"+address._id,
-                            "failure": "https://clothes-4-crew.vercel.app/checkout/confirm/"+address._id,
-                            "pending": "https://clothes-4-crew.vercel.app/checkout/confirm/"+address._id
-                        },
+                            "success": "https://localhost:3000/checkout/confirm/"+address._id,
+                            "failure":"https://localhost:3000/checkout/confirm/"+address._id,
+                            "pending": "https://localhost:3000/checkout/confirm/"+address._id
+                        },  //"https://clothes-4-crew.vercel.app/checkout/confirm/"
                         "auto_return": "approved",
                         "payment_methods": {
                             "excluded_payment_methods": [

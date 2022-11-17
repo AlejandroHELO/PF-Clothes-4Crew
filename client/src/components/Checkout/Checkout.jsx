@@ -130,6 +130,7 @@ export default function Checkout({id}){
 
     }
     const onSelect=(e)=>{
+        console.log(e.target.value)
         if(e.target.value!=='select')
         setaddAddress(e.target.value)
     }
@@ -154,6 +155,7 @@ export default function Checkout({id}){
         
         dispatch(getUsersAddress(props._id))
         alert('address create')
+        window.location.reload()
         setaddAddress('Select')
         
     }

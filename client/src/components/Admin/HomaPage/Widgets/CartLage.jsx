@@ -25,11 +25,15 @@ export function CartLarge({userId,time}){
     return(
         user.length?<tr className="LgWidgetTr">
         <td className="LgWidgetUser">
-            <img
-                src={user[0].image}
-                alt="Foto de perfil"
-                className="LgWidgetImg"
-            />
+               {user[0].image?<img
+                            src={user[0].image}
+                            alt="Foto de perfil"
+                            className="LgWidgetImg"
+                        />:<img
+                        src="https://cdn-images.livecareer.es/pages/foto_cv_lc_es_4.jpg"
+                        alt="Foto de perfil"
+                     className="LgWidgetImg"
+                    />}
             <span className="LgWidgetName">
                 {user[0].fullName}
             </span>
