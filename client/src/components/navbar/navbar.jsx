@@ -11,6 +11,8 @@ import Cart from "../Cart/Cart";
 import Sort from "../SearchResults/Sort"
 import heartFill from '../../icons/heartFill.svg'
 import Menu from '../../icons/menu.svg'
+import Chatbots from '../Chatbot/Chatbots'
+import Bot from '../Chatbot/Bot'
 
 const styled = {
     backgroundColor: 'rgba(255, 0, 0, .2)',
@@ -58,13 +60,13 @@ function Navbar() {
         dispatch(getCategories())
         dispatch(getColors())
         dispatch(getBrands())
-        
+
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
-    function OnClicklogout(){
-        localStorage.setItem('cart',JSON.stringify([]))
+    function OnClicklogout() {
+        localStorage.setItem('cart', JSON.stringify([]))
         dispatch(cartEmpty())
         logout()
-        
+
     }
     function handleOpen() {
         if (openFavorites === false) {
@@ -98,20 +100,20 @@ function Navbar() {
         dispatch(getopenDetail(id))
     }
     const openNavCollapse = () => {
-        if(openNav === false) {
+        if (openNav === false) {
             setOpenNav(true)
-           
+
         }
         else {
             setOpenNav(false)
-            
+
         }
     }
 
     const handleAllProducts = (e) => {
         e.preventDefault()
         let filtersElectSinBrand = []
-       
+
 
         navigate('/searchResults/');
         if (filtersElect.length > 0) {
@@ -164,7 +166,7 @@ function Navbar() {
                         {/* h-16 border-gray-300 border-2 rounded  flex justify-center items-center p-2 */}
                         {/* Searchbar */}
                         <div className='flex rounded items-center border-2 h-max'>
-                             <SearchBar />
+                            <SearchBar />
                         </div>
                     </div>
                     {/* Lado derecho */}
@@ -174,7 +176,7 @@ function Navbar() {
                                 return (
                                     <div key={i.id} className="favoriteCard">
                                         <div className="img">
-                                            <img src={i.image[0]} alt="product image" className='productImage'/>
+                                            <img src={i.image[0]} alt="product image" className='productImage' />
                                         </div>
                                         <div className="header">
                                             {i.name}
@@ -185,13 +187,13 @@ function Navbar() {
                                         <div className="footer">
                                             <div className="deleteButton">
                                                 <button onClick={() => removeFromFavorites(i.id)}>
-                                                    <img src={heartFill} alt="" style={{width: '1.5em', height:'1.5em'}}/>
+                                                    <img src={heartFill} alt="" style={{ width: '1.5em', height: '1.5em' }} />
                                                 </button>
                                             </div>
                                             <div className="addtocartButton">
-                                                    <button onClick={() => handleOnClickDetail(i.id)} className='addToCartButton'>Details</button>
+                                                <button onClick={() => handleOnClickDetail(i.id)} className='addToCartButton'>Details</button>
                                             </div>
-                                            
+
                                         </div>
 
                                     </div>
@@ -209,38 +211,38 @@ function Navbar() {
                             🛒
                         </button>
                         {/* Login */}
-                        {!isAuthenticated ? 
+                        {!isAuthenticated ?
                             <button onClick={loginWithPopup} className="mx-4  box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
-                            👤 Sign In
-                            </button> 
+                                👤 Sign In
+                            </button>
                             : userLogged.isAdmin ?
-                            <div className='flex gap-3' >
-                                <img src={user?.picture} alt="User picture" className='h-10 w-10 rounded-full' />
-                                <Link to="/adminview" className=' no-underline'>
-                                    <button className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
-                                        Admin Panel
+                                <div className='flex gap-3' >
+                                    <img src={user?.picture} alt="User picture" className='h-10 w-10 rounded-full' />
+                                    <Link to="/adminview" className=' no-underline'>
+                                        <button className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                                            Admin Panel
+                                        </button>
+                                    </Link>
+                                    <Link to={`/profile/${userLogged._id}`} className=' no-underline'>
+                                        <button className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                                            Profile
+                                        </button>
+                                    </Link>
+                                    <button onClick={OnClicklogout} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                                        LogOut
                                     </button>
-                                </Link>
-                                <Link to={`/profile/${userLogged._id}`} className=' no-underline'>
-                                    <button className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
-                                        Profile
+                                </div>
+                                : <div className='flex gap-3' >
+                                    <img src={user?.picture} alt="User picture" className='h-10 w-10 rounded-full' />
+                                    <Link to={`/profile/${userLogged._id}`} className=' no-underline'>
+                                        <button className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                                            Profile
+                                        </button>
+                                    </Link>
+                                    <button onClick={OnClicklogout} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                                        LogOut
                                     </button>
-                                </Link>
-                                <button onClick={OnClicklogout} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
-                                    LogOut
-                                </button>
-                            </div> 
-                            : <div className='flex gap-3' >
-                                <img src={user?.picture} alt="User picture" className='h-10 w-10 rounded-full' />
-                                <Link to={`/profile/${userLogged._id}`} className=' no-underline'>
-                                    <button className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
-                                        Profile
-                                    </button>
-                                </Link>
-                                <button onClick={OnClicklogout} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
-                                    LogOut
-                                </button>
-                            </div>
+                                </div>
                         }
                     </div>
                 </div>
@@ -254,94 +256,98 @@ function Navbar() {
             </nav>
             <nav id='responsiveNavButton' onMouseLeave={() => setOpenNav(false)}>
                 <button className='w-full flex justify-center' onClick={() => openNavCollapse()}>
-                       <img src={Menu} className='w-10 h-10' />
+                    <img src={Menu} className='w-10 h-10' />
                 </button>
-                        {
-                            openNav === true && 
-                            <div className='bg-white position-absolute z-30 w-full'>
-                                     <div className=" flex justify-center w-full items-center h-fit">
-                                       <div className='w-1/2 h-fit'>
-                                            <Sort />
-                                       </div>
-                                       <div className='w-1/2 border-2 h-fit'>
-                                            <SearchBar />
-                                       </div>
-                                    </div>
-                                    <button onClick={() => handleOpen()} className="rounded w-full flex justify-center p-2 items-center">
-                                        🖤
-                                    </button>
-                                    <div style={style} onMouseLeave={() => handleOpen()}>
-                        {
-                            favorites.map((i) => {
-                                return (
-                                    <div key={i.id} className="favoriteCard">
-                                        <div className="img">
-                                            <img src={i.image[0]} alt="product image" className='productImage'/>
-                                        </div>
-                                        <div className="header">
-                                            {i.name}
-                                        </div>
-                                        <div className="main">
-                                            $ {i.price} USD
-                                        </div>
-                                        <div className="footer">
-                                            <div className="deleteButton">
-                                                <button onClick={() => removeFromFavorites(i.id)}>
-                                                    <img src={heartFill} alt="" style={{width: '1.5em', height:'1.5em'}}/>
-                                                </button>
+                {
+                    openNav === true &&
+                    <div className='bg-white position-absolute z-30 w-full'>
+                        <div className=" flex justify-center w-full items-center h-fit">
+                            <div className='w-1/2 h-fit'>
+                                <Sort />
+                            </div>
+                            <div className='w-1/2 border-2 h-fit'>
+                                <SearchBar />
+                            </div>
+                        </div>
+                        <button onClick={() => handleOpen()} className="rounded w-full flex justify-center p-2 items-center">
+                            🖤
+                        </button>
+                        <div style={style} onMouseLeave={() => handleOpen()}>
+                            {
+                                favorites.map((i) => {
+                                    return (
+                                        <div key={i.id} className="favoriteCard">
+                                            <div className="img">
+                                                <img src={i.image[0]} alt="product image" className='productImage' />
                                             </div>
-                                            <div className="addtocartButton">
+                                            <div className="header">
+                                                {i.name}
+                                            </div>
+                                            <div className="main">
+                                                $ {i.price} USD
+                                            </div>
+                                            <div className="footer">
+                                                <div className="deleteButton">
+                                                    <button onClick={() => removeFromFavorites(i.id)}>
+                                                        <img src={heartFill} alt="" style={{ width: '1.5em', height: '1.5em' }} />
+                                                    </button>
+                                                </div>
+                                                <div className="addtocartButton">
                                                     <button onClick={() => handleOnClickDetail(i.id)} className='addToCartButton'>Details</button>
-                                            </div>
-                                            
-                                        </div>
+                                                </div>
 
-                                    </div>
-                                )
-                            })
+                                            </div>
+
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                        <button onClick={() => setOpenCart(true)} className="rounded w-full flex justify-center p-2 items-center">
+                            🛒
+                        </button>
+
+                        {!isAuthenticated ?
+                            <button onClick={loginWithPopup} className=" w-full p-2 box-border bg-black text-white rounded flex  justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                                👤 Sign In
+                            </button>
+                            : userLogged.isAdmin ?
+                                <div className='flex gap-3' >
+                                    <img src={user?.picture} alt="User picture" className='h-10 w-10' />
+                                    <Link to="/adminview" className=' no-underline'>
+                                        <button className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                                            Admin Panel
+                                        </button>
+                                    </Link>
+                                    <Link to={`/profile/${userLogged._id}`} className=' no-underline'>
+                                        <button className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                                            Profile
+                                        </button>
+                                    </Link>
+                                    <button onClick={OnClicklogout} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                                        LogOut
+                                    </button>
+                                </div>
+                                : <div className='flex gap-3' >
+                                    <img src={user?.picture} alt="User picture" className='h-10 w-10' />
+                                    <Link to={`/profile/${userLogged._id}`} className=' no-underline'>
+                                        <button className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                                            Profile
+                                        </button>
+                                    </Link>
+                                    <button onClick={OnClicklogout} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                                        LogOut
+                                    </button>
+                                </div>
                         }
                     </div>
-                                    <button onClick={() => setOpenCart(true)} className="rounded w-full flex justify-center p-2 items-center">
-                                        🛒
-                                    </button>
-                       
-                                {!isAuthenticated ? 
-                                    <button onClick={loginWithPopup} className=" w-full p-2 box-border bg-black text-white rounded flex  justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
-                                        👤 Sign In
-                                    </button> 
-                                        : userLogged.isAdmin ?
-                                            <div className='flex gap-3' >
-                                             <img src={user?.picture} alt="User picture" className='h-10 w-10' />
-                                <Link to="/adminview" className=' no-underline'>
-                                    <button className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
-                                        Admin Panel
-                                    </button>
-                                </Link>
-                                <Link to={`/profile/${userLogged._id}`} className=' no-underline'>
-                                    <button className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
-                                        Profile
-                                    </button>
-                                </Link>
-                                <button onClick={OnClicklogout} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
-                                    LogOut
-                                </button>
-                            </div> 
-                            : <div className='flex gap-3' >
-                                <img src={user?.picture} alt="User picture" className='h-10 w-10' />
-                                <Link to={`/profile/${userLogged._id}`} className=' no-underline'>
-                                    <button className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
-                                        Profile
-                                    </button>
-                                </Link>
-                                <button onClick={OnClicklogout} className="box-border bg-black text-white rounded flex p-2 justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
-                                    LogOut
-                                </button>
-                            </div>
-                        }
-                            </div>
-                        }
+                }
             </nav>
-            <Outlet/>
+            <Outlet />
+            <div className="relative">
+                <Bot />
+                <Chatbots />
+            </div>
         </div>
     )
 }

@@ -44,7 +44,8 @@ import {
     GET_PURCHASES,
     GET_CREATE_PURCHASE,
     GET_PURCHASE_DETAIL,
-    UPDATE_PURCHASE
+    UPDATE_PURCHASE,
+    VIEW_CHAT_BOT,
 
 } from './types'
 
@@ -95,15 +96,15 @@ export function createProduct(payload) {
     }
 }
 
-export function getPReviews(){
-    return async function(dispatch){
+export function getPReviews() {
+    return async function (dispatch) {
         const allData = await axios.get('/reviews')
-        return dispatch({type: GET_REVIEWS, payload: allData.data})
+        return dispatch({ type: GET_REVIEWS, payload: allData.data })
     }
 }
 
-export function createProductReview(payload){
-    return async function(dispatch){
+export function createProductReview(payload) {
+    return async function (dispatch) {
         let json = await axios.post('/reviews', payload)
         return dispatch({
             type: CREATE_P_REVIEW,
@@ -112,8 +113,8 @@ export function createProductReview(payload){
     }
 }
 
-export function reviewsFilter(payload){
-    return {type: REVIEWS_FILTER, payload: payload}
+export function reviewsFilter(payload) {
+    return { type: REVIEWS_FILTER, payload: payload }
 }
 
 export function updateProduct(id, payload) {
@@ -169,7 +170,7 @@ export function getColors() {
 // ------- Filtros y ordenamiento ---------
 
 export function orderBy(order) {
-    return({ type: ORDER_BY, payload: order })
+    return ({ type: ORDER_BY, payload: order })
 }
 
 export function filter(fil) {
@@ -194,9 +195,9 @@ export function brandElect(brand) {
 
 export function getAdmins(token) { // Obtener todos los Admins
     return async function (dispatch) {
-        const config={
-            headers:{
-                "Authorization": "Bearer "+ await token()
+        const config = {
+            headers: {
+                "Authorization": "Bearer " + await token()
             }
         }
 
@@ -210,9 +211,9 @@ export function getAdmins(token) { // Obtener todos los Admins
 
 export function getUsers(token, id) { // Obtener todos los Users
     return async function (dispatch) {
-        const config={
-            headers:{
-                "Authorization": "Bearer "+ await token()
+        const config = {
+            headers: {
+                "Authorization": "Bearer " + await token()
             }
         }
 
@@ -225,8 +226,8 @@ export function getUsers(token, id) { // Obtener todos los Users
 }
 
 export function getUsersAddress(id) { // Obtener la address de un user
-        return async function (dispatch) {
-        let json = await axios.get('/address?id='+id)
+    return async function (dispatch) {
+        let json = await axios.get('/address?id=' + id)
         return dispatch({
             type: GET_USERSADDRESS,
             payload: json.data,
@@ -235,12 +236,12 @@ export function getUsersAddress(id) { // Obtener la address de un user
 }
 
 export function getCurrentUser(token, user) { // Obtener la info del user loggeado
-    console.log(user)
+    // console.log(user)
     return async function (dispatch) {
 
-        const config={
-            headers:{
-                "Authorization": "Bearer "+ await token()
+        const config = {
+            headers: {
+                "Authorization": "Bearer " + await token()
             }
         }
 
@@ -256,12 +257,12 @@ export function getUser(token, id) { // Visualizar perfil de un User
     return async function (dispatch) {
 
         const config = {
-            headers:{
-                "Authorization": "Bearer "+ await token()
+            headers: {
+                "Authorization": "Bearer " + await token()
             }
-        }   
+        }
 
-        let json = await axios.get(`/users/find/${id}`, config )
+        let json = await axios.get(`/users/find/${id}`, config)
         return dispatch({
             type: GET_PROFILE,
             payload: json.data,
@@ -305,7 +306,7 @@ export function LogInAction(data) {
 //          }
 //      } 
 //  }
- 
+
 //  export function SignUpwithPasswwordAndEmail(data) {
 //      return async(dispatch) =>{
 //          try {
@@ -336,7 +337,7 @@ export function logOutAction() {
 export function SignUpwithPasswwordAndEmail(data) {
     return async (dispatch) => {
         try {
-            const result= await axios.post('/users/register',data)
+            const result = await axios.post('/users/register', data)
             dispatch({
                 type: LOGIN,
                 payload: result.data
@@ -351,8 +352,8 @@ export function SignUpwithPasswwordAndEmail(data) {
 export function editUser(token, id, payload) { // Para que un User actualice su perfil
     return async function (dispatch) {
         const config = {
-            headers:{
-                "Authorization": "Bearer "+ await token()
+            headers: {
+                "Authorization": "Bearer " + await token()
             }
         }
 
@@ -367,8 +368,8 @@ export function editUser(token, id, payload) { // Para que un User actualice su 
 export function editUserAdmin(token, id, payload) { // Para que un admin actualice el perfil de un User
     return async function (dispatch) {
         const config = {
-            headers:{
-                "Authorization": "Bearer "+ await token()
+            headers: {
+                "Authorization": "Bearer " + await token()
             }
         }
 
@@ -405,7 +406,7 @@ export function getComments() {
 
 export function postComment(data) {
     //crear un mensaje en el buzón de HelpUsToImprove
-   
+
     return async function (dispatch) {
         let response = await axios.post('/comments/send', data)
         return dispatch({
@@ -450,10 +451,10 @@ export const addToCart = product => async dispatch => {
     }
 };
 
-export const deleteFromCart = (product,props='') => dispatch => {
+export const deleteFromCart = (product, props = '') => dispatch => {
     const cart = localStorage.getItem('cart')
-    ? JSON.parse(localStorage.getItem('cart'))
-    : [];
+        ? JSON.parse(localStorage.getItem('cart'))
+        : [];
 
     const updatedCart = cart.filter(cartItem => cartItem.id !== product.id);
     localStorage.setItem('cart', JSON.stringify(updatedCart));
@@ -462,8 +463,8 @@ export const deleteFromCart = (product,props='') => dispatch => {
         type: DELETE_FROM_CART,
         payload: updatedCart,
     });
-    
-    dispatch(updatedCartDB(updatedCart,props._id))
+
+    dispatch(updatedCartDB(updatedCart, props._id))
 };
 
 export const cartEmpty = () => {
@@ -489,9 +490,9 @@ export const getCart = () => {
     }
 }
 
-export function updatedCartDB(data,userid) {
+export function updatedCartDB(data, userid) {
     return async function (dispatch) {
-        let response = await axios.post('/cartupdate/'+ userid, data) 
+        let response = await axios.post('/cartupdate/' + userid, data)
         return dispatch({
             type: POST_DBCART,
             payload: response.data,
@@ -511,7 +512,7 @@ export function CreateAddress(data) {
 
 export function GetCart(id) {
     return async function (dispatch) {
-        let response = await axios.get('/cart?userId='+id)
+        let response = await axios.get('/cart?userId=' + id)
         return dispatch({
             type: GET_CARTDB,
             payload: response.data,
@@ -521,15 +522,15 @@ export function GetCart(id) {
 
 export function CreatePurchase(data) { //Crear una compra
     return async function (dispatch) {
-       try {
-        let response = await axios.post('/purchase', data)
-        return dispatch({
-            type:POST_CREATE_PURCHASE,
-            payload: response.data,
-        })
-       } catch(error) {
-        throw new Error(error)
-       }
+        try {
+            let response = await axios.post('/purchase', data)
+            return dispatch({
+                type: POST_CREATE_PURCHASE,
+                payload: response.data,
+            })
+        } catch (error) {
+            throw new Error(error)
+        }
     }
 }
 
@@ -546,13 +547,13 @@ export function getPurchases() { //Obtener todas las compras hechas
 export function GetPurchase(data) { //Obtener las compras de un user
     return async function (dispatch) {
         try {
-            let response = await axios.get('/purchase?userId=',data)
-    
+            let response = await axios.get('/purchase?userId=', data)
+
             return dispatch({
-                type:GET_CREATE_PURCHASE,
+                type: GET_CREATE_PURCHASE,
                 payload: response.data,
             })
-        } catch(error) {
+        } catch (error) {
             throw new Error(error)
         }
     }
@@ -562,12 +563,12 @@ export function getPurchaseDetail(id) { //Obtener el detalle de una compra
     return async function (dispatch) {
         try {
             let response = await axios.get(`/purchase?purchaseId=${id}`)
-      
+
             return dispatch({
                 type: GET_PURCHASE_DETAIL,
                 payload: response.data,
             })
-        } catch(error) {
+        } catch (error) {
             throw new Error(error)
         }
     }
@@ -577,13 +578,13 @@ export function updatePurchase(id, payload) { // Actualizar el estado de una com
     return async function (dispatch) {
         try {
             let response = await axios.put(`/purchase/${id}`, payload)
-      
+
             return dispatch({
                 type: UPDATE_PURCHASE,
                 payload: response.data,
             })
 
-        } catch(error) {
+        } catch (error) {
             throw new Error(error)
         }
     }
@@ -602,7 +603,7 @@ export function favoriteProduct(product) {
     //         throw new Error(error)
     //     }
     // }
-    return async function(dispatch) {
+    return async function (dispatch) {
         dispatch({
             type: GET_FAVORITES,
             payload: {
@@ -614,11 +615,19 @@ export function favoriteProduct(product) {
 }
 
 export function deleteFromFavorites(id) {
-    return async function(dispatch) {
+    return async function (dispatch) {
         dispatch({
             type: REMOVE_FROM_FAVORITES,
             payload: id
         })
     }
 }
-        
+
+// ------- Chat Bot ---------
+export function ViewChatBot(viewChat) {
+    console.log('estoy en action de ViewChatBot', viewChat)
+    return {
+        type: VIEW_CHAT_BOT,
+        payload: viewChat,
+    }
+}
