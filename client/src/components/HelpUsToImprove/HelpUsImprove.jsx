@@ -54,7 +54,8 @@ export default function HelpUsImprove() {
                         <label className=' font-bold whitespace-pre-wrap'>Name</label>
                         <input 
                         type="text" 
-                        name="name" 
+                        name="name"
+                        value={Message.name}
                         onChange={handleChange} 
                         placeholder="Enter your name"
                         className={st.inputField} />
@@ -63,7 +64,8 @@ export default function HelpUsImprove() {
                         <label className=' font-bold whitespace-pre-wrap'>Email</label>
                         <input 
                         type={"email"} 
-                        name="email" 
+                        name="email"
+                        value={Message.email}
                         onChange={handleChange} 
                         placeholder="Enter your email"
                         className={st.inputField} />
@@ -72,7 +74,8 @@ export default function HelpUsImprove() {
                         <label className=' font-bold whitespace-pre-wrap'>Message</label>
                         <textarea 
                         type="text" 
-                        name="message" 
+                        name="message"
+                        value={Message.message}
                         onChange={handleChange} 
                         placeholder="Write a message"
                         className={st.inputField} />

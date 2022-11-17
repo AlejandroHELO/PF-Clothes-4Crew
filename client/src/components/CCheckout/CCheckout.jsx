@@ -22,7 +22,9 @@ export default function CCheckout(){
         products:'',
         addresId:'',
         })
-        
+        if(createP.msj==='purchase created'){
+            nav('/mycheckout')
+        }
     React.useEffect(()=>{
         if(createP.msj){
             setvalid('true')
@@ -43,7 +45,7 @@ export default function CCheckout(){
                 products:''
             })
         }
-        if(createP.msj==='purchase create'){
+        if(createP.msj==='purchase created'){
             nav('/mycheckout')
         }
     },[dispatch,obj,createP])
@@ -56,7 +58,7 @@ export default function CCheckout(){
     React.useEffect(()=>{
         resultado= new URLSearchParams(search)
         //console.log('soy las querys',resultado)
-        if(resultado.get('payment_id')&&id&&userDetail._id&&cart.length){
+        if(resultado.get('payment_id')&&id&&userDetail._id&&cart&&cart.length){
             if(!obj.addresId&&!obj.paymentId&&!obj.products.length&&!obj.userId&&vali==='false'){
                 setobj({...obj,
                     paymentId:resultado.get('payment_id'),

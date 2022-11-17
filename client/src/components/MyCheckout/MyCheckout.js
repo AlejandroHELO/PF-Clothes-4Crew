@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import s from './MyCheckout.module.css'
 
 export default function MyCheckout(){
-    const userDetail=useSelector(stata =>stata.userDetail)
+    const userDetail=useSelector(stata =>stata.userLogged)
     const compras=useSelector(state =>state.compras)
     const dispatch=useDispatch()
     const nav=useNavigate()
@@ -15,14 +15,15 @@ export default function MyCheckout(){
     const [desplegar, setdesplegar] = React.useState('')
     const [mostrar, setmostrar] = React.useState({})
     React.useEffect(()=>{
-        if(userDetail){
+        if(userDetail._id){
+            console.log(userDetail)
             dispatch(GetPurchase(userDetail._id))
         }else {
             if(isAuthenticated){
                 dispatch(getCurrentUser(getAccessTokenSilently, user))
             }
         }
-    },[dispatch])
+    },[userDetail])
 
     React.useEffect(()=>{
         dispatch(getProducts())
@@ -43,7 +44,7 @@ export default function MyCheckout(){
     return(
         <div className={s.conten}>
             <div className={s.contenlistcompras}>
-            { compras?compras?.map( b => {
+            { compras&&userDetail._id?compras?.filter(f=>f.userId===userDetail._id)?.map( b => {
                     return(
                         <div className={s.itenlist} key={b.paymentId} onClick={()=>{onClickSelect(b)}}>
                             <span className={s.spans}> #{b.paymentId} </span>
@@ -98,7 +99,7 @@ export default function MyCheckout(){
                                 </div>
                             </div>
                             <div className={s.contenDcompra}>
-                            {mostrar.stateC==='Finish'?
+                            {mostrar.stateC==='Finished'?
                                 <button
                                 className=" my-10 mx-10 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                 id={p.id}

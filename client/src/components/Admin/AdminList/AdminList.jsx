@@ -37,6 +37,7 @@ export default function Admins() {
         id: index + 1,
         profilePic: Adm.image,
         idAdm: Adm._id,
+        country: Adm.country,
         name: Adm.fullName,
         email: Adm.email,
         active: Adm.active
