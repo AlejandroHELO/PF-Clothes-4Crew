@@ -29,7 +29,7 @@ export default function MyCheckout(){
     })
     
     const onbuton =(e)=>{
-        nav('/products/reviews/'+e.target.id+'/'+userDetail._id)
+        nav('/reviews/'+e.target.id+'/'+userDetail._id)
     }
 
     const onClickSelect = (b) => {

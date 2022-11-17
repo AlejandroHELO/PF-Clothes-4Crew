@@ -10,6 +10,7 @@ import StarIconFill from '../../icons/starIconFill.svg'
 
 
 function ProductDetail(product) {
+
     const dispatch = useDispatch()
     // const { productId } = useParams();
     // const product = useSelector((state) => state.details)
