@@ -40,6 +40,7 @@ export default function Sales() {
     }
 
     const handleUpdate = (e) => {
+        // console.log('SOY EL ID: ', purchaseId, 'SOY EL STATE: ', Purch)
         e.preventDefault()
         if (e.target.name === 'update') {
             dispatch(updatePurchase(purchaseId, Purch))

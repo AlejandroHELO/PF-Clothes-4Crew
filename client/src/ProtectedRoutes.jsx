@@ -5,23 +5,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser} from "./redux/actions";
 import ClipLoader from "react-spinners/ClipLoader";
 import LoginPopup from "./components/LoginPopup/LoginPopup";
+import BlockPopUp from "./components/BlockPopUp/BlockPopUp";
+
 
 function ProtectedRoutes() {
   const { isAuthenticated, isLoading, getAccessTokenSilently, user } = useAuth0();
   const dispatch = useDispatch();
-  const userDetail = useSelector(state => state.userDetail)
+  const userLogged = useSelector(state => state.userLogged)
 
   useEffect(() => {
     if (isAuthenticated) {
       dispatch(getCurrentUser(getAccessTokenSilently, user));
     }
-  }, [dispatch, user, userDetail]);
+  }, [dispatch, user, userLogged]);
 
   //HAY QUE VERIFICAR QUE SU EMAIL ESTÉ VERIFICADO Y 
   // QUE TENGA TODOS LOS CAMPOS NECESARIOS LLENOS
   return (
     
-    isAuthenticated ? (
+    isAuthenticated && userLogged.active ? (
     <Outlet />
     ) : isLoading ? 
     ( <div
@@ -34,8 +36,13 @@ function ProtectedRoutes() {
       >
       <ClipLoader color="#ef8354" size={70} margin={10} />
       </div>
-    ) : (
-    <LoginPopup userDetail={userDetail }/>
+    ) : !userLogged.active? 
+    (
+      <BlockPopUp/>
+    )
+    :
+    (
+    <LoginPopup userDetail={userLogged }/>
     )
   )
 }

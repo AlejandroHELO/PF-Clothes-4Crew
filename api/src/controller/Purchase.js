@@ -102,7 +102,7 @@ const updatePurchase = async (req, res, next) =>{
     const { state } = req.body
 
     try{
-        await userModel.findByIdAndUpdate( id, { state: state },
+        await purchaseModel.findByIdAndUpdate( id, { state: state },
             
             { new: true } // este ultimo parámetro hace que nos devuelva el user actualizado
         )

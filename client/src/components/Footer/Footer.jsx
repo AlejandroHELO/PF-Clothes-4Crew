@@ -3,19 +3,11 @@ import React from 'react'
 export default function Footer() {
     return (
         <div className="bg-black relative bottom-0 left-0 right-0 w-full h-48">
-            <div className="flex justify-between ">
+            <div className="flex justify-around ">
                 <div className="m-8">
-                    <h1 className="text-white text-sm  text-center ">
+                    <h1 className="text-white text-sm text-center ">
                         Find us at:
                     </h1>
-                    <h3 className="text-white text-xs text-center">
-                        <a
-                            href="#"
-                            className="text-white text-xs text-center no-underline"
-                        >
-                            Facebook
-                        </a>
-                    </h3>
                     <h3 className="text-white text-xs text-center">
                         <a
                             href="#"
@@ -26,26 +18,34 @@ export default function Footer() {
                     </h3>
                     <h3 className="text-white text-xs text-center">
                         <a
-                            href="mailto:clothes4crew@email.com"
+                            href="#"
                             className="text-white text-xs text-center no-underline"
                         >
-                            clothes4crew@email.com
+                            Facebook
+                        </a>
+                    </h3>
+                    <h3 className="text-white text-xs text-center">
+                        <a
+                            href="mailto:crewclothes850@gmail.com"
+                            className="text-white text-xs text-center no-underline"
+                        >
+                            crewclothes850@gmail.com
                         </a>
                     </h3>
                 </div>
-                <div className="my-auto mr-20">
+                <div className="m-8">
                     <h1 className="text-white text-sm text-center ">Contact</h1>
                     <h3 className="text-white text-xs text-center">
-                        lorem ipsum
+                        Business Phone: +54 747 159637
                     </h3>
                     <h3 className="text-white text-xs text-center">
-                        lorem ipsum
+                        Wanna be sponsor?
                     </h3>
                     <h3 className="text-white text-xs text-center">
-                        lorem ipsum
+                        crewclothes850@gmail.com
                     </h3>
                 </div>
-                <div className=" felx  mr-10 my-auto  ">
+                <div className=" m-8">
                     <h1 className="text-white text-sm text-center">C4CREW TEAM</h1>
                     <h3 className="text-white text-xs text-center">
                         <a
@@ -64,13 +64,13 @@ export default function Footer() {
                         </a>
                     </h3>
                     <h3 className="text-white text-xs text-center">
-                        lorem ipsum
+                        Henry - Final Project - FT29b Team 17
                     </h3>
                 </div>
             </div>
-            <div className="mb-0 text-center text-sm font-light ">
-                <h1 className="text-white text-sm  text-center">
-                    Henry - Final Project - FT29b Team 17
+            <div className="mb-0 text-center font-light ">
+                <h1 className="text-white text-sm">
+                    Clothes4Crew All Rights Reserved © 2022
                 </h1>
             </div>
         </div>

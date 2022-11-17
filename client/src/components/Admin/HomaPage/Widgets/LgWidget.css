@@ -48,16 +48,16 @@
 }
 
 .LgWidgetButton.Finished {
-    background-color: #aff5da;
-    color: #3bb077;
+    background-color: #52f5a6;
+    color: #297032;
 }
 
 .LgWidgetButton.Cancelled {
-    background-color: #f3c4c7;
-    color: #d95087;
+    background-color: #f7a6c6;
+    color: #b3315c;
 }
 
 .LgWidgetButton.In-Process {
-    background-color: #bbcdf5;
-    color: #2a7ade;
+    background-color: #7db3f5;
+    color: #1543c2;
 }
