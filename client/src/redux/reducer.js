@@ -39,9 +39,10 @@ import {
     POST_DBCARTD,
     POST_CREATE_PURCHASE,
     DELETE_CREATE_PURCHASE,
-    GET_CREATE_PURCHASE,
     GET_PURCHASES,
-
+    GET_CREATE_PURCHASE,
+    GET_PURCHASE_DETAIL,
+    UPDATE_PURCHASE
 } from './types'
 
 const initialState = {
@@ -77,7 +78,9 @@ const initialState = {
     updatecartdb:'',
     createP:'',
     compras:'',
-    purchases: []
+    purchases: [],
+    purchaseDetail: [],
+    purchasePut: ''
 }
 
 
@@ -88,7 +91,7 @@ const reducer = (state = initialState, action) => {
         case GET_PURCHASES:
             return{
                 ...state,
-                purchases:action.payload
+                purchases: action.payload
             }
 
         case GET_CREATE_PURCHASE:
@@ -98,17 +101,27 @@ const reducer = (state = initialState, action) => {
             }
 
         case DELETE_CREATE_PURCHASE:
-           
             return {
                 ...state,
                 createP: action.payload
             }
         
         case POST_CREATE_PURCHASE:
-             
             return {
                 ...state,
                 createP: action.payload
+            }
+
+        case GET_PURCHASE_DETAIL:
+            return {
+                ...state,
+                purchaseDetail: action.payload
+            }
+
+        case UPDATE_PURCHASE:
+            return {
+                ...state,
+                purchasePut: action.payload
             }
 
         case POST_DBCART:
@@ -476,7 +489,6 @@ const reducer = (state = initialState, action) => {
             }
 
         case POST_ADDRESS:
-          
             return {
                 ...state,
             }

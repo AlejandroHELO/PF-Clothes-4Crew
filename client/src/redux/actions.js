@@ -42,7 +42,9 @@ import {
     GET_CARTDB,
     POST_CREATE_PURCHASE,
     GET_PURCHASES,
-    GET_CREATE_PURCHASE
+    GET_CREATE_PURCHASE,
+    GET_PURCHASE_DETAIL,
+    UPDATE_PURCHASE
 
 } from './types'
 
@@ -232,8 +234,7 @@ export function getUsersAddress(id) { // Obtener la address de un user
     }
 }
 
-export function getCurrentUser(token, user) { // Visualizar perfil de un User
-    
+export function getCurrentUser(token, user) { // Obtener la info del user loggeado
     return async function (dispatch) {
 
         const config={
@@ -520,27 +521,12 @@ export function GetCart(id) {
 export function CreatePurchase(data) { //Crear una compra
     return async function (dispatch) {
        try {
-        let response = await axios.post('/purchase',data)
+        let response = await axios.post('/purchase', data)
         return dispatch({
             type:POST_CREATE_PURCHASE,
             payload: response.data,
         })
        } catch(error) {
-        throw new Error(error)
-       }
-    }
-}
-
-export function GetPurchase(data) { //Obtener las compras de un user
-    return async function (dispatch) {
-       try{
-        let response = await axios.get('/purchase?userId=',data)
-      
-        return dispatch({
-            type:GET_CREATE_PURCHASE,
-            payload: response.data,
-        })
-       }catch(error) {
         throw new Error(error)
        }
     }
@@ -553,6 +539,52 @@ export function getPurchases() { //Obtener todas las compras hechas
             type: GET_PURCHASES,
             payload: response.data,
         })
+    }
+}
+
+export function GetPurchase(data) { //Obtener las compras de un user
+    return async function (dispatch) {
+        try {
+            let response = await axios.get('/purchase?userId=',data)
+    
+            return dispatch({
+                type:GET_CREATE_PURCHASE,
+                payload: response.data,
+            })
+        } catch(error) {
+            throw new Error(error)
+        }
+    }
+}
+
+export function getPurchaseDetail(id) { //Obtener el detalle de una compra
+    return async function (dispatch) {
+        try {
+            let response = await axios.get(`/purchase?purchaseId=${id}`)
+      
+            return dispatch({
+                type: GET_PURCHASE_DETAIL,
+                payload: response.data,
+            })
+        } catch(error) {
+            throw new Error(error)
+        }
+    }
+}
+
+export function updatePurchase(id, payload) { // Actualizar el estado de una compra
+    return async function (dispatch) {
+        try {
+            let response = await axios.put(`/purchase/${id}`, payload)
+      
+            return dispatch({
+                type: UPDATE_PURCHASE,
+                payload: response.data,
+            })
+
+        } catch(error) {
+            throw new Error(error)
+        }
     }
 }
 

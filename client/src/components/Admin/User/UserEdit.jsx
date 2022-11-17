@@ -8,7 +8,7 @@ import { editUserAdmin } from '../../../redux/actions'
 import { useAuth0 } from '@auth0/auth0-react';
 
 export default function UserEdit() {
-    // console.log('HOLA SOY PROPS', props)
+
     const dispatch = useDispatch()
     const { getAccessTokenSilently } = useAuth0()
     const userInfo = useSelector( (state) => state.userDetail)

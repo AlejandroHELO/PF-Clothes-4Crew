@@ -37,6 +37,7 @@ const router = Router()
 router.get('/',(req,res)=>{
     res.status(200).send('Server On')
 })
+
 //---- Products routes ------
 router.use('/products', productsRouter)
 router.get('/reviews', Reviews)
@@ -45,7 +46,6 @@ router.put('/reviews', UpdateReview)
 
 router.post('/mercadopago/:id/:addressId',MercadoPago)
 router.get('/mercadopago/:id',GetMP)
-
 
 //---- Purchase routes ------
 router.use('/purchase', purchaseRouter)

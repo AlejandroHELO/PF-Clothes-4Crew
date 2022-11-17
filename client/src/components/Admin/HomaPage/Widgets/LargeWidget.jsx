@@ -17,16 +17,19 @@ export default function LargeWidget({compras}) {
                     {/* <th className="LgWidgetTh">Country</th> */}
                     <th className="LgWidgetTh">Status</th>
                 </tr>
-              {compras.length?compras?.map(p=>{
-                return(
-                    <CartLarge
-                    userId={p.userId}
-                    state={p.state}
-                    addresss={p.addresId}
-                    time={p.time}
-                    />
-                )
-              }):null}
+                {   compras.length?compras?.map(p=>{
+                    return(
+                        <CartLarge
+                        userId={p.userId}
+                        state={p.state}
+                        addresss={p.addresId}
+                        time={p.time}
+                        />
+                    )
+                    })  
+                    : 
+                    null
+                }
             </table>
         </div>
     )
