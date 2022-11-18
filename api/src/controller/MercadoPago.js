@@ -51,9 +51,9 @@ const MercadoPago=async (req,res)=>{
                             }
                         },
                         "back_urls": {
-                            "success": "clothes-4-crew-hjrhcliur-alejandrohelo.vercel.app/checkout/confirm/"+address._id,
-                            "failure":"clothes-4-crew-hjrhcliur-alejandrohelo.vercel.app/checkout/confirm/"+address._id,
-                            "pending": "clothes-4-crew-hjrhcliur-alejandrohelo.vercel.app/checkout/confirm/"+address._id
+                            "success": "https://clothes-4-crew-f0hptl7io-alejandrohelo.vercel.app//checkout/confirm/"+address._id,
+                            "failure":"https://clothes-4-crew-f0hptl7io-alejandrohelo.vercel.app//confirm/"+address._id,
+                            "pending": "https://clothes-4-crew-f0hptl7io-alejandrohelo.vercel.app//checkout/confirm/"+address._id
                         },  //"https://clothes-4-crew.vercel.app/checkout/confirm/"
                         "auto_return": "approved",
                         "payment_methods": {
