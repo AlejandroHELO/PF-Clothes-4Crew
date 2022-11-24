@@ -60,7 +60,7 @@ export default function AboutUs() {
             <div className={st.developer}>
               <span>Lucas Dri</span>
               <img src="/images/Devs Pics/Lucas.jpg" alt="Lucas Photo" className={st.devImg} />
-              <a href="">
+              <a href="https://www.linkedin.com/in/lucas-dri-ba0697241/">
                 <img src="\images\IN.png" alt="LI logo" className={st.linkedLogo} />
               </a>
             </div>

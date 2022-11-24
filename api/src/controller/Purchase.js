@@ -46,7 +46,7 @@ const CreatePurchase = async (req, res, next) => {
                 products: products,
                 addresId: addresId,
                 time: new Date(),
-                state:'In Process'
+                state:'In-Process'
             })
             await create.save()
 

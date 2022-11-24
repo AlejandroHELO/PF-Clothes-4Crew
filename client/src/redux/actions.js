@@ -236,7 +236,7 @@ export function getUsersAddress(id) { // Obtener la address de un user
 }
 
 export function getCurrentUser(token, user) { // Obtener la info del user loggeado
-    console.log(user)
+    // console.log(user)
     return async function (dispatch) {
 
         const config = {
