@@ -55,22 +55,21 @@ export default function Chatbots() {
 
                                         </div>
                                     </Transition.Child>
-                                    <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
-                                        <div className="px-4 sm:px-6">
+                                    <div className="flex justify-evenly  h-full flex-col overflow-y-scroll bg-white py-2 shadow-xl">
+                                        <div className="flex justify-between px-4 sm:px-6">
+                                            <Dialog.Title className="text-lg font-medium text-gray-900">   <img
+                                                src="/images/clothes4crew.jpg"
+                                                alt="LOGO"
+                                                className=' w-20'
+                                            ></img></Dialog.Title>
                                             <button
                                                 type="button"
-                                                className="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
+                                                className="rounded-md text-gray-400 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-white"
                                                 onClick={() => dispatch(ViewChatBot(false))}
                                             >
                                                 <span className="sr-only">Close panel</span>
                                                 <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                                             </button>
-
-                                            <Dialog.Title className="text-lg font-medium text-gray-900">   <img
-                                                src="/images/clothes4crew.jpg"
-                                                alt="LOGO"
-                                                className=' w-40'
-                                            ></img></Dialog.Title>
                                         </div>
                                         <div className="relative mt-6 flex-1 px-4 sm:px-6">
                                             {/* Replace with your content */}
