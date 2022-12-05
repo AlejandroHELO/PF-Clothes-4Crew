@@ -1,11 +1,11 @@
 /*eslint-disable */
-import React, {Fragment, useState, useRef } from 'react'
+import React, { Fragment, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getopenDetail, addToCart, getProducts, getPReviews } from '../../redux/actions';
 import { useNavigate } from 'react-router-dom';
 import { Dialog, RadioGroup, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import StarIcon  from '../../icons/StartIcon.svg'
+import StarIcon from '../../icons/StartIcon.svg'
 import StarIconFill from '../../icons/starIconFill.svg'
 
 
@@ -15,7 +15,7 @@ function ProductDetail(product) {
     // const { productId } = useParams();
     // const product = useSelector((state) => state.details)
     const openDetail = useSelector((state) => state.openDetail)
-    
+
     const reviews = useSelector((state) => state.reviews)
     const [open, setOpen] = useState(false)
     // const [selectedColor, setSelectedColor] = useState(product.colors[0])
@@ -23,7 +23,7 @@ function ProductDetail(product) {
     const slider = useRef()
     const [promedReviews, setPromedReviews] = useState(0)
     const [countReviews, setCountReviews] = useState(0)
-    const [image, setImage]=React.useState(0)
+    const [image, setImage] = React.useState(0)
 
     let navigate = useNavigate()
     const routeChange = () => {
@@ -34,7 +34,7 @@ function ProductDetail(product) {
     let productAddCart = {}
 
     function nextImage() {
-        if(image === product.image.length -1) {
+        if (image === product.image.length - 1) {
             setImage(0)
         } else {
             setImage(image + 1)
@@ -42,7 +42,7 @@ function ProductDetail(product) {
     }
 
     function prevImage() {
-        if(image === 0) {
+        if (image === 0) {
             setImage(product.image.length - 1)
         } else {
             setImage(image - 1)
@@ -51,7 +51,7 @@ function ProductDetail(product) {
 
 
     React.useEffect(() => {
-        if(reviews.length === 0) {
+        if (reviews.length === 0) {
             dispatch(getPReviews())
         }
         let reviewsPId = reviews.filter((e) => e.productId === product.id)
@@ -78,18 +78,15 @@ function ProductDetail(product) {
         }
     }, [product, openDetail, selectedSize, image])
 
-    
+
 
     const handleOnClickClose = () => {
-       
+
         setOpen(false)
         dispatch(getopenDetail(''))
     }
 
-    const handleChangeSize = (e) => {
-        // console.log('select size en detail', e)
-        setSelectedSize(e)
-    }
+
     const handleAddToCart = (e) => {
         e.preventDefault()
         // console.log('add to cart')
@@ -106,7 +103,7 @@ function ProductDetail(product) {
         return classes.filter(Boolean).join(' ')
     }
 
-   
+
 
     return product.name ? (
         <Transition.Root show={open} as={Fragment}>
@@ -153,34 +150,34 @@ function ProductDetail(product) {
                                             {/* poner carrusel con mapeo de imagenes */}
                                             {/* <img src={product.image[0]} alt='imagen producto' className="object-scale-down object-center" /> */}
                                             <div className="flex items-center bg-white justify-center w-full h-full">
-                                             
+
                                                 <button
-                                                className='z-20 w-fit h-fit position-absolute left-0'
-                                                onClick={() =>
-                                                    prevImage()
-                                                }
-                                            >
-                                                <img
-                                                    className="h-6 w-6 hover:h-7 hover:w-7"
-                                                    src="/flecha1.png"
-                                                    alt="flecha1"
-                                                />
-                                            </button>
-                                            
+                                                    className='z-20 w-fit h-fit position-absolute left-0'
+                                                    onClick={() =>
+                                                        prevImage()
+                                                    }
+                                                >
+                                                    <img
+                                                        className="h-6 w-6 hover:h-7 hover:w-7"
+                                                        src="/flecha1.png"
+                                                        alt="flecha1"
+                                                    />
+                                                </button>
+
                                                 <div
                                                     ref={slider}
                                                     className="snap-x overflow-hidden scroll-smooth h-fit flex items-center justify-start text-center m-4"
                                                 >
-                                                    
+
                                                     <img
                                                         src={product.image[image]}
                                                         alt="imagen producto"
                                                         className="object-scale-down object-center w-full h-full"
                                                     />
-                                                    
+
                                                 </div>
-                                                
-                                                    <button
+
+                                                <button
                                                     className='w-fit h-fit z-20 position-absolute right-0'
                                                     onClick={() =>
                                                         nextImage()
@@ -192,9 +189,14 @@ function ProductDetail(product) {
                                                         alt="flecha2"
                                                     />
                                                 </button>
-                                              
+
                                             </div>
                                         </div>
+
+
+
+
+
                                         <div className="sm:col-span-8 lg:col-span-7">
                                             <h2 className="text-2xl font-bold text-gray-900 sm:pr-12">
                                                 {product.name}
@@ -214,7 +216,7 @@ function ProductDetail(product) {
                                                 </h3>
 
                                                 <p className="text-2xl text-gray-900">
-                                                     ${product.price} USD
+                                                    ${product.price} USD
                                                 </p>
 
                                                 Reviews
@@ -224,29 +226,29 @@ function ProductDetail(product) {
                                                         <div className="flex items-center">
                                                             {
                                                                 [...Array(5)].map((rating, i) => {
-                                                                   return (
-                                                                    promedReviews > i ? (
-                                                                        
-                                                                        <img 
-                                                                         src={StarIconFill}
-                                                                        key={i}
-                                                                        className={classNames(
-                                                                            'h-5 w-5 flex-shrink-0'
-                                                                        )}/>
-                                                                ): (
-                                                                    <img 
-                                                                    src={StarIcon}
-                                                                   key={i}
-                                                                   className={classNames(
-                                                                       'h-5 w-5 flex-shrink-0'
-                                                                   )}/>
-                                                                ) 
-                                                                   )
+                                                                    return (
+                                                                        promedReviews > i ? (
+
+                                                                            <img
+                                                                                src={StarIconFill}
+                                                                                key={i}
+                                                                                className={classNames(
+                                                                                    'h-5 w-5 flex-shrink-0'
+                                                                                )} />
+                                                                        ) : (
+                                                                            <img
+                                                                                src={StarIcon}
+                                                                                key={i}
+                                                                                className={classNames(
+                                                                                    'h-5 w-5 flex-shrink-0'
+                                                                                )} />
+                                                                        )
+                                                                    )
                                                                 })
-                                                            }              
+                                                            }
                                                         </div>
                                                         <p className="sr-only">{promedReviews} out of 5 stars</p>
-                                                        <button type="button" onClick={routeChange}className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                                                        <button type="button" onClick={routeChange} className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">
                                                             {countReviews} reviews
                                                         </button>
                                                     </div>
@@ -345,8 +347,8 @@ function ProductDetail(product) {
                                                                                     <span
                                                                                         className={classNames(
                                                                                             active
-                                                                                                ? 'border'
-                                                                                                : 'border-2',
+                                                                                                ? 'border-2'
+                                                                                                : 'border',
                                                                                             checked
                                                                                                 ? 'border-gray-900'
                                                                                                 : 'border-transparent',
