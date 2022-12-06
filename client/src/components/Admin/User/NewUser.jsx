@@ -3,7 +3,6 @@ import { Navigate } from 'react-router-dom'
 import st from './NewUser.module.css'
 import { useDispatch } from 'react-redux'
 import Clou from "../../ImageCloudinary/ImageCloudinary";
-import { DriveFolderUpload } from '@mui/icons-material'
 import { createUser } from '../../../redux/actions'
 
 export default function NewUser() {

@@ -14,7 +14,7 @@ import {
     Wc,
     Public,
     MyLocation,
-    PhoneInTalk,
+    PhoneAndroid,
     AccountBox,
 } from '@mui/icons-material'
 
@@ -134,7 +134,7 @@ export default function UserProfile() {
                                     </span>
                                 </div>
                                 <div className={st.userDetails}>
-                                    <PhoneInTalk className={st.userShowIcon} />
+                                    <PhoneAndroid className={st.userShowIcon} />
                                     <span className={st.userDetailsInfo}>
                                         Tel: {props.tel}
                                     </span>
