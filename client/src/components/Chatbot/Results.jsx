@@ -11,13 +11,49 @@ export default function Results(props) {
 
         if (datos.genre === 'women') {
             if ((datos.peso > 44 && datos.peso < 55) || (datos.alt > 149 && datos.alt < 161)) {
-                setSize('S')
+                setState(state => ({
+                    ...state,
+                    size: {
+                        ...state.size,
+                        genre: {
+                            ...state.size.genre,
+                            size: 'S'
+                        }
+                    }
+                }))
             } else if ((datos.peso > 54 && datos.peso < 65) || (datos.alt > 159 && datos.alt < 170)) {
-                setSize('M')
+                setState(state => ({
+                    ...state,
+                    size: {
+                        ...state.size,
+                        genre: {
+                            ...state.size.genre,
+                            size: 'M'
+                        }
+                    }
+                }))
             } else if ((datos.peso > 64 && datos.peso < 76) || (datos.alt > 169 && datos.alt < 176)) {
-                setSize('L')
+                setState(state => ({
+                    ...state,
+                    size: {
+                        ...state.size,
+                        genre: {
+                            ...state.size.genre,
+                            size: 'L'
+                        }
+                    }
+                }))
             } else if ((datos.peso > 75 && datos.peso < 91) || (datos.alt > 175 && datos.alt < 191)) {
-                setSize('XL')
+                setState(state => ({
+                    ...state,
+                    size: {
+                        ...state.size,
+                        genre: {
+                            ...state.size.genre,
+                            size: 'XL'
+                        }
+                    }
+                }))
             } else {
                 setSize("Women's measurements not included. Write height between 150 and 190. And weight between 45 and 90.")
             }

@@ -29,8 +29,11 @@ export default function UserProfile() {
     console.log('SOY EL USER: ', userInfo)
 
     useEffect(() => {
-        dispatch(getUser(getAccessTokenSilently, userId))
-    }, [userId])
+        if(!userInfo._id){
+            dispatch(getUser(getAccessTokenSilently, userId))
+        }
+        
+    }, [])
     // useEffect(() => {
     //     dispatch(getUser(userId))
     // }, [])
