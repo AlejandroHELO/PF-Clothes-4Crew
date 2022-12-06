@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { ChevronDoubleRightIcon } from '@heroicons/react/20/solid'
 
 
 export default function Size(props) {
@@ -80,9 +81,23 @@ export default function Size(props) {
                         onChange={(e) => handleInputGenre(e)}
                         value={genre.peso}
                     />
-                    <label>Click on --></label>
+                    <div className='flex'>
+                        <label className='flex mt-2' >Click on <ChevronDoubleRightIcon
+                            className="-mr-1 ml-1 mt-1 h-5 w-5 text-gray-900 "
+                            aria-hidden="true"
+                        /> <ChevronDoubleRightIcon
+                                className="-mr-1 ml-1 mt-1 h-5 w-5 text-gray-900 "
+                                aria-hidden="true"
+                            /> <ChevronDoubleRightIcon
+                                className="-mr-1 ml-1 mt-1 h-5 w-5 text-gray-900 "
+                                aria-hidden="true"
+                            />
 
-                    <button className=' bg-slate-400 p-2' onClick={handleSubmit} >SEND</button>
+                        </label>
+
+                        <button className=' bg-slate-400 p-2' onClick={handleSubmit} >SEND</button>
+                    </div>
+
 
                     <label>Write the word <b>result</b> to obtain the size according to the data entered.</label>
                     <label> If you want to enter new data, write <b>size</b>.</label>
