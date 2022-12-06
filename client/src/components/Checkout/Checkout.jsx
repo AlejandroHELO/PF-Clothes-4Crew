@@ -10,15 +10,13 @@ import {
     Wc,
     Public,
     MyLocation,
-    PhoneInTalk,
+    PhoneAndroid,
     ManageAccounts,
     DriveFolderUpload,
 } from '@mui/icons-material'
 import { Select } from "@material-ui/core";
 import { MenuItem } from "@mui/material";
 import Pago from "../MercadoPago/MercadoPago";
-import Footer from "../Footer/Footer";
-import Navbar from "../navbar/navbar";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ADD_TO_CART, POST_DBCARTD,POST_ADDRESS_ID } from "../../redux/types";
 
@@ -233,7 +231,7 @@ export default function Checkout({id}){
                             </span>
                         </div>
                         <div className={st.userShowInfo}>
-                            <PhoneInTalk className={st.userShowIcon} />
+                            <PhoneAndroid className={st.userShowIcon} />
                             <span className={st.userShowInfoTitle}>
                                 Tel: {props.tel}
                             </span>

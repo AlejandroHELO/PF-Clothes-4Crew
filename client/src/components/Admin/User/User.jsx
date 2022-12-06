@@ -12,7 +12,7 @@ import {
     Wc,
     Public,
     MyLocation,
-    PhoneInTalk,
+    PhoneAndroid,
     ManageAccounts,
     Pin,
 } from '@mui/icons-material'
@@ -127,7 +127,7 @@ export default function User() {
                             </span>
                         </div>
                         <div className={st.userShowInfo}>
-                            <PhoneInTalk className={st.userShowIcon} />
+                            <PhoneAndroid className={st.userShowIcon} />
                             <span className={st.userShowData}>
                                 Tel: {props.tel}
                             </span>
