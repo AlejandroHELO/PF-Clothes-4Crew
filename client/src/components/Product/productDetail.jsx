@@ -335,9 +335,9 @@ function ProductDetail(product) {
                                                                                         ? 'bg-white shadow-sm text-gray-900 cursor-pointer'
                                                                                         : 'bg-gray-50 text-gray-200 cursor-not-allowed',
                                                                                     active
-                                                                                        ? 'ring-2 ring-gray-900'
+                                                                                        ? 'border-4 border-gray-900'
                                                                                         : '',
-                                                                                    'group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1'
+                                                                                    'group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-400 focus:outline-none sm:flex-1'
                                                                                 )}>
                                                                             {({ active, checked }) => (<>
                                                                                 <RadioGroup.Label as="span">
@@ -347,10 +347,10 @@ function ProductDetail(product) {
                                                                                     <span
                                                                                         className={classNames(
                                                                                             active
-                                                                                                ? 'border-2'
+                                                                                                ? 'border-4 border-gray-900'
                                                                                                 : 'border',
                                                                                             checked
-                                                                                                ? 'border-gray-900'
+                                                                                                ? 'border-4 border-gray-900'
                                                                                                 : 'border-transparent',
                                                                                             'pointer-events-none absolute -inset-px rounded-md'
                                                                                         )}
@@ -359,7 +359,7 @@ function ProductDetail(product) {
                                                                                 ) : (
                                                                                     <span
                                                                                         aria-hidden="true"
-                                                                                        className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
+                                                                                        className="pointer-events-none absolute -inset-px rounded-md border-2"
                                                                                     >
                                                                                         <svg
                                                                                             className="absolute inset-0 h-full w-full stroke-2 text-gray-200"
@@ -400,9 +400,9 @@ function ProductDetail(product) {
                                 </div>
                             </Dialog.Panel>
                         </Transition.Child>
-                    </div>
-                </div>
-            </Dialog>
+                    </div >
+                </div >
+            </Dialog >
         </Transition.Root >
     ) : (
         null
