@@ -334,9 +334,7 @@ function ProductDetail(product) {
                                                                                     s.stock
                                                                                         ? 'bg-white shadow-sm text-gray-900 cursor-pointer'
                                                                                         : 'bg-gray-50 text-gray-200 cursor-not-allowed',
-                                                                                    active
-                                                                                        ? 'border-4 border-gray-900'
-                                                                                        : '',
+                                                                                    active ? 'ring-2 ring-gray-900' : '',
                                                                                     'group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-400 focus:outline-none sm:flex-1'
                                                                                 )}>
                                                                             {({ active, checked }) => (<>
@@ -346,12 +344,8 @@ function ProductDetail(product) {
                                                                                 {s.stock ? (
                                                                                     <span
                                                                                         className={classNames(
-                                                                                            active
-                                                                                                ? 'border-4 border-gray-900'
-                                                                                                : 'border',
-                                                                                            checked
-                                                                                                ? 'border-4 border-gray-900'
-                                                                                                : 'border-transparent',
+                                                                                            active ? 'border-4' : 'border-2',
+                                                                                            checked ? 'border-gray-900' : 'border-transparent',
                                                                                             'pointer-events-none absolute -inset-px rounded-md'
                                                                                         )}
                                                                                         aria-hidden="true"
