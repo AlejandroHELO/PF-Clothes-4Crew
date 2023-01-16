@@ -260,7 +260,7 @@ function Navbar() {
                 </button>
                 {
                     openNav === true &&
-                    <div className='bg-white position-absolute z-30 w-full'>
+                    <div className='bg-white position-absolute z-30 w-full flex flex-col justify-center items-center'>
                         <div className="flex justify-center flex-col flex-wrap w-full items-center h-fit">
                             <div>
                                 <Sort />
@@ -312,7 +312,7 @@ function Navbar() {
 
 
                         {!isAuthenticated ?
-                            <button onClick={loginWithPopup} className=" w-5/6 flex justify-center items-center mx-4 p-2 box-border bg-black text-white rounded transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                            <button onClick={loginWithPopup} className=" w-5/6 flex justify-center items-center p-2 box-border bg-black text-white rounded transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
                                 👤 Sign In
                             </button>
                             : userLogged.isAdmin ?
