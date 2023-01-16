@@ -269,43 +269,47 @@ function Navbar() {
                                 <SearchBar />
                             </div>
                         </div>
-                        <button onClick={() => handleOpen()} className="rounded w-full flex justify-center p-2 items-center">
-                            🖤
-                        </button>
-                        <div style={style} onMouseLeave={() => handleOpen()}>
-                            {
-                                favorites.map((i) => {
-                                    return (
-                                        <div key={i.id} className="favoriteCard">
-                                            <div className="img">
-                                                <img src={i.image[0]} alt="product image" className='productImage' />
-                                            </div>
-                                            <div className="header">
-                                                {i.name}
-                                            </div>
-                                            <div className="main">
-                                                $ {i.price} USD
-                                            </div>
-                                            <div className="footer">
-                                                <div className="deleteButton">
-                                                    <button onClick={() => removeFromFavorites(i.id)}>
-                                                        <img src={heartFill} alt="" style={{ width: '1.5em', height: '1.5em' }} />
-                                                    </button>
+
+                        <div className=' flex flex-row justify-evenly h-fit'>
+                            <button onClick={() => handleOpen()} className="rounded w-full flex justify-center p-2 items-center">
+                                🖤
+                            </button>
+                            <div style={style} onMouseLeave={() => handleOpen()}>
+                                {
+                                    favorites.map((i) => {
+                                        return (
+                                            <div key={i.id} className="favoriteCard">
+                                                <div className="img">
+                                                    <img src={i.image[0]} alt="product image" className='productImage' />
                                                 </div>
-                                                <div className="addtocartButton">
-                                                    <button onClick={() => handleOnClickDetail(i.id)} className='addToCartButton'>Details</button>
+                                                <div className="header">
+                                                    {i.name}
+                                                </div>
+                                                <div className="main">
+                                                    $ {i.price} USD
+                                                </div>
+                                                <div className="footer">
+                                                    <div className="deleteButton">
+                                                        <button onClick={() => removeFromFavorites(i.id)}>
+                                                            <img src={heartFill} alt="" style={{ width: '1.5em', height: '1.5em' }} />
+                                                        </button>
+                                                    </div>
+                                                    <div className="addtocartButton">
+                                                        <button onClick={() => handleOnClickDetail(i.id)} className='addToCartButton'>Details</button>
+                                                    </div>
+
                                                 </div>
 
                                             </div>
-
-                                        </div>
-                                    )
-                                })
-                            }
+                                        )
+                                    })
+                                }
+                            </div>
+                            <button onClick={() => setOpenCart(true)} className="rounded w-full flex justify-center p-2 items-center">
+                                🛒
+                            </button>
                         </div>
-                        <button onClick={() => setOpenCart(true)} className="rounded w-full flex justify-center p-2 items-center">
-                            🛒
-                        </button>
+
 
                         {!isAuthenticated ?
                             <button onClick={loginWithPopup} className=" w-5/6 flex justify-center items-center mx-4 p-2 box-border bg-black text-white rounded transition hover:bg-white hover:text-black hover:border-2 hover:border-black">

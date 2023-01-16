@@ -29,7 +29,7 @@ export default function SearchBar() {
     return (
         <form className=" flex items-center hover:border-2">
 
-            <button className='flex h-fit justify-between items-center hover:border-transparent' onClick={(e) => handleSubmit(query, e)}>
+            <button className='flex flex-row w-full h-fit justify-between items-center hover:border-transparent' onClick={(e) => handleSubmit(query, e)}>
                 <input
                     className="border-none rounded hover:border-none"
                     type="text"
@@ -38,7 +38,7 @@ export default function SearchBar() {
 
                     value={query}
                 />
-                <MagnifyingGlassCircleIcon className='h-8 w-8' />
+                <MagnifyingGlassCircleIcon className='h-8 w-8 justify-end' />
             </button>
         </form>
     )

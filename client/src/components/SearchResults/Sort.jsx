@@ -10,8 +10,8 @@ const sortOptions = [
     // { name: 'Most Popular',  current: true },
     // { name: 'Best Rating',  current: false },
     // { name: 'Newest', current: false },
-    { name: 'Name: A-Z', current: false },
-    { name: 'Name: Z-A', current: false },
+    { name: 'A-Z', current: false },
+    { name: 'Z-A', current: false },
     { name: 'Price: Low to High', current: false },
     { name: 'Price: High to Low', current: false },
 ]
