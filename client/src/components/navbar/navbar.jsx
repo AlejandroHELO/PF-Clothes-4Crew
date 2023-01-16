@@ -50,7 +50,7 @@ function Navbar() {
     const [openNav, setOpenNav] = React.useState(false)
 
     useEffect(() => {
-        if (isAuthenticated&&!userLogged._id) {
+        if (isAuthenticated && !userLogged._id) {
             dispatch(getCurrentUser(getAccessTokenSilently, user));
         }
     }, [dispatch, isAuthenticated, getAccessTokenSilently, user]);
@@ -261,11 +261,11 @@ function Navbar() {
                 {
                     openNav === true &&
                     <div className='bg-white position-absolute z-30 w-full'>
-                        <div className=" flex justify-center w-full items-center h-fit">
-                            <div className='w-1/2 h-fit'>
+                        <div className="flex justify-center flex-col flex-wrap w-full items-center h-fit">
+                            <div>
                                 <Sort />
                             </div>
-                            <div className='w-1/2 border-2 h-fit'>
+                            <div className=' w-5/6 border-2'>
                                 <SearchBar />
                             </div>
                         </div>
@@ -308,7 +308,7 @@ function Navbar() {
                         </button>
 
                         {!isAuthenticated ?
-                            <button onClick={loginWithPopup} className=" w-full p-2 box-border bg-black text-white rounded flex  justify-center items-center transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                            <button onClick={loginWithPopup} className=" w-5/6 flex justify-center items-center mx-4 p-2 box-border bg-black text-white rounded transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
                                 👤 Sign In
                             </button>
                             : userLogged.isAdmin ?
