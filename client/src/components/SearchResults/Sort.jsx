@@ -43,13 +43,11 @@ function Sort() {
 
     return (
 
-        < div className=" h-fit flex items-baseline justify-between border-b border-gray-200 " >
+        < div className=" h-fit flex items-baseline justify-center border-b border-gray-200 " >
             {/* pt-24 pb-6 */}
             {/* <h1 className="text-4xl font-bold tracking-tight text-gray-900">New Arrivals</h1> */}
 
-            < div className='mx-5' >
 
-            </div >
 
             <div className="flex items-center">
                 <Menu as="div" className="relative inline-block text-left">
@@ -58,7 +56,7 @@ function Sort() {
                         <Menu.Button className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
                             SORT
                             <ChevronDownIcon
-                                className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                                className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-200"
                                 aria-hidden="true"
                             />
                         </Menu.Button>
@@ -82,7 +80,7 @@ function Sort() {
                                                 onClick={(e) => handleClickSort(e, option.name)}
                                                 className={classNames(
                                                     option.current ? 'font-medium text-gray-900' : 'text-gray-500',
-                                                    active ? 'bg-gray-100' : '',
+                                                    active ? 'bg-gray-300' : '',
                                                     'block px-4 py-2 text-sm'
                                                 )}
                                             >
@@ -97,10 +95,10 @@ function Sort() {
                 </Menu>
 
                 {/* <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
-<span className="sr-only">View grid</span>
-<Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
-</button> */}
-                <button
+                <span className="sr-only">View grid</span>
+                <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
+                </button> */}
+                {/* <button
                     type="button"
                     className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
                 // onClick={() => setMobileFiltersOpen(true)}
@@ -108,7 +106,7 @@ function Sort() {
                 >
                     <span className="sr-only">Filters</span>
                     <FunnelIcon className="h-5 w-5" aria-hidden="true" />
-                </button>
+                </button> */}
             </div>
 
         </div >
