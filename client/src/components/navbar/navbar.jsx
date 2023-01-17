@@ -15,7 +15,7 @@ import Chatbots from '../Chatbot/Chatbots'
 import Bot from '../Chatbot/Bot'
 
 const styled = {
-    backgroundColor: 'rgba(255, 0, 0, .2)',
+    backgroundColor: 'rgba(200, 200, 200, .2)',
     position: 'absolute',
     overflowY: 'auto',
     height: '0px',
@@ -255,17 +255,31 @@ function Navbar() {
 
             </nav>
             <nav id='responsiveNavButton' onMouseLeave={() => setOpenNav(false)}>
-                <button className='w-full flex justify-center' onClick={() => openNavCollapse()}>
-                    <img src={Menu} className='w-10 h-10' />
-                </button>
+                <div className=" w-full flex flex-row justify-between">
+                    <div className=" w-1/6 ">
+                        <Link to="/">
+                            <img
+                                src="/images/clothes4crew.jpg"
+                                alt="LOGO"
+                            ></img>
+                        </Link>
+                    </div>
+                    <div>
+                        <button className=' w-5/6 ' onClick={() => openNavCollapse()}>
+                            <img src={Menu} className='w-10 h-10' />
+                        </button>
+                    </div>
+
+                </div>
+
                 {
                     openNav === true &&
-                    <div className='bg-white position-absolute z-30 w-full flex flex-col justify-center items-center'>
-                        <div className="flex justify-center flex-col flex-wrap w-full items-center h-fit">
-                            <div>
+                    <div className='bg-white position-absolute z-30 w-full flex flex-col justify-end items-end'>
+                        <div className="flex justify-center flex-col flex-wrap w-full items-end h-fit">
+                            <div className=' m-2'>
                                 <Sort />
                             </div>
-                            <div className=' w-5/6 border-2'>
+                            <div className=' w-5/6 m-2 border-2'>
                                 <SearchBar />
                             </div>
                         </div>
@@ -310,9 +324,19 @@ function Navbar() {
                             </button>
                         </div>
 
+                        <div className=" w-5/6 m-2 flex justify-center items-center">
+                            <button
+                                type='button'
+                                onClick={(e) => handleAllProducts(e)}
+                                key="all"
+                                className=" w-full h-10 no-underline box-border bg-slate-900 text-slate-50 rounded flex p-2 justify-center items-center transition hover:bg-slate-50 hover:text-slate-900 hover:border-2 hover:border-slate-900"
+                            >
+                                All Products
+                            </button>
+                        </div>
 
                         {!isAuthenticated ?
-                            <button onClick={loginWithPopup} className=" w-5/6 flex justify-center items-center p-2 box-border bg-black text-white rounded transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
+                            <button onClick={loginWithPopup} className=" w-5/6 m-2 flex justify-center items-center p-2 box-border bg-black text-white rounded transition hover:bg-white hover:text-black hover:border-2 hover:border-black">
                                 👤 Sign In
                             </button>
                             : userLogged.isAdmin ?

@@ -80,7 +80,7 @@ function Sort() {
                                                 onClick={(e) => handleClickSort(e, option.name)}
                                                 className={classNames(
                                                     option.current ? 'font-medium text-gray-900' : 'text-gray-500',
-                                                    active ? 'bg-gray-100' : '',
+                                                    active ? 'bg-gray-300' : '',
                                                     'block px-4 py-2 text-sm'
                                                 )}
                                             >
