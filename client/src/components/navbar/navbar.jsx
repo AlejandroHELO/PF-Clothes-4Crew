@@ -254,7 +254,7 @@ function Navbar() {
                 />
 
             </nav>
-            <nav id='responsiveNavButton' onMouseLeave={() => setOpenNav(false)}>
+            <nav id='responsiveNavButton' className='lg:hidden' onMouseLeave={() => setOpenNav(false)}>
                 <div className=" w-full flex flex-row justify-between">
                     <div className=" w-1/6 ">
                         <Link to="/">
