@@ -17,7 +17,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Dialog, Disclosure, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { MinusIcon, PlusIcon } from '@heroicons/react/20/solid'
-import { filter, getColors, getCategories } from '../../redux/actions'
+import { filter, getColors, getCategories, getOpenFilterMovil } from '../../redux/actions'
 import Card from "../Cards/Card";
 import ProductDetail from '../Product/productDetail';
 
@@ -31,13 +31,15 @@ import Footer from '../Footer/Footer'
 export default function Filters() {
     const colors = useSelector((state) => state.colors)
     const categories = useSelector((state) => state.categories)
-    const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+    const openFilter = useSelector((state) => state.openFilter)
+    // const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
     const products = useSelector((state) => state.productsFiltered)
     const brands = useSelector((state) => state.brands)
     const brandFilteredMemory = useSelector((state) => state.brandFilteredMemory)
     const [optionsFilters, setOptionsFilters] = useState([])
     const searchName = useSelector((state) => state.searchName)
     const [filters, setFilters] = useState([])
+    // const [open, setOpen] = useState(false)
 
 
 
@@ -161,7 +163,27 @@ export default function Filters() {
     }
 
     const handleClickRadioButtonMinusPlus = (e) => {
-        console.log('hice click en handleClickRadioButtonMinusPlus----->')
+        let filteres = filters;
+        let options = []
+        let optionsColor = []
+        console.log("en optionsFilters------------>", optionsFilters) //lo elegido
+        console.log("en filters------------>", filters)  //la lista de filtros con true o false
+
+        let colorSelect = optionsFilters?.map((f) => filters[0].options?.filter((m) => f.name === m.value))
+        // colorSelect?.map((c) => c.checked = true)
+        console.log("colorSelect", colorSelect)
+
+
+
+        let optionsCategory = filters[1].options?.map((f) => {
+            return optionsFilters.filter((o) => { o.name === f.value })
+
+        })
+        let optionsGenre = filters[2].options?.map((f) => {
+            return optionsFilters.filter((o) => { o.name === f.value })
+
+        })
+
     }
 
     useEffect(() => {
@@ -169,14 +191,18 @@ export default function Filters() {
         dispatch(filter(optionsFilters))
     }, [optionsFilters])
 
-    
+
+    const handlemobileFiltersOpen = (value) => {
+        dispatch(getOpenFilterMovil(value))
+    }
+
 
     return (
         <div className="bg-white">
             <div>
                 {/* Mobile filter dialog */}
-                <Transition.Root show={mobileFiltersOpen} as={Fragment}>
-                    <Dialog as="div" className="relative z-40 lg:hidden" onClose={setMobileFiltersOpen}>
+                <Transition.Root show={openFilter} as={Fragment}>
+                    <Dialog as="div" className="relative z-40 lg:hidden" onClose={handlemobileFiltersOpen}>
                         <Transition.Child
                             as={Fragment}
                             enter="transition-opacity ease-linear duration-300"
@@ -205,7 +231,7 @@ export default function Filters() {
                                         <button
                                             type="button"
                                             className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400"
-                                            onClick={() => setMobileFiltersOpen(false)}
+                                            onClick={() => handlemobileFiltersOpen(false)}
                                         >
                                             <span className="sr-only">Close menu</span>
                                             <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -229,21 +255,27 @@ export default function Filters() {
                                                 </li>
                                             ))} */}
                                         </ul>
-
+                                        {/* este es en responsive */}
                                         {filters?.map((section) => (
                                             <Disclosure as="div" key={section.id} className="border-t border-gray-200 px-4 py-6">
                                                 {({ open }) => (
                                                     <>
                                                         <h3 className="-mx-2 -my-3 flow-root">
                                                             <Disclosure.Button
-                                                                onClick={(e) => handleClickRadioButtonMinusPlus(e)}
                                                                 className="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
                                                                 <span className="font-medium text-gray-900">{section.name}</span>
                                                                 <span className="ml-6 flex items-center">
                                                                     {open ? (
-                                                                        <MinusIcon className="h-5 w-5" aria-hidden="true" />
+                                                                        <MinusIcon
+                                                                            // onClick={(e) => handleClickRadioButtonMinusPlus(e)}
+                                                                            className="h-5 w-5"
+                                                                            aria-hidden="true"
+                                                                        />
                                                                     ) : (
-                                                                        <PlusIcon className="h-5 w-5" aria-hidden="true" />
+                                                                        <PlusIcon
+                                                                            onClick={(e) => handleClickRadioButtonMinusPlus(e)}
+                                                                            className="h-5 w-5"
+                                                                            aria-hidden="true" />
                                                                     )}
 
                                                                 </span>
@@ -298,6 +330,7 @@ export default function Filters() {
                                 <Brand
                                     optionsFilters={optionsFilters}
                                     searchName={searchName}
+                                    brandFilteredMemory={brandFilteredMemory}
                                 />
                                 <ul role="list" className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
                                     {/* {brands?.map((brand) => (
@@ -306,7 +339,7 @@ export default function Filters() {
                                         </li>
                                     ))} */}
                                 </ul>
-
+                                {/* //funcionó el click en minus!!! */}
                                 {filters?.map((section) => (
                                     <Disclosure as="div" key={section.id} className="border-b border-gray-200 py-6">
                                         {({ open }) => (
@@ -316,9 +349,15 @@ export default function Filters() {
                                                         <span className="font-medium text-gray-900">{section.name}</span>
                                                         <span className="ml-6 flex items-center">
                                                             {open ? (
-                                                                <MinusIcon className="h-5 w-5" aria-hidden="true" />
+                                                                <MinusIcon
+                                                                    // onClick={(e) => handleClickRadioButtonMinusPlus(e)}
+                                                                    className="h-5 w-5"
+                                                                    aria-hidden="true" />
                                                             ) : (
-                                                                <PlusIcon className="h-5 w-5" aria-hidden="true" />
+                                                                <PlusIcon
+                                                                    onClick={(e) => handleClickRadioButtonMinusPlus(e)}
+                                                                    className="h-5 w-5"
+                                                                    aria-hidden="true" />
                                                             )}
                                                         </span>
                                                     </Disclosure.Button>
@@ -390,6 +429,8 @@ export default function Filters() {
                                                         color={e.color}
                                                         size={e.size}
                                                         description={e.description}
+                                                    // open={open}
+                                                    // setOpen={setOpen}
                                                     />
                                                 </div>
 
@@ -408,7 +449,7 @@ export default function Filters() {
                         </div>
                     </section>
                 </main>
-                <Footer/>
+                <Footer />
             </div>
 
         </div >

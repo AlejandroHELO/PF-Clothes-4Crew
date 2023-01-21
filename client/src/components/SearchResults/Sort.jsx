@@ -1,11 +1,12 @@
 // ------------------------------------
+////////////////////////////////////////////////
 import React from 'react'
 import { Fragment, useState } from 'react'
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
 import { useSelector, useDispatch } from 'react-redux'
-import { orderBy } from '../../redux/actions'
-
+import { orderBy, getOpenFilterMovil } from '../../redux/actions'
+////////////////////////
 const sortOptions = [
     // { name: 'Most Popular',  current: true },
     // { name: 'Best Rating',  current: false },
@@ -16,7 +17,7 @@ const sortOptions = [
     { name: 'Price: High to Low', current: false },
 ]
 
-
+/////////////////////////////////////////
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
@@ -28,6 +29,8 @@ function classNames(...classes) {
 
 function Sort() {
     const dispatch = useDispatch()
+    // const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
+    const openFilter = useSelector((state) => state.openFilter)
 
     const handleClickSort = (e, name) => {
         e.preventDefault()
@@ -39,6 +42,10 @@ function Sort() {
             dispatch(orderBy(name))
         }
 
+    }
+
+    const handlemobileFiltersOpen = (value) => {
+        dispatch(getOpenFilterMovil(value))
     }
 
     return (
@@ -95,18 +102,24 @@ function Sort() {
                 </Menu>
 
                 {/* <button type="button" className="-m-2 ml-5 p-2 text-gray-400 hover:text-gray-500 sm:ml-7">
-                <span className="sr-only">View grid</span>
-                <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
+                    <span className="sr-only">View grid</span>
+                    <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
                 </button> */}
-                {/* <button
+                <button
                     type="button"
                     className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
-                // onClick={() => setMobileFiltersOpen(true)}
+                    // onClick={() => setMobileFiltersOpen(true)}
+                    onClick={() => handlemobileFiltersOpen(true)}
+
+                //tengo que llamar a la ventana movile de los filtros
 
                 >
-                    <span className="sr-only">Filters</span>
-                    <FunnelIcon className="h-5 w-5" aria-hidden="true" />
-                </button> */}
+                    <div className='flex flex-row'>
+                        <div className=' mx-2'>Filters</div>
+                        <FunnelIcon className="h-5 w-5" aria-hidden="true" />
+                    </div>
+
+                </button>
             </div>
 
         </div >

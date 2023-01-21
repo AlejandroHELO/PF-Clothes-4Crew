@@ -46,6 +46,7 @@ import {
     GET_PURCHASE_DETAIL,
     UPDATE_PURCHASE,
     VIEW_CHAT_BOT,
+    OPEN_MENU_MOVIL_FILTERS,
 
 } from './types'
 
@@ -168,6 +169,11 @@ export function getColors() {
 }
 
 // ------- Filtros y ordenamiento ---------
+
+
+export function getOpenFilterMovil(value) {
+    return { type: OPEN_MENU_MOVIL_FILTERS, payload: value }
+}
 
 export function orderBy(order) {
     return ({ type: ORDER_BY, payload: order })
