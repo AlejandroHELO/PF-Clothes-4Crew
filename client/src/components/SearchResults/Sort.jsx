@@ -6,6 +6,9 @@ import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid'
 import { useSelector, useDispatch } from 'react-redux'
 import { orderBy, getOpenFilterMovil } from '../../redux/actions'
+import { useLocation } from "react-router-dom"
+
+
 ////////////////////////
 const sortOptions = [
     // { name: 'Most Popular',  current: true },
@@ -29,6 +32,7 @@ function classNames(...classes) {
 
 function Sort() {
     const dispatch = useDispatch()
+    const location = useLocation();
     // const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false)
     const openFilter = useSelector((state) => state.openFilter)
 
@@ -105,21 +109,27 @@ function Sort() {
                     <span className="sr-only">View grid</span>
                     <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
                 </button> */}
-                <button
-                    type="button"
-                    className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
-                    // onClick={() => setMobileFiltersOpen(true)}
-                    onClick={() => handlemobileFiltersOpen(true)}
+                {console.log("location------------>", location.pathname)}
+                {(location.pathname === '/searchResults/') ?
+                    (<button
+                        type="button"
+                        className="-m-2 ml-4 p-2 text-gray-400 hover:text-gray-500 sm:ml-6 lg:hidden"
+                        // onClick={() => setMobileFiltersOpen(true)}
+                        onClick={() => handlemobileFiltersOpen(true)}
 
-                //tengo que llamar a la ventana movile de los filtros
+                    //tengo que llamar a la ventana movile de los filtros
 
-                >
-                    <div className='flex flex-row'>
-                        <div className=' mx-2'>Filters</div>
-                        <FunnelIcon className="h-5 w-5" aria-hidden="true" />
-                    </div>
+                    >
+                        <div className='flex flex-row'>
+                            <div className=' mx-2'>Filters</div>
+                            <FunnelIcon className="h-5 w-5" aria-hidden="true" />
+                        </div>
 
-                </button>
+                    </button>)
+                    : null
+                }
+
+
             </div>
 
         </div >
