@@ -163,27 +163,26 @@ export default function Filters() {
     }
 
     const handleClickRadioButtonMinusPlus = (e) => {
-        let filteres = filters;
-        let options = []
-        let optionsColor = []
-        console.log("en optionsFilters------------>", optionsFilters) //lo elegido
-        console.log("en filters------------>", filters)  //la lista de filtros con true o false
+        //cuando se presiona el + en las secciones de color, category y genre
+        //se completan los filtros seleccionados
+        //porque se borran cuando se presiona el -
+        //pero el filtro se mantiene, sólo no se ve la selección en la ventana
 
-        let colorSelect = optionsFilters?.map((f) => filters[0].options?.filter((m) => f.name === m.value))
-        // colorSelect?.map((c) => c.checked = true)
-        console.log("colorSelect", colorSelect)
+        // console.log("en optionsFilters------------>", optionsFilters) //lo elegido
+        // console.log("en filters------------>", filters)  //la lista de filtros con true o false
 
-
-
-        let optionsCategory = filters[1].options?.map((f) => {
-            return optionsFilters.filter((o) => { o.name === f.value })
-
+        //cambia opciones de color, category y genre
+        filters.map((o) => {
+            for (let i = 0; i < optionsFilters.length; i++) {
+                o.options?.map((f) => {
+                    if (f.value === optionsFilters[i].name) {
+                        // console.log('coincide opción', f.value, optionsFilters[i].name)
+                        f.checked = true;
+                    }
+                })
+            }
+            // console.log("en filters------------>", filters)
         })
-        let optionsGenre = filters[2].options?.map((f) => {
-            return optionsFilters.filter((o) => { o.name === f.value })
-
-        })
-
     }
 
     useEffect(() => {
@@ -339,7 +338,7 @@ export default function Filters() {
                                         </li>
                                     ))} */}
                                 </ul>
-                                {/* //funcionó el click en minus!!! */}
+                                {/* //funcionó el click en minus and plus!!! */}
                                 {filters?.map((section) => (
                                     <Disclosure as="div" key={section.id} className="border-b border-gray-200 py-6">
                                         {({ open }) => (
