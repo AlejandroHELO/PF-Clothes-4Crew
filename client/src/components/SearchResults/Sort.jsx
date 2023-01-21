@@ -109,7 +109,7 @@ function Sort() {
                     <span className="sr-only">View grid</span>
                     <Squares2X2Icon className="h-5 w-5" aria-hidden="true" />
                 </button> */}
-                {console.log("location------------>", location.pathname)}
+                {/* {console.log("location------------>", location.pathname)} */}
                 {(location.pathname === '/searchResults/') ?
                     (<button
                         type="button"
