@@ -3,7 +3,11 @@ import './favoriteCard.css'
 import './responsivenavbar.css'
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getCategories, getProducts, getBrands, getCurrentUser, getProductDetail, getopenDetail, getCart, brandElect, getColors, deleteFromFavorites, cartEmpty } from '../../redux/actions'
+import {
+    getCategories, getProducts, getBrands, getCurrentUser,
+    getProductDetail, getopenDetail, getCart, brandElect, getColors,
+    deleteFromFavorites, cartEmpty
+} from '../../redux/actions'
 import { Link, useNavigate, Outlet } from 'react-router-dom'
 import SearchBar from './searchbar'
 import { useAuth0 } from "@auth0/auth0-react";

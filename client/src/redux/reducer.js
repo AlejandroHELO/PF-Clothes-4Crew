@@ -43,7 +43,8 @@ import {
     GET_CREATE_PURCHASE,
     GET_PURCHASE_DETAIL,
     UPDATE_PURCHASE,
-    VIEW_CHAT_BOT
+    VIEW_CHAT_BOT,
+    OPEN_MENU_MOVIL_FILTERS,
 } from './types'
 
 const initialState = {
@@ -86,6 +87,7 @@ const initialState = {
     viewChat: {
         value: false
     },
+    openFilter: false,
 }
 
 
@@ -298,7 +300,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 userPut: action.payload,
             }
-
+        //---------------------------------ORDER AND FILTERS-------------------------------------
+        case OPEN_MENU_MOVIL_FILTERS:
+            return {
+                ...state,
+                openFilter: action.payload,
+            }
         case ORDER_BY:
             if (action.payload === 'A-Z' || action.payload === 'Z-A') {
                 let n = 0;
