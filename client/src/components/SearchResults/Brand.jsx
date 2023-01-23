@@ -50,9 +50,7 @@ export default function Brand({ optionsFilters, searchName, brandFilteredMemory 
 
 
     }
-    console.log('brandFilteredMemory', brandFilteredMemory)
-    console.log('optionsFilters', optionsFilters)
-    optionsFilters
+
     return (
         <Listbox value={selected} onChange={setSelected}>
             {({ open }) => (

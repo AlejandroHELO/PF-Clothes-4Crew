@@ -148,12 +148,6 @@ export default function Filters() {
     }, [colors, categories])
 
     const handleClickRadio = (e, section) => {
-        // e.preventDefault()
-        // e.target.id
-        // filter-color-0
-        // filter-category-0
-        // filter-size-0
-        // document.getElementById(e.target.id).checked = true;
         if (e.target.checked === true) {
             setOptionsFilters([...optionsFilters, { filters: section, name: e.target.value, id: e.target.id }])
         } else {
